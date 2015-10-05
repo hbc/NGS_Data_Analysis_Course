@@ -17,6 +17,7 @@ date: "Monday, October 5, 2015"
     * [What are some of reasons to access a remote computer system?](#what-are-some-of-reasons-to-access-a-remote-computer-system)
     * [Advantages of using HPC/HTC vs. Cloud systems](#advantages-of-using-hpchtc-vs-cloud-systems)
     * [What does a cluster look like?](#what-does-a-cluster-look-like)
+* [Logging in](#logging-in)
 * [Filesystems](#filesystems)
 * [Using & installing software](#using--installing-software)
 * [Working with the scheduler](#working-with-the-scheduler)
@@ -42,15 +43,6 @@ Clusters, otherwise know as high-performance computing (HPC) or high-throughput 
 * You want to produce results faster than your computer can.
 * You cannot install software in your computer. That is, the application does not have support for your operating system, conflicts with other existing applications, or softare licensing does not allow for installation on personal laptops.
 
-### Advantages of using HPC/HTC vs. Cloud systems
-
-* no need to transfer files before and after a "remote" session
-* security in knowing that you control how your data is managed
-* access to local expertise
-* economies of scale
-* cost: often local resources may be free or you'll know the cost up-front
-* cloud work is well-suited for highly-parallelized, independent workloads (non-MPI)
-
 
 ### What does a cluster look like?
 
@@ -65,6 +57,16 @@ The user accesses the compute cluster through one or more login nodes, and submi
 **Exercises**
 * Use the scheduler command `sinfo` to inspect your local cluster. Confer with your neighbor. What is going on here?
 * Try using the `sinfo --long` command. Any more insights?
+
+## Logging in
+
+ssh
+(will ask if you are sure the first time you connect with a remote machine)
+
+ssh -X
+
+scp 
+
 
 ## Filesystems and Storage
 
@@ -111,15 +113,16 @@ $ module avail seq/					# list all available modules related to sequence analysi
 $ module avail seq/fastq				# list all available modules for tools starting with the word "fastq"
 </pre>
 
-*For Perl & Python modules or R packages*, we encourage you to set up directories in your
-home and/or lab folders for installing your own copies locally. Please see [our handy
-instructions](something something) for more information.
+|| *For Perl & Python modules or R packages*, we encourage you to set up directories in your
+home and/or lab folders for installing your own copies locally. Please see [[our handy
+instructions]](instructions available?) for more information.
 
-*If software you need is not installed*, we encourage you to do local installs in your home
+|| *If software you need is not installed*, we encourage you to do local installs in your home
 or lab folder for bleeding-edge releases, software you are testing, or software used
-only by your lab. See [our helpful guide](guide) for more information. For programs that are commonly used by your domain, field, or department, please submit a 
-[software install request](request submission).
-Note that due to demand and the complex nature of software installs, it may take one to two 
+only by your lab. See [[our helpful guide]](link to guide) for more information. For programs that are commonly used by your domain, field, or department, please submit a 
+[[software install request]](request submission link).
+
+|| Note that due to demand and the complex nature of software installs, it may take one to two 
 weeks for us to complete these requests.
 
 
@@ -131,31 +134,31 @@ As mentioned before, the scheduler is responsible for listening to your job requ
 ### Running & submitting jobs
 
 There are two ways to run jobs on a cluster. One, usually done at the start, is to get an
-interactive/foreground session on a compute node. This looks and behaves exactly as when you first log into a compute
+interactive session on a compute node. This looks and behaves exactly as when you first log into a compute
 cluster, on a login node, but the work is being done a compute node, a worker node on the cluster. This is 
-usually a best practice technique, and should be done for all work that will tie up resources (e.g. CPU-
+considered a best practice technique, and should be done for all work that will tie up resources (e.g. CPU-
 or memory-intensive tasks).
 
-To get an interactive session, you issue the `srun` command with the appropriate parameters for requesting
+To get an interactive session, you issue the `bsub` command with the appropriate parameters for requesting
 the resources you require. For example:
 
 ```bash
-srun --pty -p interact -t 0-6:00 --mem 1000 /bin/bash
+$ bsub -Is -q interactive bash
 ```
 
 This command requests from the scheduler a foreground/interactive job with the following resources:
-```bash
---pty           # a parameter specific for the srun command for bash sessions
--p interact     # the partition, or group of compute nodes to run on
--t 0-6:00       # time, in Days-Hours:Minutes format
---mem 1000      # memory request, in MB
-/bin/bash       # the program we want to run, which is the bash shell
+```
+-Is				# submits a batch interactive job and creates a pseudo-terminal with 
+					#shell mode support when the job starts
+-q interactive	# the queue to run on
+bash			# the program we want to run, which is the bash shell
 ```
 
-Two additional, optional, parameters were left out; as such, SLURM will give us the defaults:
+Two additional, optional, parameters were left out; as such, LSF will give us the defaults:
 ```bash
--n 1            # how many cores (CPUs) we want (default = 1)
--N 1            # how many nodes we want the cores on (not needed, as we're getting one core; required otherwise)
+-n 1            		# number of cores (CPUs), default = 1
+-R "rusage[mem=2000]	# amount of memory, default = 2GB
+[[]]-W 						# amount of "wall clock time", default = ??
 ```
 
 The other method of running jobs on the cluster is by running a job in batch, using the `sbatch` command. On rare
@@ -365,6 +368,14 @@ Fair Use/Responsibilities: https://rc.fas.harvard.edu/resources/responsibilities
 
 ![HPC vs. Cloud](https://raw.githubusercontent.com/datacarpentry/cloud-genomics/master/lessons/images/HpcVsCloud.png)
 
+### Advantages of using HPC/HTC vs. Cloud systems
+
+* no need to transfer files before and after a "remote" session
+* security in knowing that you control how your data is managed
+* access to local expertise
+* economies of scale
+* cost: often local resources may be free or you'll know the cost up-front
+* cloud work is well-suited for highly-parallelized, independent workloads (non-MPI)
 
 ## Resources:
  * HPC offerings:
