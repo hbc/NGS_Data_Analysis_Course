@@ -2,11 +2,11 @@
 layout: page
 title: "The Shell"
 comments: true
-date: 2014-07-30
+date: 2015-10-4
 ---
 
 # The Shell
-Author: Sheldon  McKay  
+Author: Sheldon  McKay, Mary Piper 
 
 Adapted from the lesson by Tracy Teal.
 Original contributors:
@@ -295,6 +295,7 @@ Over time, it will become easier for you to keep a mental note of the structure 
 
 ***
 **Exercise**
+
 Now, list the contents of the `/bin` directory. Do you see anything familiar in there? 
 How can you tell these are programs rather than plain files?
 ***
@@ -425,33 +426,23 @@ We now know how to switch directories, run programs, and look at the
 contents of directories, but how do we look at the contents of files?
 
 The easiest way to examine a file is to just print out all of the
-contents using the program `cat`. Change directories to the unix_oct2015/raw_fastq/ and enter the following command:
+contents using the program `cat`. Change directories to the `unix_oct2015/other/` and enter the following command:
 
-```$ cat Mov10_oe_1.subset.fq```
+`$ cat sequences.fa`
 
-This prints out the all the contents of the the `Mov10_oe_1.subset.fq` to the screen.
+This prints out the all the contents of `sequences.fa` to the screen.
 
-* * * *
-**Exercises**
+What does this file contain?
 
-1.  Print out the contents of the `~/unix_oct2015/raw_fastq/Mov10_oe_2.subset.fq`
-    file. What does this file contain?
+`cat` is a terrific program, but when the file is really big, it can be annoying to use. The program, `less`, is useful for this case. Let's take a look at the raw_fastq files. These files are quite large, so we probably do not want to use the `cat` command to look at them. Instead, we can use the `less` command. 
 
-2.  From your home directory, without changing directories,
-    use one short command to print the contents of all of the files in
-    the `~/unix_oct2015/raw_fastq/` directory.
-
-* * * *
-
-So, let's be a little smarter here. First, move back to our `raw_fastq` directory:
-
-```$ cd ~/unix_oct2015/raw_fastq/```
-
-`cat` is a terrific program, but when the file is really big, it can be annoying to use. The program, `less`, is useful for this case. Enter the following command:
+Move back to our `raw_fastq` directory and enter the following command:
 
 `less Mov10_oe_1.subset.fq`
 
-`less` opens the file, and lets you navigate through it. The commands are identical to the `man` program.
+We will explore fastq files in more detail later, but notice that fastq files have four lines of data associated with every sequence read. Not only is there a header line and the nucleotide sequence, similar to a fasta file, but fastq files also contain quality information for each nucleotide in the sequence. 
+
+The `less` command opens the file, and lets you navigate through it. The commands are identical to the `man` program.
 
 **Some commands in `less`**
 
