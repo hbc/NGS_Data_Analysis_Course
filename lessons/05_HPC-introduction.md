@@ -1,7 +1,7 @@
 ---
 title: "HPC Introduction"
-author: "Bob Freeman"
-date: "Monday, August 17, 2015"
+author: "Bob Freeman, Radhika Khetani"
+date: "Monday, October 5, 2015"
 ---
 
 ## Objectives
@@ -34,7 +34,7 @@ Note: The majority of this document is based on the [Introduction to Odyssey (re
 
 ## Cluster basics
 
-Clusters, otherwise know as high-performance computing (HPC) or high-throughput computing systems, belong to a class of computing environments known as Advanced CyberInfrastructure (ACI). ACI resources also include other high-end compute systems such as distributed databases, large-scale fileystems, and software-defined networks. These tools are becoming the <em>de facto</em> standard tools in most research disciplines today.
+Clusters, otherwise know as high-performance computing (HPC) or high-throughput computing systems; these tools are becoming the <em>de facto</em> standard tools in most research disciplines today.
 
 ### What are some of reasons to access a remote computer system?
 
@@ -44,7 +44,7 @@ Clusters, otherwise know as high-performance computing (HPC) or high-throughput 
 
 ### Advantages of using HPC/HTC vs. Cloud systems
 
-* no need to transfer files before and after a remote cloud session
+* no need to transfer files before and after a "remote" session
 * security in knowing that you control how your data is managed
 * access to local expertise
 * economies of scale
@@ -83,56 +83,42 @@ Shared (lab) systems are typically the same, though may vary from site to site a
 
 "Working directories, often called TEMP, SCRATCH, or WORK, are often specialized, high-availability & high-speed systems designed especially for large volumes of read and write operations found on HPC/HTC systems. Often times this is not backed and files are deleted after an aged period of time -- on Odyssey, this happens for files > 90 days old. Your typical workflow pattern is to stage files in this location prior to or part of your job, do your work, and then copy your final data back to your home or lab share. Ask your local instructor for more guidance on these systems.
 
-Here's a synopsis of filesystems unique to Odyssey:
+Here's a synopsis of filesystems on Orchestra:
 
-![Odyssey filesystems](images/filesystems-odyssey.jpg)
+!
 
 **Important!! Ensure that you use the proper filesystem for your work, as improper usage can negatively affect other people’s jobs on those same physical disks.**
 
 **Exercises**
-* What filesystem are you currently on? Can you figure that out?
-* Use the `df .` command. Or `df -h .` command. What are you looking at? 
-* Try moving to a different directory (e.g. `cd ~` or `cd /n/regal/datac/`) and try this command again. What has changed?
+* 
 
 ## Using & installing software
 
 On most cluster systems, all the software installed is not immediately available for use;
-instead, it is loaded into your environment incrementally using amodule system. And our
-*Lmod* module system is pretty easy to use:
+instead, it is loaded into your environment incrementally using a module system. And our module system is pretty easy to use:
 
-```bash
-source new-modules.sh               # opt-in to the new  system (you should do this!)
-module load fastqc                  # get the lastest version of a program
-module load fastqc/1.0-fasrc01      # load a specific version
-```
-
-You can still access the older (legacy) software modules, but we encourage you to use the
-new modules where possible, as the older ones will be going away very soon.
-To access older software:
-
-```bash
-module load legacy                  # enables you to load legacy softare
-module load bio/fastq-0.2.1         # get the old software title
-```
+<pre>
+$ module load seq/fastqc				# get the lastest version of a program
+$ module list							# list the modules that have been loaded into your environment
+$ module load seq/fastqc/0.10.1		# load a specific version
+</pre>
 
 To find software installed and available on the cluster, two commands can help you:
 
-```bash
-module spider fastqc                # best command, as it give the most details
-module avail 2>&1 | grep fastqc     # same command as old system; good for Core apps
-```
+<pre>
+$ module avail						# list all available modules
+$ module avail seq/					# list all available modules related to sequence analysis
+$ module avail seq/fastq				# list all available modules for tools starting with the word "fastq"
+</pre>
 
 *For Perl & Python modules or R packages*, we encourage you to set up directories in your
 home and/or lab folders for installing your own copies locally. Please see [our handy
-instructions](https://rc.fas.harvard.edu/resources/documentation/software-on-odyssey/)
-for more information.
+instructions](something something) for more information.
 
 *If software you need is not installed*, we encourage you to do local installs in your home
 or lab folder for bleeding-edge releases, software you are testing, or software used
-only by your lab. See [our helpful guide](https://rc.fas.harvard.edu/resources/documentation/software-on-odyssey/installing-software-yourself/)
-for more information. For programs that are commonly used by your domain, field, 
-or department, please submit a 
-[software install request](https://portal.rc.fas.harvard.edu/rcrt/submit_ticket).
+only by your lab. See [our helpful guide](guide) for more information. For programs that are commonly used by your domain, field, or department, please submit a 
+[software install request](request submission).
 Note that due to demand and the complex nature of software installs, it may take one to two 
 weeks for us to complete these requests.
 
