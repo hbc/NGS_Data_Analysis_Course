@@ -157,7 +157,7 @@ bash			# the program we want to run, which is the bash shell
 Two additional, optional, parameters were left out; as such, LSF will give us the defaults:
 ```bash
 -n 1            		# number of cores (CPUs), default = 1
--R "rusage[mem=2000]	# amount of memory, default = 2GB
+-R "rusage[mem=2000]"	# amount of memory, default = 2GB
 [[]]-W 						# amount of "wall clock time", default = ??
 ```
 
