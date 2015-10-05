@@ -111,11 +111,6 @@ data  docs  meta  results
 ./results:
 ```
 
-Copy over FASTQ files into the `data` folder
-
-```
-$ cp ../raw_fastq/* data/
-```
 
 #### B. Document your activity on the project
 
