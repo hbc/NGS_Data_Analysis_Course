@@ -17,6 +17,7 @@ date: "Monday, October 5, 2015"
     * [What are some of reasons to access a remote computer system?](#what-are-some-of-reasons-to-access-a-remote-computer-system)
     * [Advantages of using HPC/HTC vs. Cloud systems](#advantages-of-using-hpchtc-vs-cloud-systems)
     * [What does a cluster look like?](#what-does-a-cluster-look-like)
+* [Logging in](#logging-in)
 * [Filesystems](#filesystems)
 * [Using & installing software](#using--installing-software)
 * [Working with the scheduler](#working-with-the-scheduler)
@@ -42,15 +43,6 @@ Clusters, otherwise know as high-performance computing (HPC) or high-throughput 
 * You want to produce results faster than your computer can.
 * You cannot install software in your computer. That is, the application does not have support for your operating system, conflicts with other existing applications, or softare licensing does not allow for installation on personal laptops.
 
-### Advantages of using HPC/HTC vs. Cloud systems
-
-* no need to transfer files before and after a "remote" session
-* security in knowing that you control how your data is managed
-* access to local expertise
-* economies of scale
-* cost: often local resources may be free or you'll know the cost up-front
-* cloud work is well-suited for highly-parallelized, independent workloads (non-MPI)
-
 
 ### What does a cluster look like?
 
@@ -62,9 +54,17 @@ Clusters are simply a grouping of computers with the same components (RAM, disk,
 
 The user accesses the compute cluster through one or more login nodes, and submits jobs to the scheduler, which will dispatch to and collect the completed work from the compute nodes. Frequently, clusters have shared disks, or filesystems, of various flavors where you can store your data, programs, and use for in-job execution (working or scratch areas)
 
-**Exercises**
-* Use the scheduler command `sinfo` to inspect your local cluster. Confer with your neighbor. What is going on here?
-* Try using the `sinfo --long` command. Any more insights?
+![Orchestra cluster overview](images/orchestra-outline.png)
+
+## Logging in
+
+ssh
+(will ask if you are sure the first time you connect with a remote machine)
+
+ssh -X
+
+scp 
+
 
 ## Filesystems and Storage
 
@@ -108,18 +108,19 @@ To find software installed and available on the cluster, two commands can help y
 <pre>
 $ module avail						# list all available modules
 $ module avail seq/					# list all available modules related to sequence analysis
-$ module avail seq/fastq				# list all available modules for tools starting with the word "fastq"
+$ module avail seq/fastq			# list all available modules for tools starting with the word "fastq"
 </pre>
 
-*For Perl & Python modules or R packages*, we encourage you to set up directories in your
-home and/or lab folders for installing your own copies locally. Please see [our handy
-instructions](something something) for more information.
+|| *For Perl & Python modules or R packages*, we encourage you to set up directories in your
+home and/or lab folders for installing your own copies locally. Please see [[our handy
+instructions]](instructions available?) for more information.
 
-*If software you need is not installed*, we encourage you to do local installs in your home
+|| *If software you need is not installed*, we encourage you to do local installs in your home
 or lab folder for bleeding-edge releases, software you are testing, or software used
-only by your lab. See [our helpful guide](guide) for more information. For programs that are commonly used by your domain, field, or department, please submit a 
-[software install request](request submission).
-Note that due to demand and the complex nature of software installs, it may take one to two 
+only by your lab. See [[our helpful guide]](link to guide) for more information. For programs that are commonly used by your domain, field, or department, please submit a 
+[[software install request]](request submission link).
+
+|| Note that due to demand and the complex nature of software installs, it may take one to two 
 weeks for us to complete these requests.
 
 
@@ -131,60 +132,53 @@ As mentioned before, the scheduler is responsible for listening to your job requ
 ### Running & submitting jobs
 
 There are two ways to run jobs on a cluster. One, usually done at the start, is to get an
-interactive/foreground session on a compute node. This looks and behaves exactly as when you first log into a compute
+interactive session on a compute node. This looks and behaves exactly as when you first log into a compute
 cluster, on a login node, but the work is being done a compute node, a worker node on the cluster. This is 
-usually a best practice technique, and should be done for all work that will tie up resources (e.g. CPU-
+considered a best practice technique, and should be done for all work that will tie up resources (e.g. CPU-
 or memory-intensive tasks).
 
-To get an interactive session, you issue the `srun` command with the appropriate parameters for requesting
+To get an interactive session, you issue the `bsub` command with the appropriate parameters for requesting
 the resources you require. For example:
 
 ```bash
-srun --pty -p interact -t 0-6:00 --mem 1000 /bin/bash
+$ bsub -Is -q interactive bash
 ```
 
 This command requests from the scheduler a foreground/interactive job with the following resources:
-```bash
---pty           # a parameter specific for the srun command for bash sessions
--p interact     # the partition, or group of compute nodes to run on
--t 0-6:00       # time, in Days-Hours:Minutes format
---mem 1000      # memory request, in MB
-/bin/bash       # the program we want to run, which is the bash shell
+```
+-Is				# submits a batch interactive job and creates a pseudo-terminal with 
+					#shell mode support when the job starts
+-q interactive	# the queue to run on
+bash			# the program we want to run, which is the bash shell
 ```
 
-Two additional, optional, parameters were left out; as such, SLURM will give us the defaults:
+A few additional, optional, parameters were left out; as such, LSF will give us the defaults:
 ```bash
--n 1            # how many cores (CPUs) we want (default = 1)
--N 1            # how many nodes we want the cores on (not needed, as we're getting one core; required otherwise)
-```
-
-The other method of running jobs on the cluster is by running a job in batch, using the `sbatch` command. On rare
-occasion, you can use this just like the `srun` example, to run a simple command:
-
-```bash
-sbatch -p serial_requeue -t 0-0:15 --mem 1000 --wrap="rsync -av /source /destination"
+-n 1            		# number of cores (CPUs), default = 1
+-R "rusage[mem=2000]"	# amount of memory, default = 2GB
+[[]]-W 						# amount of "wall clock time", default = ??
 ```
 
 The other way is to create a batch submission script file, which has these parameters embedded inside, and submit your script to the scheduler:
 
 ```bash
-sbatch my_batch_script.sh
+bsub < my_batch_script.sh
 ```
 
 In all cases, the scheduler will return to you a jobID, a unique ID for your job that you can use to get info or control at that time, or refer to it historically.
 
 ### Choosing the proper resources for your job
-For both foreground and background submissions, you are requesting resources from the scheduler to run your job. These are:
-* time
+For both types of submissions, you are requesting resources from the scheduler to run your job. These are:
+* total time (wall clock time)
 * memory
 * # of cores (CPUs)
 * # of nodes
-* (sort of) queue or group of machines to use
+* a queue 
 
 Choosing resources is like playing a game with the scheduler: You want to request enough to get your job completed without failure, But request too much: your job is ‘bigger’ and thus harder to schedule. Request too little: if your job goes over that requested, it is killed. So you want to get it just right, and pad a little for wiggle room.
 
 Another way to think of 'reserving' a compute node for you job is like making a reservation at a restaurant:
-* if you bring more guests to your dinner, there won't be room at the restaurant, but the wait staff may try to fit them in. If so, things will be more crowded and the kitchen (and the whole restaurant) may slow down dramatically
+* if you bring more guests to your dinner, there won't be room at the restaurant, but the wait staff may try to fit them in. If so, things will be more crowded and the kitchen (and the whole restaurant) may slow down dramatically.
 * if you bring fewer guests and don't notify the staff in advance, the extra seats are wasted; no one else can take the empty places, and the restaurant may lose money.
 
 “Never use a piece of bioinformatics software for the first time without looking to see what command-line options are available and what default parameters are being used”
@@ -195,31 +189,29 @@ This is determined by test runs that you do on your code during an interactive s
 Or, if you submit a batch job, over-ask first, check the amount of time actually needed,
 then reduce time on later runs.
 
-**Please!** Due to scheduler overhead, bundle commands for minimum of 10 minutes / job
 
 #### Memory:
-We recommend that you check the software docs for memory requirements. But often times these are not stated, so we can take another approach. On Odyssey, each job is allowed, on average, 4 GB RAM/core allocated. So, try 4 GB and do a trial run via `srun` or `sbatch`. If you're job was killed, look at your log files or immediately with squeue (see later). If it shows a memory error, you went over. Ask for more and try again.
+|| We recommend that you check the software docs for memory requirements. But often times these are not stated, so we can take another approach. On Orchestra, each job is allowed, on average, 4 GB RAM/core allocated. So, try 4 GB and do a trial run. If your job was killed, look at your log files or immediately with squeue (see later). If it shows a memory error, you went over. Ask for more and try again.
 
-Once the job has finished, ask the scheduler how much RAM was used by using the `sacct` command to get post-run job info:
+|| Once the job has finished, ask the scheduler how much RAM was used by using the `sacct` command to get post-run job info:
 ```bash
 sacct -j JOBID --format=JobID,JobName,ReqMem,MaxRSS,Elapsed	# RAM requested/used!!
 ```
-The `ReqMem` field is how much you asked for and `MaxRSS` is how much was actually used. Now go back and adjust your RAM request in your sbatch command or submission script.
+|| The `ReqMem` field is how much you asked for and `MaxRSS` is how much was actually used. Now go back and adjust your RAM request in your sbatch command or submission script.
 
 
 #### # of Cores
-This is determined by your software, how anxious you are to get the work done, and how well your code scales. **NOTE! Throwing more cores at a job does not make it run faster!** This is often a newbie mistake and will waste compute, making your admin grumpy. Ensure your software can use multiple cores: Inspect the parameters for your software and look for options such as 'threads', 'processes', 'cpus'; this will often indicate that it has been parallelized. Then run test jobs to see how well it performs with multiple cores, inching slowing from 1 to 2, 4, 8, etc, assessing the decrease in time for the job run as you increase cores. Programs often do not scale well -- it's important to understand this so you can choose the appropriate number.
+This is determined by your software, how anxious you are to get the work done, and how well your code scales. **NOTE! Throwing more cores at a job does not always make it run faster!** This is often a newbie mistake and will waste compute, making your admin grumpy. Ensure your software can use multiple cores: Inspect the parameters for your software and look for options such as 'threads', 'processes', 'cpus', 'cores'; this will often indicate that it has been parallelized. Then run test jobs to see how well it performs with multiple cores, inching slowing from 1 to 2, 4, 8, etc, assessing the decrease in time for the job run as you increase cores. Parallelizable programs often do not scale well -- it's important to understand this so you can choose the appropriate number.
 
 #### # of Nodes
-For most software in biology, this choice is simple: 1. There are *very* few biology softare packages capable of running across multiple nodes. If they are capable, they will mention the use of technology called 'MPI' or 'openMPI'. Please talk to your local, friendly Research Computing Facilitator (e.g. ACI-REF or XSEDE Campus Champion) on how to make use of this feature.
+For most software in biology, this choice is simple: 1. There are *very* few biology softare packages capable of running across multiple nodes. If they are capable, they will mention the use of technology called 'MPI' or 'openMPI'. Please talk to your local, friendly Research Computing Facilitator (e.g. XSEDE Campus Champion) on how to make use of this feature.
 
-#### Partitions (Queues)
+#### Queues
 
-Partitions, or queues, are a grouping of computers to run a certain profile of jobs. This could be maximum run time, # of cores used, amount of max RAM, etc. Partitions will vary significantly from site to site, so please check with your instructor for the appropriate ones to use, and why.
+Queues, are a grouping of computers to run a certain profile of jobs. This could be maximum run time, # of cores used, amount of max RAM, etc. For Orchestra there is a [handy guide](https://wiki.med.harvard.edu/Orchestra/ChoosingAQueue) to choosing the correct queue. Queues will vary significantly from site to site, so please check with your instructor for the appropriate ones to use, and why.
 
-Here's a synopsis of partitions unique to Odyssey:
+Here's a synopsis of partitions unique to Orchestra:
 
-![Odyssey partitions](images/partitions-odyssey.jpg)
 ### Creating submission scripts
 
 When creating submission scripts, use your favorite text editor and include the following sections:
@@ -365,6 +357,14 @@ Fair Use/Responsibilities: https://rc.fas.harvard.edu/resources/responsibilities
 
 ![HPC vs. Cloud](https://raw.githubusercontent.com/datacarpentry/cloud-genomics/master/lessons/images/HpcVsCloud.png)
 
+### Advantages of using HPC/HTC vs. Cloud systems
+
+* no need to transfer files before and after a "remote" session
+* security in knowing that you control how your data is managed
+* access to local expertise
+* economies of scale
+* cost: often local resources may be free or you'll know the cost up-front
+* cloud work is well-suited for highly-parallelized, independent workloads (non-MPI)
 
 ## Resources:
  * HPC offerings:
