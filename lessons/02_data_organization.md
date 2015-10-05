@@ -56,7 +56,7 @@ that reflect differences in the type of data you are collecting?
 
 Inspired by the guide below, we will start by creating a directory that we can use for the rest of the workshop:
 
-1. First, make sure that you are in your home directory,
+First, make sure that you are in your home directory,
 
 ```
 $ pwd
@@ -65,13 +65,13 @@ this should give the result: '/home/user_name'
 **Tip** Remember, when we give a command, rather than copying and pasting, just type it out. Also the '$' indicates we are at the command prompt, do not include that in your command. 
 **Tip** If you were not in your home directory, the easiest way to get there is to enter the command *cd* - which always returns you to home. 
 
-2. First, make a directory for your project in the `unix_oct2015` folder using the `mkdir` command
+Now, make a directory for your project in the `unix_oct2015` folder using the `mkdir` command
 
 ```
-mkdir unix_oct2015/rnaseq_project
+$ mkdir unix_oct2015/rnaseq_project
 ```
 
-3. Next you want to set up the following directory structure within your project directory to keep files organized. 
+Next you want to set up the following directory structure within your project directory to keep files organized. 
 
 ```
 rnaseq_project/
@@ -84,15 +84,15 @@ rnaseq_project/
 You can do this by changing into `rnaseq_project` and then using `mkdir` to create the four directories.
 
 ```
-cd unix_oct2015/rnaseq_project
-mkdir data
-mkdir meta
-mkdir results
-mkdir docs
+$ cd unix_oct2015/rnaseq_project
+$ mkdir data
+$ mkdir meta
+$ mkdir results
+$ mkdir docs
 
 ``` 
 
-4. Verify that you have created the directories;
+Verify that you have created the directories;
 
 ```
 $ ls -R
@@ -111,17 +111,17 @@ data  docs  meta  results
 ./results:
 ```
 
-5. Copy over FASTQ files into the `data` folder
+Copy over FASTQ files into the `data` folder
 
 ```
-cp ../raw_fastq/* data/
+$ cp ../raw_fastq/* data/
 ```
 
 #### B. Document your activity on the project
 
 The *history* command is a convenient way to document the all the commands you have used while analyzing and manipulating your project. Let's document the work we have done to create these folders. 
 
-1. View the commands that you have used so far during this session using history:
+View the commands that you have used so far during this session using history:
 
 ```
 $ history
@@ -129,7 +129,7 @@ $ history
 
 The history likely contains many more commands that you have used just for these projects. Let's view the last several commands so that focus on just what we need for the project. 
 
-2. View the last n lines of your history (where n = approximately the last few lines you think relevant - for our example we will use the last 7:
+ View the last n lines of your history (where n = approximately the last few lines you think relevant - for our example we will use the last 7:
 
 ```
 $ history | tail -n7
@@ -137,9 +137,10 @@ $ history | tail -n7
 
 As you may remember from the shell lesson, the pipe '|' sends the output of history to the next program, in this case, tail. We have used the -n option to give the last 7 lines.
 
-3. Using your knowledge of the shell use the append redirect `'>>'` to create a file called **dc_workshop_log_XXXX_XX_XX.txt** (Use the four-digit year, two-digit month, and two digit day, e.g. dc_workshop_log_2015_10_08.txt)
+Using your knowledge of the shell use the append redirect `'>>'` to create a file called **dc_workshop_log_XXXX_XX_XX.txt** (Use the four-digit year, two-digit month, and two digit day, e.g. dc_workshop_log_2015_10_08.txt)
 
-4. You may have noticed that your history may contain the *history* command itself. To remove this redundancy from our log, lets use the *nano* text editor to fix the file:
+
+You may have noticed that your history may contain the *history* command itself. To remove this redundancy from our log, lets use the *nano* text editor to fix the file:
 
 ```
 $ nano dc_workshop_log_
@@ -147,7 +148,7 @@ $ nano dc_workshop_log_
 
 From the nano screen, you should be able to use your cursor to navigate, type, and delete any redundant lines. 
 
-5. Add a dateline and comment to the line where you have created the directory e.g. 
+Add a dateline and comment to the line where you have created the directory e.g. 
 
 ```
 # 2015_10_08 
@@ -162,7 +163,8 @@ From the nano screen, you should be able to use your cursor to navigate, type, a
 8. Now that you have created the file, move the file to 'dc_workshop/docs'
 
 
-**Questions**: 
+**Questions**:    
+
 1. What is the default number of lines that tail displays?
 2. What is the difference between '>' and '>>'
 

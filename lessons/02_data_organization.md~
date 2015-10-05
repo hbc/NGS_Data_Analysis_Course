@@ -8,10 +8,10 @@
 * Understand how and why we choose this dataset
 
 ## Lesson
-The dataset we are using is part of a larger study described in ["Kenny PJ et al, Cell Rep 2014"](http://www.ncbi.nlm.nih.gov/pubmed/25464849). The authors are investigating interactions between various genes involved in Fragile X syndrome, a disease in which there is aberrant production of the FMRP protein. FMRP has been linked to the microRNA pathway, and they sought to show that it associates with the RNA helicase MOV10, also associated with the microRNA pathway. The data we are using is investigating transcriptional patterns associated with Mov10, where HEK293 cells were transfected with a MOV10 transgene to compare over-expression with normal control cells. The flow chart below describes the experimental design.
+The dataset we are using is part of a larger study described in [Kenny PJ et al, Cell Rep 2014](http://www.ncbi.nlm.nih.gov/pubmed/25464849). The authors are investigating interactions between various genes involved in Fragile X syndrome, a disease in which there is aberrant production of the FMRP protein. FMRP has been linked to the microRNA pathway, as it has been shown to be involved in miRNA mediated translational suppresion. The authors sought to show that FMRP associates with the RNA helicase MOV10, that is also associated with the microRNA pathway. The data we are using is RNA-Seq data extracted from HEK293F cells that were transfected with a MOV10 transgene and normal control cells. Using this data we will evaluate  transcriptional patterns associated with MOV10 overexpression. The libraries for this dataset are stranded and generated using the dUTP method. Sequencing was carried out on the Illumina HiSeq-2500 for 100bp single end reads. For each group we have three replicates as described in the figure below.
 
 
-!![Automation](../img/exp_design.png)
+![Automation](../img/exp_design.png)
 
  
 # Getting your project started
