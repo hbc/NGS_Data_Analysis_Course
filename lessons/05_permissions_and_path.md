@@ -240,11 +240,11 @@ $ echo $HOME
 Variables, in most systems, are called/denoted with a "$" before the variable name
 
 ```
-$ $PATH
+$ echo $PATH
 
 /opt/lsf/7.0/linux2.6-glibc2.3-x86_64/bin:/groups/bcbio/bcbio/anaconda/bin:/opt/bcbio/local/bin:/opt/lsf/7.0/linux2.6-glibc2.3-x86_64/etc:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin
 ```
-I have a lot of full/absolute paths in my $PATH variable, which are separated from each other by a ":"; here is a more readable list:
+I have a lot of full/absolute paths in my $PATH variable, which are separated from each other by a ":"; here is the list in a more readable format:
 
 * /opt/lsf/7.0/linux2.6-glibc2.3-x86_64/bin
 * /groups/bcbio/bcbio/anaconda/bin
