@@ -23,41 +23,31 @@ Find out yours:
 $ id <username>
 ```
 
+Users of a multi-user UNIX system can belong to any number of groups, each of which has a unique group name, and a numeric group ID.
 
-Users of a multi-user UNIX system can belong to any number of groups,
-each of which has a unique group name, and a numeric group ID.
-
-The list of who's in what group is usually stored in the system file `/etc/group`.
+The list of who is in what group is usually stored in the system file `/etc/group`.
 
 Let's see what groups we all belong to:
 
-` $ groups`
+```
+$ groups
+```
 
 Depending on our affiliation, we all belong to at least a couple of groups. I belong to 4 groups,
-
 * rsk27
 * bcbio
 * hbctraining
 * Domain_Users
 
-Unique users and groups are necessary to make sure that Files and Directories that belong to a specific user 
+As you can imagine, on a shared system it is important to protect each user's data. To start, every file and directory on a Unix computer belongs to one owner and one group. Along with each file's content, the operating system stores the numeric IDs of the user and group that own it, which is the "metadata" for a given file.
 
-As you can imagine, on a shared system it is important to protect each user's information. To start, every file and directory on a Unix computer belongs to one owner and one group.
-Along with each file's content, the operating system stores the numeric IDs of the user and group that own it, which is the "metadata" for a given file.
+The user-and-group model means that for each file every user on the system falls into one of three categories:
 
-The user-and-group model means that
-for each file
-every user on the system falls into one of three categories:
-the owner of the file,
-someone in the file's group,
-and everyone else.
+* the owner of the file,
+* someone in the file's group,
+* and everyone else.
 
-For each of these three categories,
-the computer keeps track of
-whether people in that category can read the file,
-write to the file,
-or execute the file
-(i.e., run it if it is a program).
+For each of these three categories, the computer keeps track of whether people in that category can read the file, write to the file, or execute the file (i.e., run it if it is a program).
 
 For example, if a file had the following set of permissions:
 
@@ -86,16 +76,9 @@ It tells us `-rwxr-xr-x. 1 root root 109208 Oct 15  2014 /bin/ls`.
  
 So, `ls` is an executable file that belong to user root and group root, and only they can modify (write) it.
 
-
 > ### Necessary But Not Sufficient
 >
-> The fact that something is marked as executable
-> doesn't actually mean it contains or is a program of some kind.
-> We could easily mark the `~/unix_oct2015/raw_fastq/Irrel_kd_1.subset.fq` file as executable
-> using the commands that are introduced below.
-> Depending on the operating system we're using,
-> trying to "run" it will fail
-> (because it doesn't contain instructions the computer recognizes).
+> The fact that something is marked as executable doesn't actually mean it contains or is a program of some kind. We could easily mark the `~/unix_oct2015/raw_fastq/Irrel_kd_1.subset.fq` file as executable using the commands that are introduced below. Depending on the operating system we're using, trying to "run" it will fail (because it doesn't contain instructions the computer recognizes).
 
 
 Now let's run the command `ls -l ~/unix_oct2015`, to list the files in that directory:
@@ -107,47 +90,34 @@ drwxrwsr-x 2 rsk27 rsk27  78 Oct  6 10:29 genomics_data
 drwxrwsr-x 2 rsk27 rsk27 228 Oct  6 10:28 raw_fastq
 -rw-rw-r-- 1 rsk27 rsk27 377 Oct  6 10:28 README.txt
 drwxrwsr-x 2 rsk27 rsk27 238 Oct  6 10:28 reference_data
-drwxrwsr-x 2 rsk27 rsk27 555 Oct  6 10:29 reference_STAR
 ```
 
-The `-l` flag tells `ls` to give us a long-form listing.
-It's a lot of information, so let's go through the columns in turn.
+The `-l` flag tells `ls` to give us a long-form listing. It's a lot of information, so let's go through the columns in turn.
 
-||On the right side, we have the files' names. Next to them,
-moving left, are the times and dates they were last modified. Backup systems and other tools use this information in a variety of ways, but you can use it to tell when you (or anyone else with permission) last changed a file.
+On the right side, we have the files' names. Next to them, moving left, are the times and dates they were last modified. Backup systems and other tools use this information in a variety of ways, but you can use it to tell when you (or anyone else with permission) last changed a file.
 
-Next to the modification time is the file's size in bytes
-and the names of the user and group that owns it
-(in this case, `rsk27` and `rsk27` respectively).
-We'll skip over the second column for now
-(the one showing `1` for each file), 
-because it's the first column that we care about most.
-This shows the file's permissions, i.e., who can read, write, or execute it.
+Next to the modification time is the file's size in bytes and the names of the user and group that owns it (in this case, `rsk27` and `rsk27` respectively). We'll skip over the second column for now (the one showing `1` for each file),  because it's the first column that we care about most. This shows the file's permissions, i.e., who can read, write, or execute it.
 
 Let's have a closer look at one of those permission strings for README.txt:
-`-rw-rw-r--`.
-The first character tells us what type of thing this is:
-'-' means it's a regular file,
-while 'd' means it's a directory,
-and other characters mean more esoteric things.
+```
+-rw-rw-r--
+```
+The first character tells us what type of thing this is: '-' means it's a regular file, while 'd' means it's a directory, and other characters mean more esoteric things.
 
-The next three characters tell us what permissions the file's owner has.
-Here, the owner can read and write the file: `rw-`.
+The next three characters tell us what permissions the file's owner has. Here, the owner can read and write the file: `rw-`.
 
-The middle triplet shows us the group's permissions.
-If the permission is turned off, we see a dash, so `rw-` means "read and write, but not execute". (In this case the group and the owner are the same so it makes sense that this is the same for both categories.)
+The middle triplet shows us the group's permissions. If the permission is turned off, we see a dash, so `rw-` means "read and write, but not execute". (In this case the group and the owner are the same so it makes sense that this is the same for both categories.)
 
 The final triplet shows us what everyone who isn't the file's owner, or in the file's group, can do. In this case, it's `r--` again, so everyone on the system can look at the file's contents.
 
-To change permissions, we use the `chmod` command (whose name stands for "change mode").
-Let's make our README.txt file inaccessible to all users on the system, they can currently read it:
+To change permissions, we use the `chmod` command (whose name stands for "change mode"). Let's make our README.txt file **inaccessible** to all users other than you and your group, currently they are able to read it:
 
 ```
 $ ls -l ~/unix_oct2015/README.txt
 
 -rw-rw-r-- 1 rsk27 rsk27 377 Oct  6 10:28 /home/rsk27/unix_oct2015/README.txt
 
-$ chmod o-rw ~/unix_oct2015/README.txt
+$ chmod o-rw ~/unix_oct2015/README.txt         # the "-" after o denotes removing that permission
 
 $ ls -l ~/unix_oct2015/README.txt
 
@@ -159,17 +129,17 @@ The 'o' signals that we're changing the privileges of "others".
 Let's change it back to allow it to be readable by others:
 
 ```
-$ chmod o+r ~/unix_oct2015/README.txt
+$ chmod o+r ~/unix_oct2015/README.txt         # the "+" after o denotes adding/giving that permission
 
 $ ls -l ~/unix_oct2015/README.txt
 
 -rw-rw-r-- 1 rsk27 rsk27 377 Oct  6 10:28 /home/rsk27/unix_oct2015/README.txt
 ```
 
-If we wanted to make this an executable file for ourselves, the file's owners, we would say `chmod u+rwx`, where the 'u' signals that we are changing permission for the file's owner. To change permissions for a whole group, you'd use the letter "g" `chmod g-w`. 
+If we wanted to make this an executable file for ourselves (the file's owners) we would say `chmod u+rwx`, where the 'u' signals that we are changing permission for the file's owner. To change permissions for a whole group, you'd use the letter "g" `chmod g-w`. 
 
 Before we go any further,
-let's run `ls -a -l` on the `~/unix_oct2015` directory to get a long-form listing:
+let's run `ls -l` on the `~/unix_oct2015` directory to get a long-form listing:
 
 ```
 $ ls -l
@@ -178,14 +148,11 @@ drwxrwsr-x 2 rsk27 rsk27  78 Oct  6 10:29 genomics_data
 drwxrwsr-x 2 rsk27 rsk27 228 Oct  6 10:28 raw_fastq
 -rw-rw-r-- 1 rsk27 rsk27 377 Oct  6 10:28 README.txt
 drwxrwsr-x 2 rsk27 rsk27 238 Oct  6 10:28 reference_data
-drwxrwsr-x 2 rsk27 rsk27 555 Oct  6 10:29 reference_STAR
 ```
 
 Look at the permissions for directories (`drwxrwsr-x`): the 'x' indicates that "execute" is turned on. What does that mean? A directory isn't a program or an executable file, we can't "run" it.
 
-Well, 'x' means something different for directories.
-It gives someone the right to *traverse* the directory, but not to look at its contents.
-The distinction is subtle, so let's have a look at an example.
+Well, 'x' means something different for directories. It gives someone the right to *traverse* the directory, but not to look at its contents. The distinction is subtle, so let's have a look at an example.
 
 Dr. Vlad Smith's home directory has three subdirectories called `venus`, `mars`, and `pluto`:
 
@@ -199,7 +166,6 @@ If she tries to look in `pluto/notes`, though, the computer will let her do that
 She's allowed to go through `pluto`, but not to look at what's there. She will be able to do this, only if she knows that there is a file called `notes` in the directory, since she cannot list what is in there.
 
 This trick gives people a way to make some of their directories visible to the world as a whole without opening up everything else.
-
 
 > ### Challenge
 > If `ls -l myfile.php` returns the following details:
