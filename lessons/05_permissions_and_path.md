@@ -1,4 +1,4 @@
----
+I---
 title: "Permissions and Environment variables"
 author: "Kristina Koch, Radhika Khetani"
 date: "Tuesday, October 6, 2015"
@@ -187,7 +187,7 @@ The distinction is subtle, so let's have a look at an example.
 
 Dr. Vlad Smith's home directory has three subdirectories called `venus`, `mars`, and `pluto`:
 
-![execute](../img/x-for-directories.svg "Execute Permission for Directories")
+![execute](../img/permission-directory.png "Execute Permission for Directories")
 
 Each of these has a subdirectory in turn called `notes`, and those sub-subdirectories contain various files.
 If a user's permissions on `venus` are 'r-x', then if she tries to see the contents of `venus` and `venus/notes` using `ls`, the computer lets her see both.
