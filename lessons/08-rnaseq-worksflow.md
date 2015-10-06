@@ -44,7 +44,7 @@ rnaseq_project
 	│       └── Mov10_oe_3.subset.fq
 	|
 	├── meta
-        ├── results
+	├── results
 	└── docs
 ```
 
