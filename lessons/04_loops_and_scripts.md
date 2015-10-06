@@ -2,14 +2,14 @@
 layout: page
 title: "The Shell: Loops & Scripts"
 comments: true
-date: 2015-09-08
+date: 2015-10-06
 ---
 
 # The Shell: Loops & Scripts
 
-Author: Bob Freeman
+Author: Bob Freeman, Mary Piper
 
-Approximate time: 30 minutes
+Approximate time: 1 hour
 
 ## Objectives & Accomplishments
 
@@ -34,27 +34,46 @@ looping comes in.
 
 Looping in bash is very similar to other languages. Let's dive right in:
 
-```bash
-# move to our untrimmed directory
-cd ~/dc_sample_data/untrimmed_fastq
+`$ cd ~/unix_oct2015/raw_fastq`
 
-for filename in SRR098026.fastq SRR0980267.fastq
-do
-  echo $filename
-done
+The structure of loops in bash is as follows:
+
+```
+$ for each in group
+> do
+>	commands $each
+> done
+```
+where `each` is a variable that takes the value of every member of the specified `group` one at a time and runs through the commands indicated before proceeding to the next member of the group. 
+
+Every loop will have the structure:
+
+```
+$ for * in *
+> do
+>   * 
+> done
+```
+You will need to specify the variable name, the group of files, programs, etc. that you would like to perform the command(s) on, and the actual command(s) you would like to perform. For example:
+
+```
+$ for filename in Mov10_oe_1.subset.fq Mov10_oe_2.subset.fq
+> do
+>   echo $filename
+> done
 ```
 
-So what does this do? Well, first we specify a list of files: `SRR098026.fastq` and `SRR0980267.fastq`. Then, we execute a series of command between the `do` and `done`. But we execute these commands for each item in this list. Moreover, we store in the placeholder, or variable, named `filename` the next FASTQ filename for each time we execute the set of commands. In essence, we loop through the list, executing the commands inside the `do` / `done` block, with the value of `filename` changing each time.
+So what does this do? Well, first we specify a group of files: `Mov10_oe_1.subset.fq` and `Mov10_oe_2.subset.fq`. Then, we execute a series of command(s) between the `do` and `done`. But we execute these commands for each item in this list. Moreover, we store in the placeholder, or variable, named `filename` the next FASTQ filename for each time we execute the set of commands. In essence, we loop through the group, executing the commands inside the `do` / `done` block, with the value of `filename` changing each time.
 
 You may have noticed in the `for` statement we reference `filename`. But in the loop, we explicitly use `$filename`. Why? Well, in the former, we're setting the value, while in the latter, we're retrieving the value. This is standard bash notation for setting and getting variables. Forgetting the `$` when you want to retrieve the value of a variable is a common mistake. 
 
 Of course, `filename` is a great variable name. But it doesn't matter what variable name we use:
 
-```bash
-for x in SRR098026.fastq SRR0980267.fastq
-do
-  echo $x
-done
+```
+$ for x in Mov10_oe_1.subset.fq Mov10_oe_2.subset.fq
+> do
+>   echo $x
+> done
 ```
 
 The only potential problem is that `x` has little meaning. In the long run, it's best to use a name that will help point out its function, so your future self will understand what you are thinking now.
@@ -62,22 +81,22 @@ The only potential problem is that `x` has little meaning. In the long run, it's
 Looping over two files is great, but its rather inflexible. What notation can we use to grab a whole directory of files? Use the `*` notation!
 
 ```bash
-for filename in SRR*.fastq
-do
-  echo $filename
-done
+$ for filename in Mov10*.fq
+> do
+>   echo $filename
+> done
 ```
 
 Now we've made our looping list more flexible, as it will work on any number of files. So let's put that to work:
 
 ```bash
-for filename in SRR*.fastq
-do 
-  echo $filename; 
+$ for filename in *.fq
+> do 
+>   echo $filename; 
 
   # grab all the bad read records
-  grep -B1 -A2 NNNNNNNNNN $filename > $filename-badreads.fastq
-done
+>   grep -B1 -A2 NNNNNNNNNN $filename > ../other/$filename-badreads.fastq
+> done
 ```
 
 In addition to the `echo` statement, we've included a comment -- lines that start with `#` -- and our `grep` statement that finds bad reads and puts them into a new file. And we've specified a new filename with the variable `$filename`. So each iteration of the loop will `grep` a particular file and then output the bad reads to a new file that uses particular filename as part of the new one.
@@ -97,39 +116,38 @@ You might not realize this, but this is something that you now know how to do. L
 
 Move to our sample data directory and use `nano` to create our new script file:
 
-```bash
-cd ~/dc_sample_data
-nano generate_bad_reads_summary.sh
+`$ cd ~/unix_oct2015/raw_fastq`
+
+`$ nano generate_bad_reads_summary.sh`
+
+And now within nano we enter the commands we want to execute. First we want to move into our `raw_fastq` directory:
+
 ```
-
-And now we enter the commands we want to execute. First we want to move into our `untrimmed_fastq` directory:
-
-```bash
-cd untrimmed_fastq
+$ cd ~/unix_oct2015/raw_fastq
 ```
 
 And now we loop over all the FASTQs:
 
 ```bash
-for filename in SRR*.fastq
+for filename in ~/unix_oct2015/raw_fastq/*.fq;
 ```
 
 and we execute the commands for each loop:
 
-```bash
+```
 do
   # tell us what file we're working on
-  echo $filename
+  echo $filename;
   
   # grab all the bad read records into new file
-  grep -B1 -A2 NNNNNNNNNN $file > $file-badreads.fastq
+  grep -B1 -A2 NNNNNNNNNN $filename > $filename-badreads.fastq;
 ``` 
   
 We'll also get the counts of these reads and put that in a new file, using the count flag of `grep`:
 
 ```bash
   # grab the # of bad reads from our badreads file
-  grep -cH NNNNNNNNNN $file-badreads.fastq > $file-badreads.counts
+  grep -cH NNNNNNNNNN $filename-badreads.fastq > $filename-badreads.counts;
 done
 ```
 
@@ -152,6 +170,23 @@ And in good form, at the end of the script, let's return to the directory we sta
 ```bash
 # go back from whence we came
 cd ..
+```
+
+You're script should look like:
+
+```
+cd ~/unix_oct2015/raw_fastq
+
+for filename in ~/unix_oct2015/raw_fastq/*.fq;
+do echo $filename;
+grep -B1 -A2 NNNNNNNNNN $filename > $filename-badreads.fastq;
+grep -cH NNNNNNNNNN $filename-badreads.fastq > $filename-badreads.counts;
+done
+
+cat *.counts > bad-reads.count.summary
+
+cat bad-reads.count.summary >> ../runlog.txt
+
 ```
 
 Exit out of `nano`, and voila! You now have a script you can use to assess the quality of all your new datasets. Your finished script, complete with comments, should look like the following:
