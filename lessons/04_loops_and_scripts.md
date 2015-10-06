@@ -213,3 +213,9 @@ To run this script, we simply enter the following command:
 $ bash generate_bad_reads_summary.sh
 ```
 
+To keep your data organized, let's move all of the bad read files out of our `raw_fastq` directory into the `other` directory
+
+`$ mv ~/unix_oct2015/raw_fastq/*bad* ~/unix_oct2015/other`
+
+
+
