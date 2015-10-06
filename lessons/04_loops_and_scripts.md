@@ -81,7 +81,7 @@ The only potential problem is that `x` has little meaning. In the long run, it's
 Looping over two files is great, but its rather inflexible. What notation can we use to grab a whole directory of files? Use the `*` notation!
 
 ```bash
-$ for filename in Mov10*.fq
+$ for filename in *.fq
 > do
 >   echo $filename
 > done
