@@ -57,9 +57,7 @@ Without getting into the details for each step of the workflow, we first describ
 3. Index the reference genome for use by STAR
 4. Align reads to reference genome using STAR (splice-aware aligner)
 5. Count the number of reads mapping to each gene using htseq-count
-6. Statistical analysis of count data to find differentially expressed genes (normalization, linear modeling using R-based tools)
-
-
+6. Statistical analysis of count data to find differentially expressed genes (normalization, linear mo
 
 We'll first perform the commands for all the above steps (run through the workflow). 
 
