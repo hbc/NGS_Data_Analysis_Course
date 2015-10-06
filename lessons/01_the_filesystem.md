@@ -78,7 +78,7 @@ By default, there is no terminal for the bash shell available in the Windows OS,
 
 When you open Putty, you will see the following GUI.
 
-[Putty window](images/putty-1.png)
+![Putty window](../img/putty-1.png)
 
 Type in "orchestra.med.harvard.edu" in the window under "Host Name (or IP address) and click on "Open"
 
