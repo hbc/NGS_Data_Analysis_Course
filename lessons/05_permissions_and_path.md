@@ -217,10 +217,10 @@ This trick gives people a way to make some of their directories visible to the w
 
 ## **Environment Variables**
 
-Environment variables are, in short, variables that describe the environment in which programs run in. 
+Environment variables are, in short, variables that describe the environment in which programs run in. Two commonly encountered variables are HOME and PATH.
 
-· HOME defines the home directory for a user.
-· PATH defines a list of directories to search through when looking for a command to execute.
+* HOME defines the home directory for a user.
+* PATH defines a list of directories to search through when looking for a command to execute.
 
 In the context of the shell the Environment variables are usually all upper case.
 
