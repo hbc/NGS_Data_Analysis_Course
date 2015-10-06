@@ -281,21 +281,16 @@ The $PATH variable is reset to a set of defaults (/bin:/usr/bin and so on), each
 
 Check what hidden files exist in our home directory:
  ```
-ls -al ~/
+$ ls -al ~/
 ```
 
-Open the .bashrc file and at the end of the file add the export command that adds a specific location to the list in $PATH. This way when you start a new shell, that location will always be in your path.
+Open the .bashrc file and at the end of the file add the export command that adds a specific location to the list in $PATH. This way when you start a new shell, that location will always be in your path. 
+
+The location we want to add is `/opt/bcbio/local/bin`, we need this for when we run the RNA-Seq workflow tomorrow.
 
 ```
-nano ~/.bashrc
-
-# the export command we will be adding is export PATH=/opt/bcbio/local/bin:$PATH
+$ nano ~/.bashrc
 ```
-
-> ### Challenge
->
-> Try to add your the  
-
 
 **In closing, permissions and environment variables, especially $PATH, are very useful and important concepts to understand in the context of UNIX and HPC.**
 
