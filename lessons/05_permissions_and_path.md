@@ -266,10 +266,8 @@ For any command you execute on the command prompt, you can find out where they a
 Try it on a few of the basic commands we have learned so far:
 ```
 $ which ls
-.
-.
-.
-.
+$ which <your favorite command>
+$ which <your favorite command>
 ```
 
 > #### Modifying Environment Variables
@@ -277,5 +275,27 @@ $ which ls
 > If you are interested in adding a new entry to the path variable, the command to use is `export`. This command is usually executed as follows: 
 `export PATH=$PATH:~/opt/bin`, which tells the shell to add the ~/opt/bin directory to the end of the preexisiting list within $PATH. Alternatively, if you use `export PATH=~/opt/bin:$PATH`, the same directory will be added to the beginning of the list. The order determines where the shell will look first.
 
+#### Closer look at the inner workings of the shell, in the context of $PATH
+ 
+The $PATH variable is reset to a set of defaults (/bin:/usr/bin and so on), each time you start a new shell terminal. To make sure that a command/program you need is always at your fingertips, you have to put it in one of 2 special shell scripts that are always run when you start a new terminal. These are hidden files in your home directory called `.bashrc` and `.bash_profile`. You can create them if they don't exist, and shell will use them.
 
+Check what hidden files exist in our home directory:
+ ```
+ls -al ~/
+```
+
+Open the .bashrc file and at the end of the file add the export command that adds a specific location to the list in $PATH. This way when you start a new shell, that location will always be in your path.
+
+```
+nano ~/.bashrc
+
+# the export command we will be adding is export PATH=/opt/bcbio/local/bin:$PATH
+```
+
+> ### Challenge
+>
+> Try to add your the  
+
+
+**In closing, permissions and environment variables, especially $PATH, are very useful and important concepts to understand in the context of UNIX and HPC.**
 
