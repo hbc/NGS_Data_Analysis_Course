@@ -38,7 +38,7 @@ Looping in bash is very similar to other languages. Let's dive right in:
 
 The structure of loops in bash is as follows:
 
-```
+```bash
 $ for each in group
 > do
 >	commands $each
@@ -48,7 +48,7 @@ where `each` is a variable that takes the value of every member of the specified
 
 Every loop will have the structure:
 
-```
+```bash
 $ for * in *
 > do
 >   * 
@@ -56,7 +56,7 @@ $ for * in *
 ```
 You will need to specify the variable name, the group of files, programs, etc. that you would like to perform the command(s) on, and the actual command(s) you would like to perform. For example:
 
-```
+```bash
 $ for filename in Mov10_oe_1.subset.fq Mov10_oe_2.subset.fq
 > do
 >   echo $filename
@@ -69,7 +69,7 @@ You may have noticed in the `for` statement we reference `filename`. But in the 
 
 Of course, `filename` is a great variable name. But it doesn't matter what variable name we use:
 
-```
+```bash
 $ for x in Mov10_oe_1.subset.fq Mov10_oe_2.subset.fq
 > do
 >   echo $x
@@ -134,7 +134,7 @@ for filename in ~/unix_oct2015/raw_fastq/*.fq;
 
 and we execute the commands for each loop:
 
-```
+```bash
 do
   # tell us what file we're working on
   echo $filename;
@@ -165,16 +165,9 @@ And now, as a best practice of capturing all of our work into a running summary 
 cat bad-reads.count.summary >> ../runlog.txt
 ```
 
-And in good form, at the end of the script, let's return to the directory we started from:
-
-```bash
-# go back from whence we came
-cd ..
-```
-
 You're script should look like:
 
-```
+```bash
 cd ~/unix_oct2015/raw_fastq
 
 for filename in ~/unix_oct2015/raw_fastq/*.fq;
@@ -192,34 +185,32 @@ cat bad-reads.count.summary >> ../runlog.txt
 Exit out of `nano`, and voila! You now have a script you can use to assess the quality of all your new datasets. Your finished script, complete with comments, should look like the following:
 
 ```bash
-# work on untrimmed FASTQs
-cd untrimmed_fastq
+# enter directory with raw FASTQs
+cd ~/unix_oct2015/raw_fastq
 
-# work on each FASTQ file in our directory
-for file in SRR09802*.fastq; do 
-  echo $file; 
+# count bad reads for each FASTQ file in our directory
+for filename in ~/unix_oct2015/raw_fastq/*.fq; do 
+  echo $filename; 
 
   # grab all the bad read records
-  grep -B1 -A2 NNNNNNNNNN $file > $file-badreads.fastq
+  grep -B1 -A2 NNNNNNNNNN $filename > $filename-badreads.fastq;
 
   # grab the # of bad reads from our bad reads file
-  grep -cH NNNNNNNNNN $file-badreads.fastq > $file-badreads.counts
+  grep -cH NNNNNNNNNN $filename-badreads.fastq > $filename-badreads.counts;
 done
 
-# grab all our bad read info to a summary file
+# add all our bad read info to a summary file
 cat *.counts > bad-reads.count.summary
 
 # and add this summary to our run log
-cat bad-reads.count.summary >> ../runlog.txt
+cat bad-reads.count.summary >> ../runlog.tx
 
-# go back from whence we came
-cd ..
 ```
 
 To run this script, we simply enter the following command:
 
 ```bash
-bash generate_bad_reads_summary.sh
+$ bash generate_bad_reads_summary.sh
 ```
 
 Exercises:
