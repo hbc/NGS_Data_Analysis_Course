@@ -54,7 +54,6 @@ Clusters are simply a grouping of computers with the same components (RAM, disk,
 
 The user accesses the compute cluster through one or more login nodes, and submits jobs to the scheduler, which will dispatch to and collect the completed work from the compute nodes. Frequently, clusters have shared disks, or filesystems, of various flavors where you can store your data, programs, and use for in-job execution (working or scratch areas)
 
-![Orchestra cluster overview](../img/orchestra-outline.png)
 
 ## Logging in
 
