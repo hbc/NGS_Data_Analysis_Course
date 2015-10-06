@@ -213,11 +213,3 @@ To run this script, we simply enter the following command:
 $ bash generate_bad_reads_summary.sh
 ```
 
-Exercises:
-* what would you need to do it you wanted...
-* Add to your script `generate_bad_reads_summary.sh` a section to generate the special SRARunTable files that we did towards the end of the Searching Files lesson.
-
-
-
-*** add cd command to start of searching and finding
-
