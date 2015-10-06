@@ -132,13 +132,13 @@ $ history | tail -n7
 
 As you may remember from the shell lesson, the pipe '|' sends the output of history to the next program, in this case, tail. We have used the -n option to give the last 7 lines.
 
-Using your knowledge of the shell use the append redirect `'>>'` to create a file called **dc_workshop_log_XXXX_XX_XX.txt** (Use the four-digit year, two-digit month, and two digit day, e.g. dc_workshop_log_2015_10_08.txt)
+Using your knowledge of the shell use the append redirect `'>>'` to create a file called **unix_workshop_log_XXXX_XX_XX.txt** (Use the four-digit year, two-digit month, and two digit day, e.g. dc_workshop_log_2015_10_08.txt)
 
 
 You may have noticed that your history may contain the *history* command itself. To remove this redundancy from our log, lets use the *nano* text editor to fix the file:
 
 ```
-$ nano dc_workshop_log_
+$ nano unix_workshop_log_
 ```
 
 From the nano screen, you should be able to use your cursor to navigate, type, and delete any redundant lines. 
@@ -150,12 +150,12 @@ Add a dateline and comment to the line where you have created the directory e.g.
 ```
 
 ```
-# Created sample directories for the Data Carpentry workshop
+# Created sample directories for the Intro to Unix workshop
 ```
 
 6. Next, remove any lines of the history that are not relevant. Just navigate to those lines and use your delete key. 
 7. Close nano by hitting 'Control' and the 'X' key at the same time; notice in nano this is abbreviated '\^X'; nano will ask if you want to save; hit 'Y' for yes. When prompted for the 'File Name to Write' we can hit 'Enter' to keep the same name and save. 
-8. Now that you have created the file, move the file to 'dc_workshop/docs'
+8. Now that you have created the file, move the file to 'rnaseq_project/docs'
 
 
 **Questions**:    
