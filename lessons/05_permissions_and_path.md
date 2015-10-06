@@ -4,13 +4,13 @@ author: "Christina Koch, Radhika Khetani"
 date: "Tuesday, October 6, 2015"
 ---
 
-> ## Learning Objectives
+> ### Learning Objectives
 > 
 > * How to grant or restrict access to files on a multi-user UNIX system
 > * What is an "Environment Variable" in a shell.
 > * What is $PATH, and why I should care.
 
-**Permissions**
+## **Permissions**
 
 Unix controls who can read, modify, and run files using *permissions*.
 
@@ -87,7 +87,7 @@ It tells us `-rwxr-xr-x. 1 root root 109208 Oct 15  2014 /bin/ls`.
 So, `ls` is an executable file that belong to user root and group root, and only they can modify (write) it.
 
 
-> ## Necessary But Not Sufficient
+> ### Necessary But Not Sufficient
 >
 > The fact that something is marked as executable
 > doesn't actually mean it contains or is a program of some kind.
@@ -201,7 +201,7 @@ She's allowed to go through `pluto`, but not to look at what's there. She will b
 This trick gives people a way to make some of their directories visible to the world as a whole without opening up everything else.
 
 
-> ## Challenge
+> ### Challenge
 > If `ls -l myfile.php` returns the following details:
 >
 > ```
@@ -215,7 +215,7 @@ This trick gives people a way to make some of their directories visible to the w
 > 3. members of caro (a group) can read, write, and execute myfile.php
 > 4. members of zoo (a group) cannot execute myfile.php
 
-**Environment Variable**
+## **Environment Variables**
 
 Environment variables are, in short, variables that describe the environment in which programs run in. 
 
@@ -272,9 +272,10 @@ $ which ls
 .
 ```
 
-> Modifying Environment Variables
-
-> If you are interested in adding a new entry to the path variable, the command to use is `import`. This command is usually executed as follows: `export PATH=$PATH:~/opt/bin`, which tells the shell to add the ~/opt/bin directory to the end of the preexisiting list within $PATH. Alternatively, if you use `export PATH=~/opt/bin:$PATH`, the same directory will be added to the beginning of the list. The order determines where the shell will look first.
+> #### Modifying Environment Variables
+>
+> If you are interested in adding a new entry to the path variable, the command to use is `export`. This command is usually executed as follows: 
+`export PATH=$PATH:~/opt/bin`, which tells the shell to add the ~/opt/bin directory to the end of the preexisiting list within $PATH. Alternatively, if you use `export PATH=~/opt/bin:$PATH`, the same directory will be added to the beginning of the list. The order determines where the shell will look first.
 
 
 
