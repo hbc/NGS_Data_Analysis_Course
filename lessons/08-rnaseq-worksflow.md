@@ -36,12 +36,12 @@ rnaseq_project
  	|   ├── untrimmed_fastq
 	│   │   
 	│   └── trimmed_fastq
-	│       ├── Irrel_kd_1.subset.fq
-	│       ├── Irrel_kd_2.subset.fq
-	│       ├── Irrel_kd_3.subset.fq
-	│       ├── Mov10_oe_1.subset.fq
-	│       ├── Mov10_oe_2.subset.fq
-	│       └── Mov10_oe_3.subset.fq
+	│       ├── Irrel_kd_1.subset.trim.fq
+	│       ├── Irrel_kd_2.subset.trim.fq
+	│       ├── Irrel_kd_3.subset.trim.fq
+	│       ├── Mov10_oe_1.subset.trim.fq
+	│       ├── Mov10_oe_2.subset.trim.fq
+	│       └── Mov10_oe_3.subset.trim.fq
 	|
 	├── meta
 	├── results
@@ -57,14 +57,10 @@ Without getting into the details for each step of the workflow, we first describ
 3. Index the reference genome for use by STAR
 4. Align reads to reference genome using STAR (splice-aware aligner)
 5. Count the number of reads mapping to each gene using htseq-count
-6. Statistical analysis of count data to find differentially expressed genes (normalization, linear modeling using R-based tools)
+6. Statistical analysis (count normalization, linear modeling using R-based tools)
 
 
-
-We'll first perform the commands for all the above steps (run through the workflow). 
-
-STAR index
-STAR --runThreadN 5 --runMode genomeGenerate --genomeDir ./ --genomeFastaFiles chr1.fa --sjdbGTFfile chr1-hg19_genes.gtf --sjdbOverhang 99
+We'll first perform the commands for all the above steps (run through the workflow) for a single sample. 
 
 Next, we'll create a script for the commands and test it. 
 
@@ -72,32 +68,34 @@ Finally, we'll modify the script to run on the cluster.
 
 So let's get started.
 
-The first command is to change to our working directory:
+The first command is to change into our working directory:
 
-     cd variant_calling
+```
+     cd unix_oct2015/rnaseq-project
+
+```
 
 Let's load up some of the modules we need for this section:
 
-     source new-modules.sh
+```
      module load bwa
      module load samtools
-     module load bcftools
+```
 
+Index the reference genome for use by STAR. This step has already been done for you. **You do not need to run this code**. For this step we need to provide a reference genome and an annotation file. Depending on teh size of your genome this can take awhile.
 
-Index the reference genome for use by bwa and samtools:
+```
+** Do not run this**
+STAR --runThreadN 5 --runMode genomeGenerate --genomeDir ./ --genomeFastaFiles chr1.fa --sjdbGTFfile chr1-hg19_genes.gtf --sjdbOverhang 99
+
+```
     
-	bwa index data/ref_genome/ecoli_rel606.fasta     # This step helps with the speed of alignment
-	
-	samtools faidx data/ref_genome/ecoli_rel606.fasta     # We will need the indexed reference file for variant calling as well. 
-oup
 
-Create output paths for various intermediate and results files. The `-p` option means mkdir will create the whole path if it does not exist and refrain from complaining if it does exist
+Create output path for our alignment files
+
 ```bash
-mkdir -p results/sai
-mkdir -p results/sam
-mkdir -p results/bam
-mkdir -p results/bcf
-mkdir -p results/vcf
+mkdir results/alignment
+
 ```
 
 In the script, we will eventually loop over all of our files and have the cluster work
