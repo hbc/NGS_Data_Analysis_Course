@@ -88,21 +88,6 @@ Let's load up some of the modules we need for this section: ** do we need any mo
      module load samtools
 ```
 
-Index the reference genome for use by STAR. This step has already been done for you. **You do not need to run this code**. For this step we need to provide a reference genome and an annotation file. Depending on the size of your genome, this can take awhile. The basic options to generate genome indices using STAR as follows:
-
-`--runThreadN`: number of threads
-`--runMode`: genomeGenerate mode
-`--genomeDir`: /path/to/store/genome_indices
-`--genomeFastaFiles`: /path/to/FASTA_file 
-`--sjdbGTFfile`: /path/to/GTF_file
-`--sjdbOverhang`: readlength -1
-
-```
-** Do not run this**
-STAR --runThreadN 5 --runMode genomeGenerate --genomeDir ./ --genomeFastaFiles chr1.fa --sjdbGTFfile chr1-hg19_genes.gtf --sjdbOverhang 99
-
-```
-
 Create an output directory for our alignment files:
 
 ```bash
@@ -113,7 +98,7 @@ mkdir results/STAR
 In the script, we will eventually loop over all of our files and have the cluster work on each one in parallel. For now, we're going to work on just one to set up our workflow.  To start we will use the trimmed first replicate in the Mov10 overexpression group, `Mov10_oe_1.qualtrim25.minlen35.fq` 
 
 
-**NOTE: if you did not follow the last section, please execute the following command:** (this will copy over the required files into your home directory.
+**NOTE: if you did not follow the last section, please execute the following command:** (this will copy over the required files into your home directory.)
 
 ```bash
 
@@ -124,18 +109,46 @@ cp -r /groups/hbctraining/unix_oct2015_other/trimmed_fastq data/
 ### Alignment to genome
 The alignment process consists of choosing an appropriate reference genome to map our reads against, and performing the read alignment using one of several splice-aware alignment tools such as [STAR](http://bioinformatics.oxfordjournals.org/content/early/2012/10/25/bioinformatics.bts635) or [TopHat2](https://ccb.jhu.edu/software/tophat/index.shtml). The choice of aligner is a personal preference and also dependent on the computational resources that are available to you.
  
-For this workshop we will be using [STAR]() ...** Add snippet on STAR**  
+For this workshop we will be using STAR (Spliced Transcripts Alignment to a Reference), an aligner designed to specifically address many of the challenges of RNAseq
+data mapping, and utilizes a novel strategy for spliced alignments. STAR is shown to have high accuracy and outperforms other aligners by more than a factor of 50 in mapping
+speed. More details on the algorithm itself can be found in the publication linked above. Aligning reads using STAR is a two step process: 1) Create a genome index 2) Map reads to the genome.
+
+
+Indexing of the reference genome has already been done for you. **You do not need to run this code**. For this step you need to provide a reference genome and an annotation file. For this workshop we are using reads that originate from a small subsection of chromosome 1 (~300,00 reads) and so we are using only chr1 as the reference genome, and have provided the appropriate indices. Depending on the size of your genome, this can take awhile. 
+
+The basic options to generate genome indices using STAR as follows:
+
+
+* `--runThreadN`: number of threads
+* `--runMode`: genomeGenerate mode
+* `--genomeDir`: /path/to/store/genome_indices
+* `--genomeFastaFiles`: /path/to/FASTA_file 
+* `--sjdbGTFfile`: /path/to/GTF_file
+* `--sjdbOverhang`: readlength -1
+
+```
+** Do not run this**
+STAR --runThreadN 5 --runMode genomeGenerate --genomeDir ./ --genomeFastaFiles chr1.fa --sjdbGTFfile chr1-hg19_genes.gtf --sjdbOverhang 99
+
+```
+
+The basic options for mapping reads to the genome using STAR is as follows:
+
+* `--runThreadN`: number of threads
+* `--readFilesIn`: /path/to/FASTQ_file
+* `--genomeDir`: /path/to/genome_indices
+
 
 More details on STAR and its functionality can be found in the [user manual](https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf), we encourage you to peruse through to get familiar with all available options.
 
-First, let's create a directory in the `results` directory where we can store all output from STAR
 
-```
-mkdir results/STAR
+_STAR is not available as a module on Orchestra._ To run STAR we will be using an install of the software that is available on the Orchestra cluster at `/opt/bcbio/local/bin`. Since we had previously added this location to our `$PATH` we can access the software by simply using the STAR command followed by the basic parameters described above and any additional parameters. The full command is provided below for you to copy paste into your terminal. Below, we first describe some the extra parameters we have added.
 
-```
+Advanced parameters:
 
-To run STAR we will be using an install of the software that is available on the Orchestra cluster at `\opt\bcb	`. Since we had previusly added this location to our `$PATH` we can access it by simply using the STAR command followed by the basic parameters described above and any additional parameters. The full command is provided below for you to copy paste into your terminal. Below, we first describe some the extra parameters we have added.
+* `--runThreadN`: number of threads
+* `--readFilesIn`: /path/to/FASTQ_file
+* `--genomeDir`: /path/to/genome_indices
 
 
 ```
