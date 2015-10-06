@@ -1,55 +1,47 @@
 ---
-layout: page
-title: Permissions
+title: "Permissions and Environment variables"
+author: "Christina Koch, Radhika Khetani"
+date: "Tuesday, October 6, 2015"
 ---
 
-> ## Learning Objectives {.objectives}
+> ## Learning Objectives
 > 
-> * FIXME
+> * How to grant or restrict access to files on a multi-user UNIX system
+> * What is an "Environment Variable" in a shell.
+> * What is $PATH, and why I should care.
 
 Unix controls who can read, modify, and run files using *permissions*.
-We'll discuss how Windows handles permissions at the end of the section:
-the concepts are similar,
-but the rules are different.
 
-Let's start with Nelle.
-She has a unique [user name](./reference.html#user-name),
-`nnemo`,
-and a [user ID](./reference.html#user-id),
-1404.
+Let's start with how users are identified in a shared, multi-user system.
+We all have a unique username, e.g. rsk27 and a userid 124292.
 
-> ## Why Integer IDs?{.callout}
->
-> Why integers for IDs?
-> Again, the answer goes back to the early 1970s.
-> Character strings like `alan.turing` are of varying length,
-> and comparing one to another takes many instructions.
-> Integers,
-> on the other hand,
-> use a fairly small amount of storage (typically four characters),
-> and can be compared with a single instruction.
-> To make operations fast and simple,
-> programmers often keep track of things internally using integers,
-> then use a lookup table of some kind
-> to translate those integers into user-friendly text for presentation.
-> Of course,
-> programmers being programmers,
-> they will often skip the user-friendly string part
-> and just use the integers,
-> in the same way that someone working in a lab might talk about Experiment 28
-> instead of "the chronotypical alpha-response trials on anacondas".
+Find out yours:
 
-Users can belong to any number of [groups](./reference.html#user-group),
-each of which has a unique [group name](./reference.html#user-group-name)
-and numeric [group ID](./reference.html#user-group-id).
-The list of who's in what group is usually stored in the file `/etc/group`.
-(If you're in front of a Unix machine right now,
-try running `cat /etc/group` to look at that file.)
+```
+$ id <username>
+```
 
-Now let's look at files and directories.
-Every file and directory on a Unix computer belongs to one owner and one group.
-Along with each file's content,
-the operating system stores the numeric IDs of the user and group that own it.
+
+Users of a multi-user UNIX system can belong to any number of groups,
+each of which has a unique group name, and a numeric group ID.
+
+The list of who's in what group is usually stored in the system file `/etc/group`.
+
+Let's see what groups we all belong to:
+
+` $ groups`
+
+Depending on our affiliation, we all belong to at least a couple of groups. I belong to 4 groups,
+
+* rsk27
+* bcbio
+* hbctraining
+* Domain_Users
+
+Unique users and groups are necessary to make sure that Files and Directories that belong to a specific user 
+
+As you can imagine, on a shared system it is important to protect each user's information. To start, every file and directory on a Unix computer belongs to one owner and one group.
+Along with each file's content, the operating system stores the numeric IDs of the user and group that own it, which is the "metadata" for a given file.
 
 The user-and-group model means that
 for each file
@@ -81,217 +73,138 @@ it would mean that:
 *   everybody else can do nothing with it at all.
 
 Let's look at this model in action.
-If we `cd` into the `labs` directory and run `ls -F`,
-it puts a `*` at the end of `setup`'s name.
-This is its way of telling us that `setup` is executable,
-i.e.,
-that it's (probably) something the computer can run.
 
-~~~ {.input}
-$ cd labs
-$ ls -F
-~~~
-~~~ {.output}
-safety.txt    setup*     waiver.txt
-~~~
+If we say,
 
-> ## Necessary But Not Sufficient{.callout}
+```
+$ ls -l /bin/ls
+```
+
+It tells us `-rwxr-xr-x. 1 root root 109208 Oct 15  2014 /bin/ls`. 
+ 
+So, `ls` is an executable file that belong to user root and group root, and only they can modify (write) it.
+
+
+> ## Necessary But Not Sufficient
 >
 > The fact that something is marked as executable
-> doesn't actually mean it contains a program of some kind.
-> We could easily mark this HTML file as executable
+> doesn't actually mean it contains or is a program of some kind.
+> We could easily mark the `~/unix_oct2015/raw_fastq/Irrel_kd_1.subset.fq` file as executable
 > using the commands that are introduced below.
 > Depending on the operating system we're using,
-> trying to "run" it will either fail
-> (because it doesn't contain instructions the computer recognizes)
-> or cause the operating system to open the file
-> with whatever application usually handles it
-> (such as a web browser).
+> trying to "run" it will fail
+> (because it doesn't contain instructions the computer recognizes).
 
-Now let's run the command `ls -l`:
 
-~~~ {.input}
+Now let's run the command `ls -l ~/unix_oct2015`, to list the files in that directory:
+
+```
 $ ls -l
-~~~
-~~~ {.output}
--rw-rw-r-- 1 vlad bio  1158  2010-07-11 08:22 safety.txt
--rwxr-xr-x 1 vlad bio 31988  2010-07-23 20:04 setup
--rw-rw-r-- 1 vlad bio  2312  2010-07-11 08:23 waiver.txt
-~~~
+
+drwxrwsr-x 2 rsk27 rsk27  78 Oct  6 10:29 genomics_data
+drwxrwsr-x 2 rsk27 rsk27 228 Oct  6 10:28 raw_fastq
+-rw-rw-r-- 1 rsk27 rsk27 377 Oct  6 10:28 README.txt
+drwxrwsr-x 2 rsk27 rsk27 238 Oct  6 10:28 reference_data
+drwxrwsr-x 2 rsk27 rsk27 555 Oct  6 10:29 reference_STAR
+```
 
 The `-l` flag tells `ls` to give us a long-form listing.
 It's a lot of information, so let's go through the columns in turn.
 
-On the right side, we have the files'  names.
-Next to them,
-moving left,
-are the times and dates they were last modified.
-Backup systems and other tools use this information in a variety of ways,
-but you can use it to tell when you (or anyone else with permission)
-last changed a file.
+||On the right side, we have the files' names. Next to them,
+moving left, are the times and dates they were last modified. Backup systems and other tools use this information in a variety of ways, but you can use it to tell when you (or anyone else with permission) last changed a file.
 
 Next to the modification time is the file's size in bytes
 and the names of the user and group that owns it
-(in this case, `vlad` and `bio` respectively).
+(in this case, `rsk27` and `rsk27` respectively).
 We'll skip over the second column for now
-(the one showing `1` for each file)
+(the one showing `1` for each file), 
 because it's the first column that we care about most.
 This shows the file's permissions, i.e., who can read, write, or execute it.
 
-Let's have a closer look at one of those permission strings:
-`-rwxr-xr-x`.
+Let's have a closer look at one of those permission strings for README.txt:
+`-rw-rw-r--`.
 The first character tells us what type of thing this is:
 '-' means it's a regular file,
 while 'd' means it's a directory,
 and other characters mean more esoteric things.
 
 The next three characters tell us what permissions the file's owner has.
-Here, the owner can read, write, and execute the file: `rwx`.
+Here, the owner can read and write the file: `rw-`.
+
 The middle triplet shows us the group's permissions.
-If the permission is turned off, we see a dash, so `r-x` means "read and execute, but not write".
-The final triplet shows us what everyone who isn't the file's owner, or in the file's group, can do.
-In this case, it's 'r-x' again, so everyone on the system can look at the file's contents and run it.
+If the permission is turned off, we see a dash, so `rw-` means "read and write, but not execute". (In this case the group and the owner are the same so it makes sense that this is the same for both categories.)
 
-To change permissions, we use the `chmod` command
-(whose name stands for "change mode").
-Here's a long-form listing showing the permissions on the final grades in the course Vlad is teaching:
+The final triplet shows us what everyone who isn't the file's owner, or in the file's group, can do. In this case, it's `r--` again, so everyone on the system can look at the file's contents.
 
-~~~ {.input}
-$ ls -l final.grd
-~~~
-~~~ {.output}
--rwxrwxrwx 1 vlad bio  4215  2010-08-29 22:30 final.grd
-~~~
+To change permissions, we use the `chmod` command (whose name stands for "change mode").
+Let's make our README.txt file inaccessible to all users on the system, they can currently read it:
 
-Whoops: everyone in the world can read it&mdash;and what's worse,
-modify it!
-(They could also try to run the grades file as a program,
-which would almost certainly not work.)
+```
+$ ls -l ~/unix_oct2015/README.txt
 
-The command to change the owner's permissions to `rw-` is:
+-rw-rw-r-- 1 rsk27 rsk27 377 Oct  6 10:28 /home/rsk27/unix_oct2015/README.txt
 
-~~~ {.input}
-$ chmod u=rw final.grd
-~~~
+$ chmod o-rw ~/unix_oct2015/README.txt
 
-The 'u' signals that we're changing the privileges
-of the user (i.e., the file's owner),
-and `rw` is the new set of permissions.
-A quick `ls -l` shows us that it worked,
-because the owner's permissions are now set to read and write:
+$ ls -l ~/unix_oct2015/README.txt
 
-~~~ {.input}
-$ ls -l final.grd
-~~~
-~~~ {.output}
--rw-rwxrwx 1 vlad bio  4215  2010-08-30 08:19 final.grd
-~~~
+-rw-rw---- 1 rsk27 rsk27 377 Oct  6 10:28 /home/rsk27/unix_oct2015/README.txt
+```
 
-Let's run `chmod` again to give the group read-only permission:
+The 'o' signals that we're changing the privileges of "others".
 
-~~~ {.input}
-$ chmod g=r final.grd
-$ ls -l final.grd
-~~~
-~~~ {.output}
--rw-r--rw- 1 vlad bio  4215  2010-08-30 08:19 final.grd
-~~~
+Let's change it back to allow it to be readable by others:
 
-And finally,
-let's give "all" (everyone on the system who isn't the file's owner or in its group) no permissions at all:
+```
+$ chmod o+r ~/unix_oct2015/README.txt
 
-~~~ {.input}
-$ chmod a= final.grd
-$ ls -l final.grd
-~~~
-~~~ {.output}
--rw-r----- 1 vlad bio  4215  2010-08-30 08:20 final.grd
-~~~
+$ ls -l ~/unix_oct2015/README.txt
 
-Here,
-the 'a' signals that we're changing permissions for "all",
-and since there's nothing on the right of the "=",
-"all"'s new permissions are empty.
+-rw-rw-r-- 1 rsk27 rsk27 377 Oct  6 10:28 /home/rsk27/unix_oct2015/README.txt
+```
 
-We can search by permissions, too.
-Here, for example, we can use `-type f -perm -u=x` to find files
-that the user can execute:
-
-~~~ {.input}
-$ find . -type f -perm -u=x
-~~~
-~~~ {.output}
-./tools/format
-./tools/stats
-~~~
+If we wanted to make this an executable file for ourselves, the file's owners, we would say `chmod u+rwx`, where the 'u' signals that we are changing permission for the file's owner. To change permissions for a whole group, you'd use the letter "g" `chmod g-w`. 
 
 Before we go any further,
-let's run `ls -a -l`
-to get a long-form listing that includes directory entries that are normally hidden:
+let's run `ls -a -l` on the `~/unix_oct2015` directory to get a long-form listing:
 
-~~~ {.input}
-$ ls -a -l
-~~~
-~~~ {.output}
-drwxr-xr-x 1 vlad bio     0  2010-08-14 09:55 .
-drwxr-xr-x 1 vlad bio  8192  2010-08-27 23:11 ..
--rw-rw-r-- 1 vlad bio  1158  2010-07-11 08:22 safety.txt
--rwxr-xr-x 1 vlad bio 31988  2010-07-23 20:04 setup
--rw-rw-r-- 1 vlad bio  2312  2010-07-11 08:23 waiver.txt
-~~~
+```
+$ ls -l
 
-The permissions for `.` and `..` (this directory and its parent) start with a 'd'.
-But look at the rest of their permissions:
-the 'x' means that "execute" is turned on.
-What does that mean?
-A directory isn't a program&mdash;how can we "run" it?
+drwxrwsr-x 2 rsk27 rsk27  78 Oct  6 10:29 genomics_data
+drwxrwsr-x 2 rsk27 rsk27 228 Oct  6 10:28 raw_fastq
+-rw-rw-r-- 1 rsk27 rsk27 377 Oct  6 10:28 README.txt
+drwxrwsr-x 2 rsk27 rsk27 238 Oct  6 10:28 reference_data
+drwxrwsr-x 2 rsk27 rsk27 555 Oct  6 10:29 reference_STAR
+```
 
-In fact, 'x' means something different for directories.
+Look at the permissions for directories (`drwxrwsr-x`): the 'x' indicates that "execute" is turned on. What does that mean? A directory isn't a program or an executable file, we can't "run" it.
+
+Well, 'x' means something different for directories.
 It gives someone the right to *traverse* the directory, but not to look at its contents.
 The distinction is subtle, so let's have a look at an example.
-Vlad's home directory has three subdirectories called `venus`, `mars`, and `pluto`:
 
-![execute](fig/x-for-directories.svg "Execute Permission for Directories")
+Dr. Vlad Smith's home directory has three subdirectories called `venus`, `mars`, and `pluto`:
 
-Each of these has a subdirectory in turn called `notes`,
-and those sub-subdirectories contain various files.
-If a user's permissions on `venus` are 'r-x',
-then if she tries to see the contents of `venus` and `venus/notes` using `ls`,
-the computer lets her see both.
-If her permissions on `mars` are just 'r--',
-then she is allowed to read the contents of both `mars` and `mars/notes`.
-But if her permissions on `pluto` are only '--x',
-she cannot see what's in the `pluto` directory:
-`ls pluto` will tell her she doesn't have permission to view its contents.
+![execute](../img/permission-directory.png "Execute Permission for Directories")
+
+Each of these has a subdirectory in turn called `notes`, and those sub-subdirectories contain various files.
+If a user's permissions on `venus` are 'r-x', then if she tries to see the contents of `venus` and `venus/notes` using `ls`, the computer lets her see both.
+If her permissions on `mars` are just 'r--', then she is allowed to read the contents of both `mars` and `mars/notes`.
+But if her permissions on `pluto` are only '--x', she cannot see what's in the `pluto` directory: `ls pluto` will tell her she doesn't have permission to view its contents.
 If she tries to look in `pluto/notes`, though, the computer will let her do that.
-She's allowed to go through `pluto`, but not to look at what's there.
-This trick gives people a way to make some of their directories visible to the world as a whole
-without opening up everything else.
+She's allowed to go through `pluto`, but not to look at what's there. She will be able to do this, only if she knows that there is a file called `notes` in the directory, since she cannot list what is in there.
 
-#### What about Windows?
+This trick gives people a way to make some of their directories visible to the world as a whole without opening up everything else.
 
-Those are the basics of permissions on Unix.
-As we said at the outset, though, things work differently on Windows.
-There, permissions are defined by [access control lists](./reference.html#access-control-list),
-or ACLs.
-An ACL is a list of pairs, each of which combines a "who" with a "what".
-For example,
-you could give the Mummy permission to append data to a file without giving him permission to read or delete it,
-and give Frankenstein permission to delete a file without being able to see what it contains.
 
-This is more flexible that the Unix model,
-but it's also more complex to administer and understand on small systems.
-(If you have a large computer system,
-*nothing* is easy to administer or understand.)
-Some modern variants of Unix support ACLs as well as the older read-write-execute permissions,
-but hardly anyone uses them.
-
-> ## Challenge {.challenge}
+> ## Challenge
 > If `ls -l myfile.php` returns the following details:
 >
-> ~~~ {.output}
+> ```
 > -rwxr-xr-- 1 caro zoo  2312  2014-10-25 18:30 myfile.php
-> ~~~
+> ```
 > 
 > Which of the following statements is true?
 > 
