@@ -180,7 +180,7 @@ Since we only need the feature type and the genomic location information to find
 	chr1	exon	16607	16765	-
 	chr1	exon	16858	17055	-
 
-The 'cut' command assumes our data columns are separated by tabs (i.e. tab-delimited), and our chr1-hg19_genes.gtf is a tab-delimited file. However, data can be separated by other delimiters, as well. Another common delimiter is the comma, which separates data in comma-separated value (csv) files. If your data is not tab delimited, there is a 'cut' command argument (-d) to specify the delimiter.
+The 'cut' command assumes our data columns are separated by tabs (i.e. tab-delimited). The chr1-hg19_genes.gtf is a tab-delimited file, so the default 'cut' command works for us. However, data can be separated by other types of delimiters. Another common delimiter is the comma, which separates data in comma-separated value (csv) files. If your data is not tab delimited, there is a 'cut' command argument (-d) to specify the delimiter.
 
 Our output looks good, so let's cut these columns from the whole dataset (not just the first 5 lines) and save it as a file, '**chr1-hg19genes_cut**':
 
