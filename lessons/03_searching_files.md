@@ -2,12 +2,12 @@
 layout: page
 title: "The Shell"
 comments: true
-date: 2015-07-30
+date: 2015-10-06
 ---
 
 # The Shell: Searching and Finding
 
-Author: Sheldon McKay, Bob Freeman
+Author: Sheldon McKay, Bob Freeman, Mary Piper
 
 Adapted from the lesson by Tracy Teal.
 Contributors: Paul Wilson, Milad Fatenejad, Sasha Wood, and Radhika Khetani for Software Carpentry (http://software-carpentry.org/)
@@ -78,7 +78,7 @@ to a file, so that we can look at it later.
 The redirection command for putting something in a file is `>`
 
 Let's try it out and put all the sequences that contain 'NNNNNNNNNN'
-from all the files in to another file called `bad_reads.txt`
+from all the files in to another file called `bad_reads.txt` in the `other/` folder.
 
 `$ grep -B1 -A2 NNNNNNNNNN Mov10_oe_1.subset.fq > bad_reads.txt`
 
@@ -86,12 +86,15 @@ The prompt should sit there a little bit, and then it should look like nothing
 happened. But type `ls`. You should have a new file called `bad_reads.txt`. Take
 a look at it and see if it has what you think it should.
 
-If we use '>>', it will append to rather than overwrite a file.  This can be useful for
-saving more than one search, for example:
+If we use '>>', it will append to rather than overwrite a file.  This can be useful for saving more than one search, for example:
 
 `$ grep -B1 -A2 NNNNNNNNNN Mov10_oe_1.subset.fq > bad_reads.txt`
     
 `$ grep -B1 -A2 NNNNNNNNNN Mov10_oe_2.subset.fq >> bad_reads.txt`
+
+Since our `bad_reads.txt` file isn't a raw_fastq file, we should move it to a different location within our directory. We decide to move it to the `other` folder using the command `mv`. 
+
+`$ mv bad_reads.txt ../other/`
 
 There's one more useful redirection command that we're going to show, and that's
 called the pipe command, and it is `|`. It's probably not a key on
@@ -127,7 +130,7 @@ efficiently. If you want to be proficient at using the shell, you must
 learn to become proficient with the pipe and redirection operators:
 `|`, `>`, `>>`.
 
-
+##Practice with searching and redirection
 
 Finally, let's use the new tools in our kit and a few new ones to examine our gene annotation file, **chr1-hg19_genes.gtf**, which we will be using later to find the genomic coordinates of all known exons on chromosome 1.
 
@@ -155,7 +158,15 @@ This search returns two different transcripts of the same gene, NM_001160184 and
 
 Now that we know what type of information is inside of our gtf file, let's explore our commands to answer a simple question about our data. Let's find how many unique exons are present on chromosome 1 using our **gtf** file, **chr1-hg19_genes.gtf**. 
 
-To determine the number of unique exons on chromosome 1, we only need the feature type and the genomic location information. So we should only keep columns 1, 3, 4, 5, and 7. 
+To determine the number of unique exons on chromosome 1, we are going to perform a series of steps:
+	
+	1. Subset the dataset to only include the feature type and genomic location information
+	2. Extract only the genomic coordinates of exon features
+	3. Remove non-unique exons
+	4. Count the total number of unique exons
+	
+####Subsetting dataset
+Since we only need the feature type and the genomic location information to find our unique exons, we should only keep columns 1, 3, 4, 5, and 7. 
 
 'cut' is a program that will extract columns from files.  It is a very good command to know.  Let's first try out the 'cut' command on a small dataset (just the first 5 lines of chr1-hg19_genes.gtf) to make sure we have the command correct:
 
@@ -169,16 +180,20 @@ To determine the number of unique exons on chromosome 1, we only need the featur
 	chr1	exon	16607	16765	-
 	chr1	exon	16858	17055	-
 
+The 'cut' command assumes our data columns are separated by tabs (i.e. tab-delimited). The chr1-hg19_genes.gtf is a tab-delimited file, so the default 'cut' command works for us. However, data can be separated by other types of delimiters. Another common delimiter is the comma, which separates data in comma-separated value (csv) files. If your data is not tab delimited, there is a 'cut' command argument (-d) to specify the delimiter.
+
 Our output looks good, so let's cut these columns from the whole dataset (not just the first 5 lines) and save it as a file, '**chr1-hg19genes_cut**':
 
 `$ cut -f1,3,4,5,7 chr1-hg19_genes.gtf > chr1-hg19genes_cut`
 
 Check the cut file to make sure that it looks good using `less`. 
 
+####Extracting genomic coordinates of exon features
 We only want the exons (not CDS or start_codon features), so let's use 'grep' to only keep the exon lines and save to file, '**chr1_exons**:
 
 `$ grep exon chr1-hg19genes_cut > chr1_exons`
 
+#### Removing non-unique exons
 Now, we need to remove those exons that show up multiple times for different genes or transcripts.    
 
 We can use some new tools 'sort' and 'uniq' to extract only those unique exons.  'uniq' is a command that will omit repeated adjacent lines of data if they are exactly the same. Therefore, we need to 'sort' our data by genomic coordinates first to make sure that all matching exons are adjacent to each other. 
@@ -187,6 +202,7 @@ We can use the 'sort command' with the '-k' option for sort to specify which col
 
 `$ sort -k3,4 chr1_exons | uniq`
 
+####Counting the total number of unique exons
 Now, to count how many unique exons are on chromosome 1, we need to pipe the output to 'wc -l':
 
 `$ sort -k3,4 chr1_exons | uniq | wc -l`
