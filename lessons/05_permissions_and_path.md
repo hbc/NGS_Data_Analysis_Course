@@ -217,10 +217,10 @@ This trick gives people a way to make some of their directories visible to the w
 
 ## **Environment Variables**
 
-Environment variables are, in short, variables that describe the environment in which programs run in. 
+Environment variables are, in short, variables that describe the environment in which programs run in. Two commonly encountered variables are HOME and PATH.
 
-· HOME defines the home directory for a user.
-· PATH defines a list of directories to search through when looking for a command to execute.
+* HOME defines the home directory for a user.
+* PATH defines a list of directories to search through when looking for a command to execute.
 
 In the context of the shell the Environment variables are usually all upper case.
 
@@ -240,11 +240,11 @@ $ echo $HOME
 Variables, in most systems, are called/denoted with a "$" before the variable name
 
 ```
-$ $PATH
+$ echo $PATH
 
 /opt/lsf/7.0/linux2.6-glibc2.3-x86_64/bin:/groups/bcbio/bcbio/anaconda/bin:/opt/bcbio/local/bin:/opt/lsf/7.0/linux2.6-glibc2.3-x86_64/etc:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin
 ```
-I have a lot of full/absolute paths in my $PATH variable, which are separated from each other by a ":"; here is a more readable list:
+I have a lot of full/absolute paths in my $PATH variable, which are separated from each other by a ":"; here is the list in a more readable format:
 
 * /opt/lsf/7.0/linux2.6-glibc2.3-x86_64/bin
 * /groups/bcbio/bcbio/anaconda/bin
@@ -259,7 +259,7 @@ I have a lot of full/absolute paths in my $PATH variable, which are separated fr
 
 These are the directories that the shell will look in (in the same order as they are listed) for an executable file that you type on the command prompt. 
 
-When someone says a command or an executable file is "in you path", they mean is the parent directory for that command/file contained within the PATH variable. 
+When someone says a command or an executable file is "in you path", they mean that the parent directory for that command/file is contained in the list in the PATH variable. 
 
 For any command you execute on the command prompt, you can find out where they are located using the which command.
 
