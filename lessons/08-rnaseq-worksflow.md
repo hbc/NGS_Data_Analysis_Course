@@ -5,7 +5,7 @@ An RNA-Seq workflow
 
 Learning Objectives:
 -------------------
-#### What's the goal for this lesson?
+### What's the goal for this lesson?
 
 * Use a series of command line tools to execute an RNA-Seq workflow
 * Automate a workflow by grouping a series of sequential commands into a script
@@ -13,7 +13,7 @@ Learning Objectives:
 
 ## Running a Workflow
 
-#### Setting up
+### Setting up
 
 To get started with this lesson, ensure you are logged into the cluster and are working
 in an interactive session on a compute node (single core):
@@ -22,10 +22,17 @@ in an interactive session on a compute node (single core):
 ssh username@orchestra.med.harvard.edu
 (enter password)
 
-bsub -Is -q interactive bash	
+bsub -Is -n 6 -q interactive bash	
 ```
 
-Move into the `unix_oct2015` directory and then into the `rnaseq_project` directory. You should have the following directory tree setup that contains some input data (reference genome and fastq files) that we generated in the previous sections.
+Change directories into the `unix_oct2015` directory and copy the `reference_data` folder into your project directory:
+
+```
+$ cp reference_data rnaseq_project/
+
+```
+
+Now move into the `rnaseq_project` directory. You should have a directory tree setup similar to that shown below. it is best practice to have all files you intend on using for your workflow present within the same directory. In our case, we have our original FASTQ files and post-trimming data generated in the previous section. We also have all reference data files that will be used in downstream analyses.
 
 ```
 rnaseq_project
@@ -36,12 +43,12 @@ rnaseq_project
  	|   ├── untrimmed_fastq
 	│   │   
 	│   └── trimmed_fastq
-	│       ├── Irrel_kd_1.subset.trim.fq
-	│       ├── Irrel_kd_2.subset.trim.fq
-	│       ├── Irrel_kd_3.subset.trim.fq
-	│       ├── Mov10_oe_1.subset.trim.fq
-	│       ├── Mov10_oe_2.subset.trim.fq
-	│       └── Mov10_oe_3.subset.trim.fq
+	│       ├── Irrel_kd_1.qualtrim25.minlen35.fq
+	│       ├── Irrel_kd_2.qualtrim25.minlen35.fq
+	│       ├── Irrel_kd_3.qualtrim25.minlen35.fq
+	│       ├── Mov10_oe_1.qualtrim25.minlen35.fq
+	│       ├── Mov10_oe_2.qualtrim25.minlen35.fq
+	│       └── Mov10_oe_3.qualtrim25.minlen35.fq
 	|
 	├── meta
 	├── results
@@ -60,7 +67,7 @@ Without getting into the details for each step of the workflow, we first describ
 6. Statistical analysis (count normalization, linear modeling using R-based tools)
 
 
-We'll first perform the commands for all the above steps (run through the workflow) for a single sample. 
+We'll first perform the commands for all the above steps (run through the workflow) for a single sample.
 
 Next, we'll create a script for the commands and test it. 
 
@@ -75,75 +82,69 @@ The first command is to change into our working directory:
 
 ```
 
-Let's load up some of the modules we need for this section:
+Let's load up some of the modules we need for this section: ** do we need any modules??**
 
 ```
-     module load bwa
      module load samtools
 ```
 
-Index the reference genome for use by STAR. This step has already been done for you. **You do not need to run this code**. For this step we need to provide a reference genome and an annotation file. Depending on teh size of your genome this can take awhile.
+Index the reference genome for use by STAR. This step has already been done for you. **You do not need to run this code**. For this step we need to provide a reference genome and an annotation file. Depending on the size of your genome, this can take awhile. The basic options to generate genome indices using STAR as follows:
+
+`--runThreadN`: number of threads
+`--runMode`: genomeGenerate mode
+`--genomeDir`: /path/to/store/genome_indices
+`--genomeFastaFiles`: /path/to/FASTA_file 
+`--sjdbGTFfile`: /path/to/GTF_file
+`--sjdbOverhang`: readlength -1
 
 ```
 ** Do not run this**
 STAR --runThreadN 5 --runMode genomeGenerate --genomeDir ./ --genomeFastaFiles chr1.fa --sjdbGTFfile chr1-hg19_genes.gtf --sjdbOverhang 99
 
 ```
-    
 
-Create output path for our alignment files
+Create an output directory for our alignment files:
 
 ```bash
-mkdir results/alignment
+mkdir results/STAR
 
 ```
 
-In the script, we will eventually loop over all of our files and have the cluster work
-on each one in parallel. For now, we're going to work on just one to set up our workflow:
+In the script, we will eventually loop over all of our files and have the cluster work on each one in parallel. For now, we're going to work on just one to set up our workflow.  To start we will use the trimmed first replicate in the Mov10 overexpression group, `Mov10_oe_1.qualtrim25.minlen35.fq` 
+
+
+**NOTE: if you did not follow the last section, please execute the following command:** (this will copy over the required files into your home directory.
 
 ```bash
-ls -alh ~/dc_workshop/data/trimmed_fastq/SRR098283.fastq_trim.fastq
+
+cp -r /groups/hbctraining/unix_oct2015_other/trimmed_fastq data/
+
 ```
 
-**NOTE: if you did not follow the last section, please execute the following command:**
+### Alignment to genome
+The alignment process consists of choosing an appropriate reference genome to map our reads against, and performing the read alignment using one of several splice-aware alignment tools such as [STAR](http://bioinformatics.oxfordjournals.org/content/early/2012/10/25/bioinformatics.bts635) or [TopHat2](https://ccb.jhu.edu/software/tophat/index.shtml). The choice of aligner is a personal preference and also dependent on the computational resources that are available to you.
+ 
+For this workshop we will be using [STAR]() ...** Add snippet on STAR**  
 
-```bash
-mkdir -p ~/dc_workshop/data/trimmed_fastq/
-cp ~/dc_workshop/variant_calling/data/trimmed_fastq/SRR098283.fastq \
- ~/dc_workshop/data/trimmed_fastq/SRR098283.fastq_trim.fastq
+More details on STAR and its functionality can be found in the [user manual](https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf), we encourage you to peruse through to get familiar with all available options.
+
+First, let's create a directory in the `results` directory where we can store all output from STAR
+
+```
+mkdir results/STAR
+
 ```
 
-#### Alignment to genome
-The alignment process consists of choosing an appropriate reference genome to map our reads against, and performing the read alignment using one of several alignment tools such as [NovoAlign](http://www.novocraft.com/main/page.php?s=novoalign) or [BWA](https://github.com/lh3/bwa). 
+To run STAR we will be using an install of the software that is available on the Orchestra cluster at `\opt\bcb	`. Since we had previusly added this location to our `$PATH` we can access it by simply using the STAR command followed by the basic parameters described above and any additional parameters. The full command is provided below for you to copy paste into your terminal. Below, we first describe some the extra parameters we have added.
 
-The usage for bwa is `bwa aln genome.fasta fastq > SAIfile`
-    
-Have a look at the [bwa options page](http://bio-bwa.sourceforge.net/bwa.shtml). While we are running bwa with the default parameters here, your use case might require a change of parameters. NOTE: Always read the manual page for any tool before using and try to understand the options.
 
-    bwa aln data/ref_genome/ecoli_rel606.fasta ../data/trimmed_fastq/ \
-    SRR098283.fastq_trim.fastq > results/sai/SRR098283.trimmed.aligned.sai
+```
+STAR --runThreadN 6 --genomeDir /groups/hbctraining/unix_oct2015_other/reference_STAR --readFilesIn data/trimmed_fastq/Mov10_oe_1.qualtrim25.minlen35.fq  --outFileNamePrefix results/STAR/Mov10_oe_1_ --outFilterMultimapNmax 10 --outSAMstrandField intronMotif --outReadsUnmapped Fastx --outSAMtype BAM Unsorted --outSAMunmapped Within --outSAMattributes NH HI NM MD AS
+```
 
-Convert the output to the SAM format. Usage: `bwa samse genome.fasta SAIfile fastq > SAMfile`
 
-	bwa samse data/ref_genome/ecoli_rel606.fasta results/sai/ \
-	SRR098283.trimmed.aligned.sai ../data/trimmed_fastq/SRR098283.fastq_trim.fastq > \
-	results/sam/SRR098283.trimmed.aligned.sam
 
-We already know about the information within a [SAM file](https://github.com/adamfreedman/knowyourdata-genomics/blob/gh-pages/lessons/01-know_your_data.md#aligned-reads-sam). Let's take a quick look at the one we just created:
 
-	head results/sam/SRR098283.trimmed.aligned.sam
-	
-Convert the SAM file to BAM format: 
-
-    samtools view -S -b results/sam/SRR098283.trimmed.aligned.sam > \
-    results/bam/SRR098283.trimmed.aligned.bam
-
-Sort the BAM file:
-
-    samtools sort -O bam -T temp.prefix results/bam/SRR098283.trimmed.aligned.bam > \
-    results/bam/SRR098283.trimmed.aligned.sorted.bam
-
-*SAM/BAM files can be sorted in multiple ways, e.g. by location of alignment on the chromosome, by read name, etc. It is important to be aware that different alignment tools will output differently sorted SAM/BAM, and different downstream tools require differently sorted alignment files as input.*
 
 #### Assess the alignment (visualization)
 
@@ -166,83 +167,7 @@ Using FileZilla, transfer the following 3 files to your local machine,
 * Load the genome file into IGV using the **"Load Genomes from File..."** option under the **"Genomes"** pull-down menu.
 * Load the .bam file using the **"Load from File..."** option under the **"File"** pull-down menu. *IGV requires the .bai file to be in the same location as the .bam file that is loaded into IGV, but there is no direct use for that file.*
 
-#### Call variants
 
-Do the first pass on variant calling by counting read coverage with samtools [mpileup](http://samtools.sourceforge.net/mpileup.shtml):
-
-    samtools mpileup -g -f data/ref_genome/ecoli_rel606.fasta \
-      results/bam/SRR098283.trimmed.aligned.sorted.bam > results/bcf/SRR098283_raw.bcf
-
-***We have only generated a file with coverage information for every base with the above command; to actually identify variants, we have to use a different tool from the samtools suite called [bcftools](https://samtools.github.io/bcftools/bcftools.html).***
-
-Do the SNP calling with bcftools:
-
-    bcftools call -vc -O b results/bcf/SRR098283_raw.bcf > results/bcf/SRR098283_variants.bcf
-
-Filter the SNPs for the final output in VCF format, using vcfutils.pl:
-
-    bcftools view results/bcf/SRR098283_variants.bcf | vcfutils.pl varFilter - > \
-    results/vcf/SRR098283_final_variants.vcf
-	
-*`bcftools view` converts the binary format of bcf files into human readable format (tab-delimited) for `vcfutils.pl` to perform the filtering. Note that the output is in VCF format, which is a text format.*
-
-Explore the VCF format, that we have already learned a little bit about [earlier](https://github.com/adamfreedman/knowyourdata-genomics/blob/gh-pages/lessons/01-know_your_data.md#called-genotypes-vcf):
-
-	less results/vcf/SRR098283_final_variants.vcf
-
-You will see the header which describes the format, when the file was created, the tools version along with the command line parameters used and some additional column information:
-
-	##reference=file://data/ref_genome/ecoli_rel606.fasta
-	##contig=<ID=NC_012967.1,length=4629812>
-	##ALT=<ID=X,Description="Represents allele(s) other than observed.">
-	##INFO=<ID=INDEL,Number=0,Type=Flag,Description="Indicates that the variant is an INDEL.">
-	##INFO=<ID=IDV,Number=1,Type=Integer,Description="Maximum number of reads supporting an indel">
-	##INFO=<ID=IMF,Number=1,Type=Float,Description="Maximum fraction of reads supporting an indel">
-	##INFO=<ID=DP,Number=1,Type=Integer,Description="Raw read depth">
-	.
-	.
-	.
-	.
-	##bcftools_callVersion=1.2+htslib-1.2.1
-	##bcftools_callCommand=call -cv -O b results/bcf/SRR098283_raw.bcf
-	##bcftools_viewVersion=1.2+htslib-1.2.1
-	##bcftools_viewCommand=view results/bcf/SRR098283_variants.bcf
-
-Followed by the variant information:
-
-	#CHROM  POS     ID      REF     ALT     QUAL    FILTER  INFO    FORMAT  results/bam/SRR098283.trimmed.aligned.sorted.bam
-	NC_012967.1     110152  .       T       A       18.0963 .       DP=3;VDB=0.74;SGB=-0.453602;RPB=1;MQB=1;MQSB=1;BQB=1;MQ0F=0;AF1=0.502509;AC1=1;DP4=1,0,0,2;MQ=37;FQ=-7.78372;PV4=0.333333,1,1,0.20326   GT:PL   0/1:48,0,20
-	NC_012967.1     270633  .       G       T       26.7735 .       DP=2;VDB=0.76;SGB=-0.453602;MQ0F=0;AF1=1;AC1=2;DP4=0,0,2,0;MQ=37;FQ=-32.988     GT:PL   1/1:58,6,0
-	NC_012967.1     475173  .       G       C       21.7931 .       DP=2;VDB=0.14;SGB=-0.453602;MQSB=1;MQ0F=0;AF1=1;AC1=2;DP4=0,0,1,1;MQ=37;FQ=-32.988      GT:PL   1/1:53,6,0
-	NC_012967.1     1017485 .       G       T       5.46014 .       DP=5;VDB=0.58;SGB=-0.453602;RPB=0;MQB=1;MQSB=1;BQB=0.5;MQ0F=0;AF1=0.499901;AC1=1;DP4=0,3,2,0;MQ=37;FQ=7.77964;PV4=0.1,0.268358,1,1      GT:PL   0/1:34,0,56
-
-The first columns represent the information we have about a predicted variation. 
-
-CHROM and POS provide the config information and position where the variation occurs. 
-
-ID is a `.` until we add annotation information. 
-
-REF and ALT represent the genotype at the reference and in the sample, always on the foward strand. 
-
-
-
-QUAL then is the Phred scaled probablity that the observed variant exists at this site. Ideally you would need nothing else to filter out bad variant calls, but in reality we still need to filter on multiple other metrics. 
-
-The FILTER field is a `.`, i.e. no filter has been applied, otherwise it will be set to either PASS or show the (quality) filters this variant failed. 
-
-
-
-The last columns contains the genotypes and can be a bit more tricky to decode. In brief, we have:
-
-* GT: The genotype of this sample which for a diploid genome is encoded with a 0 for the REF allele, 1 for the first ALT allele, 2 for the second and so on. So 0/0 means homozygous reference, 0/1 is heterozygous, and 1/1 is homozygous for the alternate allele. For a diploid organism, the GT field indicates the two alleles carried by the sample, encoded by a 0 for the REF allele, 1 for the first ALT allele, 2 for the second ALT allele, etc.
-
-* GQ: the Phred-scaled confidence for the genotype
-
-* AD, DP: Reflect the depth per allele by sample and coverage
-
-* PL: the likelihoods of the given genotypes
-
-The BROAD's [VCF guide](https://www.broadinstitute.org/gatk/guide/article?id=1268) is an excellent place to learn more about VCF file format.
 
 #### Exercise I - Calling Variants from all files?
 
