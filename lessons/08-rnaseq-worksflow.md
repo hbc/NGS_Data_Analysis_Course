@@ -18,50 +18,53 @@ Learning Objectives:
 To get started with this lesson, ensure you are logged into the cluster and are working
 in an interactive session on a compute node (single core):
 
-```bash
+```
 ssh username@orchestra.med.harvard.edu
 (enter password)
 
-bsub -Is -q interactive bash
+bsub -Is -q interactive bash	
 ```
 
-*Next, and **you may have already done this yesterday**, we will need to grab some data from an outside server using `wget` on the command line.*
+Move into the `unix_oct2015` directory and then into the `rnaseq_project` directory. You should have the following directory tree setup that contains some input data (reference genome and fastq files) that we generated in the previous sections.
 
-*Make sure you are in the dc_workshop directory first before running the following command:*
-    
-    wget http://devbioinfoguy.github.io/wrangling-genomics-HPC/data/variant_calling.tar.gz
-
-*The file 'variant_calling.tar.gz' is what is commonly called a **"tarball"**, which is
-a compressed archive similar to the .zip files we have seen before.  We can decompress
-this archive using the command below.*
-
-    tar xvf variant_calling.tar.gz
-
-*This will create a directory tree that contains some input data (reference genome and fastq files) and a shell script that details the series of commands used to run the variant calling workflow.*
-
-	variant_calling
+```
+rnaseq_project
 	├── data
-	│   ├── ref_genome
-	│   │   └── ecoli_rel606.fasta
+	│   ├── reference_data
+	│   │   └── chr1.fa
+	│   │   └── chr1-hg19_genes.gtf
+ 	|   ├── untrimmed_fastq
+	│   │   
 	│   └── trimmed_fastq
-	│       ├── SRR097977.fastq
-	│       ├── SRR098026.fastq
-	│       ├── SRR098027.fastq
-	│       ├── SRR098028.fastq
-	│       ├── SRR098281.fastq
-	│       └── SRR098283.fastq
-	└── run_variant_calling.sh
+	│       ├── Irrel_kd_1.subset.fq
+	│       ├── Irrel_kd_2.subset.fq
+	│       ├── Irrel_kd_3.subset.fq
+	│       ├── Mov10_oe_1.subset.fq
+	│       ├── Mov10_oe_2.subset.fq
+	│       └── Mov10_oe_3.subset.fq
+	|
+	├── meta
+	├── results
+	└── docs
+```
 
-Without getting into the details yet, the variant calling workflow will do the following steps:
+Without getting into the details for each step of the workflow, we first describe a general overview of the steps involved in RNA-Seq analysis:
 
-1. Index the reference genome for use by bwa and samtools
-2. Align reads to reference genome using bwa
-3. Convert the format of the alignment to sorted BAM, with some intermediate steps.
-4. Calculate the read coverage of positions in the genome
-5. Detect the single nucleotide polymorphisms (SNPs)
-6. Filter and report the SNP variants in VCF (variant calling format)
+![Workflow](../img/rnaseq-workflow.png)
+
+1. Quality control on sequence reads
+2. Trim and/or filter reads (if necessary)
+3. Index the reference genome for use by STAR
+4. Align reads to reference genome using STAR (splice-aware aligner)
+5. Count the number of reads mapping to each gene using htseq-count
+6. Statistical analysis of count data to find differentially expressed genes (normalization, linear modeling using R-based tools)
+
+
 
 We'll first perform the commands for all the above steps (run through the workflow). 
+
+STAR index
+STAR --runThreadN 5 --runMode genomeGenerate --genomeDir ./ --genomeFastaFiles chr1.fa --sjdbGTFfile chr1-hg19_genes.gtf --sjdbOverhang 99
 
 Next, we'll create a script for the commands and test it. 
 
@@ -86,7 +89,7 @@ Index the reference genome for use by bwa and samtools:
 	bwa index data/ref_genome/ecoli_rel606.fasta     # This step helps with the speed of alignment
 	
 	samtools faidx data/ref_genome/ecoli_rel606.fasta     # We will need the indexed reference file for variant calling as well. 
-
+oup
 
 Create output paths for various intermediate and results files. The `-p` option means mkdir will create the whole path if it does not exist and refrain from complaining if it does exist
 ```bash
