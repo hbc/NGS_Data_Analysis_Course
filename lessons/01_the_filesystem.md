@@ -72,11 +72,24 @@ Using the Terminal, you can use the command 'ssh' and your ECommons username to 
 
 You will receive a prompt for your password, and you should type in your ECommons password. 
 
-### Logging onto Orchestra with Windows -- Incomplete (Radhika)
+### Logging onto Orchestra with Windows
 
-Using Putty, ...
+By default, there is no terminal for the bash shell available in the Windows OS, so you have to use a downloaded program, **[Putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html)**.
 
-You will receive a prompt for your password, and you should type in your ECommons password. 
+When you open Putty, you will see the following GUI.
+
+[Putty window](images/putty-1.png)
+
+Type in "orchestra.med.harvard.edu" in the window under "Host Name (or IP address) and click on "Open"
+
+[Connect to Orchestra](images/putty-2.png)
+
+A warning window will pop up the first time you try to connect to a cluster (remote server), say "Yes". Once you do that, you should be able to enter your login ID which is your eCommons ID. Add ID and press enter.
+
+[Log in](images/putty-5.png)
+
+Once you press enter, it will prompt you for a password. Type in your password, when you do this nothing will appear on the screen until you press enter. When you press enter, the interface will change and you have started a bash terminal.
+
 
 ### Copying example data folder
 
