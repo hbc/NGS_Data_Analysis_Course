@@ -82,7 +82,7 @@ The first command is to change into our working directory:
 
 ```
 
-Let's load up some of the modules we need for this section: ** do we need any modules??**
+Let's load up some of the modules we need for this section: **do we need any other modules??**
 
 ```
      module load samtools
@@ -116,7 +116,7 @@ speed. More details on the algorithm itself can be found in the publication link
 
 Indexing of the reference genome has already been done for you. **You do not need to run this code**. For this step you need to provide a reference genome and an annotation file. For this workshop we are using reads that originate from a small subsection of chromosome 1 (~300,00 reads) and so we are using only chr1 as the reference genome, and have provided the appropriate indices. Depending on the size of your genome, this can take awhile. 
 
-The basic options to generate genome indices using STAR as follows:
+The basic options to **generate genome indices** using STAR as follows:
 
 
 * `--runThreadN`: number of threads
@@ -132,11 +132,12 @@ STAR --runThreadN 5 --runMode genomeGenerate --genomeDir ./ --genomeFastaFiles c
 
 ```
 
-The basic options for mapping reads to the genome using STAR is as follows:
+The basic options for **mapping reads** to the genome using STAR is as follows:
 
 * `--runThreadN`: number of threads
 * `--readFilesIn`: /path/to/FASTQ_file
 * `--genomeDir`: /path/to/genome_indices
+* `--outFileNamePrefix`: prefix for all output files
 
 
 More details on STAR and its functionality can be found in the [user manual](https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf), we encourage you to peruse through to get familiar with all available options.
@@ -146,17 +147,24 @@ _STAR is not available as a module on Orchestra._ To run STAR we will be using a
 
 Advanced parameters:
 
-* `--runThreadN`: number of threads
-* `--readFilesIn`: /path/to/FASTQ_file
-* `--genomeDir`: /path/to/genome_indices
+* `--outFilterMultimapNmax`: max number of multiple alignments allowed for a read
+* `--outSAMstrandField`: compatability with Cufflinks (for transcriptome assembly)
+* `--outReadsUnmapped`: file format for unmapped reads
+* `--outSAMtype`: output filetype (SAM default)
+* `--outSAMUnmapped`: what to do with unmapped reads
+* `--outSAMattributes`: specify SAM attributes in output file
 
 
 ```
 STAR --runThreadN 6 --genomeDir /groups/hbctraining/unix_oct2015_other/reference_STAR --readFilesIn data/trimmed_fastq/Mov10_oe_1.qualtrim25.minlen35.fq  --outFileNamePrefix results/STAR/Mov10_oe_1_ --outFilterMultimapNmax 10 --outSAMstrandField intronMotif --outReadsUnmapped Fastx --outSAMtype BAM Unsorted --outSAMunmapped Within --outSAMattributes NH HI NM MD AS
 ```
 
+#### Exercise
+How many files do you see in your output directory? Using the `less` command take a look at `Mov10_oe_1_Log.final.out` and answer the following questions:  
 
-
+1. How many reads are uniquely mapped?
+2. How many reads map to more than 10 locations on the genome?
+3. How many reads are unmapped due to read length?
 
 
 #### Assess the alignment (visualization)
