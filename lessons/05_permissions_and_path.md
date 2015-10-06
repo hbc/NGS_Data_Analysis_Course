@@ -259,7 +259,7 @@ I have a lot of full/absolute paths in my $PATH variable, which are separated fr
 
 These are the directories that the shell will look in (in the same order as they are listed) for an executable file that you type on the command prompt. 
 
-When someone says a command or an executable file is "in you path", they mean is the parent directory for that command/file contained within the PATH variable. 
+When someone says a command or an executable file is "in you path", they mean that the parent directory for that command/file is contained in the list in the PATH variable. 
 
 For any command you execute on the command prompt, you can find out where they are located using the which command.
 
