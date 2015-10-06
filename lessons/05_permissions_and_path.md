@@ -10,6 +10,8 @@ date: "Tuesday, October 6, 2015"
 > * What is an "Environment Variable" in a shell.
 > * What is $PATH, and why I should care.
 
+**Permissions**
+
 Unix controls who can read, modify, and run files using *permissions*.
 
 Let's start with how users are identified in a shared, multi-user system.
@@ -212,4 +214,67 @@ This trick gives people a way to make some of their directories visible to the w
 > 2. caro (the owner) cannot write to myfile.php
 > 3. members of caro (a group) can read, write, and execute myfile.php
 > 4. members of zoo (a group) cannot execute myfile.php
+
+**Environment Variable**
+
+Environment variables are, in short, variables that describe the environment in which programs run in. 
+
+· HOME defines the home directory for a user.
+· PATH defines a list of directories to search through when looking for a command to execute.
+
+In the context of the shell the Environment variables are usually all upper case.
+
+First, let's see our list of environmental variables:
+```
+$ env
+```
+
+Let's see what is stored in these variables:
+
+```
+$ echo $HOME
+
+/home/rsk27
+```
+
+Variables, in most systems, are called/denoted with a "$" before the variable name
+
+```
+$ $PATH
+
+/opt/lsf/7.0/linux2.6-glibc2.3-x86_64/bin:/groups/bcbio/bcbio/anaconda/bin:/opt/bcbio/local/bin:/opt/lsf/7.0/linux2.6-glibc2.3-x86_64/etc:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin
+```
+I have a lot of full/absolute paths in my $PATH variable, which are separated from each other by a ":"; here is a more readable list:
+
+* /opt/lsf/7.0/linux2.6-glibc2.3-x86_64/bin
+* /groups/bcbio/bcbio/anaconda/bin
+* /opt/bcbio/local/bin
+* /opt/lsf/7.0/linux2.6-glibc2.3-x86_64/etc
+* /usr/local/bin
+* /bin
+* /usr/bin
+* /usr/local/sbin
+* /usr/sbin
+* /sbin
+
+These are the directories that the shell will look in (in the same order as they are listed) for an executable file that you type on the command prompt. 
+
+When someone says a command or an executable file is "in you path", they mean is the parent directory for that command/file contained within the PATH variable. 
+
+For any command you execute on the command prompt, you can find out where they are located using the which command.
+
+Try it on a few of the basic commands we have learned so far:
+```
+$ which ls
+.
+.
+.
+.
+```
+
+> Modifying Environment Variables
+
+> If you are interested in adding a new entry to the path variable, the command to use is `import`. This command is usually executed as follows: `export PATH=$PATH:~/opt/bin`, which tells the shell to add the ~/opt/bin directory to the end of the preexisiting list within $PATH. Alternatively, if you use `export PATH=~/opt/bin:$PATH`, the same directory will be added to the beginning of the list. The order determines where the shell will look first.
+
+
 
