@@ -109,11 +109,13 @@ Make sure that your command prompt is now preceded by words like "clarinet", "ba
 
 Copy our example data folder to your home directory using the following command:
 
-```$ cp -r /groups/hbctraining/unix_oct2015/ ~```
+```$ cp -r /groups/hbctraining/unix_oct2015/ .```
+
+>'cp' is the command for copy. This command required you to specify the location of the item you want to copy (/groups/hbctraining/unix_oct2015/) and the location of the destination (.) please note the space between the 2 in the command. The "-r" is an option that modifies the copy command to do something slightly different than usual. The "." means "here", i.e. the destination location is where you currently are.
 
 ## Starting with the shell
 
-We have each created our own copy of the example data folder, **unix_oct2015**. Let's go into the data folder and explore the data using the shell.
+We have each created our own copy of the example data folder into our home directory, **unix_oct2015**. Let's go into the data folder and explore the data using the shell.
 
 ```$ cd ~/unix_oct2015```
 
