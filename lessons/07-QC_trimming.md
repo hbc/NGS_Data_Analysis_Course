@@ -224,7 +224,7 @@ So, for the single fastq input file 'Mov10_oe_1.subset.fq', the command would be
 $ java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE -threads 4 -phred33 \
 Mov10_oe_1.subset.fq ../trimmed_fastq/Mov10_oe_1.qualtrim20.minlen30.fq \
 ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
-TRAILING:20 MINLEN:30
+TRAILING:25 MINLEN:35
 ```
 The backslashes at the end of the lines allow us to continue our script on new lines, which helps with readability of some long commands.
 
@@ -250,9 +250,9 @@ Within nano we will add our shebang line, the Orchestra job submission commands,
 cd ~/unix_oct2015/rnaseq_project/data/untrimmed_fastq
 
 java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE -threads 4 -phred33 \
-Mov10_oe_1.subset.fq ../trimmed_fastq/Mov10_oe_1.qualtrim20.minlen30.fq \
+Mov10_oe_1.subset.fq ../trimmed_fastq/Mov10_oe_1.qualtrim25.minlen35.fq \
 ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
-TRAILING:20 MINLEN:30
+TRAILING:25 MINLEN:35
 ```
 Now, let's run it:
 
@@ -261,7 +261,7 @@ Now, let's run it:
 After the job finishes, you should receive an email with the following information: 
 
 ```
-TrimmomaticSE: Started with arguments: -threads 4 -phred33 Mov10_oe_1.subset.fq ../trimmed_fastq/Mov10_oe_1.qualtrim20.minlen30.fq ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:20 MINLEN:30
+TrimmomaticSE: Started with arguments: -threads 4 -phred33 Mov10_oe_1.subset.fq ../trimmed_fastq/Mov10_oe_1.qualtrim25.minlen35.fq ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:25 MINLEN:30
 Using Long Clipping Sequence: 'AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA'
 Using Long Clipping Sequence: 'AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC'
 ILLUMINACLIP: Using 0 prefix pairs, 2 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
