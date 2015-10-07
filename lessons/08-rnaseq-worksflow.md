@@ -114,7 +114,7 @@ For this workshop we will be using STAR (Spliced Transcripts Alignment to a Refe
 data mapping, and utilizes a novel strategy for spliced alignments. STAR is shown to have high accuracy and outperforms other aligners by more than a factor of 50 in mapping
 speed. More details on the algorithm itself can be found in the publication linked above. Aligning reads using STAR is a two step process: 1) Create a genome index 2) Map reads to the genome.
 
-> A quick note on shared databases for human and other commonly used model organisms. The Orchestra cluster has a designated directory at `/groups/shared_databases/` in which there are files that can be accessed by any user. These files contain, but are not limited to, genome inidices for various tools, reference sequences, tool specific data, and data from public databasese such as NCBI and PDB. So when using a tool and require this kind of data, it is worth taking a quick ook here because chances are it has lready been taken care of for you. 
+> A quick note on shared databases for human and other commonly used model organisms. The Orchestra cluster has a designated directory at `/groups/shared_databases/` in which there are files that can be accessed by any user. These files contain, but are not limited to, genome inidices for various tools, reference sequences, tool specific data, and data from public databasese such as NCBI and PDB. So when using a tool and requires a reference of sorts, it is worth taking a quick look here because chances are it's already been taken care of for you. 
 
 Indexing of the reference genome has already been done for you. **You do not need to run this code**. For this step you need to provide a reference genome and an annotation file. For this workshop we are using reads that originate from a small subsection of chromosome 1 (~300,00 reads) and so we are using only chr1 as the reference genome, and have provided the appropriate indices. Depending on the size of your genome, this can take awhile. 
 
@@ -168,6 +168,24 @@ How many files do you see in your output directory? Using the `less` command tak
 2. How many reads map to more than 10 locations on the genome?
 3. How many reads are unmapped due to read length?
 
+
+### SAM/BAM
+The output we requested from STAR is a BAM file, and by default returns a file in SAM format. BAM is a binary version of the SAM file, also known as Sequence Alignment Map format. The SAM file is a tab-delimited text file that contains information for each individual read and its alignment to the genome. The file begins with a header, which is optional, followed by an alignment section.  If present, the header must be prior to the alignments and starts with '@'. Each line that follows corresponds to alignment information for a read. Each alignment line has 11 mandatory fields for essential mapping information and a variable number of fields for aligner specific information.
+
+
+These fields are described briefly below, but for more detailed information the paper by [Heng Li et al](http://bioinformatics.oxfordjournals.org/content/25/16/2078.full) is a good start.
+
+![SAM](../img/SAM_file.png)
+
+
+Let's take a quick look at our alignment. To do so we first convert our BAM file into SAM format using samtools:
+
+```
+$ samtools view -h results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam > Mov10_oe_1_Aligned.sortedByCoord.out.sam
+
+```
+ 
+Now we can use the `less` command to scroll through the SAM file and see how the fields correspond to what we expected.
 
 ### Assess the alignment (visualization)
 
