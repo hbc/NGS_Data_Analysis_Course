@@ -104,10 +104,10 @@ analytical workflow
 ```
     # Run STAR
     STAR --runThreadN 6 --genomeDir $genome --readFilesIn $fq --outFileNamePrefix $align_out --outFilterMultimapNmax 10 --outSAMstrandField intronMotif --outReadsUnmapped Fastx --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --outSAMattributes NH HI NM MD AS
-```
+
     # Create BAM index
     samtools index $align_in
-```
+
     # Count mapped reads
     htseq-count --stranded reverse --format bam $align_in $gtf  >  $counts
 ```
