@@ -163,11 +163,13 @@ Let's load the Trimmomatic module:
 
 `$ module load seq/Trimmomatic`
 
+By loading the *Trimmomatic* module, the **trimmomatic-0.33.jar** file is now accessible to us in the **opt/** directory, allowing us to run the program. 
+
 Because *Trimmomatic* is java based, it is run using the command:
 
 `$ java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar`
 
-By loading the *Trimmomatic* module, the **trimmomatic-0.33.jar** file is now accessible to us in the **opt/** directory, allowing us to run the program. 
+
 
 What follows below are the specific commands that tells the *Trimmomatic* program exactly how you want it to operate. *Trimmomatic* has a variety of options and parameters:
 
