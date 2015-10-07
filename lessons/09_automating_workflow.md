@@ -55,14 +55,11 @@ This input parameter will be the name of the file we want to work on:
 
      fq=$1
 
-And we'll add a shortcut to where the common files are stored, for example: the location of the trimmed FASTQ and locations of the genome indices and the annotation file:
-
-     # location to FASTQ file
-     fileIn=data/untrimmed_fastq
+And we'll add a shortcut to where the common files are stored, for example the locations of the genome indices and the annotation file:
 
      # location to genome reference FASTA file
      genome=/groups/hbctraining/unix_oct2015_other/reference_STAR/
-     gtf=data/reference_data/
+     gtf=data/reference_data/chr1-hg19_genes.gtf
 
 Make sure you are loading all the correct modules/tools for the script to run:
     
@@ -75,8 +72,8 @@ put results/ in a variable and declare that at the top, so we can change where t
 results will be as well. We'll leave that for an optional exercise)
 
      # make all of our output directories
-     mkdir -p results/STAR
-     mkdir -p results/counts
+     mkdir results/STAR
+     mkdir results/counts
 
 
 In the script, it is a good idea to use echo for debugging/reporting to the screen
@@ -97,8 +94,8 @@ output files in their proper locations. We will assign various file names to
 is going on in the command below.
 
     # set up output filenames and locations
-    align_out=results/STAR/$base
-    align_in=results/STAR/${base}__Aligned.sortedByCoord.out.bam
+    align_out=results/STAR/${base}_
+    align_in=results/STAR/${base}_Aligned.sortedByCoord.out.bam
     counts=results/counts/${base}.counts
 
 Our data are now staged.  We now need to change the series of command below
@@ -107,7 +104,7 @@ analytical workflow
 
 ```
 # Run STAR
-STAR --runThreadN 6 --genomeDir $genome --readFilesIn ${fileIn}/${fq} --outFileNamePrefix $align_out --outFilterMultimapNmax 10 --outSAMstrandField intronMotif --outReadsUnmapped Fastx --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --outSAMattributes NH HI NM MD AS
+STAR --runThreadN 6 --genomeDir $genome --readFilesIn $fq --outFileNamePrefix $align_out --outFilterMultimapNmax 10 --outSAMstrandField intronMotif --outReadsUnmapped Fastx --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --outSAMattributes NH HI NM MD AS
 
 # Create BAM index
 samtools index $align_in
