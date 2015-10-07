@@ -140,10 +140,9 @@ So the top of the file should look like:
 
 What we'd like to do is run this script on a compute node for every trimmed FASTQ -- pleasantly parallelizing our workflow. And now is where we'll use the for loop with the power of the cluster: 
 
-    for fq in data/trimmed_fastq/*.fastq
+    for fq in data/trimmed_fastq/*.fq
     do
-      bsub rnaseq_analysis_on_file.sh $fq
-      sleep 1
+      rnaseq_analysis_on_file.sh $fq
     done
 
 What you should see on the output of your screen would be the jobIDs that are returned
