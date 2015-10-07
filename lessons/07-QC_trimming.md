@@ -244,7 +244,7 @@ Within nano we will add our shebang line, the Orchestra job submission commands,
 
 
 ```
-!/bin/bash
+#!/bin/bash
 
 #BSUB -q priority # queue name
 #BSUB -W 2:00 # hours:minutes runlimit after which job will be killed.
