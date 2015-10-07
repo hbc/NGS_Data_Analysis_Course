@@ -63,6 +63,7 @@ And we'll add a shortcut to where the common files are stored, for example: the 
 
      # location to FASTQ file
      fileIn=data/untrimmed_fastq
+
      # location to genome reference FASTA file
      genome=/groups/hbctraining/unix_oct2015_other/reference_STAR/
      gtf=data/reference_data/Irrel_kd_1_qualtrim25.minlen35.fq
@@ -126,17 +127,17 @@ This new script is now ready for running:
 
 #### Exercise IV - Parallelizing workflow for efficiency
 
-To run the same script on a worker node on the cluster via the job scheduler, we need to add our **SLURM directives** at the **beginning** of the script. This is so that the scheduler knows what resources we need in order to run our job on the
+To run the same script on a worker node on the cluster via the job scheduler, we need to add our **LSF directives** at the **beginning** of the script. This is so that the scheduler knows what resources we need in order to run our job on the
 compute node(s). 
 
-Copy the `run_variant_call_on_file.sh` file and give it a new name `run_variant_call_on_file.sbatch`. Add the SLURM directives to the beginning of the file.
+Copy the `rnaseq_analysis_on_file.sh` file and give it a new name `rnaseq_analysis_on_file.lsf`. Add the LSF directives to the beginning of the file.
 
 So the top of the file should look like:
 
     #!/bin/bash
     #
-    #SBATCH -p serial_requeue   # Partition to submit to (comma separated)
-    #SBATCH -n 1                # Number of cores
+    #BSUB -q serial_requeue   # Partition to submit to (comma separated)
+    #BSUB -n 1                # Number of cores
     #SBATCH -N 1                # Ensure that all cores are on one machine
     #SBATCH -t 0-1:00           # Runtime in D-HH:MM (or use minutes)
     #SBATCH --mem 100           # Memory in MB
