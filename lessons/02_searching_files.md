@@ -111,12 +111,12 @@ We can also do something tricky and use the command `wc`. `wc` stands for
 it to count the number of lines we're getting back from our `grep` command.
 And that will magically tell us how many sequences we're finding. We're
 
-`$ grep -B1 -A2 NNNNNNNNNN Mov10_oe_1.subset.fq | wc`
+`$ grep NNNNNNNNNN Mov10_oe_1.subset.fq | wc`
 
 This command tells us the number of lines, words and characters in the file. If we
 just want the number of lines, we can use the `-l` flag for `lines`.
 
-`$ grep -B1 -A2 NNNNNNNNNN Mov10_oe_1.subset.fq | wc -l`
+`$ grep NNNNNNNNNN Mov10_oe_1.subset.fq | wc -l`
 
 Redirecting is not super intuitive, but it's really powerful for stringing
 together these different commands, so you can do whatever you need to do.
