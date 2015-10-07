@@ -97,7 +97,7 @@ Once logged in, you should see the Orchestra news and the command prompt:
 
 ```$ ```
 
-The first command we will type on the command prompt is complex, and we will be explaining it in later this afternoon when we talk about HPC and orchestra. For now, it is important that we run it before the exercises below.
+The first command we will type on the command prompt is to start a so-called "interactive session" on Orchestra. We will be explaining it in more details later this afternoon when we talk about HPC and orchestra. 
 
 ```$ bsub -Is -q interactive bash```
 
