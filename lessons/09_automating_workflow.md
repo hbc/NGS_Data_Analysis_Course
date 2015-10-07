@@ -52,15 +52,15 @@ in the workflow and changes in files.
 **The first major change is allowing a change in the filename.** Thus at the start of 
 the script let's capture an input parameter that must be supplied with the script name.
 This input parameter will be the name of the file we want to work on:
-
-     fq=$1
-
+```
+    fq=$1
+```
 And we'll add a shortcut to where the common files are stored, for example the locations of the genome indices and the annotation file (Note that we are using the absolute paths or a path relative to our home directories, as denoted by the "~"):
-
-     # location to genome reference FASTA file
-     genome=/groups/hbctraining/unix_oct2015_other/reference_STAR/
-     gtf=~/unix_oct2015/rnaseq_project/data/reference_data/chr1-hg19_genes.gtf
-
+```
+    # location to genome reference FASTA file
+    genome=/groups/hbctraining/unix_oct2015_other/reference_STAR/
+    gtf=~/unix_oct2015/rnaseq_project/data/reference_data/chr1-hg19_genes.gtf
+```
 Make sure you are loading all the correct modules/tools for the script to run:
     
     # set up our software environment...
@@ -68,47 +68,46 @@ Make sure you are loading all the correct modules/tools for the script to run:
     module load seq/htseq
 
 We'll keep the output paths creation, as it looks fine. However, we will add the `-p` option this will make sure that `mkdir` will create the whole path if it does not exist, and more importantly it won't throw an error if it does exist.
-
-     # make all of our output directories
-     # The -p option means mkdir will create the whole path if it 
-     # does not exist and refrain from complaining if it does exist
-     mkdir -p ~/unix_oct2015/rnaseq_project/results/STAR
-     mkdir -p ~/unix_oct2015/rnaseq_project/results/counts
-
+```
+    # make all of our output directories
+    # The -p option means mkdir will create the whole path if it 
+    # does not exist and refrain from complaining if it does exist
+    mkdir -p ~/unix_oct2015/rnaseq_project/results/STAR
+    mkdir -p ~/unix_oct2015/rnaseq_project/results/counts
+```
 
 In the script, it is a good idea to use echo for debugging/reporting to the screen
-
+```
     echo "Processing file $fq ..."
-
+```
 We also need to use one special trick, to extract the base name of the file
 (without the path and .fastq extension). We'll assign it
 to the $base variable
-
+```
     # grab base of filename for future naming
     base=$(basename $fq .qualtrim25.minlen35.fq)
     echo "basename is $base"
-
+```
 Since we've already created our output directories, we can now specify all of our
 output files in their proper locations. We will assign various file names to
  variables both for convenience but also to make it easier to see what 
 is going on in the command below.
-
+```
     # set up output filenames and locations
     align_out=~/unix_oct2015/rnaseq_project/results/STAR/${base}_
     align_in=~/unix_oct2015/rnaseq_project/results/STAR/${base}_Aligned.sortedByCoord.out.bam
     counts=~/unix_oct2015/rnaseq_project/results/counts/${base}.counts
-
+```
 Our data are now staged.  We now need to change the series of command below
 to use our variables so that it will run with more flexibility the steps of the 
 analytical workflow
-
 ```
     # Run STAR
     STAR --runThreadN 6 --genomeDir $genome --readFilesIn $fq --outFileNamePrefix $align_out --outFilterMultimapNmax 10 --outSAMstrandField intronMotif --outReadsUnmapped Fastx --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --outSAMattributes NH HI NM MD AS
-
+```
     # Create BAM index
     samtools index $align_in
-
+```
     # Count mapped reads
     htseq-count --stranded reverse --format bam $align_in $gtf  >  $counts
 ```
@@ -169,13 +168,13 @@ $ bsub < rnaseq_analysis_on_allfiles.lsf
 
 > Now we have a count matrix for our dataset, the only thing we are missing is a header to indicate which columns correspond to which sample. We can add that in by creating a file with the header information in it:
 >
->    $ nano header.txt
+>    `$ nano header.txt`
 >
 > Type in the following with tab separators "ID OE.1 OE.2 OE.3 IR.1 IR.2 IR.3"
 >
 > Now join the header to the file:
 >
->    $ cat header.txt Mov10_rnaseq_counts.txt > Mov10_rnaseq_counts_complete.txt
+>    `$ cat header.txt Mov10_rnaseq_counts.txt > Mov10_rnaseq_counts_complete.txt`
 >
 
 #### Parallelizing workflow for efficiency
