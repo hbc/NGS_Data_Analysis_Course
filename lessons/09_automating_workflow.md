@@ -26,7 +26,7 @@ you do to help yourself out in this regard?
 
 The easiest way for you to be able to repeat this process is to capture the steps that
 you've performed in a bash script. And you've already learned how to do this in previous
-lessons. So...
+lessons. So here's a challenge...
 
 - Using the nano text editor, create a script file that will repeat these commands
 for you. You can use your command history to retrieve the commands for each step. Name your script `rnaseq_analysis_on_file.sh`. Delete your results 
@@ -55,11 +55,11 @@ This input parameter will be the name of the file we want to work on:
 
      fq=$1
 
-And we'll add a shortcut to where the common files are stored, for example the locations of the genome indices and the annotation file:
+And we'll add a shortcut to where the common files are stored, for example the locations of the genome indices and the annotation file (Note that we are using the absolute paths or a path relative to our home directories, as denoted by the "~"):
 
      # location to genome reference FASTA file
      genome=/groups/hbctraining/unix_oct2015_other/reference_STAR/
-     gtf=data/reference_data/chr1-hg19_genes.gtf
+     gtf=~/unix_oct2015/rnaseq_project/data/reference_data/chr1-hg19_genes.gtf
 
 Make sure you are loading all the correct modules/tools for the script to run:
     
@@ -67,13 +67,13 @@ Make sure you are loading all the correct modules/tools for the script to run:
     module load seq/samtools
     module load seq/htseq
 
-We'll keep the output paths creation, as it looks fine. (Though really, we could
-put results/ in a variable and declare that at the top, so we can change where the
-results will be as well. We'll leave that for an optional exercise)
+We'll keep the output paths creation, as it looks fine. However, we will add the `-p` option this will make sure that `mkdir` will create the whole path if it does not exist, and more importantly it won't throw an error if it does exist.
 
      # make all of our output directories
-     mkdir results/STAR
-     mkdir results/counts
+     # The -p option means mkdir will create the whole path if it 
+     # does not exist and refrain from complaining if it does exist
+     mkdir -p ~/unix_oct2015/rnaseq_project/results/STAR
+     mkdir -p ~/unix_oct2015/rnaseq_project/results/counts
 
 
 In the script, it is a good idea to use echo for debugging/reporting to the screen
@@ -94,9 +94,9 @@ output files in their proper locations. We will assign various file names to
 is going on in the command below.
 
     # set up output filenames and locations
-    align_out=results/STAR/${base}_
-    align_in=results/STAR/${base}_Aligned.sortedByCoord.out.bam
-    counts=results/counts/${base}.counts
+    align_out=~/unix_oct2015/rnaseq_project/results/STAR/${base}_
+    align_in=~/unix_oct2015/rnaseq_project/results/STAR/${base}_Aligned.sortedByCoord.out.bam
+    counts=~/unix_oct2015/rnaseq_project/results/counts/${base}.counts
 
 Our data are now staged.  We now need to change the series of command below
 to use our variables so that it will run with more flexibility the steps of the 
@@ -116,9 +116,9 @@ htseq-count --stranded reverse --format bam $align_in $gtf  >  $counts
 
 This new script is now ready for running:
 	
-	sh rnaseq_analysis_on_file.sh <name of fastq>
+	sh rnaseq_analysis_on_allfiles.sh <name of fastq>
 
-#### Running our script iteratively as a job submission
+#### Running our script iteratively as a job submission to the LSF scheduler
 
 To run the same script on a worker node on the cluster via the job scheduler, we need to add our **LSF directives** at the **beginning** of the script. This is so that the scheduler knows what resources we need in order to run our job on the
 compute node(s). 
@@ -132,7 +132,7 @@ So the top of the file should look like:
     #BSUB -q priority		# Partition to submit to (comma separated)
     #BSUB -n 6                  # Number of cores
     #BSUB -W 1:30               # Runtime in D-HH:MM (or use minutes)
-    #BSUB -R "rusage[mem=10000]"    # Memory in MB
+    #BSUB -R "rusage[mem=4000]"    # Memory in MB
     #BSUB -J rnaseq_mov10         # Job name
     #BSUB -o %J.out       # File to which standard out will be written
     #BSUB -e %J.err       # File to which standard err will be written
