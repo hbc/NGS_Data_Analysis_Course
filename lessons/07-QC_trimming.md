@@ -29,7 +29,7 @@ The main functions of FastQC are:
 ## Running FASTQC
 ###A. Stage your data
 
-Assessing the quality of your data and performing any necessary quality control measures, such as trimming, is a critical first step in the analysis of your RNA-Seq data. To perform our quality checks, we will be working within our recently created `rnaseq_project` directory. We need to create two directories within `data` directory for this quality control processing step. 
+Assessing the quality of your data and performing any necessary quality control measures, such as trimming, is a critical first step in the analysis of your RNA-Seq data. To perform our quality checks, we will be working within our recently created `rnaseq_project` directory. We need to create two directories within the `data` directory for this quality control step. 
 
 `$ cd unix_oct2015/rnaseq_project/data`
 
@@ -37,9 +37,9 @@ Assessing the quality of your data and performing any necessary quality control 
 
 `$ mkdir trimmed_fastq`
     
-The raw_fastq data we will be working with is currently in the `unix_oct2015/raw_fastq` directory we copied over yesterday. We need to copy the raw fastq files to our `data` directory in `untrimmed_fastq` directory:
+The raw_fastq data we will be working with is currently in the `unix_oct2015/raw_fastq` directory. We need to copy the raw fastq files to our `untrimmed_fastq` directory:
 
-`$ cp -R ~/unix_oct2015/raw_fastq/*fq  ~/unix_oct2015/rnaseq_project/data/untrimmed_fastq`
+`$ cp -r ~/unix_oct2015/raw_fastq/*fq  ~/unix_oct2015/rnaseq_project/data/untrimmed_fastq`
 
 ###B. Run FastQC  
 
@@ -132,7 +132,7 @@ $ for zip in *.zip
 ```
 it will run unzip once for each file (whose name is stored in the $zip variable). The contents of each file will be unpacked into a separate directory by the unzip program.
 
-The for loop is interpreted as a multipart command.  If you press the up arrow on your keyboard to recall the command, it will be shown like so:
+The 'for loop' is interpreted as a multipart command.  If you press the up arrow on your keyboard to recall the command, it will be shown like so:
 
     for zip in *.zip; do echo File $zip; unzip $zip; done
 
@@ -159,11 +159,17 @@ Once we have an idea of the quality of our raw data, it is time to trim away ada
 
 *Trimmomatic* is a java based program that can remove sequencer specific reads and nucleotides that fall below a certain threshold. *Trimmomatic* can be multithreaded to run quickly. 
 
+Let's load the Trimmomatic module:
+
+`$ module load seq/Trimmomatic`
+
 Because *Trimmomatic* is java based, it is run using the command:
 
-`java jar trimmomatic-0.30.jar`
+`$ java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar`
 
-What follows this are the specific commands that tells the program exactly how you want it to operate. *Trimmomatic* has a variety of options and parameters:
+By loading the *Trimmomatic* module, the **trimmomatic-0.33.jar** file is now accessible to us in the **opt/** directory, allowing us to run the program. 
+
+What follows below are the specific commands that tells the *Trimmomatic* program exactly how you want it to operate. *Trimmomatic* has a variety of options and parameters:
 
 * **_-threads_** How many processors do you want *Trimmomatic* to run with?
 * **_SE_** or **_PE_** Single End or Paired End reads?
@@ -177,32 +183,33 @@ What follows this are the specific commands that tells the program exactly how y
 * **_TOPHRED33_** Convert quality scores to Phred-33.
 * **_TOPHRED64_** Convert quality scores to Phred-64.
 
-A generic command for *Trimmomatic* looks like this:
-
-`$ java jar trimmomatic-0.30.jar SE -threads 1 `
 
 A complete command for *Trimmomatic* will look something like this:
 
-`$ java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE -threads 4 -phred33 Mov10_oe_1.subset.fq Mov10_oe_1.qualtrim20.minlen30.fq ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa TRAILING:20 MINLEN:30`
+```
+$ java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE -threads 4 -phred33 Mov10_oe_1.subset.fq Mov10_oe_1.qualtrim20.minlen30.fq ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:20 MINLEN:30
+```
 
-This command tells *Trimmomatic* to run on a Single End file (``Mov10_oe_1.subset.fq``, in this case), the output file will be called ``Mov10_oe_1.qualtrim20.minlen30.fq``,  there is a file with Illumina adapters called ``SRR_adapters.fa``, and cutting nucleotides from the 3' end of the sequence if their phred score is below 20 and dropping reads if the length of the read drops below 30 nucleotides.
+This command tells *Trimmomatic* to run on a Single End file (``Mov10_oe_1.subset.fq``, in this case), the output file will be called ``Mov10_oe_1.qualtrim20.minlen30.fq``,  there is a file with Illumina adapters called `TruSeq3-SE.fa`, and cutting nucleotides from the 3' end of the sequence if their phred score is below 20 and dropping reads if the length of the read drops below 30 nucleotides.
 
 
 ###Running Trimmomatic
 
 Go to the untrimmed fastq data location:
 
-     cd ~/unix_oct2015/rnaseq_project/data/untrimmed_fastq
+`$ cd ~/unix_oct2015/rnaseq_project/data/untrimmed_fastq`
 
 The command line incantation for trimmomatic is more complicated.  This is where what you have been learning about accessing your command line history will start to become important.
 
 Let's load the trimmomatic module:
 
-	module load seq/Trimmomatic/0.33
+`$ module load seq/Trimmomatic/0.33`
 
 The general form of the command on this cluster is:
 
-    java -jar trimmomatic-0.33.jar SE -threads 1 inputfile outputfile OPTION:VALUE... # DO NOT RUN THIS
+```
+$ java -jar trimmomatic-0.33.jar SE -threads 1 inputfile outputfile OPTION:VALUE... # DO NOT RUN THIS
+```
 
 `java -jar` calls the Java program, which is needed to run trimmotic, which lived in a 'jar' file (`trimmomatic-0.33.jar`), a special kind of java archive that is often used for programs written in the Java programing language.  If you see a new program that ends in '.jar', you will know it is a java program that is executed `java -jar` program name.  The `SE` argument is a keyword that specifies we are working with single-end reads. We have to specify the `-threads` parameter because Trimmomatic uses 16 threads by default.
 
@@ -211,48 +218,105 @@ The next two arguments are input file and output file names. These are then foll
 
 So, for the single fastq input file 'Mov10_oe_1.subset.fq', the command would be:
 
-    $ java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE -threads 6 -phred33 Mov10_oe_1.subset.fq ../trimmed_fastq/Mov10_oe_1.qualtrim20.minlen30.fq TRAILING:20 MINLEN:30
-    
-    **bad**: java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE -threads 6 -phred33 Mov10_oe_1.subset.fq ../Mov10_oe_1.qualtrim20.minlen30.fq ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa TRAILING:20 MINLEN:30
+```
+$ java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE -threads 4 -phred33 \
+Mov10_oe_1.subset.fq ../trimmed_fastq/Mov10_oe_1.qualtrim20.minlen30.fq \
+ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
+TRAILING:20 MINLEN:30
+```
+The backslashes at the end of the lines allow us to continue our script on new lines, which helps with readability of some long commands.
 
-	
-	TrimmomaticSE: Started with arguments: SRR098283.fastq SRR098283.fastq_trim.fastq 	SLIDINGWINDOW:4:20 MINLEN:20
-	Automatically using 6 threads
-	Quality encoding detected as phred33
-	Input Reads: 250000 Surviving: 193900 (77.56%) Dropped: 56100 (22.44%)
-	TrimmomaticSE: Completed successfully
+Let's make the Trimmomatic command into a script. If we need to use *Trimmomatic* with other fastq files, we have the parameters saved. Also, using scripts to store your commands helps with reproducibility. In the future, if we forget which parameters we used during our analysis, we can just check our script.
+
+To make a *Trimmomatic* script:
+
+`cd ~/unix_oct2015`
+
+`nano trimmomatic_mov10.sh`
+
+Within nano we will add our shebang line, the Orchestra job submission commands, and our Trimmomatic command:
+
+
+```
+!/bin/bash
+
+#BSUB -q priority # queue name
+#BSUB -W 2:00 # hours:minutes runlimit after which job will be killed.
+#BSUB -n 4 # number of cores requested
+#BSUB -N piper@hsph.harvard.edu
+
+cd ~/unix_oct2015/rnaseq_project/data/untrimmed_fastq
+
+java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE -threads 4 -phred33 \
+Mov10_oe_1.subset.fq ../trimmed_fastq/Mov10_oe_1.qualtrim20.minlen30.fq \
+ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
+TRAILING:20 MINLEN:30
+```
+Now, let's run it:
+
+`$ bsub < trimmomatic_mov10.sh`
+
+After the job finishes, you should receive an email with the following information: 
+
+```
+TrimmomaticSE: Started with arguments: -threads 4 -phred33 Mov10_oe_1.subset.fq ../trimmed_fastq/Mov10_oe_1.qualtrim20.minlen30.fq ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:20 MINLEN:30
+Using Long Clipping Sequence: 'AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA'
+Using Long Clipping Sequence: 'AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC'
+ILLUMINACLIP: Using 0 prefix pairs, 2 forward/reverse sequences, 0 forward only sequences, 0 reverse only sequences
+Input Reads: 305900 Surviving: 305900 (100.00%) Dropped: 0 (0.00%)
+TrimmomaticSE: Completed successfully
+```
 
 We now have a new fastq file with our trimmed and cleaned up data:
 
-    $ ls SRR098283*
-    
-    SRR098283.fastq  SRR098283.fastq_trim.fastq
+`$ ls ../trimmed_fastq/`    
 
-Let's make a new directory and place this trimmed files there:
-	
-	mkdir ../trimmed_fastq
-	
-	mv SRR098283.fastq_trim.fastq ../trimmed_fastq
-    
 
-### Exercise
+***
+**Exercise**
 
-#### Trimmomatic on all the files
+**Trimmomatic on all the files**
 
 Now we know how to run trimmomatic but there is some good news and bad news.  
 One should always ask for the bad news first.  Trimmomatic only operates on 
 one input file at a time and we have more than one input file.  The good news?
-We already know how to use a for loop to deal with this situation.
+We already know how to use a for loop to deal with this situation. Let's modify our script to run the *Trimmomatic* command for every raw fastq file. Let's also run fastqc on each of our trimmed fastq files to evaluate the quality of our reads post-trimming:
 
-    for infile in *.fastq
-    >do
-    >outfile=$infile\_trim.fastq
-    >java -jar $TRIMMOMATIC/trimmomatic-0.32.jar SE -threads 6 -phred33 $infile $outfile SLIDINGWINDOW:4:20 MINLEN:20
-    >done
+```
+#!/bin/bash
 
-Do you remember how the first specifies a variable that is assigned the value of each item in the list in turn?  We can call it whatever we like.  This time it is called infile.  Note that the third line of this for loop is creating a second variable called outfile.  We assign it the value of $infile with '_trim.fastq' appended to it.  The '\' escape character is used so the shell knows that whatever follows \ is not part of the variable name $infile.  There are no spaces before or after the '='.
+#BSUB -q priority # queue name
+#BSUB -W 2:00 # hours:minutes runlimit after which job will be killed.
+#BSUB -n 4 # number of cores requested
+#BSUB -N piper@hsph.harvard.edu
 
-Make sure that after you have run the trimming on all the samples, you transfer the trimmed files to the trimmed_fastq directory. The `*` comes in handy here too.
+cd ~/unix_oct2015/rnaseq_project/data/untrimmed_fastq
 
+module load seq/Trimmomatic
+module load seq/fastqc
+
+for infile in *.fq; do
+
+  outfile=$infile.qualtrim25.minlen35.fq;
+
+  java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE -threads 4 -phred33 \
+  $infile ../trimmed_fastq/$outfile \
+  ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
+  TRAILING:25 MINLEN:35;
+    
+  fastqc ../trimmed_fastq/$outfile; 
+  
+done
+```
+`bsub < trimmomatic_mov10.sh`
+
+We load the modules within the script just in case we run this script in the future and we don't have the modules already loaded. 
+
+Do you remember how the variable name in the first line of a 'for loop' specifies a variable that is assigned the value of each item in the list in turn?  We can call it whatever we like.  This time it is called `infile`.  Note that the third line of this for loop is creating a second variable called `outfile`.  We assign it the value of `$infile` with `'.qualtrim25.minlen35.fq'` appended to it. There are no spaces before or after the '='.
+
+After we have created the trimmed fastq files, we want to make sure that the quality of our reads look good, so we run a *FASTQC* on our `$outfile`, which is located in the ../trimmed_fastq directory.
+
+Let's use FileZilla to download the fastqc html for Mov10_oe_1. Has our read quality improved with trimming?
+***
 
 
