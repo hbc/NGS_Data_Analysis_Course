@@ -3,7 +3,7 @@
 #BSUB -q priority       # Partition to submit to (comma separated)
 #BSUB -n 6                  # Number of cores
 #BSUB -W 1:30               # Runtime in D-HH:MM (or use minutes)
-#BSUB -R "rusage[mem=10000]"    # Memory in MB
+#BSUB -R "rusage[mem=4000]"    # Memory in MB
 #BSUB -J rnaseq_mov10         # Job name
 #BSUB -o %J.out       # File to which standard out will be written
 #BSUB -e %J.err       # File to which standard err will be written
