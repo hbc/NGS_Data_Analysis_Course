@@ -87,8 +87,6 @@ happened. But type `ls`. You should have a new file called `bad_reads.txt`. Take
 a look at it and see if it has what you think it should.
 
 If we use '>>', it will append to rather than overwrite a file.  This can be useful for saving more than one search, for example:
-
-`$ grep -B1 -A2 NNNNNNNNNN Mov10_oe_1.subset.fq > bad_reads.txt`
     
 `$ grep -B1 -A2 NNNNNNNNNN Mov10_oe_2.subset.fq >> bad_reads.txt`
 
