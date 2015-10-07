@@ -201,7 +201,6 @@ This is called a hierarchical file system structure, like an upside down tree
 with root (/) at the base that looks like this.
 
 ![Unix](../img/Slide1.jpg)
-
 That (/) at the base is often also called the 'top' level.
 
 When you are working at your computer or log in to a remote computer,
@@ -286,8 +285,6 @@ The shell will fill in the rest of the directory name for `unix_oct2015`. Now go
 When you hit the first tab, nothing happens. The reason is that there are multiple directories in the home directory which start with `Mov10_oe_`. Thus, the shell does not know which one to fill in. When you hit tab again, the shell will list the possible choices.
 
 Tab completion can also fill in the names of programs. For example, enter `e<tab><tab>`. You will see the name of every program that starts with an `e`. One of those is `echo`. If you enter `ec<tab>` you will see that tab completion works.
-
-
 
 ## Full vs. Relative Paths
 
