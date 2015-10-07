@@ -62,11 +62,11 @@ And we'll add a shortcut to where the common files are stored, for example the l
     gtf=~/unix_oct2015/rnaseq_project/data/reference_data/chr1-hg19_genes.gtf
 ```
 Make sure you are loading all the correct modules/tools for the script to run:
-    
+```    
     # set up our software environment...
     module load seq/samtools
     module load seq/htseq
-
+```
 We'll keep the output paths creation, as it looks fine. However, we will add the `-p` option this will make sure that `mkdir` will create the whole path if it does not exist, and more importantly it won't throw an error if it does exist.
 ```
     # make all of our output directories
