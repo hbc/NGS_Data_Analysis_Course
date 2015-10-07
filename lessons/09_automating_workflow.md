@@ -11,7 +11,6 @@ Learning Objectives:
 * Modify and submit the workflow script to the cluster
 
 
-
 ### From Sequence reads to Count matrix
 
 That's a lot of work, yes? And you still have five more FASTQ files to go...
@@ -120,7 +119,7 @@ htseq-count --stranded reverse --format bam $align_in $gtf  >  $counts
 
 This new script is now ready for running:
 	
-	sh run_variant_call_on_file.sh <name of fastq>
+	sh rnaseq_analysis_on_file.sh <name of fastq>
 
 #### Parallelizing workflow for efficiency
 
