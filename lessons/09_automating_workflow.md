@@ -118,7 +118,7 @@ This new script is now ready for running:
 	
 	sh rnaseq_analysis_on_file.sh <name of fastq>
 
-#### Parallelizing workflow for efficiency
+#### Running our script iteratively as a job submission
 
 To run the same script on a worker node on the cluster via the job scheduler, we need to add our **LSF directives** at the **beginning** of the script. This is so that the scheduler knows what resources we need in order to run our job on the
 compute node(s). 
@@ -130,7 +130,7 @@ So the top of the file should look like:
     #!/bin/bash
     #
     #BSUB -q priority		# Partition to submit to (comma separated)
-    #BSUB -n 1                  # Number of cores
+    #BSUB -n 6                  # Number of cores
     #BSUB -W 1:30               # Runtime in D-HH:MM (or use minutes)
     #BSUB -R "rusage[mem=10000]"    # Memory in MB
     #BSUB -J rnaseq_mov10         # Job name
@@ -138,12 +138,31 @@ So the top of the file should look like:
     #BSUB -e %J.err       # File to which standard err will be written
 
 
-What we'd like to do is run this script on a compute node for every trimmed FASTQ -- pleasantly parallelizing our workflow. And now is where we'll use the for loop with the power of the cluster: 
+What we'd like to do is run this script on a compute node for every trimmed FASTQ -- and at the end we will want to concatenate the results from htseq-count inoto one large matrix (that is what the last line is doing). 
 
     for fq in data/trimmed_fastq/*.fq
     do
       rnaseq_analysis_on_file.sh $fq
     done
+
+    countmatrix=results/counts/Mov10_rnaseq_counts.txt
+
+    # Concatenate all count files into a single count matrix
+    paste results/counts/Mov10_oe_1.counts results/counts/Mov10_oe_2.counts results/counts/Mov10_oe_3.counts results/counts/Irrel_kd_1.counts results/counts/Irrel_kd_2.counts results/counts/Irrel_kd_3.counts | awk '{print$1"\t"$2"\t"$4"\t"$6"\t"$8"\t"$10"\t"$12}' | grep -v "^__" > $countmatrix
+
+
+Now we have a count matrix for our dataset, the only thing we are missing is a header to indicate which columns correspond to which sample. We can add that in by creating a file with the header information in it:
+
+    nano header.txt
+
+Type in the following with tab separators "ID OE.1 OE.2 OE.3 IR.1 IR.2 IR.3"
+
+Now join the header to the file:
+
+    cat header.txt Mov10_rnaseq_counts.txt > Mov10_rnaseq_counts_complete.txt
+
+
+#### Parallelizing workflow for efficiency
 
 What you should see on the output of your screen would be the jobIDs that are returned
 from the scheduler for each of the jobs that you submitted.
