@@ -8,8 +8,8 @@ Learning Objectives:
 ### What's the goal for this lesson?
 
 * Use a series of command line tools to execute an RNA-Seq workflow
-* Automate a workflow by grouping a series of sequential commands into a script
-* Modify and submit the workflow script to the cluster
+* Learning intricacies of various tools used in NGS analysis (parameters, usage, etc)
+* Assesing input and output filetypes
 
 ## Running a Workflow
 
@@ -114,7 +114,7 @@ For this workshop we will be using STAR (Spliced Transcripts Alignment to a Refe
 data mapping, and utilizes a novel strategy for spliced alignments. STAR is shown to have high accuracy and outperforms other aligners by more than a factor of 50 in mapping
 speed. More details on the algorithm itself can be found in the publication linked above. Aligning reads using STAR is a two step process: 1) Create a genome index 2) Map reads to the genome.
 
-**Blurb on shared databases here**
+> A quick note on shared databases for human and other commonly used model organisms. The Orchestra cluster has a designated directory at `/groups/shared_databases/` in which there are files that can be accessed by any user. These files contain, but are not limited to, genome inidices for various tools, reference sequences, tool specific data, and data from public databasese such as NCBI and PDB. So when using a tool and require this kind of data, it is worth taking a quick ook here because chances are it has lready been taken care of for you. 
 
 Indexing of the reference genome has already been done for you. **You do not need to run this code**. For this step you need to provide a reference genome and an annotation file. For this workshop we are using reads that originate from a small subsection of chromosome 1 (~300,00 reads) and so we are using only chr1 as the reference genome, and have provided the appropriate indices. Depending on the size of your genome, this can take awhile. 
 
@@ -173,7 +173,7 @@ How many files do you see in your output directory? Using the `less` command tak
 
 Index the BAM file for visualization with IGV:
 
-    samtools index results/STAR/Mov10_oe_1_Aligned.out.bam
+    samtools index results/STAR/Mov10_oe_1__Aligned.sortedByCoord.out.bam
 
 **Transfer files to your laptop using the command line**
 
@@ -232,7 +232,7 @@ In it's most basic form the htseq command requires only the BAM file and the GTF
 You will notice at the end of the command we have added a redirection symbol. Since htseq-count outputs results to screen, we need to re-direct it to file.
 
 ```
-htseq-count --stranded reverse --format bam results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam data/reference_data/chr1-hg19_genes.gtf  >  results/counts/Mov10_oe_1.counts
+htseq-count --stranded reverse --format bam results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam data/reference_data/Irrel_kd_1_qualtrim25.minlen35.fq  >  results/counts/Mov10_oe_1.counts
 ```
 
 #### Exercise
