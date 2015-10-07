@@ -114,53 +114,69 @@ htseq-count --stranded reverse --format bam $align_in $gtf  >  $counts
 
 ```
 
-This new script is now ready for running:
+Once you save this new script, it is ready for running:
 	
-	sh rnaseq_analysis_on_allfiles.sh <name of fastq>
+	`sh rnaseq_analysis_on_allfiles.sh <name of fastq>`
 
 #### Running our script iteratively as a job submission to the LSF scheduler
 
-To run the same script on a worker node on the cluster via the job scheduler, we need to add our **LSF directives** at the **beginning** of the script. This is so that the scheduler knows what resources we need in order to run our job on the
-compute node(s). 
+**The above script will run in an interactive session for one file at a time. What if we wanted to run this script as a job submission to LSF, and with only one command have LSF run through the analysis for all your input fastq files?**
 
-Copy the `rnaseq_analysis_on_file.sh` file and give it a new name `rnaseq_analysis_on_file.lsf`. Add the LSF directives to the beginning of the file.
+To run the above script interatively for all of on a worker node on the cluster via the job scheduler, we need to create a new submission script that will need 2 important components:
 
-So the top of the file should look like:
+* a for loop that iterates through all the fastq files and,
 
+* our **LSF directives** at the **beginning** of the script. This is so that the scheduler knows what resources we need in order to run our job on the compute node(s).
+
+Let's create a with a new file with nano and call it rnaseq_analysis_on_allfiles.lsf, so we know it's a job submission script for the scheduler:
+```
+nano rnaseq_analysis_on_allfiles.lsf
+```
+
+The top of the file should look like with the LSF directives:
+
+```
     #!/bin/bash
     #
     #BSUB -q priority		# Partition to submit to (comma separated)
-    #BSUB -n 6                  # Number of cores
+    #BSUB -n 6                  # Number of cores, since we are running the STAR command with 6 threads
     #BSUB -W 1:30               # Runtime in D-HH:MM (or use minutes)
     #BSUB -R "rusage[mem=4000]"    # Memory in MB
     #BSUB -J rnaseq_mov10         # Job name
     #BSUB -o %J.out       # File to which standard out will be written
     #BSUB -e %J.err       # File to which standard err will be written
-
-
-What we'd like to do is run this script on a compute node for every trimmed FASTQ -- and at the end we will want to concatenate the results from htseq-count inoto one large matrix (that is what the last line is doing). 
-
-    for fq in data/trimmed_fastq/*.fq
+```
+Then the *"for" loop*, which will make sure that all of our trimmed fastq files are being used as input:
+```
+    for fq in ~/unix_oct2015/rnaseq_project/data/trimmed_fastq/*.fq
     do
-      rnaseq_analysis_on_file.sh $fq
+      rnaseq_analysis_on_allfiles.sh $fq
     done
-
+```
+We have added a few more commands at the bottom for counting; they will be executed after all the files have been processed *serially* through the `rnaseq_analysis_on_allfiles.sh` script:
+```
     countmatrix=results/counts/Mov10_rnaseq_counts.txt
 
     # Concatenate all count files into a single count matrix
     paste results/counts/Mov10_oe_1.counts results/counts/Mov10_oe_2.counts results/counts/Mov10_oe_3.counts results/counts/Irrel_kd_1.counts results/counts/Irrel_kd_2.counts results/counts/Irrel_kd_3.counts | awk '{print$1"\t"$2"\t"$4"\t"$6"\t"$8"\t"$10"\t"$12}' | grep -v "^__" > $countmatrix
+```
 
+Our submission script is now complete, so save and exit out of nano. We are now ready to submit it to the queue as follows:
 
-Now we have a count matrix for our dataset, the only thing we are missing is a header to indicate which columns correspond to which sample. We can add that in by creating a file with the header information in it:
+```
+bsub < rnaseq_analysis_on_allfiles.lsf
+```
 
-    nano header.txt
-
-Type in the following with tab separators "ID OE.1 OE.2 OE.3 IR.1 IR.2 IR.3"
-
-Now join the header to the file:
-
-    cat header.txt Mov10_rnaseq_counts.txt > Mov10_rnaseq_counts_complete.txt
-
+> Now we have a count matrix for our dataset, the only thing we are missing is a header to indicate which columns correspond to which sample. We can add that in by creating a file with the header information in it:
+>
+>    nano header.txt
+>
+> Type in the following with tab separators "ID OE.1 OE.2 OE.3 IR.1 IR.2 IR.3"
+>
+> Now join the header to the file:
+>
+>    cat header.txt Mov10_rnaseq_counts.txt > Mov10_rnaseq_counts_complete.txt
+>
 
 #### Parallelizing workflow for efficiency
 
