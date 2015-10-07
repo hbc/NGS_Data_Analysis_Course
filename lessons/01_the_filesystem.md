@@ -66,7 +66,7 @@ Since we are going to be working with this data on our remote server, **Orchestr
 
 ### Logging onto Orchestra with Macs
 
-Using the Terminal, you can use the command 'ssh' and your ECommons username to login. Type:
+Using the Terminal, you can use the command 'ssh' and your eCommons username to login. Type:
 
 ```ssh username@orchestra.med.harvard.edu```
 
