@@ -232,9 +232,9 @@ Let's make the Trimmomatic command into a script. If we need to use *Trimmomatic
 
 To make a *Trimmomatic* script:
 
-`cd ~/unix_oct2015`
+`$ cd ~/unix_oct2015`
 
-`nano trimmomatic_mov10.sh`
+`$ nano trimmomatic_mov10.sh`
 
 Within nano we will add our shebang line, the Orchestra job submission commands, and our Trimmomatic command:
 
@@ -305,12 +305,12 @@ for infile in *.fq; do
   $infile ../trimmed_fastq/$outfile \
   ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
   TRAILING:25 MINLEN:35;
-    
-  fastqc ../trimmed_fastq/$outfile; 
   
 done
+    
+fastqc -t 6 ../trimmed_fastq/*.fq
 ```
-`bsub < trimmomatic_mov10.sh`
+`$ bsub < trimmomatic_mov10.sh`
 
 We load the modules within the script just in case we run this script in the future and we don't have the modules already loaded. 
 
@@ -318,7 +318,15 @@ Do you remember how the variable name in the first line of a 'for loop' specifie
 
 After we have created the trimmed fastq files, we want to make sure that the quality of our reads look good, so we run a *FASTQC* on our `$outfile`, which is located in the ../trimmed_fastq directory.
 
-Let's use FileZilla to download the fastqc html for Mov10_oe_1. Has our read quality improved with trimming?
+Let's make a new directory for our fasqc files for the trimmed reads:
+
+`$ mkdir ~/unix_oct2015/rnaseq_project/results/fastqc_trimmed_reads`
+
+Now move all fastqc files to the `fastqc_trimmed_reads` directory:
+
+`$ mv ~/unix_oct2015/rnaseq_project/data/trimmed_fastq/*fastqc**`
+
+Let's use *FileZilla* to download the fastqc html for Mov10_oe_1. Has our read quality improved with trimming?
 ***
 
 
