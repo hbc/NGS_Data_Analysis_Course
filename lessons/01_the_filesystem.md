@@ -201,6 +201,7 @@ This is called a hierarchical file system structure, like an upside down tree
 with root (/) at the base that looks like this.
 
 ![Unix](../img/Slide1.jpg)
+
 That (/) at the base is often also called the 'top' level.
 
 When you are working at your computer or log in to a remote computer,
