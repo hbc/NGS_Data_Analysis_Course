@@ -43,13 +43,14 @@ FASTQ file called `Irrel_kd_1_qualtrim25.minlen35.fq`. _What did you have to do 
 - Reviewing your two scripts, *are there additional commonalities across scripts
 or within scripts that we could optimize?*
 
+> NOTE: Best practice would be to run the above script as a job on the scheduler. Then it is not in an interactive session, and you can set it up and exit out of the terminal. To do this, you simply need to make a new script with the same contents **+** the necessary bsub directives to the *beginning* of the script; you can submit it to the scheduler as `bsub < rnaseq_analysis_on_file2.lsf`. (The ".lsf" extension is for our future selves, so they can tell that it's a job submission script for the scheduler.)
 
 #### Granting our Workflow More Flexibility
 
 A couple of changes need to be made to make this script more friendly to both changes
 in the workflow and changes in files. 
 
-**The first major change is allowing a change in the filename.** Thus at the start of 
+**The first major change is allowing flexibility in the input fastq file.** Thus at the start of 
 the script let's capture an input parameter that must be supplied with the script name.
 This input parameter will be the name of the file we want to work on:
 ```
@@ -114,20 +115,22 @@ analytical workflow
 
 Once you save this new script, it is ready for running:
 ```
+$ chmod u+rwx rnaseq_analysis_on_allfiles.sh      # make it executable
+
 $ sh rnaseq_analysis_on_allfiles.sh <name of fastq>
 ```
 
 #### Running our script iteratively as a job submission to the LSF scheduler
 
-**The above script will run in an interactive session for one file at a time. What if we wanted to run this script as a job submission to LSF, and with only one command have LSF run through the analysis for all your input fastq files?**
+**The above script will run in an interactive session for one file at a time. If we wanted to run this script as a job submission to LSF, and with only one command have LSF run through the analysis for all your input fastq files?**
 
-To run the above script interatively for all of on a worker node on the cluster via the job scheduler, we need to create a new submission script that will need 2 important components:
-
-* a for loop that iterates through all the fastq files and,
+To run the above script iteratively for all of the files on a worker node via the job scheduler, we need to create a new submission script that will need 2 important components:
 
 * our **LSF directives** at the **beginning** of the script. This is so that the scheduler knows what resources we need in order to run our job on the compute node(s).
 
-Let's create a with a new file with nano and call it rnaseq_analysis_on_allfiles.lsf, so we know it's a job submission script for the scheduler:
+* a for loop that iterates through and runs the above script for all the fastq files.
+
+Let's create a new file with nano and call it `rnaseq_analysis_on_allfiles.lsf`:
 ```
 $ nano rnaseq_analysis_on_allfiles.lsf
 ```
@@ -179,8 +182,32 @@ $ bsub < rnaseq_analysis_on_allfiles.lsf
 
 #### Parallelizing workflow for efficiency
 
+**The above script will run through the analysis for all your input fastq files, but it will do so in serial. We can set it up so that the pipeline is working on all the trimmed data in parallel (at the same time). This will save us a lot of time when we have realistic datasets.**
+
+Let's make a modified version of the above script to parallelize our analysis. To do this need to modify one major aspect which will enable us to work with some of the contrainsts that this scheduler (LSF) has. We will be using a for loop for submission and putting the directives for each submission in the bsub command.
+
+Let's make a new file called `rnaseq_analysis_on_allfiles-for_lsf.sh`
+
+```
+$ nano rnaseq_analysis_on_allfiles_for-lsf.sh
+```
+
+This file will loop through the same files as in the previous script, but the command it submits will be the actual bsub command:
+
+```
+#!/bin/bash
+
+    for fq in ~/unix_oct2015/raw_fastq/*.fq
+    do
+      bsub -q priority -n 6 -W 1:30 -R "rusage[mem=4000]" -J rnaseq_mov10 -o %J.out -e %J.err "sh ~/rnaseq_analysis_on_allfiles.sh $fq"
+      sleep 1
+    done
+```
+
+> NOTE: All job schedulers are similar, but not the same. Once you understand how one works, you can transition to another one without too much trouble. They all have their pros and cons that the system administrators for your setup have taken into consideration and picked one that fits the needs of the users best. 
+
 What you should see on the output of your screen would be the jobIDs that are returned
-from the scheduler for each of the jobs that you submitted.
+from the scheduler for each of the jobs that your script submitted.
 
 You can see their progress by using the `bjobs` command (though there is a lag of
 about 60 seconds between what is happening and what is reported).
@@ -189,5 +216,5 @@ Don't forget about the `bkill` command, should something go wrong and you need t
 cancel your jobs.
 
 #### Exercise
-* Change the script so that one can include an additional variable to point to
- a results directory.
+* Modify the `rnaseq_analysis_on_allfiles.sh` script so that one can include an additional variable to point to a results directory.
+* Modify the `rnaseq_analysis_on_allfiles_for-lsf` script to work with the modified `rnaseq_analysis_on_allfiles.sh` script.
