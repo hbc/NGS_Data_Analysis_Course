@@ -189,10 +189,10 @@ What follows below are the specific commands that tells the *Trimmomatic* progra
 A complete command for *Trimmomatic* will look something like this:
 
 ```
-$ java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE -threads 4 -phred33 Mov10_oe_1.subset.fq Mov10_oe_1.qualtrim20.minlen30.fq ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:20 MINLEN:30
+$ java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE -threads 4 -phred33 Mov10_oe_1.subset.fq Mov10_oe_1.qualtrim25.minlen35.fq ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:25 MINLEN:35
 ```
 
-This command tells *Trimmomatic* to run on a Single End file (``Mov10_oe_1.subset.fq``, in this case), the output file will be called ``Mov10_oe_1.qualtrim20.minlen30.fq``,  there is a file with Illumina adapters called `TruSeq3-SE.fa`, and cutting nucleotides from the 3' end of the sequence if their phred score is below 20 and dropping reads if the length of the read drops below 30 nucleotides.
+This command tells *Trimmomatic* to run on a Single End file (``Mov10_oe_1.subset.fq``, in this case), the output file will be called ``Mov10_oe_1.qualtrim25.minlen35.fq``,  there is a file with Illumina adapters called `TruSeq3-SE.fa`, and cutting nucleotides from the 3' end of the sequence if their phred score is below 25 and dropping reads if the length of the read drops below 35 nucleotides.
 
 
 ###Running Trimmomatic
