@@ -120,7 +120,13 @@ Move to our sample data directory and use `nano` to create our new script file:
 
 `$ nano generate_bad_reads_summary.sh`
 
-And now within nano we enter the commands we want to execute. First we want to move into our `raw_fastq` directory:
+We always want to start our scripts with a shebang line: 
+
+`#!/bin/bash`
+
+This line is the absolute path to the Bash interpreter. The shebang line ensures that the bash shell interprets the script even if it is executed using a different shell.
+
+After the shebang line, we enter the commands we want to execute. First we want to move into our `raw_fastq` directory:
 
 ```
 $ cd ~/unix_oct2015/raw_fastq
@@ -146,8 +152,8 @@ do
 We'll also get the counts of these reads and put that in a new file, using the count flag of `grep`:
 
 ```bash
-  # grab the # of bad reads from our badreads file
-  grep -cH NNNNNNNNNN $filename-badreads.fastq > $filename-badreads.counts;
+# grab the # of bad reads from our badreads file
+grep -cH NNNNNNNNNN $filename-badreads.fastq > $filename-badreads.counts;
 done
 ```
 
@@ -168,10 +174,12 @@ cat bad-reads.count.summary >> ../runlog.txt
 You're script should look like:
 
 ```bash
+#!/bin/bash
+
 cd ~/unix_oct2015/raw_fastq
 
-for filename in ~/unix_oct2015/raw_fastq/*.fq;
-do echo $filename;
+for filename in ~/unix_oct2015/raw_fastq/*.fq; do 
+echo $filename;
 grep -B1 -A2 NNNNNNNNNN $filename > $filename-badreads.fastq;
 grep -cH NNNNNNNNNN $filename-badreads.fastq > $filename-badreads.counts;
 done
@@ -185,6 +193,8 @@ cat bad-reads.count.summary >> ../runlog.txt
 Exit out of `nano`, and voila! You now have a script you can use to assess the quality of all your new datasets. Your finished script, complete with comments, should look like the following:
 
 ```bash
+#!/bin/bash 
+
 # enter directory with raw FASTQs
 cd ~/unix_oct2015/raw_fastq
 

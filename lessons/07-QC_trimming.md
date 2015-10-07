@@ -3,6 +3,10 @@
 Quality Control of NGS Data
 ===================
 
+Author: Bob Freeman, Mary Piper
+
+Approximate time: 1 hour
+
 Learning Objectives:
 -------------------
 #### What's the goal for this lesson?
