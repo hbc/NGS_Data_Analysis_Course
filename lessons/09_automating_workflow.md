@@ -1,6 +1,5 @@
-# Lesson
 ---
-title: "utomating an RNA-Seq workflow"
+title: "Automating an RNA-Seq workflow"
 author: "Bob Freeman, Meeta Mistry, Radhika Khetani"
 date: "Wednesday, October 7, 2015"
 ---
