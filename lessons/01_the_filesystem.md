@@ -46,7 +46,7 @@ knowing how to use the shell is transformative.
 Today we're going to go through how to access Unix/Linux and some of the basic
 shell commands.
 
-## Information on the shell
+### Information on the shell
 
 shell cheat sheets:<br>
 * [http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/](http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/)
@@ -119,7 +119,7 @@ We have each created our own copy of the example data folder into our home direc
 
 ```$ cd ~/unix_oct2015```
 
-'cd' stands for 'change directory'
+> 'cd' stands for 'change directory'
 
 Let's see what is in here. Type:
 
@@ -129,19 +129,20 @@ You will see:
 
 	genomics_data  other  raw_fastq  README.txt  reference_data
 
-ls stands for 'list' and it lists the contents of a directory.
+> ls stands for 'list' and it lists the contents of a directory.
 
-There are five items listed.  What are they? We can use a command line argument with `ls` to get more information.
+There are five items listed.  What are they? We can use a "modifier" with `ls` to get more information; this modifier is called an argument (more below).
 
 ```$ ls -F```
 
 	genomics_data/  other/  raw_fastq/  README.txt  reference_data/
 
-Anything with a "/" after it is a directory. Things with a "*" after them are programs.  If there are no decorations, it's a file.
+Anything with a "/" after it is a directory. Things with a "*" after them are programs.  If there are no decorations after the name, it's a file.
 
-You can also use the command
+You can also use the command:
 
 ```$ ls -l```
+to see whether items in a directory are files or directories. `ls -l` gives a lot more information too.
 
 	total 124
 	drwxrwsr-x 2 mp298 mp298  78 Sep 30 10:47 genomics_data
@@ -149,9 +150,6 @@ You can also use the command
 	drwxrwsr-x 2 mp298 mp298 228 Sep 30 10:47 raw_fastq
 	-rw-rw-r-- 1 mp298 mp298 377 Sep 30 10:47 README.txt
 	drwxrwsr-x 2 mp298 mp298 238 Sep 30 10:47 reference_data
-
-to see whether items in a directory are files or directories. `ls -l` gives a lot more
-information too.
 
 Let's go into the raw_fastq directory and see what is in there.
 
@@ -165,28 +163,27 @@ Let's go into the raw_fastq directory and see what is in there.
 All six items in this directory have no trailing slashes, so they are all files.
 
 
-## Arguments
+### Arguments
 
-Most programs take additional arguments that control their exact behavior. For example, `-F` and `-l` are arguments to `ls`.  The `ls` program, like many programs, take a lot of arguments. Another useful one is '-a', which show everything, including hidden files.  How do we know what the options are to particular commands?
+Most programs take additional arguments that control their exact behavior. For example, `-F` and `-l` are arguments to `ls`.  The `ls` program, like many programs, take a lot of arguments. Another useful one is `-a`, which shows everything, including hidden files.  How do we know what the available arguments that go with a particular command are?
 
-Most commonly used shell programs have a manual. You can access the
+Most commonly used shell programs have a manual available in the shell. You can access the
 manual using the `man` program. Try entering:
 
 ```$ man ls```
 
 This will open the manual page for `ls`. Use the space key to go forward and b to go backwards. When you are done reading, just hit `q` to quit.
 
-Programs that are run from the shell can get extremely complicated. To see an example, open up the manual page for the `find` program. No one can possibly learn all of these arguments, of course. So you will probably find yourself referring back to the manual page frequently.
+Programs that are run from the shell can get extremely complicated. To see an example, open up the manual page for the `find` program. No one can possibly learn all of these arguments, of course. So you will probably find yourself referring to the manual page frequently.
+
+> If the manual page within the terminal is hard to read and traverse, the manual exists online, use your web searching powers to get it! In addition to the arguments, you can also find good examples online; Google is your friend.
 
 
 ## The Unix directory file structure (a.k.a. where am I?)
+ 
+As you've already just seen, you can move around in different directories or folders at the command line. Why would you want to do this, rather than just navigating around the normal way using a GUI (GUI = Graphical User Interface, pronounced like "gooey").
 
-As you've already just seen, you can move around in different directories or folders at the command line. Why would you want to do this, rather than just navigating around the normal way.
-
-When you're working with bioinformatics programs, you're working with your data and it's key to be able to have that data in the right place and make sure the program has access to the data. Many of the problems people run in to with command line bioinformatics programs is not having the data in the place the program expects it to be.
-
-
-## Moving around the file system
+### Moving around the file system
 
 Let's practice moving around a bit.
 
@@ -247,7 +244,7 @@ Hint: hidden files and folders in unix start with `.`, for example `.my_hidden_d
 * * * *
 
 
-## Examining the contents of other directories
+### Examining the contents of other directories
 
 By default, the `ls` commands lists the contents of the working directory (i.e. the directory you are in). You can always find the directory you are in using the `pwd` command. However, you can also give `ls` the names of other directories to view. Navigate to the home directory if you are not already there.
 
