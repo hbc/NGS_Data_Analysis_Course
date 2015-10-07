@@ -34,9 +34,9 @@ Let's search for the string NNNNNNNNNN in file
 
 `$ grep NNNNNNNNNN Mov10_oe_1.subset.fq`
 
-We get back a lot of lines.  What is we want to see the whole fastq record for each of these read.
+We get back a lot of lines.  What if we want to see the whole fastq record for each of these reads?
 We can use the '-B' argument for grep to return the matched line plus one before (-B 1) and two
-lines after (-A 2). Since each record is four lines and the last second is the sequence, this should
+lines after (-A 2). Since each record is four lines and the second line is the sequence, this should
 give the whole record.
 
 `$ grep -B1 -A2 NNNNNNNNNN Mov10_oe_1.subset.fq`
