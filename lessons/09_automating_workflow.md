@@ -103,20 +103,20 @@ to use our variables so that it will run with more flexibility the steps of the
 analytical workflow
 
 ```
-# Run STAR
-STAR --runThreadN 6 --genomeDir $genome --readFilesIn $fq --outFileNamePrefix $align_out --outFilterMultimapNmax 10 --outSAMstrandField intronMotif --outReadsUnmapped Fastx --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --outSAMattributes NH HI NM MD AS
+    # Run STAR
+    STAR --runThreadN 6 --genomeDir $genome --readFilesIn $fq --outFileNamePrefix $align_out --outFilterMultimapNmax 10 --outSAMstrandField intronMotif --outReadsUnmapped Fastx --outSAMtype BAM SortedByCoordinate --outSAMunmapped Within --outSAMattributes NH HI NM MD AS
 
-# Create BAM index
-samtools index $align_in
+    # Create BAM index
+    samtools index $align_in
 
-# Count mapped reads
-htseq-count --stranded reverse --format bam $align_in $gtf  >  $counts
-
+    # Count mapped reads
+    htseq-count --stranded reverse --format bam $align_in $gtf  >  $counts
 ```
 
 Once you save this new script, it is ready for running:
-	
-	sh rnaseq_analysis_on_allfiles.sh <name of fastq>
+```
+$ sh rnaseq_analysis_on_allfiles.sh <name of fastq>
+```
 
 #### Running our script iteratively as a job submission to the LSF scheduler
 
@@ -130,7 +130,7 @@ To run the above script interatively for all of on a worker node on the cluster 
 
 Let's create a with a new file with nano and call it rnaseq_analysis_on_allfiles.lsf, so we know it's a job submission script for the scheduler:
 ```
-nano rnaseq_analysis_on_allfiles.lsf
+$ nano rnaseq_analysis_on_allfiles.lsf
 ```
 
 The top of the file should look like with the LSF directives:
@@ -164,18 +164,18 @@ We have added a few more commands at the bottom for counting; they will be execu
 Our submission script is now complete, so save and exit out of nano. We are now ready to submit it to the queue as follows:
 
 ```
-bsub < rnaseq_analysis_on_allfiles.lsf
+$ bsub < rnaseq_analysis_on_allfiles.lsf
 ```
 
 > Now we have a count matrix for our dataset, the only thing we are missing is a header to indicate which columns correspond to which sample. We can add that in by creating a file with the header information in it:
 >
->    nano header.txt
+>    $ nano header.txt
 >
 > Type in the following with tab separators "ID OE.1 OE.2 OE.3 IR.1 IR.2 IR.3"
 >
 > Now join the header to the file:
 >
->    cat header.txt Mov10_rnaseq_counts.txt > Mov10_rnaseq_counts_complete.txt
+>    $ cat header.txt Mov10_rnaseq_counts.txt > Mov10_rnaseq_counts_complete.txt
 >
 
 #### Parallelizing workflow for efficiency
