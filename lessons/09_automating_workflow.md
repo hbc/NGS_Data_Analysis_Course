@@ -116,7 +116,7 @@ htseq-count --stranded reverse --format bam $align_in $gtf  >  $counts
 
 Once you save this new script, it is ready for running:
 	
-	`sh rnaseq_analysis_on_allfiles.sh <name of fastq>`
+	sh rnaseq_analysis_on_allfiles.sh <name of fastq>
 
 #### Running our script iteratively as a job submission to the LSF scheduler
 
