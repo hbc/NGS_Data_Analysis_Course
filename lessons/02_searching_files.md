@@ -5,7 +5,7 @@ comments: true
 date: 2015-10-06
 ---
 
-# The Shell: Searching and Finding
+# The Shell: Searching and Redirection
 
 Author: Sheldon McKay, Bob Freeman, Mary Piper
 
