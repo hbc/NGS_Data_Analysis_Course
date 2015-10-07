@@ -99,7 +99,7 @@ Once logged in, you should see the Orchestra news and the command prompt:
 
 The first command we will type on the command prompt is complex, and we will be explaining it in later this afternoon when we talk about HPC and orchestra. For now, it is important that we run it before the exercises below.
 
-```bsub -Is -q interactive bash```
+```$ bsub -Is -q interactive bash```
 
 Copy our example data folder to your home directory using the following command:
 
