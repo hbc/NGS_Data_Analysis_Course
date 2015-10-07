@@ -29,18 +29,15 @@ The easiest way for you to be able to repeat this process is to capture the step
 you've performed in a bash script. And you've already learned how to do this in previous
 lessons. So...
 
-1. Using the nano text editor, create a script file that will repeat these commands
+- Using the nano text editor, create a script file that will repeat these commands
 for you. You can use your command history to retrieve the commands for each step. Name your script `rnaseq_analysis_on_file.sh`. Delete your results 
 directories, and run your script. Do you get all the proper output files?
 
-One additional command we can put in the top of the script to allow you to see what
+- One additional command we can put in the top of the script to allow you to see what
 is going on is the `set -x` bash command. This debugging tool will print out every
-step before it is executed.
+step before it is executed. _Insert the debugging command in your script and re-run it. How is the output different? If you're comfortable with how this looks and runs, then comment out this line._
 
-- Insert the debugging command in your script and re-run it. How is the output different?
-If you're comfortable with how this looks and runs, then comment out this line.
-
-2. In order run this workflow on another file, you'll need to make changes. Copy this file,
+- In order run this workflow on another file, you'll need to make changes. Copy this file,
 giving the file a similar name such as `rnaseq_analysis_on_file2.sh`, and make appropriate changes to run on a control
 FASTQ file called `Irrel_kd_1_qualtrim25.minlen35.fq`. _What did you have to do differently in order to get this workflow to work?_
 
@@ -57,7 +54,7 @@ in the workflow and changes in files.
 the script let's capture an input parameter that must be supplied with the script name.
 This input parameter will be the name of the file we want to work on:
 
-     fq="$1"
+     fq=$1
 
 And we'll add a shortcut to where the common files are stored, for example: the location of the trimmed FASTQ and locations of the genome indices and the annotation file:
 
@@ -66,7 +63,7 @@ And we'll add a shortcut to where the common files are stored, for example: the 
 
      # location to genome reference FASTA file
      genome=/groups/hbctraining/unix_oct2015_other/reference_STAR/
-     gtf=data/reference_data/Irrel_kd_1_qualtrim25.minlen35.fq
+     gtf=data/reference_data/
 
 Make sure you are loading all the correct modules/tools for the script to run:
     
@@ -125,7 +122,7 @@ This new script is now ready for running:
 	
 	sh run_variant_call_on_file.sh <name of fastq>
 
-#### Exercise IV - Parallelizing workflow for efficiency
+#### Parallelizing workflow for efficiency
 
 To run the same script on a worker node on the cluster via the job scheduler, we need to add our **LSF directives** at the **beginning** of the script. This is so that the scheduler knows what resources we need in order to run our job on the
 compute node(s). 
@@ -136,33 +133,32 @@ So the top of the file should look like:
 
     #!/bin/bash
     #
-    #BSUB -q serial_requeue   # Partition to submit to (comma separated)
-    #BSUB -n 1                # Number of cores
-    #SBATCH -N 1                # Ensure that all cores are on one machine
-    #SBATCH -t 0-1:00           # Runtime in D-HH:MM (or use minutes)
-    #SBATCH --mem 100           # Memory in MB
-    #SBATCH -J var_call_ecoli      # Job name
-    #SBATCH -o var_call_ecoli.out       # File to which standard out will be written
-    #SBATCH -e var_call_ecoli.err       # File to which standard err will be written
-    #SBATCH --mail-type=ALL     # Type of email notification: BEGIN,END,FAIL,ALL
-    #SBATCH --mail-user=<your-email@here.com> # Email to which notifications will be sent 
+    #BSUB -q priority		# Partition to submit to (comma separated)
+    #BSUB -n 1                  # Number of cores
+    #BSUB -W 1:30               # Runtime in D-HH:MM (or use minutes)
+    #BSUB -R "rusage[mem=10000]"    # Memory in MB
+    #BSUB -J rnaseq_mov10         # Job name
+    #BSUB -o %J.out       # File to which standard out will be written
+    #BSUB -e %J.err       # File to which standard err will be written
+
 
 What we'd like to do is run this script on a compute node for every trimmed FASTQ -- pleasantly parallelizing our workflow. And now is where we'll use the for loop with the power of the cluster: 
 
     for fq in data/trimmed_fastq/*.fastq
     do
-      sbatch run_variant_call_on_file.sh $fq
+      bsub rnaseq_analysis_on_file.sh $fq
       sleep 1
     done
 
 What you should see on the output of your screen would be the jobIDs that are returned
 from the scheduler for each of the jobs that you submitted.
 
-You can see their progress by using the squeue command (though there is a lag of
+You can see their progress by using the `bjobs` command (though there is a lag of
 about 60 seconds between what is happening and what is reported).
 
-Don't forget about the scancel command, should something go wrong and you need to
+Don't forget about the `bkill` command, should something go wrong and you need to
 cancel your jobs.
 
+#### Exercise
 * Change the script so that one can include an additional variable to point to
  a results directory.
