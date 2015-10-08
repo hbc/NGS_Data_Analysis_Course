@@ -64,7 +64,7 @@ Ok, now we're all setup to run our R script! Let's run it from our `diffexpressi
 	Rscript DE_script.R Mov10_rnaseq_counts_complete.txt Mov10_rnaseq_metadata.txt 
 
 
-Hwo many files do you get as output from the script? There should be a few PNG files. Use Filezilla or `scp` top copy these over to your laptpo and take a look what was generated. Using commands within the shell (on the cluster) you can also examine text files. What's inside? How do the files differ?
+How many files do you get as output from the script? There should be a few PNG files and text files. Use Filezilla or `scp` to copy the images over to your laptop and take a look what was generated. Using commands within the shell (on the cluster) you can also examine text files. What's inside? How do the files differ?
 
 
 ### Obtaining a gene list
