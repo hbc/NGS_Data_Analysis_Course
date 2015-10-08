@@ -169,19 +169,21 @@ She's allowed to go through `pluto`, but not to look at what's there. She will b
 
 This trick gives people a way to make some of their directories visible to the world as a whole without opening up everything else.
 
-> ### Challenge
-> If `ls -l myfile.php` returns the following details:
->
-> ```
-> -rwxr-xr-- 1 caro zoo  2312  2014-10-25 18:30 myfile.php
-> ```
-> 
-> Which of the following statements is true?
-> 
-> 1. caro (the owner) can read, write, and execute myfile.php
-> 2. caro (the owner) cannot write to myfile.php
-> 3. members of caro (a group) can read, write, and execute myfile.php
-> 4. members of zoo (a group) cannot execute myfile.php
+****
+**Exercise**
+If `ls -l myfile.php` returns the following details:
+
+```
+-rwxr-xr-- 1 caro zoo  2312  2014-10-25 18:30 myfile.php
+```
+ 
+Which of the following statements is true?
+ 
+1. caro (the owner) can read, write, and execute myfile.php
+2. caro (the owner) cannot write to myfile.php
+3. members of caro (a group) can read, write, and execute myfile.php
+4. members of zoo (a group) cannot execute myfile.php
+****
 
 ## **Environment Variables**
 
