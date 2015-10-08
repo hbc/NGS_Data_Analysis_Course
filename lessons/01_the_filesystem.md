@@ -17,20 +17,8 @@ Paul Wilson, Milad Fatenejad, Sasha Wood and Radhika Khetani for Software Carpen
 - What is it good for?
 - Where are resources where I can learn more? (because the shell is awesome)
 
-## TOC
-* [Why use the Unix shell](https://github.com/hbc/Intro-to-Unix/blob/master/lessons/01_the_filesystem.md#why-use-the-unix-shell)
-* [Setting up](https://github.com/hbc/Intro-to-Unix/blob/master/lessons/01_the_filesystem.md#setting-up)
-* Starting with the shell
-* The Unix directory file structure (a.k.a. where am I?)
-* Full vs. Relative Paths
-* Saving time with shortcuts, wild cards, and tab completion
-* Saving time with shortcuts, wild cards, and tab completion
-* Examining Files
-* Creating, moving, copying, and removing
-* Writing Files
 
 ## Why use the Unix shell?
-
 
 ![Automation](../img/gvng.jpg)
 
@@ -40,8 +28,7 @@ Paul Wilson, Milad Fatenejad, Sasha Wood and Radhika Khetani for Software Carpen
 Today we're going to go through how to access Unix/Linux and some of the basic
 shell commands.
 
-> As a reminder, the shell is the "interpreter" that helps us interact with the computer using commands.
-
+> As a reminder, the shell is the "interpreter" that helps us interact with the computer using human-readable commands.
 
 ## Setting up
 
