@@ -194,19 +194,15 @@ We're going to work in that `unix_oct2015` directory.
 First we did something like go to the folder of our username. Then we opened
 `unix_oct2015` then `raw_fastq`
 
-Let's draw out how that went.
-
-Now let's draw some of the other files and folders we could have clicked on.
-
-This is called a hierarchical file system structure, like an upside down tree
-with root (/) at the base that looks like this.
+Like on any computer you have used before the file structure within unix is hierarchical, like an upside down tree with root (/) as the starting point of the tree-like structure:
 
 ![Unix](../img/Slide1.jpg)
 
-That (/) at the base is often also called the 'top' level.
+That root (/) is often also called the 'top' level.
 
-When you are working at your computer or log in to a remote computer,
-you are on one of the branches of that tree, your home directory (e.g. /home/username)
+When you log in to a remote computer you are on one of the branches of that tree, your home directory (e.g. /home/username)
+
+> On mac OS, which is a UNIX-based OS, the root level is also "/". On a windows OS, it is drive specific; generally "C:\" is considered root, but it changes to "D:/", if you are on that drive.
 
 Now let's go do that same navigation at the command line.
 
@@ -214,36 +210,27 @@ Type
 
 ```$ cd```
 
-This puts you in your home directory. This folder here.
+> This puts you in your home directory. No matter where you are in the directory system, `cd` will always bring you back to your home directory.
 
-Now using `cd` and `ls`, go in to the `unix_oct2015` directory and list its contents. Now go into the `raw_fastq` and list its contents.
+Now using `cd` and `ls`, go in to the `unix_oct2015` directory and list its contents. Now go into the `raw_fastq` directory, and list its contents.
 
-Let's also check to see where we are. Sometimes when we're wandering around in the file system, it's easy to lose track of where we are and get lost.
-
-If you want to know what directory you're currently in, type
+Let's also check to see where we are. Sometimes when we're wandering around in the file system, it's easy to lose track of where we are. The command that tells you this is:
 
 ```$ pwd```
 
-This stands for 'print working directory'. The directory you're currently working in.
+> This stands for 'print working directory'. i.e. the directory you're currently working in.
 
 What if we want to move back up and out of the `raw_fastq` directory? Can we just type `cd unix_oct2015`? Try it and see what happens.
 
-To go 'back up a level' we need to use `..`
+To go 'back up a level' we can use `..`
 
 Type
 
 ```$ cd ..```
 
-Now do `ls` and `pwd`. See now that we went back up in to the `unix_oct2015`
-directory. `..` means go back up a level.
+Now do `ls` and `pwd`. 
 
-* * * *
-**Exercise**
-
-Now we're going to try a hunt. Find a hidden directory in `unix_oct2015` list its contents, and find the text file in there.  What is the name of the file?
-
-Hint: hidden files and folders in unix start with `.`, for example `.my_hidden_directory`
-* * * *
+> `..` denotes parent directory, and you can use it anywhere in the system to go back to the parent directory. Can you think of an example when this won't work?
 
 
 #### Examining the contents of other directories
@@ -260,13 +247,17 @@ Then enter the command:
 
 This will list the contents of the `unix_oct2015` directory without you having to navigate there.
 
-The `cd` command works in a similar way. Try entering:
+The `cd` command works in a similar way.
 
-```$ cd```
+```
+$ cd unix_oct2015/raw_fastq/
+$ pwd
+```
 
-```$ cd unix_oct2015/raw_fastq/```
+You should now be in `raw_fastq` and you got there without having to go through the intermediate directory. 
 
-and you will jump directly to `raw_fastq` without having to go through the intermediate directory.
+> If you are aware of the directory structure, you can string together as long a list as you like.
+
 
 ****
 **Exercise**
@@ -594,14 +585,24 @@ Now we want to save the file and exit. At the bottom of nano, you see the "\^X E
 
 Now you've written a file. You can take a look at it with less or cat, or open it up again and edit it.
 
-***
+
+
+****
 **Exercise**
 
 Open 'awesome.sh' and add "echo AWESOME!" after the grep command and save the file.
 
 We're going to come back and use this file in just a bit.
+****
 
-***
+****
+**Exercise**
+
+Now we're going to try find a *hidden directory* in `unix_oct2015`, and list its contents.  What is the name of the file within the hidden directory?
+
+Hint: hidden files and folders in unix start with `.`, for example `.my_hidden_directory`
+****
+
 
 **Commands, options, and keystrokes covered in this lesson**
 
@@ -642,10 +643,5 @@ Explain shell - a web site where you can see what the different components of
 a shell command are doing.  
 * [http://explainshell.com](http://explainshell.com)
 * [http://www.commandlinefu.com](http://www.commandlinefu.com)
- 
 
-
-
-
->
 > The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). All Data Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).
