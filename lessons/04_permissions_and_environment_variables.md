@@ -4,11 +4,13 @@ author: "Christina Koch, Radhika Khetani"
 date: "Tuesday, October 6, 2015"
 ---
 
-> ### Learning Objectives
-> 
-> * How to grant or restrict access to files on a multi-user UNIX system
-> * What is an "Environment Variable" in a shell.
-> * What is $PATH, and why I should care.
+Approximate time: 30 minutes
+
+## Learning Objectives
+ 
+* How to grant or restrict access to files on a multi-user UNIX system
+* What is an "Environment Variable" in a shell.
+* What is $PATH, and why I should care.
 
 ## **Permissions**
 
@@ -262,4 +264,8 @@ $ nano ~/.bashrc
 ```
 
 **In closing, permissions and environment variables, especially $PATH, are very useful and important concepts to understand in the context of UNIX and HPC.**
+
+---
+*The materials used in this lesson was derived from work that is Copyright © Software Carpentry (http://software-carpentry.org/). 
+All Software Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
 

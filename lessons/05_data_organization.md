@@ -1,4 +1,10 @@
+---
+title: "Permissions and Environment variables"
+author: "Jason Williams, Bob Freeman, Meeta Mistry"
+date: "Wednesday, October 7, 2015"
+---
 
+Approximate time: 30 minutes
 
 # Understanding the dataset
 
@@ -170,4 +176,7 @@ Add a dateline and comment to the line where you have created the directory e.g.
 [A Quick Guide to Organizing Computational Biology Projects] (http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424)
 
 
+---
+*The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
+All Data Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
 

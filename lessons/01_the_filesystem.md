@@ -3,6 +3,9 @@ title: "The Shell"
 author: "Sheldon  McKay, Mary Piper, Radhika Khetani"
 date: "Wednesday, October 7, 2015"
 ---
+
+Approximate time: 90 minutes
+
 Adapted from the lesson by Tracy Teal.
 Original contributors:
 Paul Wilson, Milad Fatenejad, Sasha Wood and Radhika Khetani for Software Carpentry (http://software-carpentry.org/)

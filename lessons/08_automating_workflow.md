@@ -4,9 +4,7 @@ author: "Bob Freeman, Meeta Mistry, Radhika Khetani"
 date: "Wednesday, October 7, 2015"
 ---
 
-Learning Objectives:
--------------------
-### What's the goal for this lesson?
+## Learning Objectives:
 
 * Automate a workflow by grouping a series of sequential commands into a script
 * Modify and submit the workflow script to the cluster

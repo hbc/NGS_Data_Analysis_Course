@@ -1,15 +1,12 @@
-# Lesson QC of Sequence Read Data
+---
+title: "QC of Sequence Read Data"
+author: "Bob Freeman, Mary Piper"
+date: "Wednesday, October 7, 2015"
+---
 
-Quality Control of NGS Data
-===================
+Approximate time: 60 minutes
 
-Author: Bob Freeman, Mary Piper
-
-Approximate time: 1 hour
-
-Learning Objectives:
--------------------
-#### What's the goal for this lesson?
+## Learning Objectives:
 
 * Be able to evaluate a FastQC report
 * Use Trimmommatic to clean FastQ reads
@@ -333,4 +330,7 @@ Now move all fastqc files to the `fastqc_trimmed_reads` directory:
 Let's use *FileZilla* to download the fastqc html for Mov10_oe_1. Has our read quality improved with trimming?
 ***
 
+---
+*The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
+All Data Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
 

@@ -1,11 +1,12 @@
-# Lesson
+---
+title: "RNA-Seq workflow"
+author: "Meeta Mistry, Bob Freeman"
+date: "Wednesday, October 7, 2015"
+---
 
-An RNA-Seq workflow
-===================
+Approximate time: 90 minutes
 
-Learning Objectives:
--------------------
-### What's the goal for this lesson?
+## Learning Objectives:
 
 * Use a series of command line tools to execute an RNA-Seq workflow
 * Learning intricacies of various tools used in NGS analysis (parameters, usage, etc)
