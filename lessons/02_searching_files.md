@@ -9,7 +9,7 @@ Contributors: Paul Wilson, Milad Fatenejad, Sasha Wood, and Radhika Khetani for 
 
 Approximate time: 60 minutes
 
-## Objectives & Accomplishments
+## Learning Objectives
 
 * learn the `grep` command and useful options
 * learn about output redirection 

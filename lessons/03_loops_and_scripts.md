@@ -6,7 +6,7 @@ date: "Wednesday, October 7, 2015"
 
 Approximate time: 60 minutes
 
-## Objectives & Accomplishments
+## Learning Objectives
 
 * Learn how to operate on multiple files 
 * Capture previous commands into a script to re-run later
