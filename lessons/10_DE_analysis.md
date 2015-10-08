@@ -48,20 +48,20 @@ You should find yourself back at the shell command prompt. We will run the R scr
 	cd results
 	mkdir diffexpression
 
-Now we need to copy over the required files. There are two files that we need, both are in different locations. First, let's copy over the 
+Now we need to copy over the required files. There are two files that we need, both are in different locations. First, let's copy over the script file:
 
-Now cp required folder from we need two:
+	cp /groups/hbctraining/unix_oct2015_other/DE_script.R diffexpression/
 
-metadata file:  ~/unix_oct2015/other/Mov10_rnaseq_metadata.txt
+The R script will require as input **1) your count matrix file** and **2) a metadata file**. The count matrix we generated in the last lesson and is in the `counts` directory. The metadata file is a tab-delimited file which contains any information associated with our samples. Each row corresponds to a sample and eaach column contains some information about each sample. Once you have the files copied, take a look at the metadata using `less`.
 
-script file: ~/unix_oct2015/other/DE_script.R
+	cp counts/Mov10_rnaseq_counts_complete.txt diffexpression
+	cp ~/unix_oct2015/other/Mov10_rnaseq_metadata.txt diffexpression
 
-Use less with each to see what we have copied over.
 
-To run the R script:
+Ok, now we're all setup to run our R script! Let's run it from our `diffexpression` directory
 
-cd diffexpression
-Rscript DE_script.R Mov10_rnaseq_counts_complete.txt Mov10_rnaseq_metadata.txt 
+	cd diffexpression
+	Rscript DE_script.R Mov10_rnaseq_counts_complete.txt Mov10_rnaseq_metadata.txt 
 
 
 ### Resources for R
