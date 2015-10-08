@@ -23,6 +23,19 @@ Paul Wilson, Milad Fatenejad, Sasha Wood and Radhika Khetani for Software Carpen
 - What is it good for?
 - Where are resources where I can learn more? (because the shell is awesome)
 
+## TOC
+* What is the shell?
+* Setting up
+* Starting with the shell
+* The Unix directory file structure (a.k.a. where am I?)
+* Full vs. Relative Paths
+* Saving time with shortcuts, wild cards, and tab completion
+* Saving time with shortcuts, wild cards, and tab completion
+* Command History
+* Examining Files
+* Creating, moving, copying, and removing
+* Writing Files
+
 ## What is the shell?
 
 The *shell* is a program that presents a command line interface which allows you to control your computer using commands entered with a keyboard instead of controlling graphical user interfaces (GUIs) with a mouse/keyboard combination.
@@ -46,17 +59,6 @@ knowing how to use the shell is transformative.
 Today we're going to go through how to access Unix/Linux and some of the basic
 shell commands.
 
-### Information on the shell
-
-shell cheat sheets:<br>
-* [http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/](http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/)
-* [https://github.com/swcarpentry/boot-camps/blob/master/shell/shell_cheatsheet.md](https://github.com/swcarpentry/boot-camps/blob/master/shell/shell_cheatsheet.md)
-
-Explain shell - a web site where you can see what the different components of
-a shell command are doing.  
-* [http://explainshell.com](http://explainshell.com)
-* [http://www.commandlinefu.com](http://www.commandlinefu.com)
-
 
 ## Setting up
 
@@ -64,7 +66,7 @@ We will spend most of our time learning about the basics of the shell by manipul
 
 Since we are going to be working with this data on our remote server, **Orchestra**, we first need to log onto the server. After we're logged on, we will each make our own copy of the example data folder.
 
-### Logging onto Orchestra with Macs
+#### Logging onto Orchestra with Macs
 
 Using the Terminal, you can use the command 'ssh' and your eCommons username to login. Type:
 
@@ -72,7 +74,7 @@ Using the Terminal, you can use the command 'ssh' and your eCommons username to 
 
 You will receive a prompt for your password, and you should type in your ECommons password. 
 
-### Logging onto Orchestra with Windows
+#### Logging onto Orchestra with Windows
 
 By default, there is no terminal for the bash shell available in the Windows OS, so you have to use a downloaded program, **[Putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html)**.
 
@@ -91,7 +93,7 @@ A warning window will pop up the first time you try to connect to a cluster (rem
 Once you press enter, it will prompt you for a password. Type in your password, when you do this nothing will appear on the screen until you press enter. When you press enter, the interface will change and you have started a bash terminal.
 
 
-### Copying example data folder
+#### Copying example data folder
 
 Once logged in, you should see the Orchestra news and the command prompt: 
 
@@ -163,7 +165,7 @@ Let's go into the raw_fastq directory and see what is in there.
 All six items in this directory have no trailing slashes, so they are all files.
 
 
-### Arguments
+#### Arguments
 
 Most programs take additional arguments that control their exact behavior. For example, `-F` and `-l` are arguments to `ls`.  The `ls` program, like many programs, take a lot of arguments. Another useful one is `-a`, which shows everything, including hidden files.  How do we know what the available arguments that go with a particular command are?
 
@@ -183,7 +185,7 @@ Programs that are run from the shell can get extremely complicated. To see an ex
  
 As you've already just seen, you can move around in different directories or folders at the command line. Why would you want to do this, rather than just navigating around the normal way using a GUI (GUI = Graphical User Interface, pronounced like "gooey").
 
-### Moving around the file system
+#### Moving around the file system
 
 Let's practice moving around a bit.
 
@@ -244,7 +246,7 @@ Hint: hidden files and folders in unix start with `.`, for example `.my_hidden_d
 * * * *
 
 
-### Examining the contents of other directories
+#### Examining the contents of other directories
 
 By default, the `ls` commands lists the contents of the working directory (i.e. the directory you are in). You can always find the directory you are in using the `pwd` command. However, you can also give `ls` the names of other directories to view. Navigate to the home directory if you are not already there.
 
@@ -271,20 +273,6 @@ and you will jump directly to `raw_fastq` without having to go through the inter
 
 List the `Mov10_oe_1.subset.fq` file from your home directory without changing directories
 ****
-
-### Shortcut: Tab Completion
-
-Navigate to the home directory. Typing out directory names can waste a lot of time. When you start typing out the name of a directory, then hit the tab key, the shell will try to fill in the rest of the directory name. For example, type `cd` to get back to your home directly, then enter:
-
-```$ cd uni<tab>```
-
-The shell will fill in the rest of the directory name for `unix_oct2015`. Now go to `unix_oct2015/raw_fastq` and 
-
-```$ ls Mov10_oe_<tab><tab>```
-
-When you hit the first tab, nothing happens. The reason is that there are multiple directories in the home directory which start with `Mov10_oe_`. Thus, the shell does not know which one to fill in. When you hit tab again, the shell will list the possible choices.
-
-Tab completion can also fill in the names of programs. For example, enter `e<tab><tab>`. You will see the name of every program that starts with an `e`. One of those is `echo`. If you enter `ec<tab>` you will see that tab completion works.
 
 ## Full vs. Relative Paths
 
@@ -322,7 +310,7 @@ How can you tell these are programs rather than plain files?
 
 ## Saving time with shortcuts, wild cards, and tab completion
 
-### Shortcuts
+#### Shortcuts
 
 There are some shortcuts which you should know about. Dealing with the
 home directory is very common. So, in the shell the tilde character,
@@ -349,12 +337,12 @@ prints the contents of `/home/username` which is your home directory. Finally, t
 
 To summarize, while you are in your home directory, the commands `ls ~`, `ls ~/.`, `ls ../../`, and `ls /home/username` all do exactly the same thing. These shortcuts are not necessary, they are provided for your convenience.
 
-### Our data set: FASTQ files
+> #### Our data set: FASTQ files
+>
+> We did a RNA-Seq experiment and want to take a closer look at the data. We want to be able to see the contents of these files and do some things with them. (More details about the dataset will be discussed tomorrow.)
 
-We did an experiment and want to look at sequencing results. We want to be able to look at these files and do some things with them.
 
-
-### Wild cards
+#### Wild cards
 
 Navigate to the `~/unix_oct2015/raw_fastq` directory. This
 directory contains our FASTQ files.
@@ -399,6 +387,20 @@ BONUS: List all of the files in `/bin` that contain the letter 'a' or 'c'
 
 ****
 
+#### Tab Completion
+
+Navigate to the home directory. Typing out directory names can waste a lot of time. When you start typing out the name of a directory, then hit the tab key, the shell will try to fill in the rest of the directory name. For example, type `cd` to get back to your home directly, then enter:
+
+```$ cd uni<tab>```
+
+The shell will fill in the rest of the directory name for `unix_oct2015`. Now go to `unix_oct2015/raw_fastq` and 
+
+```$ ls Mov10_oe_<tab><tab>```
+
+When you hit the first tab, nothing happens. The reason is that there are multiple directories in the home directory which start with `Mov10_oe_`. Thus, the shell does not know which one to fill in. When you hit tab again, the shell will list the possible choices.
+
+Tab completion can also fill in the names of programs. For example, enter `e<tab><tab>`. You will see the name of every program that starts with an `e`. One of those is `echo`. If you enter `ec<tab>` you will see that tab completion works.
+
 
 ## Command History
 
@@ -437,8 +439,6 @@ then you could repeat command #260 by simply entering:
 files in `/bin`) and reissue that command.
 
 ****
-
-
 
 ## Examining Files
 
@@ -632,4 +632,13 @@ rm
 nano
 ```
 
+#### Information on the shell
 
+shell cheat sheets:<br>
+* [http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/](http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/)
+* [https://github.com/swcarpentry/boot-camps/blob/master/shell/shell_cheatsheet.md](https://github.com/swcarpentry/boot-camps/blob/master/shell/shell_cheatsheet.md)
+
+Explain shell - a web site where you can see what the different components of
+a shell command are doing.  
+* [http://explainshell.com](http://explainshell.com)
+* [http://www.commandlinefu.com](http://www.commandlinefu.com)
