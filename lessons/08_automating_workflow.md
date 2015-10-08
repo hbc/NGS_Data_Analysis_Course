@@ -219,3 +219,8 @@ cancel your jobs.
 #### Exercise
 * Modify the `rnaseq_analysis_on_allfiles.sh` script so that one can include an additional variable to point to a results directory.
 * Modify the `rnaseq_analysis_on_allfiles_for-lsf` script to work with the modified `rnaseq_analysis_on_allfiles.sh` script.
+
+---
+*The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
+All Data Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
+
