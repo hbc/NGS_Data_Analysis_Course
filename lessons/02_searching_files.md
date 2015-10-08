@@ -1,13 +1,8 @@
---
-layout: page
-title: "The Shell"
-comments: true
-date: 2015-10-06
 ---
-
-# The Shell: Searching and Redirection
-
-Author: Sheldon McKay, Bob Freeman, Mary Piper
+title: "The Shell: Searching and Redirection"
+author: "Sheldon  McKay, Bob Freeman, Mary Piper"
+date: "Wednesday, October 7, 2015"
+---
 
 Adapted from the lesson by Tracy Teal.
 Contributors: Paul Wilson, Milad Fatenejad, Sasha Wood, and Radhika Khetani for Software Carpentry (http://software-carpentry.org/)
@@ -266,4 +261,8 @@ wc
 cut
 sort
 ```
+
+---
+*The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
+All Data Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
 
