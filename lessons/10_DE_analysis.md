@@ -25,7 +25,7 @@ Enter [R](https://www.r-project.org/), a software environment for statistical co
 R is a powerful language that can be very useful for NGS data analysis, and there are many popular tools for working with RNA-Seq count data. Some of the popular tools include [edgeR](https://www.bioconductor.org/packages/release/bioc/vignettes/edgeR/inst/doc/edgeRUsersGuide.pdf), [DESeq2](http://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.pdf), and [limma-voom](http://www.genomebiology.com/2014/15/2/R29). All of these tools use statistical modeling of the count data to test each gene against the null hypothesis and evaluate whether or not it is significantly differentially expressed. These methods account for within-group and between-group varaibility and are also flexible enough to allow for other coavriates you may want to account for. The details on how each tool works are described thoroughly within the vignettes.
 
 
-### Setting up
+### Running R script
 
 We will be running an R script that uses the R package [edgeR](https://www.bioconductor.org/packages/release/bioc/vignettes/edgeR/inst/doc/edgeRUsersGuide.pdf) to identify differentially expressed genes. This package is available through the [Bioconductor](https://www.bioconductor.org/), a repository of packages for the analysis of high-throughput genomic data. 
 
@@ -48,7 +48,7 @@ You should find yourself back at the shell command prompt. We will run the R scr
 	cd results
 	mkdir diffexpression
 
-Now we need to copy over the required files. There are two files that we need, both are in different locations. First, let's copy over the script file:
+Now we need to copy over the required files. First, let's copy over the script file:
 
 	cp /groups/hbctraining/unix_oct2015_other/DE_script.R diffexpression/
 
@@ -58,10 +58,19 @@ The R script will require as input **1) your count matrix file** and **2) a meta
 	cp ~/unix_oct2015/other/Mov10_rnaseq_metadata.txt diffexpression
 
 
-Ok, now we're all setup to run our R script! Let's run it from our `diffexpression` directory
+Ok, now we're all setup to run our R script! Let's run it from our `diffexpression` directory,
 
 	cd diffexpression
 	Rscript DE_script.R Mov10_rnaseq_counts_complete.txt Mov10_rnaseq_metadata.txt 
+
+
+Hwo many files do you get as output from the script? There should be a few PNG files. Use Filezilla or `scp` top copy these over to your laptpo and take a look what was generated. Using commands within the shell (on the cluster) you can also examine text files. What's inside? How do the files differ?
+
+
+### Obtaining a gene list
+
+
+
 
 
 ### Resources for R
