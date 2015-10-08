@@ -1,20 +1,14 @@
 ---
-layout: page
 title: "The Shell"
-comments: true
-date: 2015-10-4
+author: "Sheldon  McKay, Mary Piper, Radhika Khetani"
+date: "Wednesday, October 7, 2015"
 ---
-
-# The Shell
-Author: Sheldon  McKay, Mary Piper 
-
 Adapted from the lesson by Tracy Teal.
 Original contributors:
 Paul Wilson, Milad Fatenejad, Sasha Wood and Radhika Khetani for Software Carpentry (http://software-carpentry.org/)
 
 ## Learning Objectives
-- What is the shell?
-- How do you access it?
+- How do you access the shell?
 - How do you use it?
   - Getting around the Unix file system
   - looking at files
@@ -24,7 +18,8 @@ Paul Wilson, Milad Fatenejad, Sasha Wood and Radhika Khetani for Software Carpen
 - Where are resources where I can learn more? (because the shell is awesome)
 
 ## TOC
-* Setting up
+* [Why use the Unix shell](https://github.com/hbc/Intro-to-Unix/blob/master/lessons/01_the_filesystem.md#why-use-the-unix-shell)
+* [Setting up](https://github.com/hbc/Intro-to-Unix/blob/master/lessons/01_the_filesystem.md#setting-up)
 * Starting with the shell
 * The Unix directory file structure (a.k.a. where am I?)
 * Full vs. Relative Paths
