@@ -171,6 +171,7 @@ This trick gives people a way to make some of their directories visible to the w
 
 ****
 **Exercise**
+
 If `ls -l myfile.php` returns the following details:
 
 ```
