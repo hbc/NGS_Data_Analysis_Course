@@ -92,10 +92,13 @@ Using `wc -l` find out how many genes are identified in the significant table? K
 
 	$ wc -l DEresults_sig_table.txt
 
-For downstream analysis, the relevant information that we will require from this results table is the gene names and the FDR value. We can cut the columns to a new file and then move that file to our laptop for use as input to some functional analaysis tools.
+For downstream analysis, the relevant information that we will require from this results table is the gene names and the FDR value. We can cut the columns to a new file and and use that as input to some functional analaysis tools.
 
 	cut -f1,6 DEresults_sig_table.txt > Mov10_sig_genelist.txt
   
+Since the list we have is generated from analaysis on a small subset of chromsome 1, using these genes as input to downstream tools will not provide any meaningful results. As such, we have generated a list using the full dataset for these samples and can be downloaded to your laptop via [this link](./genelist_edgeR_Mov10oe_noFC.txt). After DE analysis in edgeR we used an FDR < 0.05 with an added fold change criteria of logFC > 1, to give us a total of 453 genes. Open this file in a text editor, and you can copy/paste them as input as we walk-through some web-based tools for functional analysis.
+
+
 
 
 
