@@ -69,13 +69,6 @@ As mentioned above, line 4 is a encoding of the quality. In this case, the code 
 |50	|1 in 100,000|	99.999%|
 |60	|1 in 1,000,000|	99.9999%|
 
-* a read identifier containing information about the instrument,sequencing run, flow cell coordinates,lane, etc.
-* the nucleotide sequence
-* ascii-encoded phred-scaled quality scores for each called base (phred quality = -10*log<sub>10</sub> probability of an error)
-* multiple (typically 4) lines per read
-* There are different character encodings of qualities. If fastq files come from different instruments/timepoints/SRA accessions, may be an issue
-* Quality scores vary in a semi-systematic way that depends upon things such as instrument, position along read, nucleotide context.
-
 
 ## FastQC
 We have already talked about what information is stored in a FASTQ file earlier. The next step is to assess that information to see if the data contained within are of good quality.
