@@ -96,10 +96,38 @@ For downstream analysis, the relevant information that we will require from this
 
 	cut -f1,6 DEresults_sig_table.txt > Mov10_sig_genelist.txt
   
-Since the list we have is generated from analaysis on a small subset of chromsome 1, using these genes as input to downstream tools will not provide any meaningful results. As such, we have generated a list using the full dataset for these samples and can be downloaded to your laptop via [this link](./genelist_edgeR_Mov10oe_noFC.txt). After DE analysis in edgeR we used an FDR < 0.05 with an added fold change criteria of logFC > 1, to give us a total of 453 genes. Open this file in a text editor, and you can copy/paste them as input as we walk-through some web-based tools for functional analysis.
+Since the list we have is generated from analaysis on a small subset of chromsome 1, using these genes as input to downstream tools will not provide any meaningful results. As such, **we have generated a list using the full dataset for these samples and can be downloaded to your laptop via [this link](./genelist_edgeR_Mov10oe_noFC.txt).** From the full dataset analysis, 453Genes were identified as significant if they had an FDR < 0.05 _and_ a log fold change > 1.  
+
+Open this file in a text editor, and you can copy/paste them as input as we walk-through some web-based tools for functional analysis.
+
+#### gProfiler
+
+[gProfileR](http://biit.cs.ut.ee/gprofiler/index.cgi) web-based tool for the interpretation of large gene lists but is also available as an R package. The core tool takes a gene list as input and performs statistical enrichment analysis to provide interpretation to user-provided gene lists. Multiple sources of functional evidence are considered, including Gene Ontology terms, biological pathways, regulatory motifs of transcription factors and microRNAs, human disease annotations and protein-protein interactions. The user selects the organism and the sources of evidence to test. There are also additional parameters to change various thresholds and tweak the stringency to the desired level. 
+
+![gprofiler](../img/gProfiler.png)
+
+Take your list and paste it in the `Query' box. 
+
+* Under **Options**: keep all defaults checked but for _Hierarchical Filtering_ use the pulldown to select _Best per parent_
+* Choose **Show advanced options** and change the _Significance threshold_ to _Benjamini-Hochberg_
+* From the functional evidence selections choose the following: Gene Ontology (biological process, molecular function), KEGG, Reactome
+* Press **g:Profile!** 
+
+
+> Take a look at the list of terms that appear. Do you see anything relevant, given what you knwo about this dataset? Run the analysis again but this time change the appropriate parameter to export your results to file. 
+
+#### GENEMANIA
 
 
 
 
 
 ### Resources for R
+
+* https://www.datacamp.com/courses/free-introduction-to-r
+* Software Carpentry materials: http://swcarpentry.github.io/r-novice-inflammation/
+* Data Carpentry materials: http://tracykteal.github.io/R-genomics/
+* Materials from IQSS at Harvard: http://tutorials.iq.harvard.edu/R/Rintro/Rintro.html
+* [swirl](http://swirlstats.com/): learn R interactively from within the R console
+* The free "try R" class from [Code School](http://tryr.codeschool.com)
+* HarvardX course ["Statistics and R for the Life Sciences"](https://courses.edx.org/courses/HarvardX/PH525.1x/1T2015/info)
