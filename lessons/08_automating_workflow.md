@@ -12,12 +12,13 @@ date: "Wednesday, October 7, 2015"
 
 ### From Sequence reads to Count matrix
 
-That's a lot of work, yes? And you still have five more FASTQ files to go...
+That's a lot of work, and you still have five more FASTQ files to go...
 
-- You could try running this workflow on each FASTQ file andthen try and combine it all in the end. What would you have to do change
-in order to get this workflow to work?
+- You could try running this workflow on each FASTQ file and then try and combine it all in the end. What would you have to do change in order to get this workflow to work?
 - Remembering what commands *and* what parameters to type can be pretty daunting. What can
 you do to help yourself out in this regard?
+- How do you make sure that you are running every single file with the exact same parametrs, software versions?
+- How do you keep track of all the versions and methods? (lab notebook)
 - If you were to automate this process, what additional bits of information might you need?
 
 
@@ -42,12 +43,14 @@ FASTQ file called `Irrel_kd_1_qualtrim25.minlen35.fq`. _What did you have to do 
 - Reviewing your two scripts, *are there additional commonalities across scripts
 or within scripts that we could optimize?*
 
-> NOTE: Best practice would be to run the above script as a job on the scheduler. Then it is not in an interactive session, and you can set it up and exit out of the terminal. To do this, you simply need to make a new script with the same contents **+** the necessary bsub directives to the *beginning* of the script; you can submit it to the scheduler as `bsub < rnaseq_analysis_on_file2.lsf`. (The ".lsf" extension is for our future selves, so they can tell that it's a job submission script for the scheduler.)
+> NOTE: Best practice would be to run the above script as a job on the scheduler. Then it is not in an interactive session, and you can set it up and exit out of the terminal. We'll do this in a few minutes.
 
 #### Granting our Workflow More Flexibility
 
 A couple of changes need to be made to make this script more friendly to both changes
 in the workflow and changes in files. 
+
+***More variables***
 
 **The first major change is allowing flexibility in the input fastq file.** Thus at the start of 
 the script let's capture an input parameter that must be supplied with the script name.
@@ -194,7 +197,7 @@ $ nano rnaseq_analysis_on_allfiles_for-lsf.sh
 This file will loop through the same files as in the previous script, but the command it submits will be the actual bsub command:
 
 ```
-#!/bin/bash
+#! /bin/bash
 
     for fq in ~/unix_oct2015/raw_fastq/*.fq
     do
