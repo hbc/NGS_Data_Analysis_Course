@@ -8,6 +8,7 @@ Approximate time: 60 minutes
 
 ## Learning Objectives:
 
+* Understand the contents of a FastQ file
 * Be able to evaluate a FastQC report
 * Use Trimmommatic to clean FastQ reads
 * Use a For loop to automate operations on multiple files
