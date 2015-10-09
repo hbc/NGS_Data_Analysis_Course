@@ -96,9 +96,8 @@ For downstream analysis, the relevant information that we will require from this
 
 	cut -f1,6 DEresults_sig_table.txt > Mov10_sig_genelist.txt
   
-Since the list we have is generated from analaysis on a small subset of chromsome 1, using these genes as input to downstream tools will not provide any meaningful results. As such, **we have generated a list using the full dataset for these samples and can be downloaded to your laptop via [this link](./genelist_edgeR_Mov10oe_noFC.txt).** From the full dataset analysis, 453Genes were identified as significant if they had an FDR < 0.05 _and_ a log fold change > 1.  
+Since the list we have is generated from analaysis on a small subset of chromsome 1, using these genes as input to downstream tools will not provide any meaningful results. As such, **we have generated a list using the full dataset for these samples and can be downloaded to your laptop via [this link](./genelist_edgeR_Mov10oe_noFC.txt).** From the full dataset analysis, 453 genes were identified as significant if they had an FDR < 0.05 _and_ a log fold change > 1.  
 
-Open this file in a text editor, and you can copy/paste them as input as we walk-through some web-based tools for functional analysis.
 
 #### gProfiler
 
@@ -106,7 +105,7 @@ Open this file in a text editor, and you can copy/paste them as input as we walk
 
 ![gprofiler](../img/gProfiler.png)
 
-Take your list and paste it in the `Query' box. 
+Take your gene list and paste it in the `Query' box. 
 
 * Under **Options**: keep all defaults checked but for _Hierarchical Filtering_ use the pulldown to select _Best per parent_
 * Choose **Show advanced options** and change the _Significance threshold_ to _Benjamini-Hochberg_
@@ -117,10 +116,13 @@ Take your list and paste it in the `Query' box.
 > Take a look at the list of terms that appear. Do you see anything relevant, given what you knwo about this dataset? Run the analysis again but this time change the appropriate parameter to export your results to file. 
 
 
-#### GENEMANIA
+#### GeneMANIA
 
+[GeneMANIA](http://genemania.org/) is another tool for predicting the function of your genes. Rather than looking for enrichment, the query gene set is evaluated in the context of curated functional association data and results are displayed in the form of a network. Association data include protein and genetic interactions, pathways, co-expression, co-localization and protein domain similarity. Genes are represented as the nodes of the network and edges are formed by known association evidence. The query gene set is highlighted and so you can find other genes that are related based on the toplogy in the network. This tool is more useful for smaller gene sets (< 400 genes), as you can see in the figure below our input results in a bit of a hairball that is hard to interpret.
 
+![genemania](../img/genemania.png)
 
+> Use the significant gene list generated from the analysis we performed in class (~40 genes) as input to GeneMANIA. Using only pathway and coexpression data as evidence, take a look at the network that results. Can you predict anything functionally from this set of genes? 
 
 
 ### Resources for R
