@@ -1,5 +1,5 @@
 ---
-title: "Permissions and Environment variables"
+title: "Getting your project started"
 author: "Jason Williams, Bob Freeman, Meeta Mistry"
 date: "Wednesday, October 7, 2015"
 ---
@@ -13,8 +13,10 @@ Approximate time: 30 minutes
 * Have a general idea of the experiment and its objectives
 * Understand how and why we choose this dataset
 
-## Lesson
-The dataset we are using is part of a larger study described in [Kenny PJ et al, Cell Rep 2014](http://www.ncbi.nlm.nih.gov/pubmed/25464849). The authors are investigating interactions between various genes involved in Fragile X syndrome, a disease in which there is aberrant production of the FMRP protein. FMRP has been linked to the microRNA pathway, as it has been shown to be involved in miRNA mediated translational suppresion. The authors sought to show that FMRP associates with the RNA helicase MOV10, that is also associated with the microRNA pathway. The data we are using is RNA-Seq data extracted from HEK293F cells that were transfected with a MOV10 transgene and normal control cells. Using this data we will evaluate  transcriptional patterns associated with MOV10 overexpression. The libraries for this dataset are stranded and generated using the dUTP method. Sequencing was carried out on the Illumina HiSeq-2500 for 100bp single end reads. For each group we have three replicates as described in the figure below.
+
+The dataset we are using is part of a larger study described in [Kenny PJ et al, Cell Rep 2014](http://www.ncbi.nlm.nih.gov/pubmed/25464849). The authors are investigating interactions between various genes involved in Fragile X syndrome, a disease in which there is aberrant production of the FMRP protein. FMRP has been linked to the microRNA pathway, as it has been shown to be involved in miRNA mediated translational suppresion. **The authors sought to show that FMRP associates with the RNA helicase MOV10, that is also associated with the microRNA pathway.**
+
+From this study we are using the [RNA-Seq](http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE50499) data which is publicly available in the [SRA](http://www.ncbi.nlm.nih.gov/sra). The RNA was extracted from HEK293F cells that were transfected with a MOV10 transgene and normal control cells. Using this data, we will evaluate transcriptional patterns associated with MOV10 overexpression. The libraries for this dataset are stranded and were generated using the dUTP method. Sequencing was carried out on the Illumina HiSeq-2500 for 100bp single end reads. The full dataset was sequenced to ~40 million reads per sample, but for this workshop we will be looking at a small subset on chr1 (~300,000 reads/sample). For each group we have three replicates as described in the figure below.
 
 
 ![Automation](../img/exp_design.png)
@@ -37,19 +39,15 @@ want to run some of those analysis again. Genomics projects can quickly accumula
 remember whether your best alignment results were in Analysis1, AnalysisRedone, or AnalysisRedone2; or which quality cutoff 
 you used.
 
-Luckily, recording your computational experiments is even easier than recording lab data. Copy/Paste will become your best friend, sensible file names will make your analysis traversable by you and your collaborators, and writing the methods section for your next paper will be a breeze. Let's look at the best practices for documenting your genomics project. 
+Luckily, recording your computational experiments is even easier than recording lab data. Sensible file names will make your analysis traversable by you and your collaborators, and writing the methods section for your next paper will be a breeze. Let's look at the best practices for documenting your genomics project. 
 
 Your future self will thank you.
 
 [Data Organization Best Practices](https://github.com/datacarpentry/organization-genomics/blob/gh-pages/GoodBetterBest.md)<br>
 [https://github.com/datacarpentry/organization-genomics/blob/gh-pages/GoodBetterBest.md](https://github.com/datacarpentry/organization-genomics/blob/gh-pages/GoodBetterBest.md)
 
-##Exercise
 
-1. Turn to your neighbor and discuss naming conventions and data organization strategies you are considering for your project. Does this discussion highlight particular issues with your current strategy? Are there differences between your strategies
-that reflect differences in the type of data you are collecting?
-
-2. In this exercise we will setup a filesystem for the project we will be using over the next few days. We will also apply some of the shell commands/programs/tools learned in the previous lesson:
+In this next exercise we will setup a filesystem for the project we will be using over the next few days. We will also apply some of the shell commands/programs/tools learned in the previous lesson:
 
 * mkdir
 * history
@@ -67,11 +65,12 @@ First, make sure that you are in your home directory,
 ```
 $ pwd
 ```
-this should give the result: '/home/user_name'
-**Tip** Remember, when we give a command, rather than copying and pasting, just type it out. Also the '$' indicates we are at the command prompt, do not include that in your command. 
-**Tip** If you were not in your home directory, the easiest way to get there is to enter the command *cd* - which always returns you to home. 
+this should give the result: `/home/user_name`
 
-Now, make a directory for your project in the `unix_oct2015` folder using the `mkdir` command
+* **Tip** Remember, when we give a command, rather than copying and pasting, just type it out. Also the '$' indicates we are at the command prompt, do not include that in your command. 
+* **Tip** If you were not in your home directory, the easiest way to get there is to enter the command *cd* - which always returns you to home. 
+
+Now, make a directory for your project within the `unix_oct2015` folder using the `mkdir` command
 
 ```
 $ mkdir unix_oct2015/rnaseq_project
@@ -98,29 +97,26 @@ $ mkdir docs
 
 ``` 
 
-Verify that you have created the directories;
+Verify that you have created the directories:
 
 ```
-$ ls -R
+$ ls -F
 ```
 if you have created these directories, you should get the following output from that command:
 
 ```
 data  docs  meta  results
 
-./data:
-
-./docs:
-
-./meta:
-
-./results:
 ```
+
+#### Exercise
+
+It is also useful to have README file within your project directory. This file will usually contain a quick one line summary about the project and any other lines that follow will describe the files/directories found within it. Take a moment to create a README for `rnaseq_project` (hint: use nano to create the file). Give a short description of the project and brief descriptions of the types of file you would be storing within each of the sub-directories.
 
 
 #### B. Document your activity on the project
 
-The *history* command is a convenient way to document the all the commands you have used while analyzing and manipulating your project. Let's document the work we have done to create these folders. 
+The `history` command is a convenient way to document the all the commands you have used while analyzing and manipulating your project. Let's document the work we have done to create these folders. 
 
 View the commands that you have used so far during this session using history:
 
