@@ -64,9 +64,9 @@ As mentioned above, line 4 is a encoding of the quality. In this case, the code 
   
  ```
  !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
-  |                         |    |        |                              |                     |
- 33                        59   64       73                            104                   126
-  0........................26...31.......40                                
+ |                         |    |        |                              |                     |
+33                        59   64       73                            104                   126
+ 0........................26...31.......40                                
 ```
 
 This score is logarithmically based and the score values can be interpreted as follows:
