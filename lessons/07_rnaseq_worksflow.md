@@ -144,8 +144,11 @@ The basic options for **mapping reads** to the genome using STAR is as follows:
 
 More details on STAR and its functionality can be found in the [user manual](https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf), we encourage you to peruse through to get familiar with all available options.
 
+To run STAR we will be using the module available on Orchestra:
 
-_STAR is not available as a module on Orchestra._ To run STAR we will be using an install of the software that is available on the Orchestra cluster at `/opt/bcbio/local/bin`. Since we had previously added this location to our `$PATH` we can access the software by simply using the STAR command followed by the basic parameters described above and any additional parameters. The full command is provided below for you to copy paste into your terminal. Below, we first describe some the extra parameters we have added.
+	module load seq/STAR
+
+We can access the software by simply using the STAR command followed by the basic parameters described above and any additional parameters. The full command is provided below for you to copy paste into your terminal. Below, we first describe some the extra parameters we have added.
 
 Advanced parameters:
 
@@ -251,7 +254,7 @@ In it's most basic form the htseq command requires only the BAM file and the GTF
 You will notice at the end of the command we have added a redirection symbol. Since htseq-count outputs results to screen, we need to re-direct it to file.
 
 ```
-htseq-count --stranded reverse --format bam results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam data/reference_data/Irrel_kd_1_qualtrim25.minlen35.fq  >  results/counts/Mov10_oe_1.counts
+htseq-count --stranded reverse --format bam results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam data/reference_data/chr1-hg19_genes.gtf  >  results/counts/Mov10_oe_1.counts
 ```
 
 #### Exercise
