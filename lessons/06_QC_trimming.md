@@ -58,7 +58,7 @@ As mentioned above, line 4 is a encoding of the quality. In this case, the code 
      (Note: See discussion above).
  L - Illumina 1.8+ Phred+33,  raw reads typically (0, 41)
  ```
- So using the Illumina 1.8 encouding, which is what you will mostly see from now on, our first c is called with a Phred score of 0 and our Ns are called with a score of 2. Read quality is assessed using the Phred Quality Score.  This score is logarithmically based and the score values can be interpreted as follows:
+ So using the Illumina 1.8 encouding, which is what you will mostly see from now on, our first c is called with a Phred score of 31 and our Ns are called with a score of 2. Read quality is assessed using the Phred Quality Score.  This score is logarithmically based and the score values can be interpreted as follows:
 
 |Phred Quality Score |Probability of incorrect base call |Base call accuracy|
 |:-------------------|:---------------------------------:|-----------------:|
