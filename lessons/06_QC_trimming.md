@@ -8,13 +8,81 @@ Approximate time: 60 minutes
 
 ## Learning Objectives:
 
+* Understand the contents of a FastQ file
 * Be able to evaluate a FastQC report
 * Use Trimmommatic to clean FastQ reads
 * Use a For loop to automate operations on multiple files
 
 
+##Unmapped read data (FASTQ)
+
+NGS reads from a sequencing run are stored in fastq (fasta with qualities). Although it looks complicated  (and maybe it is), its easy to understand the [fastq](https://en.wikipedia.org/wiki/FASTQ_format) format with a little decoding. Some rules about the format include...
+
+|Line|Description|
+|----|-----------|
+|1|Always begins with '@' and then information about the read|
+|2|The actual DNA sequence|
+|3|Always begins with a '+' and sometimes the same info in line 1|
+|4|Has a string of characters which represent the quality scores; must have same number of characters as line 2|
+
+so for example in our data set, one complete read is:
+```
+@HWI-ST330:304:H045HADXX:1:1101:1111:61397
+CACTTGTAAGGGCAGGCCCCCTTCACCCTCCCGCTCCTGGGGGANNNNNNNNNNANNNCGAGGCCCTGGGGTAGAGGGNNNNNNNNNNNNNNGATCTTGG
++
+@?@DDDDDDHHH?GH:?FCBGGB@C?DBEGIIIIAEF;FCGGI#########################################################
+```
+This is one of our bad reads. 
+
+As mentioned above, line 4 is a encoding of the quality. In this case, the code is the [ASCII](https://en.wikipedia.org/wiki/ASCII#ASCII_printable_code_chart) character table. According to the chart a '#' has the value 35 and '!' has the value 33. If only it were that simple. There are actually several historical differences in how Illumina and other players have encoded the scores. Heres the chart from wikipedia:
+
+```
+  SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.....................................................
+  ..........................XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX......................
+  ...............................IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII......................
+  .................................JJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJJ......................
+  LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL....................................................
+  !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+  |                         |    |        |                              |                     |
+ 33                        59   64       73                            104                   126
+  0........................26...31.......40                                
+                           -5....0........9.............................40 
+                                 0........9.............................40 
+                                    3.....9.............................40 
+  0.2......................26...31........41                              
+
+ S - Sanger        Phred+33,  raw reads typically (0, 40)
+ X - Solexa        Solexa+64, raw reads typically (-5, 40)
+ I - Illumina 1.3+ Phred+64,  raw reads typically (0, 40)
+ J - Illumina 1.5+ Phred+64,  raw reads typically (3, 40)
+     with 0=unused, 1=unused, 2=Read Segment Quality Control Indicator (bold) 
+     (Note: See discussion above).
+ L - Illumina 1.8+ Phred+33,  raw reads typically (0, 41)
+ ```
+ 
+  So using the Illumina 1.8 encoding, which is what you will mostly see from now on, our first c is called with a Phred score of 31 and our Ns are called with a score of 2. Read quality is assessed using the Phred Quality Score.  
+  
+ ```
+ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~
+ |                         |    |        |                              |                     |
+33                        59   64       73                            104                   126
+ 0........................26...31.......40                                
+```
+
+This score is logarithmically based and the score values can be interpreted as follows:
+
+|Phred Quality Score |Probability of incorrect base call |Base call accuracy|
+|:-------------------|:---------------------------------:|-----------------:|
+|10	|1 in 10 |	90%|
+|20	|1 in 100|	99%|
+|30	|1 in 1000|	99.9%|
+|40	|1 in 10,000|	99.99%|
+|50	|1 in 100,000|	99.999%|
+|60	|1 in 1,000,000|	99.9999%|
+
+
 ## FastQC
-We have already talked about [what information is stored in a FASTQ file earlier](https://github.com/adamfreedman/knowyourdata-genomics/blob/gh-pages/lessons/01-know_your_data.md#unmapped-read-data-fastq). The next step is to assess that information to see if the data contained within are of good quality.
+We have already talked about what information is stored in a FASTQ file earlier. The next step is to assess that information to see if the data contained within are of good quality.
 
 FastQC (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) provides a simple way to do some quality control checks on raw sequence data coming from high throughput sequencing pipelines. It provides a modular set of analyses which you can use to give a quick impression of whether your data has any problems of which you should be aware before doing any further analysis.
 
@@ -56,11 +124,27 @@ Once your interactive job starts, notice that the command prompt has changed; th
 
 Before we start using software, we have to load the environments for each software package. On clusters, this is typically done using a **module** system. 
 
-To run the FastQC program, we first need to load the appropriate module:
+If we check which modules we currently have loaded, we should not see Fastqc.
+
+`$ module list`
+
+If we try to run FastQC on one of our fastq files, Orchestra won't be able to find the program.
+
+`$ fastqc Mov10_oe_1.subset.fq`
+
+This is because the fastqc program is not in our $PATH (i.e. its not in a directory that unix will automatically check to run commands/programs).
+
+`$ $PATH`
+
+To run the FastQC program, we first need to load the appropriate module, so it puts the program into our path:
 
 `$ module load seq/fastqc`
 
 Once a module for a tool is loaded, you have essentially made it directly available to you like any other basic UNIX command.
+
+`$ module list`
+
+`$ $PATH`
 
 FastQC will accept multiple file names as input, so we can use the *.fq wildcard.
 
@@ -77,6 +161,10 @@ Exit the interactive session and start a new one with 6 cores, and use the multi
 `$ module load seq/fastqc`     #you'll have to reload the module for the new session
 	
 `$ fastqc -t 6 *.fq`      #note the extra parameter we specified for 6 threads
+
+How did I know the -t argument for FastQC?
+
+`$ fastqc -help`
 
 
 Now, let's create a home for our results
@@ -96,7 +184,7 @@ Let's take a closer look at the files generated by FastQC:
 `$ ls -lh ~/unix_oct2015/rnaseq_project/results/fastqc_untrimmed_reads/`
 
 #### HTML reports
-The .html files contain the final reports generated by fastqc, let's take a closer look at them. Transfer one of them over to your laptop via [FileZilla](https://github.com/devbioinfoguy/HPC-genomics/blob/master/lessons/5.Data-rountripping.md#using-the-filezilla-gui-all-platforms).
+The .html files contain the final reports generated by fastqc, let's take a closer look at them. Transfer one of them over to your laptop via FileZilla.
 
 ***FastQC is just an indicator of what's going on with your data, don't take the "PASS"es and "FAIL"s too seriously.***
 
@@ -237,7 +325,7 @@ To make a *Trimmomatic* script:
 
 `$ nano trimmomatic_mov10.sh`
 
-Within nano we will add our shebang line, the Orchestra job submission commands, and our Trimmomatic command:
+Within nano we will add our shebang line, the Orchestra job submission commands, and our Trimmomatic command. Remember that you can find the submission commands on the [Orchestra New User Guide](https://wiki.med.harvard.edu/Orchestra/NewUserGuide).
 
 
 ```
