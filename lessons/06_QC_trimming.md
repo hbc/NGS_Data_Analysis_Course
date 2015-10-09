@@ -26,18 +26,13 @@ NGS reads from a sequencing run are stored in fastq (fasta with qualities). Alth
 
 so for example in our data set, one complete read is:
 ```
-$ head -n4 ~/dc_sample_data/untrimmed_fastq/SRR098281.fastq 
-@SRR098281.1 HWUSI-EAS1599_1:2:1:0:318 length=35
-CNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-+SRR098281.1 HWUSI-EAS1599_1:2:1:0:318 length=35
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+@HWI-ST330:304:H045HADXX:1:1101:1111:61397
+CACTTGTAAGGGCAGGCCCCCTTCACCCTCCCGCTCCTGGGGGANNNNNNNNNNANNNCGAGGCCCTGGGGTAGAGGGNNNNNNNNNNNNNNGATCTTGG
++
+@?@DDDDDDHHH?GH:?FCBGGB@C?DBEGIIIIAEF;FCGGI#########################################################
 ```
-This is a pretty bad read. 
+This is one of our bad reads. 
 
-Notice that line 4 is:
-```
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-```
 As mentioned above, line 4 is a encoding of the quality. In this case, the code is the [ASCII](https://en.wikipedia.org/wiki/ASCII#ASCII_printable_code_chart) character table. According to the chart a '#' has the value 35 and '!' has the value 33. If only it were that simple. There are actually several historical differences in how Illumina and other players have encoded the scores. Heres the chart from wikipedia:
 
 ```
