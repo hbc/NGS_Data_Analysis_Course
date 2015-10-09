@@ -1,17 +1,13 @@
-# Lesson
-
-Differential expression analysis
-===================
-
 Learning Objectives:
 -------------------
-### What's the goal for this lesson?
 
 * Use the count matrix as input to an R script for differential expression analysis
 * Apply Unix commands to look at the results that are generated and extract relevant information
 * Familiarize with various functional analysis tools
 
 
+Differential expression analysis
+-------------------
 
 At the end of the workflow from the last lesson, our final end product was a count matrix. This is a matrix in which each row represents a gene (or feature) and each column corresponds to a sample. In our dataset, we have two sample classes (control and Mov10oe) and we want to assess the difference in expression between these groups on a gene-by-gene basis.
 
@@ -29,7 +25,11 @@ R is a powerful language that can be very useful for NGS data analysis, and ther
 
 We will be running an R script that uses the R package [edgeR](https://www.bioconductor.org/packages/release/bioc/vignettes/edgeR/inst/doc/edgeRUsersGuide.pdf) to identify differentially expressed genes. This package is available through the [Bioconductor](https://www.bioconductor.org/), a repository of packages for the analysis of high-throughput genomic data. There are also a few other packages that are required to generate some additional figures.
 
-While R is already installed on Orchestra for us to use, the packages are not. You can open R by simply typing `R` at the command prompt and pressing `Enter`. You are now in the R console:
+In order to run R on Orchestra, we first need to load the module:
+
+	module load stats/R/3.2.1
+
+Now, you can open R by simply typing `R` at the command prompt and pressing `Enter`. You are now in the R console:
 
 ![Rconsole](../img/R_screenshot.png)
 
@@ -102,7 +102,7 @@ Open this file in a text editor, and you can copy/paste them as input as we walk
 
 #### gProfiler
 
-[gProfileR](http://biit.cs.ut.ee/gprofiler/index.cgi) web-based tool for the interpretation of large gene lists but is also available as an R package. The core tool takes a gene list as input and performs statistical enrichment analysis to provide interpretation to user-provided gene lists. Multiple sources of functional evidence are considered, including Gene Ontology terms, biological pathways, regulatory motifs of transcription factors and microRNAs, human disease annotations and protein-protein interactions. The user selects the organism and the sources of evidence to test. There are also additional parameters to change various thresholds and tweak the stringency to the desired level. 
+[gProfileR](http://biit.cs.ut.ee/gprofiler/index.cgi) is a web-based tool for the interpretation of large gene lists. The core tool takes a gene list as input and performs statistical enrichment analysis to provide interpretation to user-provided gene lists. Multiple sources of functional evidence are considered, including Gene Ontology terms, biological pathways, regulatory motifs of transcription factors and microRNAs, human disease annotations and protein-protein interactions. The user selects the organism and the sources of evidence to test. There are also additional parameters to change various thresholds and tweak the stringency to the desired level. 
 
 ![gprofiler](../img/gProfiler.png)
 
@@ -115,6 +115,7 @@ Take your list and paste it in the `Query' box.
 
 
 > Take a look at the list of terms that appear. Do you see anything relevant, given what you knwo about this dataset? Run the analysis again but this time change the appropriate parameter to export your results to file. 
+
 
 #### GENEMANIA
 
