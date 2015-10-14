@@ -30,7 +30,7 @@ Let's search for the string NNNNNNNNNN in file
 `$ grep NNNNNNNNNN Mov10_oe_1.subset.fq`
 
 We get back a lot of lines.  What if we want to see the whole fastq record for each of these reads?
-We can use the '-B' argument for grep to return the matched line plus one before (-B 1) and two
+We can use the '-B' and '-A' arguments for grep to return the matched line plus one before (-B 1) and two
 lines after (-A 2). Since each record is four lines and the second line is the sequence, this should
 give the whole record.
 
@@ -66,7 +66,7 @@ that is going to help us answer our important question. But all those
 sequences just went whizzing by with grep. How can we capture them?
 
 We can do that with something called "redirection". The idea is that
-we're redirecting the output to the terminal (all the stuff that went
+we're redirecting the output from the terminal (all the stuff that went
 whizzing by) to something else. In this case, we want to print it
 to a file, so that we can look at it later.
 
@@ -95,7 +95,7 @@ your keyboard you use very much. What `|` does is take the output that
 scrolling by on the terminal and then can run it through another command.
 When it was all whizzing by before, we wished we could just slow it down and
 look at it, like we can with `less`. Well it turns out that we can! We pipe
-the `grep` command through `less`
+the `grep` command to `less`
 
 `$ grep -B1 -A2 NNNNNNNNNN Mov10_oe_1.subset.fq | less`
 
@@ -104,7 +104,7 @@ Now we can use the arrows to scroll up and down and use `q` to get out.
 We can also do something tricky and use the command `wc`. `wc` stands for
 *word count*. It counts the number of lines or characters. So, we can use
 it to count the number of lines we're getting back from our `grep` command.
-And that will magically tell us how many sequences we're finding. We're
+And that will magically tell us how many sequences we're finding.
 
 `$ grep NNNNNNNNNN Mov10_oe_1.subset.fq | wc`
 
@@ -116,7 +116,7 @@ just want the number of lines, we can use the `-l` flag for `lines`.
 Redirecting is not super intuitive, but it's really powerful for stringing
 together these different commands, so you can do whatever you need to do.
 
-The philosophy behind these command line programs is that none of them
+The philosophy behind these commands is that none of them
 really do anything all that impressive. BUT when you start chaining
 them together, you can do some really powerful things really
 efficiently. If you want to be proficient at using the shell, you must
@@ -129,7 +129,7 @@ Finally, let's use the new tools in our kit and a few new ones to examine our ge
 
 `$ cd ~/unix_oct2015/reference_data/`
 
-Let's explore our chr1-hg19_genes.gtf file a bit. What information does it contain?
+Let's explore our `chr1-hg19_genes.gtf` file a bit. What information does it contain?
 
 `$ less chr1-hg19_genes.gtf`
 
@@ -147,19 +147,19 @@ This search returns two different genes, FAM138A and FAM138F, that contain the s
 
 `$ grep PLEKHN1 chr1-hg19_genes.gtf | head -n 5`
 
-This search returns two different transcripts of the same gene, NM_001160184 and NM_032129 that contain the same exon.
+This search returns two different transcripts of the same gene, NM_001160184 and NM_032129, that contain the same exon.
 
-Now that we know what type of information is inside of our gtf file, let's explore our commands to answer a simple question about our data. Let's find how many unique exons are present on chromosome 1 using our **gtf** file, **chr1-hg19_genes.gtf**. 
+Now that we know what type of information is inside of our gtf file, let's explore our commands to answer a simple question about our data. Let's find how many total exons are present on chromosome 1 using our **gtf** file, `chr1-hg19_genes.gtf`. 
 
 To determine the number of unique exons on chromosome 1, we are going to perform a series of steps:
 	
 	1. Subset the dataset to only include the feature type and genomic location information
 	2. Extract only the genomic coordinates of exon features
-	3. Remove non-unique exons
-	4. Count the total number of unique exons
+	3. Remove duplicate exons
+	4. Count the total number of exons
 	
 ####Subsetting dataset
-Since we only need the feature type and the genomic location information to find our unique exons, we should only keep columns 1, 3, 4, 5, and 7. 
+Since we only need the feature type and the genomic location information to find the total number of exons, we should only keep columns 1, 3, 4, 5, and 7. 
 
 'cut' is a program that will extract columns from files.  It is a very good command to know.  Let's first try out the 'cut' command on a small dataset (just the first 5 lines of chr1-hg19_genes.gtf) to make sure we have the command correct:
 
@@ -173,7 +173,7 @@ Since we only need the feature type and the genomic location information to find
 	chr1	exon	16607	16765	-
 	chr1	exon	16858	17055	-
 
-The 'cut' command assumes our data columns are separated by tabs (i.e. tab-delimited). The chr1-hg19_genes.gtf is a tab-delimited file, so the default 'cut' command works for us. However, data can be separated by other types of delimiters. Another common delimiter is the comma, which separates data in comma-separated value (csv) files. If your data is not tab delimited, there is a 'cut' command argument (-d) to specify the delimiter.
+The `cut` command assumes our data columns are separated by tabs (i.e. tab-delimited). The `chr1-hg19_genes.gtf` is a tab-delimited file, so the default 'cut' command works for us. However, data can be separated by other types of delimiters. Another common delimiter is the comma, which separates data in comma-separated value (csv) files. If your data is not tab delimited, there is a 'cut' command argument (-d) to specify the delimiter.
 
 Our output looks good, so let's cut these columns from the whole dataset (not just the first 5 lines) and save it as a file, '**chr1-hg19genes_cut**':
 
@@ -186,16 +186,16 @@ We only want the exons (not CDS or start_codon features), so let's use 'grep' to
 
 `$ grep exon chr1-hg19genes_cut > chr1_exons`
 
-#### Removing non-unique exons
+#### Removing duplicate exons
 Now, we need to remove those exons that show up multiple times for different genes or transcripts.    
 
-We can use some new tools 'sort' and 'uniq' to extract only those unique exons.  'uniq' is a command that will omit repeated adjacent lines of data if they are exactly the same. Therefore, we need to 'sort' our data by genomic coordinates first to make sure that all matching exons are adjacent to each other. 
+We can use some new tools `sort` and `uniq` to extract only those unique exons.  'uniq' is a command that will omit repeated adjacent lines of data if they are exactly the same. Therefore, we need to sort our data by genomic coordinates first to make sure that all matching exons are adjacent to each other. 
 
-We can use the 'sort command' with the '-k' option for sort to specify which column(s) to sort on.  Note that this does something similar to cut's '-f'.
+We can use the `sort` command with the `-k` option for sort to specify which column(s) to sort on.  Note that this does something similar to cut's '-f'.
 
 `$ sort -k3,4 chr1_exons | uniq`
 
-####Counting the total number of unique exons
+####Counting the total number of exons
 Now, to count how many unique exons are on chromosome 1, we need to pipe the output to 'wc -l':
 
 `$ sort -k3,4 chr1_exons | uniq | wc -l`
@@ -204,14 +204,12 @@ Now, to count how many unique exons are on chromosome 1, we need to pipe the out
 ****
 **Final Exercise**
 
-1) How could have you have determined the number of unique exons by combining all of the previous commands (starting with the original chr1-hg19_genes.gtf), into a single command (no intermediate files) using pipes?
+1) How could have you have determined the number of total exons by combining all of the previous commands (starting with the original chr1-hg19_genes.gtf), into a single command (no intermediate files) using pipes?
 
 2) There is an argument for the 'sort' command that will only keep unique lines of data. Determine the number of unique exons without using the 'uniq' command.
 
 3) There is an argument for the 'uniq' command that will count the number of occurrences of non-unique exons. Use the uniq command to count the number of non-unique exons and determine the most occurrences of an exon in the dataset.
 ****
-
-<!--  INSERT SECTION ON MAKING A RUDIMENTARY SCRIPT HERE  -->
 
 
 ## Where can I learn more about the shell?
