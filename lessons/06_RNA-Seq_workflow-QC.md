@@ -59,7 +59,7 @@ CACTTGTAAGGGCAGGCCCCCTTCACCCTCCCGCTCCTGGGGGANNNNNNNNNNANNNCGAGGCCCTGGGGTAGAGGGNN
 ```
 This is one of our bad reads. 
 
-As mentioned previously, line 4 is an encoding of the quality, which represents the probability that the nucleotide call is incorrect. The legend below provides the quality scores (Phred-33) associated with the quality encoding characters.
+As mentioned previously, line 4 has characters encoding the quality of the nucleotide calls, with each character representing the probability that the corresponding nucleotide call is incorrect. The legend below provides the quality scores (Phred-33) associated with the quality encoding characters.
 
  ```
  Quality encoding: !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
@@ -67,7 +67,7 @@ As mentioned previously, line 4 is an encoding of the quality, which represents 
     Quality score: 0........10........20........30........40                                
 ```
  
-Using the quality encoding legend, the first nucelotide in the read (C) is called with a quality score of 31 and our Ns are called with a score of 2.  This quality score is logarithmically based and the score values can be interpreted as follows:
+Using the quality encoding character legend, the first nucelotide in the read (C) is called with a quality score of 31 and our Ns are called with a score of 2.  This quality score is logarithmically based and the score values can be interpreted as follows:
 
 |Phred Quality Score |Probability of incorrect base call |Base call accuracy|
 |:-------------------|:---------------------------------:|-----------------:|
@@ -81,7 +81,7 @@ Using the quality encoding legend, the first nucelotide in the read (C) is calle
 Therefore, for the first nucleotide in the read (C), there is less than a 1 in 1000 chance that the base was called incorrectly.
 
 ### FastQC
-We have already talked about what information is stored in a FASTQ file earlier. The next step is to assess that information to see if the data contained within are of good quality.
+Now that we know about what information is stored in a FASTQ file, the next step is to assess that information to see if the data contained within are of good quality.
 
 FastQC (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) provides a simple way to do some quality control checks on raw sequence data coming from high throughput sequencing pipelines. It provides a modular set of analyses which you can use to give a quick impression of whether your data has any problems of which you should be aware before doing any further analysis.
 
