@@ -22,8 +22,8 @@ Without getting into the details for each step of the workflow, we first describ
 
 ![Workflow](../img/rnaseq_workflow.png)
 
-1. Quality control on sequence reads
-2. Trim and/or filter reads (if necessary)
+1. Quality control - Assessing quality using FastQC
+2. Quality control - Trimming and/or filtering reads (if necessary)
 3. Index the reference genome for use by STAR
 4. Align reads to reference genome using STAR (splice-aware aligner)
 5. Count the number of reads mapping to each gene using htseq-count
