@@ -28,7 +28,7 @@ In order to run R on Orchestra, let's first log on to the cluster. But this time
 **For Mac Users**
 Install [Xquartz](http://xquartz.macosforge.org/landing/) and have it running on your laptop before logging on to Orchestra:
 
-	$ ssh -x user_name@orchestra.med.harvard.edu
+	$ ssh -X user_name@orchestra.med.harvard.edu
 
 **For Windows Users**
 Install [Xming](http://sourceforge.net/projects/xming/) and have it running on your laptop.
