@@ -134,7 +134,7 @@ For downstream analysis, the relevant information that we will require from this
 
 	cut -f1,6 DEresults_sig_table.txt > Mov10_sig_genelist.txt
   
-Since the list we have is generated from analaysis on a small subset of chromsome 1, using these genes as input to downstream tools will not provide any meaningful results. As such, **we have generated a list using the full dataset for these samples and can be downloaded to your laptop via [this link](./genelist_edgeR_Mov10oe_noFC.txt).** From the full dataset analysis, 453 genes were identified as significant if they had an FDR < 0.05 _and_ a log fold change > 1.  
+Since the list we have is generated from analaysis on a small subset of chromsome 1, using these genes as input to downstream tools will not provide any meaningful results. As such, **we have generated a list using the full dataset for these samples and can be downloaded to your laptop via [this link](../genelist_edgeR_Mov10oe_noFC.txt).** From the full dataset analysis, 453 genes were identified as significant if they had an FDR < 0.05 _and_ a log fold change > 1.  
 
 
 #### gProfiler
