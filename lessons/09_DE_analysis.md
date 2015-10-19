@@ -23,7 +23,7 @@ R is a powerful language that can be very useful for NGS data analysis, and ther
 
 ### Running R script
 
-In order to run R on Orchestra, let's first log on to the cluster. But this time, note the addition of `-x` in our command. A number of programs with graphical user interfaces (e.g., R, Matlab) use the X11 system which lets the program run on an Orchestra computer, but show the graphics on your desktop. To do this, you need to have an X11 server running on your desktop, and your SSH connection needs to have X11 forwarding enabled. There are different instructions provided below depending on your operating system:
+In order to run R on Orchestra, let's first log on to the cluster. But this time, note the addition of `-X` in our command. A number of programs with graphical user interfaces (e.g., R, Matlab) use the X11 system which lets the program run on an Orchestra computer, but show the graphics on your desktop. To do this, you need to have an X11 server running on your desktop, and your SSH connection needs to have X11 forwarding enabled. There are different instructions provided below depending on your operating system:
 
 **For Mac Users**
 Install [Xquartz](http://xquartz.macosforge.org/landing/) and have it running on your laptop before logging on to Orchestra:
