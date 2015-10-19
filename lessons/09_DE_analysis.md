@@ -151,7 +151,7 @@ Take your gene list and paste it in the `Query' box.
 * Press **g:Profile!** 
 
 
-> Take a look at the list of terms that appear. Do you see anything relevant, given what you knwo about this dataset? Run the analysis again but this time change the appropriate parameter to export your results to file. 
+> Take a look at the list of terms that appear. Do you see anything relevant, given what you know about this dataset? Run the analysis again but this time change the appropriate parameter to export your results to file. 
 
 
 #### GeneMANIA
