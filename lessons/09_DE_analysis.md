@@ -89,7 +89,12 @@ First, let's copy over the script file:
 
 The DE script will require as input **1) your count matrix file** and **2) a metadata file**. The count matrix we generated in the last lesson and is in the `counts` directory. The metadata file is a tab-delimited file which contains any information associated with our samples. Each row corresponds to a sample and eaach column contains some information about each sample.
 
-	$ cp counts/Mov10_rnaseq_counts_complete.txt diffexpression
+> If you _didn't generate this file in class_ we have a pre-computed count matrix generated that you can use:
+> 
+> 	$ cp /groups/hbctraining/unix_oct2015_other/counts_STAR/Mov10_rnaseq_counts_complete.txt diffexpression
+
+
+
 	$ cp ~/unix_oct2015/other/Mov10_rnaseq_metadata.txt diffexpression
 
 > Once you have the files copied, take a look at the metadata using `less`.
