@@ -66,7 +66,7 @@ You should find yourself back at the shell command prompt. We will first need to
 
 	$ cp /groups/hbctraining/unix_oct2015_other/install_libraries.R .
 
-The next few lines will create a directory in your home folder for installing any R packages. Setting the environment variable will let R know where thos directory resides.
+The next few lines will create a directory in your home folder for installing any R packages. Setting the environment variable will let R know where this directory resides.
 
 	$ mkdir -p ~/R/library
 	$ echo 'R_LIBS_USER="~/R/library"' >  $HOME/.Renviron
@@ -87,7 +87,7 @@ First, let's copy over the script file:
 
 	$ cp /groups/hbctraining/unix_oct2015_other/DE_script.R diffexpression/
 
-The DE script will require as input **1) your count matrix file** and **2) a metadata file**. The count matrix we generated in the last lesson and is in the `counts` directory. The metadata file is a tab-delimited file which contains any information associated with our samples. Each row corresponds to a sample and eaach column contains some information about each sample.
+The DE script will require as input **1) your count matrix file** and **2) a metadata file**. The count matrix we generated in the last lesson and is in the `counts` directory. The metadata file is a tab-delimited file which contains any information associated with our samples. Each row corresponds to a sample and each column contains some information about each sample.
 
 > If you _didn't generate this file in class_ we have a pre-computed count matrix generated that you can use:
 > 
