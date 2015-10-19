@@ -23,7 +23,7 @@ R is a powerful language that can be very useful for NGS data analysis, and ther
 
 ### Running R script
 
-In order to run R on Orchestra, let's first log on to the cluster. But this time, note the addition of `-x` in our command. A number of programs with graphical user interfaces (e.g., R, Matlab) use the X11 system which lets the program run on an Orchestra computer, but show the graphics on your desktop. To do this, you need to have an X11 server running on your desktop, and your SSH connection needs to have X11 forwarding enabled. There are different instructions provided below depending on your operatins system:
+In order to run R on Orchestra, let's first log on to the cluster. But this time, note the addition of `-x` in our command. A number of programs with graphical user interfaces (e.g., R, Matlab) use the X11 system which lets the program run on an Orchestra computer, but show the graphics on your desktop. To do this, you need to have an X11 server running on your desktop, and your SSH connection needs to have X11 forwarding enabled. There are different instructions provided below depending on your operating system:
 
 **For Mac Users**
 Install [Xquartz](http://xquartz.macosforge.org/landing/) and have it running on your laptop before logging on to Orchestra:
@@ -33,13 +33,14 @@ Install [Xquartz](http://xquartz.macosforge.org/landing/) and have it running on
 **For Windows Users**
 Install [Xming](http://sourceforge.net/projects/xming/) and have it running on your laptop.
 In PuTTY:
-`Connection -> SSH -> X11 -> Enable X11 forwarding
+
+`Connection -> SSH -> X11 -> Enable X11 forwarding`
 
 ![puttyX11](../img/puttyssh.png)
 
 Then login in "session" with  orchestra.med.harvard.edu.
 
-Once you are in, start an interactive session and naviagte to the `rnaseq_project` directory:
+Once you are in, start an interactive session and navigate to the `rnaseq_project` directory:
 
 	$ bsub -Is -q interactive bash
 	$ cd unix_oct2015/rnaseq_project
@@ -56,7 +57,7 @@ You can open R by simply typing `R` at the command prompt and pressing `Enter`. 
 ![Rconsole](../img/R_screenshot.png)
 
 
-To install the packages we need we have created an R script for you to run from the command line, but normally you would do so with commands in the R console. Since we are running a script we can exit R with:
+To install the packages we need we have created an R script for you to run from the command line, but normally you would do so with commands in the R console. **Since we are running a script we can exit R with:**
 
 	q()
 
