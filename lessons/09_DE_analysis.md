@@ -23,13 +23,35 @@ R is a powerful language that can be very useful for NGS data analysis, and ther
 
 ### Running R script
 
+In order to run R on Orchestra, let's first log on to the cluster. But this time, note the addition of `-x` in our command. A number of programs with graphical user interfaces (e.g., R, Matlab) use the X11 system which lets the program run on an Orchestra computer, but show the graphics on your desktop. To do this, you need to have an X11 server running on your desktop, and your SSH connection needs to have X11 forwarding enabled. There are different instructions provided below depending on your operatins system:
+
+**For Mac Users**
+Install [Xquartz](http://xquartz.macosforge.org/landing/) and have it running on your laptop before logging on to Orchestra:
+
+	$ ssh -x user_name@orchestra.med.harvard.edu
+
+**For Windows Users**
+Install [Xming](http://sourceforge.net/projects/xming/) and have it running on your laptop.
+In PuTTY:
+`Connection -> SSH -> X11 -> Enable X11 forwarding
+
+![puttyX11](../img/puttyssh.png)
+
+Then login in "session" with  orchestra.med.harvard.edu.
+
+Once you are in, start an interactive session and naviagte to the `rnaseq_project` directory:
+
+	$ bsub -Is -q interactive bash
+	$ cd unix_oct2015/rnaseq_project
+
 We will be running an R script that uses the R package [edgeR](https://www.bioconductor.org/packages/release/bioc/vignettes/edgeR/inst/doc/edgeRUsersGuide.pdf) to identify differentially expressed genes. This package is available through the [Bioconductor](https://www.bioconductor.org/), a repository of packages for the analysis of high-throughput genomic data. There are also a few other packages that are required to generate some additional figures.
 
-In order to run R on Orchestra, we first need to load the module:
+We first need to load the R module:
 
-	module load stats/R/3.2.1
+	$ module load stats/R/3.2.1
 
-Now, you can open R by simply typing `R` at the command prompt and pressing `Enter`. You are now in the R console:
+
+You can open R by simply typing `R` at the command prompt and pressing `Enter`. You are now in the R console:
 
 ![Rconsole](../img/R_screenshot.png)
 
@@ -39,18 +61,28 @@ To install the packages we need we have created an R script for you to run from 
 	q()
 
 
-You should find yourself back at the shell command prompt. We will first need to copy over the installation script and then run it. **This may take a few minutes**, and you will see quite a bit of text being printed to screen. The reason for this is that R is also installing any dependencies and updating existing packages as required.
+You should find yourself back at the shell command prompt. We will first need to copy over the installation script and setup some important _environment variables_. 
 
 	$ cp /groups/hbctraining/unix_oct2015_other/install_libraries.R .
+
+The next few lines will create a directory in your home folder for installing any R packages. Setting the environment variable will let R know where thos directory resides.
+
+	$ mkdir -p ~/R/library
+	$ echo 'R_LIBS_USER="~/R/library"' >  $HOME/.Renviron
+	$ export R_LIBS_USER="/home/user_name/R/library"
+
+Now you should be able to run the installation script:
+
+	
 	$ Rscript install_libraries.R
 	
 
-If the packages installed successfully you will now be able to run the DE script. We are going to run the script from the `results` directory, so let's navigate there and create a directory for the results of our analysis. We will call the directory `diffexpression`:
+**The installation script may take a few minutes to run**, and you will see quite a bit of text being printed to screen. The reason for this is that R is also installing any dependencies and updating existing packages as required.If the packages installed successfully you will now be able to run the DE script. We are going to run the script from the `results` directory, so let's navigate there and create a directory for the results of our analysis. We will call the directory `diffexpression`:
 
 	$ cd results
 	$ mkdir diffexpression
 
-Now we need to copy over the required files. First, let's copy over the script file:
+First, let's copy over the script file:
 
 	$ cp /groups/hbctraining/unix_oct2015_other/DE_script.R diffexpression/
 
