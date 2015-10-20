@@ -1,9 +1,10 @@
 Learning Objectives:
 -------------------
 
+* Run R scripts from the Unix command line
 * Use the count matrix as input to an R script for differential expression analysis
 * Apply Unix commands to look at the results that are generated and extract relevant information
-* Familiarize with various functional analysis tools
+* Familiarize yourselft with various functional analysis tools for gene lists
 
 
 Differential expression analysis
@@ -21,9 +22,11 @@ Enter [R](https://www.r-project.org/), a software environment for statistical co
 R is a powerful language that can be very useful for NGS data analysis, and there are many popular tools for working with RNA-Seq count data. Some of the popular tools include [edgeR](https://www.bioconductor.org/packages/release/bioc/vignettes/edgeR/inst/doc/edgeRUsersGuide.pdf), [DESeq2](http://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.pdf), and [limma-voom](http://www.genomebiology.com/2014/15/2/R29). All of these tools use statistical modeling of the count data to test each gene against the null hypothesis and evaluate whether or not it is significantly differentially expressed. These methods account for within-group and between-group varaibility and are also flexible enough to allow for other coavriates you may want to account for. The details on how each tool works are described thoroughly within the vignettes.
 
 
-### Running R script
+### Running R scripts
 
-In order to run R on Orchestra, let's first log on to the cluster. But this time, note the addition of `-X` in our command. A number of programs with graphical user interfaces (e.g., R, Matlab) use the X11 system which lets the program run on an Orchestra computer, but show the graphics on your desktop. To do this, you need to have an X11 server running on your desktop, and your SSH connection needs to have X11 forwarding enabled. There are different instructions provided below depending on your operating system:
+In order to run R on Orchestra, let's first log on to the cluster. But this time, note the addition of `-X` in our command. A number of programs with graphical user interfaces (e.g. R, Matlab) use the X11 system which lets the program run on an remote computer, but display the graphics on your desktop. On the Orchestra cluster, any graphics in R that are directly plotted to file also require X11 forwarding. To do this, you need to have an X11 server running on your desktop, and your SSH connection needs to have X11 forwarding enabled. 
+
+There are different instructions provided below depending on your operating system:
 
 **For Mac Users**
 Install [Xquartz](http://xquartz.macosforge.org/landing/) and have it running on your laptop, and use the xterm to login to Orchestra:
@@ -38,7 +41,7 @@ In PuTTY:
 
 ![puttyX11](../img/puttyssh.png)
 
-Then login in "session" with  orchestra.med.harvard.edu.
+Then login in "session" with `orchestra.med.harvard.edu`.
 
 Once you are in, start an interactive session and navigate to the `rnaseq_project` directory:
 
@@ -52,7 +55,7 @@ We first need to load the R module:
 	$ module load stats/R/3.2.1
 
 
-You can open R by simply typing `R` at the command prompt and pressing `Enter`. You are now in the R console:
+You can open R by simply typing `R` at the command prompt and pressing `Enter`. You are now in the R console (note that the command prompt has changed to a `>` instead of a `$`):
 
 ![Rconsole](../img/R_screenshot.png)
 
@@ -75,10 +78,12 @@ The next few lines will create a directory in your home folder for installing an
 Now you should be able to run the installation script:
 
 	
-	$ Rscript install_libraries.R
+	$ Rscript install_libraries.R			
 	
 
-**The installation script may take a few minutes to run**, and you will see quite a bit of text being printed to screen. The reason for this is that R is also installing any dependencies and updating existing packages as required.If the packages installed successfully you will now be able to run the DE script. We are going to run the script from the `results` directory, so let's navigate there and create a directory for the results of our analysis. We will call the directory `diffexpression`:
+> *Rscript* is a command that accepts a script with R commands as input, you can explore the R commands within the install_libraries.R script using `less` or `nano`.	
+
+**The installation script may take a few minutes to run**, and you will see quite a bit of text being printed to screen. The reason for this is that R is also installing any dependencies and updating existing packages as required. If the packages installed successfully you will now be able to run the DE script. We are going to run the script from the `results` directory, so let's navigate there and create a directory for the results of our analysis. We will call the directory `diffexpression`:
 
 	$ cd results
 	$ mkdir diffexpression
@@ -105,7 +110,7 @@ Ok, now we're all setup to run our R script! Let's run it from within our `diffe
 	$ Rscript DE_script.R Mov10_rnaseq_counts_complete.txt Mov10_rnaseq_metadata.txt 
 
 
-> How many files do you get as output from the script? There should be a few PNG files and text files. Use Filezilla or `scp` to copy the images over to your laptop and take a look what was generated. 
+> How many files do you get as output from the script? There should be a few PNG files and text files. Use Filezilla or `scp` to copy the images over to your laptop and take a look what was generated. How well do the replicates cluster based on the plots that were generated?
 
 
 ### Gene list exploration
@@ -134,7 +139,7 @@ For downstream analysis, the relevant information that we will require from this
 
 	cut -f1,6 DEresults_sig_table.txt > Mov10_sig_genelist.txt
   
-Since the list we have is generated from analaysis on a small subset of chromsome 1, using these genes as input to downstream tools will not provide any meaningful results. As such, **we have generated a list using the full dataset for these samples and can be downloaded to your laptop via [this link](../genelist_edgeR_Mov10oe_1.0FC.txt).** From the full dataset analysis, 453 genes were identified as significant if they had an FDR < 0.05 _and_ a log fold change > 1.  
+Since the list we have is generated from analaysis on a small subset of chromosome 1, using these genes as input to downstream tools will not provide any meaningful results. As such, **we have generated a list using the full dataset for these samples and can be downloaded to your laptop via [this link](../genelist_edgeR_Mov10oe_1.0FC.txt).** From the full dataset analysis, 453 genes were identified as significant if they had an FDR < 0.05 _and_ a log fold change > 1.  
 
 
 #### gProfiler
