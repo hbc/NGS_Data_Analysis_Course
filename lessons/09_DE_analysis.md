@@ -69,7 +69,7 @@ You should find yourself back at the shell command prompt. We will first need to
 
 	$ cp /groups/hbctraining/unix_oct2015_other/install_libraries.R .
 
-The next few lines will create a directory in your home folder for installing any R packages. Setting the environment variable will let R know where this directory resides.
+The next few lines will create a directory in your home folder for installing any R packages. Packages are bundles of code that perform functions and include detailed documentation on how to use those functions. Once installed, they are referred to as _libraries_. Setting the environment variable will let R know where the R libraries directory resides.
 
 	$ mkdir -p ~/R/library
 	$ echo 'R_LIBS_USER="~/R/library"' >  $HOME/.Renviron
@@ -81,7 +81,7 @@ Now you should be able to run the installation script:
 	$ Rscript install_libraries.R			
 	
 
-> *Rscript* is a command that accepts a script with R commands as input, you can explore the R commands within the install_libraries.R script using `less` or `nano`.	
+> *Rscript* is a command that, at minimum, accepts an R script as input. The script contains lines of code to carry out a series of tasks using various functions. You can explore the R commands within the install_libraries.R script using `less` or `nano`.	
 
 **The installation script may take a few minutes to run**, and you will see quite a bit of text being printed to screen. The reason for this is that R is also installing any dependencies and updating existing packages as required. If the packages installed successfully you will now be able to run the DE script. We are going to run the script from the `results` directory, so let's navigate there and create a directory for the results of our analysis. We will call the directory `diffexpression`:
 
