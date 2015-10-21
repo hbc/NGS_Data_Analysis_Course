@@ -1,5 +1,7 @@
 #! /bin/bash    
 
+# Usage: sh <name of script> <fastq file>
+# This script accepts a trimmed fastq file on the command line and processes through the alignment workflow and returns a count file.
 
 fq=$1
 
@@ -14,8 +16,9 @@ fq=$1
      mkdir -p ~/unix_oct2015/rnaseq_project/results/counts
 
 # set up our software environment...
-    module load seq/samtools
-    module load seq/htseq
+    module load seq/STAR/2.4.0j
+    module load seq/samtools/1.2
+    module load seq/htseq/0.6.1p1
 
 echo "Processing file $fq ..."
 

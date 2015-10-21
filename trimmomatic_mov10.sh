@@ -10,11 +10,11 @@
 cd ~/unix_oct2015/rnaseq_project/data/untrimmed_fastq
 
 java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE \
--threads 4 \
--phred33 \
-Mov10_oe_1.subset.fq \
-../trimmed_fastq/Mov10_oe_1.qualtrim25.minlen35.fq \
-ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
-TRAILING:25 \
-MINLEN:35
+	-threads 4 \
+	-phred33 \
+	Mov10_oe_1.subset.fq \
+	../trimmed_fastq/Mov10_oe_1.qualtrim25.minlen35.fq \
+	ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
+	TRAILING:25 \
+	MINLEN:35
 
