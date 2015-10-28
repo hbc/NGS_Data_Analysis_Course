@@ -14,66 +14,85 @@ Approximate time: 60 minutes
 * Write a series of scripts, that are increasingly more flexible, to automate your workflow
 
 Now that you've been using quite a number of commands to interrogate your data, 
-wouldn't it be great if you could generate a report for your data and the special
-SRARunTable files as a part of the interrogation process? Even better, could we do this
-for each set of data that comes in, without having to manually re-type the commands?
-Welcome to the beauty and purpose of looping and automating with shell scripts! Read on!
+wouldn't it be great if you could do this for each set of data that comes in, without having to manually re-type the commands?
+Welcome to the beauty and purpose of shell scripts, looping and lopping with shell scripts! Read on!
+
+## Shell scripts
+
+We are finally ready to see what makes the shell such a powerful programming environment. We are going to take the commands we repeat frequently and save them in files so that we can re-run all those operations again later by typing a single command. For historical reasons, a bunch of commands saved in a file is usually called a shell script, but make no mistake: these are actually small programs.
+
+Shell scripts are text files that contain commands we want to run over and over again, and usually have the extension `.sh`. Let's write a shell script that tells us what our current working directory is and then lists the contents of the directory. First open a new file using nano:
+
+	$ nano listing.sh
+	
+Then type in the following lines in the `listing.sh` file:
+
+	echo "Your current working directory is:"
+	pwd
+	echo "These are the contents of this directory:"
+	ls -l 
+
+Close nano and save the file. Now let's run the new script we have created. To run a shell script you usually use the `bash` or `sh` command.
+
+	$ sh listing.sh
+	
+> Did it work like you expected?
+> 
+> Were the `echo` commands helpful in letting you know what came next?
+
+This is a very simple shell script. In this session and in upcoming sessions, we will be learning how to write more complex ones, and use the power of scripts to make our lives much easier.
 
 ## Loops and bash variables
 
-Right now we've used `grep` and redirecton (`>`) to capture all the bad reads that are present in
-one FASTQ file. And you've seen that you can use the grep pattern matching (glob) character
-`*` to look at more than one file simultaneously. But using this option works on files
-in batch, or all at once, without fine grain, one-by-one control. That's where
-looping comes in.
+Another powerful concept in the Unix shell is the concept of "Loops".
 
-Looping in bash is very similar to other languages. Let's dive right in:
+Looping is a concept shared by several programming languages, and its implementation in bash is very similar to other languages. Let's dive right in!
 
 `$ cd ~/unix_oct2015/raw_fastq`
 
-The structure of loops in bash is as follows:
+The structure or the syntax of (*for*) loops in bash is as follows:
 
-```bash
-$ for each in group
-> do
->	commands $each
-> done
 ```
-where `each` is a variable that takes the value of every member of the specified `group` one at a time and runs through the commands indicated before proceeding to the next member of the group. 
-
-Every loop will have the structure:
-
-```bash
-$ for * in *
+$ for (variable_name) in (list)
 > do
->   * 
-> done
-```
-You will need to specify the variable name, the group of files, programs, etc. that you would like to perform the command(s) on, and the actual command(s) you would like to perform. For example:
-
-```bash
-$ for filename in Mov10_oe_1.subset.fq Mov10_oe_2.subset.fq
-> do
->   echo $filename
+>   (command $variable_name) 
 > done
 ```
 
-So what does this do? Well, first we specify a group of files: `Mov10_oe_1.subset.fq` and `Mov10_oe_2.subset.fq`. Then, we execute a series of command(s) between the `do` and `done`. But we execute these commands for each item in this list. Moreover, we store in the placeholder, or variable, named `filename` the next FASTQ filename for each time we execute the set of commands. In essence, we loop through the group, executing the commands inside the `do` / `done` block, with the value of `filename` changing each time.
+where the ***variable_name*** defines (or initializes) a variable (see below) that takes the value of every member of the specified ***list*** one at a time. The loop, using the value in the variable then runs through the commands indicated between the `do` and `done` one at a time. *This syntax/structure is virtually set in stone.* 
 
-You may have noticed in the `for` statement we reference `filename`. But in the loop, we explicitly use `$filename`. Why? Well, in the former, we're setting the value, while in the latter, we're retrieving the value. This is standard bash notation for setting and getting variables. Forgetting the `$` when you want to retrieve the value of a variable is a common mistake. 
+For example:
 
-Of course, `filename` is a great variable name. But it doesn't matter what variable name we use:
+```
+$ ls -l  *fq		# list in long form all files ending in .fq
 
-```bash
-$ for x in Mov10_oe_1.subset.fq Mov10_oe_2.subset.fq
+$ for var in *fq
 > do
->   echo $x
+> 	echo $var
+>   wc -l $var
 > done
 ```
 
-The only potential problem is that `x` has little meaning. In the long run, it's best to use a name that will help point out its function, so your future self will understand what you are thinking now.
+####What does this loop do? 
+Most simply, it writes to the terminal (`echo`) the name of the file and the number of lines (`wc -l`) for all files that end in `.fq` in the current directory.
 
-Looping over two files is great, but its rather inflexible. What notation can we use to grab a whole directory of files? Use the `*` notation!
+In this case the list of files is specified using the asterisk wildcard: `*.fq`, i.e. all files that end in `.fq`. Then, we execute 2 commands between the `do` and `done`. With a loop, we execute these commands for each file at a time. Once the commands are executed for one file, the loop then executes the same commands on the next file in the list. 
+
+Essentially, **the number of loops == the number of items in the list**, in our case that is 6 times since we have 6 files in `~/unix_oct2015/raw_fastq` that end in `.fq`. This is done by changing the value of the `var` variable 6 times. 
+
+####What is a "Variable"?
+Just like loops, *variable* is a common concept shared by many programming languages. Variables are essentially a symbolic/temporary name for, or reference to, information. Variables are analogous to "buckets", where information can be maintained and referenced, and modified without too much hassle. 
+
+Extending the bucket analogy: the bucket has a name associated with it, i.e. the name of the variable (`var` in the above example), and when referring to the information in the bucket, we use the name of the bucket, and do not directly refer to the actual data stored in it.
+
+In the example above, we defined a variable or a 'bucket' called "var". We put the file names (values) inside it, one at a time.
+
+#####Using variables
+You may have noticed in the `for` statement we define the variable with the name **var**. But in the loop, we explicitly use a "$" in front of it (`$var`). Why? 
+
+Well, in the former, we're setting the value, while in the latter, we're retrieving the value. This is standard shell notation (syntax) for defining and using variables. Don't forget the `$` when you want to retrieve the value of a variable! 
+
+Of course, `var` is a useless variable name. But it doesn't matter what variable name we use and we can make it something more intuitive:
 
 ```bash
 $ for filename in *.fq
@@ -81,20 +100,18 @@ $ for filename in *.fq
 >   echo $filename
 > done
 ```
+In the long run, it's best to use a name that will help point out its function, so your future self will understand what you are thinking now.
 
-Now we've made our looping list more flexible, as it will work on any number of files. So let's put that to work:
+Now that we understand the concept of looping, let's put that to work:
 
 ```bash
 $ for filename in *.fq
 > do 
->   echo $filename; 
-
-  # grab all the bad read records
->   grep -B1 -A2 NNNNNNNNNN $filename > ../other/$filename-badreads.fastq
+>   echo $filename >> ../other/badreads.fastq
+>   grep -B1 -A2 NNNNNNNNNN $filename >> ../other/badreads.fastq 
 > done
 ```
-
-In addition to the `echo` statement, we've included a comment -- lines that start with `#` -- and our `grep` statement that finds bad reads and puts them into a new file. And we've specified a new filename with the variable `$filename`. So each iteration of the loop will `grep` a particular file and then output the bad reads to a new file that uses particular filename as part of the new one.
+Now we have used the for loop along with the `>>` redirection symbol to populate one file with all the bad reads in our data set.
 
 Pretty simple and cool, huh?
 
