@@ -1,7 +1,7 @@
 ---
 title: "The Shell: Loops & Scripts"
 author: "Bob Freeman, Mary Piper, Radhika Khetani"
-date: "Wednesday, October 7, 2015"
+date: "Wednesday, October 28, 2015"
 ---
 
 Approximate time: 60 minutes
