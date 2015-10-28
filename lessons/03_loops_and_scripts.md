@@ -107,8 +107,9 @@ Now that we understand the concept of looping, let's put that to work:
 ```bash
 $ for filename in *.fq
 > do 
->   echo $filename >> ../other/badreads.fastq
->   grep -B1 -A2 NNNNNNNNNN $filename >> ../other/badreads.fastq 
+>   echo $filename >> ../other/number-of-badreads.txt
+>   grep -B1 -A2 NNNNNNNNNN $filename | wc -l >> ../other/number-of-badreads.txt
+>   grep -B1 -A2 NNNNNNNNNN $filename > ../other/$filename.badreads.fastq 
 > done
 ```
 Now we have used the for loop along with the `>>` redirection symbol to populate one file with all the bad reads in our data set.
