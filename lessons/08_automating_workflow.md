@@ -216,7 +216,7 @@ This file will loop through the same files as in the previous script, but the co
     done
 
 
-**In the above for loop please note that after the bsub directives the `sh ~/rnaseq_analysis_on_allfiles.sh $fq` command is in quotations!**
+**In the above for loop please note that after the bsub directives the `sh rnaseq_analysis_on_input_file.sh $fq` command is in quotes!**
 
 > NOTE: All job schedulers are similar, but not the same. Once you understand how one works, you can transition to another one without too much trouble. They all have their pros and cons that the system administrators for your setup have taken into consideration and picked one that fits the needs of the users best. 
 
