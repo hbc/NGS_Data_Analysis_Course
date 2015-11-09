@@ -1,2 +1,2 @@
-# Intro-to-Unix
-2015-10-08 Workshop 
+# NGS_Data_Analysis_Course
+2016-02-08 
