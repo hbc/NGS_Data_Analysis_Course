@@ -1,5 +1,5 @@
 ---
-title: "RNA-Seq workflow - Part I: Quality Control"
+title: "RNA-Seq workflow - Part I: Quality Control - FASTQC"
 author: "Bob Freeman, Mary Piper"
 date: "Wednesday, October 15, 2015"
 ---
