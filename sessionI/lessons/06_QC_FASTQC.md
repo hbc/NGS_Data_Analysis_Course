@@ -8,11 +8,9 @@ Approximate time: 60 minutes
 
 ## Learning Objectives:
 
-* Use a series of command line tools to execute an RNA-Seq workflow
 * Learn the intricacies of various tools used in NGS analysis (parameters, usage, etc)
 * Understand the contents of a FastQ file
 * Be able to evaluate a FastQC report
-* Use Trimmommatic to clean FastQ reads
 * Use a For loop to automate operations on multiple files
 
 
