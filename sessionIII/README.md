@@ -7,3 +7,4 @@
 - ***lessons***: contains the lessons for this session as markdown files
 - ***results***: any results needed for use during the lessons for this session
 - ***scripts***: any scripts needed for use during the lessons for this session
+- ***slides***: teaching slides for content not included in markdown lessons
