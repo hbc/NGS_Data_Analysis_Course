@@ -1,7 +1,7 @@
 ---
 title: "RNA-Seq workflow - Part I: Quality Control - FASTQC"
 author: "Bob Freeman, Mary Piper"
-date: "Wednesday, October 15, 2015"
+date: "Tuesday, November 10, 2015"
 ---
 
 Approximate time: 60 minutes
