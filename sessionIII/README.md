@@ -1,4 +1,6 @@
-###This directory contains all materials for the NGS Data Analysis Course for Session III.
+### Session III: RNA-Seq Part II 
+
+This directory contains all materials for the NGS Data Analysis Course for Session III.
 
  
  **The following folders can be found within this directory:**

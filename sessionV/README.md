@@ -1,4 +1,6 @@
-###This directory contains all materials for the NGS Data Analysis Course for Session V.
+### Session V: ChIP-Seq and Closing Remarks
+
+This directory contains all materials for the NGS Data Analysis Course for Session V.
 
  
  **The following folders can be found within this directory:**

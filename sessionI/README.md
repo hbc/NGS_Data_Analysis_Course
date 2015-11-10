@@ -1,6 +1,7 @@
-###This directory contains all materials for the NGS Data Analysis Course for Session I.
-
+### Session I: Introduction to UNIX, Orchestra and NGS Data Analysis
  
+This directory contains all materials for the NGS Data Analysis Course for Session I.
+
  **The following folders can be found within this directory:**
 
 - ***img***: contains all images used in the lessons for this session

@@ -1,4 +1,6 @@
-###This directory contains all materials for the NGS Data Analysis Course for Session II.
+### Session II: NGS workflows and RNA-seq Part I
+
+This directory contains all materials for the NGS Data Analysis Course for Session II.
 
  
  **The following folders can be found within this directory:**
