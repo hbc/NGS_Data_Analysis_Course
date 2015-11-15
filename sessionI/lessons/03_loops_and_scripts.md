@@ -15,13 +15,14 @@ Approximate time: 60 minutes
 
 Now that you've been using quite a number of commands to interrogate your data, 
 wouldn't it be great if you could do this for each set of data that comes in, without having to manually re-type the commands?
-Welcome to the beauty and purpose of shell scripts, looping and lopping with shell scripts! Read on!
+
+Welcome to the beauty and purpose of shell scripts, looping and looping with shell scripts! Read on!
 
 ## Shell scripts
 
-We are finally ready to see what makes the shell such a powerful programming environment. We are going to take the commands we repeat frequently and save them in files so that we can re-run all those operations again later by typing a single command. For historical reasons, a bunch of commands saved in a file is usually called a shell script, but make no mistake: these are actually small programs.
+We are finally ready to see what makes the shell such a powerful programming environment. We are going to take the commands we repeat frequently and save them in files so that we can re-run all those operations again later by typing one single command. For historical reasons, a bunch of commands saved in a file is usually called a shell script, but make no mistake: this is actually a small program.
 
-Shell scripts are text files that contain commands we want to run over and over again, and usually have the extension `.sh`. Let's write a shell script that tells us what our current working directory is and then lists the contents of the directory. First open a new file using nano:
+Shell scripts are text files that contain commands we want to run over and over again. As with any file, you can give a shell script any name and usually have the extension `.sh`. Let's write a shell script that tells us what our current working directory is and then lists the contents of the directory. First open a new file using nano:
 
 	$ nano listing.sh
 	
@@ -40,7 +41,29 @@ Close nano and save the file. Now let's run the new script we have created. To r
 > 
 > Were the `echo` commands helpful in letting you know what came next?
 
-This is a very simple shell script. In this session and in upcoming sessions, we will be learning how to write more complex ones, and use the power of scripts to make our lives much easier.
+This is a very simple shell script. In this session and in upcoming sessions, we will be learning how to write more complex ones. You will see how the power of scripts can make our lives much easier.
+
+## Bash variables
+A *variable* is a common concept shared by many programming languages. Variables are essentially a symbolic/temporary name for, or reference to, information. Variables are analogous to "buckets", where information can be stored, maintained and modified without too much hassle. 
+
+Extending the bucket analogy: the bucket has a name associated with it, i.e. the name of the variable, and when referring to the information in the bucket, we use the name of the bucket, and do not directly refer to the actual data stored in it.
+
+In the example below, we define a variable or a 'bucket' called "FILE". We will put a filename `Mov10_oe_1.subset.fq` as the value inside the bucket.
+
+	$ FILE=Mov10_oe_1.subset.fq
+
+Once you press return, you should be back at the command prompt. *How do we know that we actually created the bash variable?* We can use the echo command to list what's inside `FILE`:
+
+	$ echo $FILE
+
+What do you see in the shell? If the variable was not created, the command would return nothing. Did you notice that when we created the variable we just typed in the variable name, but when using it as an argument to the `echo` command, we explicitly use a `$` in front of it (`$FILE`). Why? 
+
+Well, in the former, we're setting the value, while in the latter, we're retrieving the value. This is standard shell notation (syntax) for defining and using variables. Don't forget the `$` when you want to retrieve the value of a variable! 
+
+In the last lesson, we introduced the `wc -l` command which allows us to count the number of lines in a file. Let's count the number of lines in `Mov10_oe_1.subset.fq` by referencing the variable we just created:
+
+	$ wc -l $FILE
+
 
 ## Loops and bash variables
 
@@ -80,17 +103,11 @@ In this case the list of files is specified using the asterisk wildcard: `*.fq`,
 
 Essentially, **the number of loops == the number of items in the list**, in our case that is 6 times since we have 6 files in `~/unix_oct2015/raw_fastq` that end in `.fq`. This is done by changing the value of the `var` variable 6 times. 
 
-####What is a "Variable"?
-Just like loops, *variable* is a common concept shared by many programming languages. Variables are essentially a symbolic/temporary name for, or reference to, information. Variables are analogous to "buckets", where information can be maintained and referenced, and modified without too much hassle. 
-
-Extending the bucket analogy: the bucket has a name associated with it, i.e. the name of the variable (`var` in the above example), and when referring to the information in the bucket, we use the name of the bucket, and do not directly refer to the actual data stored in it.
-
-In the example above, we defined a variable or a 'bucket' called "var". We put the file names (values) inside it, one at a time.
 
 #####Using variables
 You may have noticed in the `for` statement we define the variable with the name **var**. But in the loop, we explicitly use a "$" in front of it (`$var`). Why? 
 
-Well, in the former, we're setting the value, while in the latter, we're retrieving the value. This is standard shell notation (syntax) for defining and using variables. Don't forget the `$` when you want to retrieve the value of a variable! 
+
 
 Of course, `var` is a useless variable name. But it doesn't matter what variable name we use and we can make it something more intuitive:
 
