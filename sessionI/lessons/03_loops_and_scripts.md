@@ -48,30 +48,50 @@ A *variable* is a common concept shared by many programming languages. Variables
 
 Extending the bucket analogy: the bucket has a name associated with it, i.e. the name of the variable, and when referring to the information in the bucket, we use the name of the bucket, and do not directly refer to the actual data stored in it.
 
-In the example below, we define a variable or a 'bucket' called "FILE". We will put a filename `Mov10_oe_1.subset.fq` as the value inside the bucket.
+In the example below, we define a variable or a 'bucket' called `file`. We will put a filename `Mov10_oe_1.subset.fq` as the value inside the bucket.
 
-	$ FILE=Mov10_oe_1.subset.fq
+	$ file=Mov10_oe_1.subset.fq
 
-Once you press return, you should be back at the command prompt. *How do we know that we actually created the bash variable?* We can use the echo command to list what's inside `FILE`:
+Once you press return, you should be back at the command prompt. *How do we know that we actually created the bash variable?* We can use the echo command to list what's inside `file`:
 
-	$ echo $FILE
+	$ echo $file
 
-What do you see in the shell? If the variable was not created, the command would return nothing. Did you notice that when we created the variable we just typed in the variable name, but when using it as an argument to the `echo` command, we explicitly use a `$` in front of it (`$FILE`). Why? 
+What do you see in the shell? If the variable was not created, the command will return nothing. Did you notice that when we created the variable we just typed in the variable name, but when using it as an argument to the `echo` command, we explicitly use a `$` in front of it (`$file`). Why? 
 
-Well, in the former, we're setting the value, while in the latter, we're retrieving the value. This is standard shell notation (syntax) for defining and using variables. Don't forget the `$` when you want to retrieve the value of a variable! 
+Well, in the former, we're setting the value, while in the latter, we're retrieving the value. This is standard shell notation (syntax) for defining and using variables. **Don't forget the `$` when you want to retrieve the value of a variable!** 
 
-In the last lesson, we introduced the `wc -l` command which allows us to count the number of lines in a file. Let's count the number of lines in `Mov10_oe_1.subset.fq` by referencing the variable we just created:
+Let's try another command using the variable that we have created. In the last lesson, we introduced the `wc -l` command which allows us to count the number of lines in a file. We can count the number of lines in `Mov10_oe_1.subset.fq` by referencing the `file` variable, but first move into the `raw_fastq` directory:
 
+	$ cd ~/unix_oct2015/raw_fastq
 	$ wc -l $FILE
 
+Ok, so we know variables are like buckets, and so far we have seen that bucket filled with a single value. **Variables can store more than just a single value.** They can store multiple values and in this way can be useful to carry out many things at once. Let's create a new variable called `filenames` and this time we will store *all of the filenames* in the `raw_fastq` directory as values. 
 
-## Loops and bash variables
+To list all the filenames in the directory that have a `.fq` extension, we know the command is:
 
-Another powerful concept in the Unix shell is the concept of "Loops".
+	$ ls *.fq
+	
+Now we want to re-direct the output of `ls` into a variable. We will give that variable the name `filenames`:
 
-Looping is a concept shared by several programming languages, and its implementation in bash is very similar to other languages. Let's dive right in!
+	$ filenames=`ls *.fq`
 
-`$ cd ~/unix_oct2015/raw_fastq`
+Check and see what's stored inside our newly created variable using `echo`:
+	
+	$ echo $filenames
+
+Let's try the `wc -l` command again, but this time using our new variable `filenames` as the argument:
+
+	$ wc -l $filenames
+	
+What just happened? Because our variable contains multiple values, the shell runs the command on each value stored in `filenames` and prints the results to screen. 
+
+> Try using some of the other commands we learned in previous lessons on the filename variable. 
+
+## Loops
+
+Another powerful concept in the Unix shell is the concept of "Loops". We have just shown you that you can run a single command on multiple files by creating a variable whose values are the filenames that you wish to work on. But what if you want to **run a sequence of multiple commands, on multiple files**? This is where loop come in handy!
+
+Looping is a concept shared by several programming languages, and its implementation in bash is very similar to other languages. 
 
 The structure or the syntax of (*for*) loops in bash is as follows:
 
@@ -82,22 +102,22 @@ $ for (variable_name) in (list)
 > done
 ```
 
-where the ***variable_name*** defines (or initializes) a variable (see below) that takes the value of every member of the specified ***list*** one at a time. The loop, using the value in the variable then runs through the commands indicated between the `do` and `done` one at a time. *This syntax/structure is virtually set in stone.* 
+where the ***variable_name*** defines (or initializes) a variable that takes the value(s) of every member of the specified ***list*** one at a time. The loop, then retrieves the value in the variable one at a time and runs through the commands indicated between the `do` and `done` one at a time. *This syntax/structure is virtually set in stone.* 
 
 For example:
 
 ```
-$ ls -l  *fq		# list in long form all files ending in .fq
+$ ls  *fq		# list in long form all files ending in .fq
 
 $ for var in *fq
 > do
-> 	echo $var
+>   echo $var
 >   wc -l $var
 > done
 ```
 
 ####What does this loop do? 
-Most simply, it writes to the terminal (`echo`) the name of the file and the number of lines (`wc -l`) for all files that end in `.fq` in the current directory.
+Most simply, it writes to the terminal (`echo`) the name of the file and the number of lines (`wc -l`) for each files that end in `.fq` in the current directory.
 
 In this case the list of files is specified using the asterisk wildcard: `*.fq`, i.e. all files that end in `.fq`. Then, we execute 2 commands between the `do` and `done`. With a loop, we execute these commands for each file at a time. Once the commands are executed for one file, the loop then executes the same commands on the next file in the list. 
 
