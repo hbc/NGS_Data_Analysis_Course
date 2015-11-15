@@ -1,4 +1,4 @@
-# NGS Data Analysis Course 2015
+# NGS Data Analysis Course 2016
 
 This repository contains all course materials for the HBC NGS Data Analysis Course.
 
