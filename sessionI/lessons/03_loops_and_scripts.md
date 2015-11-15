@@ -63,7 +63,7 @@ Well, in the former, we're setting the value, while in the latter, we're retriev
 Let's try another command using the variable that we have created. In the last lesson, we introduced the `wc -l` command which allows us to count the number of lines in a file. We can count the number of lines in `Mov10_oe_1.subset.fq` by referencing the `file` variable, but first move into the `raw_fastq` directory:
 
 	$ cd ~/unix_oct2015/raw_fastq
-	$ wc -l $FILE
+	$ wc -l $file
 
 Ok, so we know variables are like buckets, and so far we have seen that bucket filled with a single value. **Variables can store more than just a single value.** They can store multiple values and in this way can be useful to carry out many things at once. Let's create a new variable called `filenames` and this time we will store *all of the filenames* in the `raw_fastq` directory as values. 
 
@@ -85,7 +85,7 @@ Let's try the `wc -l` command again, but this time using our new variable `filen
 	
 What just happened? Because our variable contains multiple values, the shell runs the command on each value stored in `filenames` and prints the results to screen. 
 
-> Try using some of the other commands we learned in previous lessons on the filename variable. 
+> Try using some of the other commands we learned in previous lessons (i.e `head`, `tail`) on the `filename` variable. 
 
 ## Loops
 
@@ -104,12 +104,12 @@ $ for (variable_name) in (list)
 
 where the ***variable_name*** defines (or initializes) a variable that takes the value(s) of every member of the specified ***list*** one at a time. The loop, then retrieves the value in the variable one at a time and runs through the commands indicated between the `do` and `done` one at a time. *This syntax/structure is virtually set in stone.* 
 
-For example:
+For example, we can run the same commands (`echo` and `wc -l` used in the "Bash variables" section but this time run them sequentially on each file:
 
 ```
-$ ls  *fq		# list in long form all files ending in .fq
+$ ls  *.fq		# list all files ending in .fq
 
-$ for var in *fq
+$ for var in *.fq
 > do
 >   echo $var
 >   wc -l $var
@@ -117,24 +117,19 @@ $ for var in *fq
 ```
 
 ####What does this loop do? 
-Most simply, it writes to the terminal (`echo`) the name of the file and the number of lines (`wc -l`) for each files that end in `.fq` in the current directory.
+Most simply, it writes to the terminal (`echo`) the name of the file and the number of lines (`wc -l`) for each files that end in `.fq` in the current directory. The output is almost identical to what we had before.
 
 In this case the list of files is specified using the asterisk wildcard: `*.fq`, i.e. all files that end in `.fq`. Then, we execute 2 commands between the `do` and `done`. With a loop, we execute these commands for each file at a time. Once the commands are executed for one file, the loop then executes the same commands on the next file in the list. 
 
 Essentially, **the number of loops == the number of items in the list**, in our case that is 6 times since we have 6 files in `~/unix_oct2015/raw_fastq` that end in `.fq`. This is done by changing the value of the `var` variable 6 times. 
 
-
-#####Using variables
-You may have noticed in the `for` statement we define the variable with the name **var**. But in the loop, we explicitly use a "$" in front of it (`$var`). Why? 
-
-
-
-Of course, `var` is a useless variable name. But it doesn't matter what variable name we use and we can make it something more intuitive:
+Of course, `var` is a useless variable name. But it doesn't matter what variable name we use and we can make it something more intuitive.
 
 ```bash
 $ for filename in *.fq
 > do
 >   echo $filename
+>   wc -l $filename
 > done
 ```
 In the long run, it's best to use a name that will help point out its function, so your future self will understand what you are thinking now.
@@ -149,7 +144,7 @@ $ for filename in *.fq
 >   grep -B1 -A2 NNNNNNNNNN $filename > ../other/$filename.badreads.fastq 
 > done
 ```
-Now we have used the for loop along with the `>>` redirection symbol to populate one file with all the bad reads in our data set.
+We have used the for loop along with the `>>` redirection symbol to populate one file with all the bad reads in our data set.
 
 Pretty simple and cool, huh?
 
