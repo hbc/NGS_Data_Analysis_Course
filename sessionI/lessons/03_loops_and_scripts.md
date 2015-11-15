@@ -102,9 +102,9 @@ $ for (variable_name) in (list)
 > done
 ```
 
-where the ***variable_name*** defines (or initializes) a variable that takes the value(s) of every member of the specified ***list*** one at a time. The loop, then retrieves the value in the variable one at a time and runs through the commands indicated between the `do` and `done` one at a time. *This syntax/structure is virtually set in stone.* 
+where the ***variable_name*** defines (or initializes) a variable that takes the value of every member of the specified ***list*** one at a time. At each iteration, the loop retrieves the value stored in the variable (which is a member of the input list) and runs through the commands indicated between the `do` and `done` one at a time. *This syntax/structure is virtually set in stone.* 
 
-For example, we can run the same commands (`echo` and `wc -l` used in the "Bash variables" section but this time run them sequentially on each file:
+For example, we can run the same commands (`echo` and `wc -l`) used in the "Bash variables" section but this time run them sequentially on each file:
 
 ```
 $ ls  *.fq		# list all files ending in .fq
