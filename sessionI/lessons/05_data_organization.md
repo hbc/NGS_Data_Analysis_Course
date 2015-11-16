@@ -9,7 +9,7 @@ Approximate time: 30 minutes
 ## Learning Objectives
 
 * Understand the experiment and its objectives
-* Setting up for a NGS data analysis 
+* Setting up for a NGS workflow
 * Learning best practices for project organization
 
 
@@ -32,17 +32,14 @@ For all of those steps taken in the wetlab (collecting specimens, extracting DNA
 
 Every computational analysis you do is going to spawn many files, and inevitability, you'll want to run some of those analysis again. **Genomics projects can quickly accumulate hundreds of files across tens of folders.** Do you remember what PCR conditions you used to create your sequencing library? Probably not. Similarly, you probably won't remember whether your best alignment results were in Analysis1, AnalysisRedone, or AnalysisRedone2; or which quality cutoff you used.
 
-Luckily, recording your computational experiments is even easier than recording lab data. Sensible file names will make your analysis traversable by you and your collaborators, and writing the methods section for your next paper will be a breeze. Let's look at the best practices for documenting your genomics project. 
+Luckily, recording your computational experiments is even easier than recording lab data. Sensible file names will make your analysis traversable by you and your collaborators, and writing the methods section for your next paper will be a breeze. Let's look at the best practices for organizing your genomics project. 
 
 Your future self will thank you.
 
-> Adapted from [Data Organization Best Practices](https://github.com/datacarpentry/organization-genomics/blob/gh-pages/GoodBetterBest.md)
 
 ### Setting up the filesystem
 
-In this next exercise we will setup a filesystem for the project we will be using over the next few days. \
-
-Inspired by the guide below, we will start by creating a directory that we can use for the rest of the workshop:
+To prepare for the overwhelming number of files that will be generated during your NGS workflow, it is best to set up a directory structure such that you have a designated place for files when you encounter them. In this next exercise we will setup a directory structure for the project we will be using over the next few days.
 
 First, make sure that you are in your home directory,
 
@@ -51,8 +48,7 @@ $ pwd
 ```
 this should give the result: `/home/user_name`
 
-* **Tip** Remember, when we give a command, rather than copying and pasting, just type it out. Also the '$' indicates we are at the command prompt, do not include that in your command. 
-* **Tip** If you were not in your home directory, the easiest way to get there is to enter the command *cd* - which always returns you to home. 
+**Tip** If you were not in your home directory, the easiest way to get there is to enter the command *cd* - which always returns you to home. 
 
 Now, make a directory for your project within the `unix_oct2015` folder using the `mkdir` command
 
@@ -60,17 +56,29 @@ Now, make a directory for your project within the `unix_oct2015` folder using th
 $ mkdir unix_oct2015/rnaseq_project
 ```
 
-Next you want to set up the following directory structure within your project directory to keep files organized. 
+Next you want to set up the following structure within your project directory to keep files organized:
 
 ```
 rnaseq_project/
 ├── data
 ├── meta
 ├── results
-└── docs
+└── logs
 
 ```
-You can do this by changing into `rnaseq_project` and then using `mkdir` to create the four directories.
+
+This is a generic structure and can be tweaked based on personal preferences. A brief description of what might be contained within the different sub-directories is provided below:
+
+* `data/`: This folder is usually reserved for any raw data files that you start with. For example, this is where the original FASTQ files (data you get from the sequencer) would reside. It is best practice to always have a copy of the data in a folder in it's raw form; as you will notice that usually a workflow is run a few times before we get it completely right.
+* `meta/`: This folder contains any information that describes the samples you are using, which we often refer to as metadata. Usually this comes in the form of a tab-delimited/Excel file in which each row corresponds to a sample (listed using the filename for that sample in the raw data collection), and columns that follow would contain any other pertinent information for the sample (i.e sample class, demographic factors, sequencer specific information). An example of a metadata file is shown below:
+
+![metadata](../img/metadata_example.png)
+
+* `results/`: This folder will contain the output from the different tools you implement in your workflow. In some cases, you will simply have the results file as ouput but with other tools you will find a large number of intermediate files are generated. To stay organized, you should create sub-folders specific to each tool/step of the workflow. 
+* `logs/`: It is important to keep track of the commands you run and the specific pararmeters you used, but also to have a record of any standard output that is generated while running the command. This will allow you to go back to your recorded logfiles to explore additional information (e.g., how many adapters were removed, how many reads did not align). Different tools have different ways of reporting log messages and you might have to experiment a bit to figure out what output to capture: you can redirect standard output with the `>` symbol which is equivalent to `1> (standard out)`; other tools might require you to use `2>` to re-direct the standard error instead. 
+ 
+
+Let's create the directory structure for our  changing into `rnaseq_project` and then using `mkdir` to create the four directories.
 
 ```
 $ cd unix_oct2015/rnaseq_project
@@ -150,7 +158,9 @@ Add a dateline and comment to the line where you have created the directory e.g.
 
 
 ###References
-[A Quick Guide to Organizing Computational Biology Projects] (http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424)
+* [A Quick Guide to Organizing Computational Biology Projects] (http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1000424)
+* [Data Organization Best Practices](https://github.com/datacarpentry/organization-genomics/blob/gh-pages/GoodBetterBest.md)
+
 
 
 ---
