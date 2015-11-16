@@ -109,7 +109,7 @@ Keeping notes on what happened in what order, what was done and by whom, is esse
 > Take a moment to create a `README.txt` for `rnaseq_project` (hint: use nano to create the file). Give a short description of the project with today's date and a brief descriptions of the types of file you intend to store within each of the sub-directories.
 
 
-To keep track of the commands you have used while analyzing yoru data, the `history` command is very convenient. We haven't gotten to any data analysis just yet, but as an example we can document the commands we have used to create these folders. 
+To keep track of the commands you have used while analyzing your data, the `history` command is very convenient. We haven't gotten to any data analysis just yet, but as an example we can document the commands we have used to create these folders. 
 
 To view the commands that you have used so far during this session using history:
 
@@ -141,22 +141,22 @@ Next, remove any lines of the history that are not relevant. Just navigate to th
 
 A few months from now, you may not remember what you were up to when you created a particular set of files. Below is a short list of things we suggest when it comes to file naming:
 
-1. Keep sample names short and meaningful. If required, include some form a long explanation for the sample names (i.e comment lines at the top of the metadata file, or add it in your README file).
-2. Have unique sample names and try to avoid names that look like dates (Dec14), times (AM1245) and other things that Excel might auto-convert. 
-3. Remove spaces and punctuation. When working on the command line, spaces in file names make everything exponentially more difficult. Replace all your spaces with under_scores and avoid the use of any special characters.
+1. **Keep sample names short and meaningful.** If required, include some form a long explanation for the sample names (i.e comment lines at the top of the metadata file, or add it in your README file).
+2. Have **unique sample names** and try to avoid names that look like dates (Dec14), times (AM1245) and other things that Excel might auto-convert. 
+3. **Remove spaces and punctuation.** When working on the command line, spaces in file names make everything exponentially more difficult. Replace all your spaces with under_scores and avoid the use of any special characters.
 
 ## Best practices for NGS Analysis 
 
 Ok so now you are all set up to start your analyses! You have set up your space in a way such that someone unfamiliar with your project should be able to look at your computer files and understand in detail what you did and why. Now before we move on to any actual data, we have a few words of wisdom to impart upon you:
 
 
-1. Make sure to use the appropriate software. Do your research and find out what is best for the data you are working with. Don't just work with tools that you are able to easily install. Also, make sure you are using the most up-to-date versions! If you run out of date software, you are probably introducing errors into your workflow; and you may be missing out on more accurate methods.
+1. **Make sure to use the appropriate software.** Do your research and find out what is best for the data you are working with. Don't just work with tools that you are able to easily install. Also, make sure you are using the most up-to-date versions! If you run out-of-date software, you are probably introducing errors into your workflow; and you may be missing out on more accurate methods.
 
-2. Keep up with the literature. Bioinformatics is a fast-moving field and it's always good to stay in the know about recent developments. 
+2. **Keep up with the literature.** Bioinformatics is a fast-moving field and it's always good to stay in the know about recent developments. This will help you determine what is appropriate and what is not.  
 
-3. Do not re-invent the wheel. If you run into problems, more often than not someone has already encountered that same problem. A solution is either already available or someone is working on it -- so find it!
+3. **Do not re-invent the wheel.** If you run into problems, more often than not someone has already encountered that same problem. A solution is either already available or someone is working on it -- so find it!
 
-4. Testing is essential. If you are using a tool for th first time, test it out on a single sample or a subset of the data before running your entire dataset through that pipeline. It will give you a chance to also get a feel for the tool and the differnt parameters.
+4. **Testing is essential.** If you are using a tool for the first time, test it out on a single sample or a subset of the data before running your entire dataset through. This will allow you to debug quicker and give you a chance to also get a feel for the tool and the different parameters.
 
 
 
