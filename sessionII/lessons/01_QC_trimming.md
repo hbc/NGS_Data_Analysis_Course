@@ -1,4 +1,3 @@
-
 ---
 title: "NGS workflow - Quality Control - Trimming"
 author: "Bob Freeman, Mary Piper"

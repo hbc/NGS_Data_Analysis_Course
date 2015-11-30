@@ -1,18 +1,16 @@
 ---
-title: "RNA-Seq workflow - Part I: Quality Control"
+title: "RNA-Seq workflow - Part I: Quality Control - FASTQC"
 author: "Bob Freeman, Mary Piper"
-date: "Wednesday, October 15, 2015"
+date: "Tuesday, November 10, 2015"
 ---
 
 Approximate time: 60 minutes
 
 ## Learning Objectives:
 
-* Use a series of command line tools to execute an RNA-Seq workflow
 * Learn the intricacies of various tools used in NGS analysis (parameters, usage, etc)
 * Understand the contents of a FastQ file
 * Be able to evaluate a FastQC report
-* Use Trimmommatic to clean FastQ reads
 * Use a For loop to automate operations on multiple files
 
 
