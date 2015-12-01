@@ -6,7 +6,7 @@ date: "Wednesday, October 7, 2015"
 
 Contributors: Mary Piper
 
-Approximate time:  minutes
+Approximate time: 3 hours
 
 ## Learning Objectives
 
