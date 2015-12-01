@@ -11,7 +11,7 @@ Approximate time: 3 hours
 ## Learning Objectives
 
 * learn the pros/cons of different biological databases
-* learn how to use biological databases during an NGS analysis
+* learn how to use features of biological databases to access information and data during an NGS analysis
 
 ## Intro to biological databases - 15-20 min.
 
