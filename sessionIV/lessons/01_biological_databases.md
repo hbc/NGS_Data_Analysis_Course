@@ -37,8 +37,8 @@ Hands-on activities addressing important uses of biological databases during an 
 4. Exploring NGS analysis results - population frequencies for variant calls, binding motifs, etc - only if have time
 
 
-	
-	
+## Formatting	
+The remaining sections are for formatting only. To maintain consistency throughout our lessons, we can format exercises and commands as follows.	
 
 ****
 **Exercise**
@@ -49,8 +49,6 @@ the name of the sequence.
 
 2) Search for that sequence in all Mov10 replicate fastq files.
 ****
-
-## Redirection
 
 Let's try it out and put all the sequences that contain 'NNNNNNNNNN'
 from all the files in to another file called `bad_reads.txt`.
