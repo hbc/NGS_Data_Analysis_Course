@@ -19,7 +19,7 @@ Assessing the quality of your data and performing any necessary quality control 
 
 ![Workflow](../img/rnaseq_workflow_FASTQC.png)
 
-###Unmapped read data (FASTQ)
+### RECAP: Raw read data (FASTQ)
 
 NGS reads from a sequencing run are stored in fastq files (FASTA file + quality information). Although it looks complicated  (and maybe it is), its easy to understand the [fastq](https://en.wikipedia.org/wiki/FASTQ_format) format with a little decoding. Some rules about the format include:
 
