@@ -22,18 +22,18 @@ Welcome to the beauty and purpose of shell scripts.
 
 We are finally ready to see what makes the shell such a powerful programming environment. We are going to take the commands we repeat frequently and save them in files so that we can re-run all those operations again later by typing one single command. For historical reasons, a bunch of commands saved in a file is usually called a shell script, but make no mistake: this is actually a small program.
 
-Shell scripts are text files that contain commands we want to run over and over again. As with any file, you can give a shell script any name and usually have the extension `.sh`. Let's write a shell script that tells us what our current working directory is and then lists the contents of the directory. First open a new file using nano:
+Shell scripts are text files that contain commands we want to run over and over again. As with any file, you can give a shell script any name and usually have the extension `.sh`. Let's write a shell script that tells us what our current working directory is and then lists the contents of the directory. First open a new file using `vi`:
 
-	$ nano listing.sh
+	$ vi listing.sh
 	
-Then type in the following lines in the `listing.sh` file:
+Change to insert mode, then type in the following lines in the `listing.sh` file:
 
 	echo "Your current working directory is:"
 	pwd
 	echo "These are the contents of this directory:"
 	ls -l 
 
-Close nano and save the file. Now let's run the new script we have created. To run a shell script you usually use the `bash` or `sh` command.
+Save the file and exit `vi`. Now let's run the new script we have created. To run a shell script you usually use the `bash` or `sh` command.
 
 	$ sh listing.sh
 	
@@ -149,7 +149,7 @@ We have used the for loop along with the `>>` redirection symbol to populate one
 Pretty simple and cool, huh?
 
 ## Automating with Scripts
-
+	
 Now that you've learned how to use loops and variables, let's put this processing power to work. Imagine, if you will, a series of commands that would do the following for us each time we get a new data set:
 
 - Use for loop to iterate over each FASTQ file
@@ -163,7 +163,7 @@ Move to our sample data directory and use `nano` to create our new script file:
 
 `$ cd ~/unix_oct2015/raw_fastq`
 
-`$ nano generate_bad_reads_summary.sh`
+`$ vi generate_bad_reads_summary.sh`
 
 We always want to start our scripts with a shebang line: 
 
@@ -235,7 +235,7 @@ cat bad-reads.count.summary >> ../runlog.txt
 
 ```
 
-Exit out of `nano`, and voila! You now have a script you can use to assess the quality of all your new datasets. Your finished script, complete with comments, should look like the following:
+Exit out of `vi`, and voila! You now have a script you can use to assess the quality of all your new datasets. Your finished script, complete with comments, should look like the following:
 
 ```bash
 #!/bin/bash 
