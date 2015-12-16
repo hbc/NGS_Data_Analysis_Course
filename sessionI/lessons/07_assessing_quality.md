@@ -9,36 +9,19 @@ Approximate time: 60 minutes
 ## Learning Objectives:
 
 * Learn the intricacies of various tools used in NGS analysis (parameters, usage, etc)
-* Understand the contents of a FastQ file
 * Be able to evaluate a FastQC report
-* Use a For loop to automate operations on multiple files
+* Use a `for` loop to automate operations on multiple files
 
 
-## Running a Workflow
-
-Without getting into the details for each step of the workflow, we first describe a general overview of the steps involved in RNA-Seq analysis:
-
-![Workflow](../img/rnaseq_workflow.png)
-
-1. Quality control - Assessing quality using FastQC
-2. Quality control - Trimming and/or filtering reads (if necessary)
-3. Index the reference genome for use by STAR
-4. Align reads to reference genome using STAR (splice-aware aligner)
-5. Count the number of reads mapping to each gene using htseq-count
-6. Statistical analysis (count normalization, linear modeling using R-based tools)
-
-
+##Quality Control of FASTQ files
 Assessing the quality of your data and performing any necessary quality control measures, such as trimming, is a critical first step in the analysis of your RNA-Seq data. 
 
 
-So let's get started.
-
-##Quality Control - FASTQC
 ![Workflow](../img/rnaseq_workflow_FASTQC.png)
 
 ###Unmapped read data (FASTQ)
 
-NGS reads from a sequencing run are stored in fastq (fasta with qualities). Although it looks complicated  (and maybe it is), its easy to understand the [fastq](https://en.wikipedia.org/wiki/FASTQ_format) format with a little decoding. Some rules about the format include...
+NGS reads from a sequencing run are stored in fastq files (FASTA file + quality information). Although it looks complicated  (and maybe it is), its easy to understand the [fastq](https://en.wikipedia.org/wiki/FASTQ_format) format with a little decoding. Some rules about the format include:
 
 |Line|Description|
 |----|-----------|
@@ -55,9 +38,8 @@ CACTTGTAAGGGCAGGCCCCCTTCACCCTCCCGCTCCTGGGGGANNNNNNNNNNANNNCGAGGCCCTGGGGTAGAGGGNN
 +
 @?@DDDDDDHHH?GH:?FCBGGB@C?DBEGIIIIAEF;FCGGI#########################################################
 ```
-This is one of our bad reads. 
 
-As mentioned previously, line 4 has characters encoding the quality of the nucleotide calls, with each character representing the probability that the corresponding nucleotide call is incorrect. The legend below provides the quality scores (Phred-33) associated with the quality encoding characters.
+As mentioned previously, line 4 has characters encoding the quality of each nucleotide in the read. The legend below provides the mapping of quality scores (Phred-33) to the quality encoding characters.
 
  ```
  Quality encoding: !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
@@ -65,7 +47,7 @@ As mentioned previously, line 4 has characters encoding the quality of the nucle
     Quality score: 0........10........20........30........40                                
 ```
  
-Using the quality encoding character legend, the first nucelotide in the read (C) is called with a quality score of 31 and our Ns are called with a score of 2.  This quality score is logarithmically based and the score values can be interpreted as follows:
+Using the quality encoding character legend, the first nucelotide in the read (C) is called with a quality score of 31 and our Ns are called with a score of 2. **This is one of our bad reads.** Each quality score represents the probability that the corresponding nucleotide call is incorrect. This quality score is logarithmically based and the score values can be interpreted as follows:
 
 |Phred Quality Score |Probability of incorrect base call |Base call accuracy|
 |:-------------------|:---------------------------------:|-----------------:|
