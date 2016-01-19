@@ -8,9 +8,20 @@ Approximate time: 40 minutes
 
 ## Learning Objectives:
 
+* Introducing bioinformatics pipelines and data standards
 * Learning about the FASTQ format
 * Understanding quality scores
 * Examining error profiles for QC analysis
+
+
+### Bioinformatics workflows
+
+When working with NGS data, the raw reads you get off of the sequencer will need to pass through a number of  different tools in order to generate your final desired output. The execution of this set of tools in a specified order is commonly referred to as *workflow* or a *pipeline*. An example of the workflow we will nbe using for RNA-seq analysis is provided below:
+
+![workflow](../img/rnaseq_workflow.png)
+
+These workflows in bioinformatics take a plug-and-play approach, in that the output of one tool can be used as input to another tool without any extensive configuration. Having standards for data formats is what makes this feasible. Data formats are generally accepted and agreed upon ways of storing data. For each step in the workflow, we will be 
+
 
 
 ### FASTA format
@@ -50,7 +61,7 @@ CACTTGTAAGGGCAGGCCCCCTTCACCCTCCCGCTCCTGGGGGANNNNNNNNNNANNNCGAGGCCCTGGGGTAGAGGGNN
 @?@DDDDDDHHH?GH:?FCBGGB@C?DBEGIIIIAEF;FCGGI#########################################################
 ```
 
-As mentioned previously, line 4 has characters encoding the quality of each nucleotide in the read. The legend below provides the mapping of quality scores (Phred-33) to the quality encoding characters. *Different quality encoding scales exist (differing by offset in the ASCII table), but note the most commonly used one is fastqsanger:*
+As mentioned previously, line 4 has characters encoding the quality of each nucleotide in the read. The legend below provides the mapping of quality scores (Phred-33) to the quality encoding characters. *Different quality encoding scales exist (differing by offset in the ASCII table), but note the most commonly used one is fastqsanger *
 
  ```
  Quality encoding: !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
