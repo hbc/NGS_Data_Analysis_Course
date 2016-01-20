@@ -16,7 +16,16 @@ Approximate time: 40 minutes
 
 ### Bioinformatics workflows
 
-When working with NGS data, the raw reads you get off of the sequencer will need to pass through a number of  different tools in order to generate your final desired output. The execution of this set of tools in a specified order is commonly referred to as a *workflow* or a *pipeline*. An example of the workflow we will be using for our RNA-seq analysis is provided below:
+When working with NGS data, the raw reads you get off of the sequencer will need to pass through a number of  different tools in order to generate your final desired output. The execution of this set of tools in a specified order is commonly referred to as a *workflow* or a *pipeline*. 
+
+An example of the workflow we will be using for our RNA-seq analysis is provided below with a brief description of each step. As we work through this pipeline during Sessions I and II, we will discuss each in more detail.
+
+
+1. Quality control - Assessing quality using FastQC
+2. Quality control - Trimming and/or filtering reads (if necessary)
+3. Align reads to reference genome using STAR (splice-aware aligner)
+4. Count the number of reads mapping to each gene using htseq-count
+5. Statistical analysis (count normalization, linear modeling using R-based tools)
 
 ![workflow](../img/rnaseq_workflow.png)
 
