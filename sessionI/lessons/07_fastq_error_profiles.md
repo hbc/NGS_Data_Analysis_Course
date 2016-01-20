@@ -100,7 +100,9 @@ Now let's take a look at a quality plot on the other end of the spectrum.
 
 ![good_quality](../img/bad_quality.png)
 
-Here, we see positions within the read in which the boxes span a much wider range. Also, quality scores drop quite low into the 'bad' range, particularly on the tail end of the reads. When you encounter a quality plot such as this one, the first step is to troubleshoot. Why might we be seeing something like this?  
+Here, we see positions within the read in which the boxes span a much wider range. Also, quality scores drop quite low into the 'bad' range, particularly on the tail end of the reads. When you encounter a quality plot such as this one, the first step is to troubleshoot. Why might we be seeing something like this? 
+
+The FASTQC tool produces several other diagostic plots to assess samples, in addition to the one plotted above. We will discuss various error profiles and potential causes in the [slides provided here](). 
 
 
 
