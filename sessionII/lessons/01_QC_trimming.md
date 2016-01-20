@@ -118,7 +118,7 @@ To make a *Trimmomatic* job submission script for Orchestra LSF scheduler:
 
 `$ vi trimmomatic_mov10.lsf`
 
-Within nano we will add our shebang line, the Orchestra job submission commands, and our Trimmomatic command. Remember that you can find the submission commands in the [Orchestra New User Guide](https://wiki.med.harvard.edu/Orchestra/NewUserGuide).
+Within `vi` we now add our shebang line, the Orchestra job submission commands, and our Trimmomatic command. Remember that you can find the submission commands in the [Orchestra New User Guide](https://wiki.med.harvard.edu/Orchestra/NewUserGuide).
 
 
 ```
