@@ -14,8 +14,8 @@ Approximate time: 60 minutes
 
 
 ##Quality Control of FASTQ files
-Assessing the quality of your data and performing any necessary quality control measures, such as trimming, is a critical first step in the analysis of your RNA-Seq data. 
 
+A critical first step in the analysis of your NGS data is assessing the quality of your data and performing any necessary quality control measures, such as trimming.
 
 ![Workflow](../img/rnaseq_workflow_FASTQC.png)
 
@@ -39,11 +39,11 @@ The main functions of FastQC are:
 
 To perform our quality checks, we will be working within our recently created `rnaseq_project` directory. We need to create two directories within the `data` directory for this quality control step. 
 
-`$ cd unix_oct2015/rnaseq_project/data`
-
-`$ mkdir untrimmed_fastq`
-
-`$ mkdir trimmed_fastq`
+```
+$ cd unix_oct2015/rnaseq_project/data
+$ mkdir untrimmed_fastq
+$ mkdir trimmed_fastq
+```
     
 The raw_fastq data we will be working with is currently in the `unix_oct2015/raw_fastq` directory. We need to copy the raw fastq files to our `untrimmed_fastq` directory:
 
@@ -81,9 +81,10 @@ To run the FastQC program, we first need to load the appropriate module, so it p
 
 Once a module for a tool is loaded, you have essentially made it directly available to you like any other basic UNIX command.
 
-`$ module list`
-
-`$ $PATH`
+```
+$ module list
+$ $PATH
+```
 
 FastQC will accept multiple file names as input, so we can use the *.fq wildcard.
 
@@ -93,13 +94,12 @@ FastQC will accept multiple file names as input, so we can use the *.fq wildcard
 
 Exit the interactive session and start a new one with 6 cores, and use the multi-threading funcionality of FastQC to run 6 jobs at once.
 
-`$ exit`      #exit the current interactive session
-	
-`$ bsub -Is -n 6 -q interactive bash`      #start a new one with 6 cpus (-n 6)
-	
-`$ module load seq/fastqc/0.11.3`     #you'll have to reload the module for the new session
-	
-`$ fastqc -t 6 *.fq`      #note the extra parameter we specified for 6 threads
+```
+$ exit  #exit the current interactive session
+$ bsub -Is -n 6 -q interactive bash   #start a new one with 6 cpus (-n 6)
+$ module load seq/fastqc/0.11.  #reload the module for the new session
+$ fastqc -t 6 *.fq  #note the extra parameter we specified for 6 threads
+```
 
 How did I know about the -t argument for FastQC?
 
@@ -112,9 +112,10 @@ Now, let's create a home for our results
 
 ...and move them there (recall, we are still in `~/unix_oct2015/rnaseq_project/data/untrimmed_fastq/`)
 
-`$ mv *.zip ~/unix_oct2015/rnaseq_project/results/fastqc_untrimmed_reads/`
-
-`$ mv *.html ~/unix_oct2015/rnaseq_project/results/fastqc_untrimmed_reads/`
+```
+$ mv *.zip ~/unix_oct2015/rnaseq_project/results/fastqc_untrimmed_reads/
+$ mv *.html ~/unix_oct2015/rnaseq_project/results/fastqc_untrimmed_reads/
+```
 
 ####C. Results
    
@@ -167,9 +168,10 @@ The "Overrepresented sequences" table displays the sequences (at least 20 bp) th
 
 Let's go back to the terminal now. The other output of FastQC is a .zip file. These .zip files need to be unpacked with the `unzip` program. If we try to `unzip` them all at once:
 
-`$ cd ~/unix_oct2015/rnaseq_project/results/fastqc_untrimmed_reads/`
-    
-`$ unzip *.zip`
+```
+$ cd ~/unix_oct2015/rnaseq_project/results/fastqc_untrimmed_reads/    
+$ unzip *.zip
+```
 
 Did it work? 
 
@@ -184,7 +186,7 @@ Note that in the first line, we create a variable named `zip`.  After that, we c
 
 This loop is basically a simple program. When it runs
 
-```bash
+```
 $ for zip in *.zip
 > do
 > unzip $zip
@@ -202,9 +204,10 @@ When you check your history later, it will help you remember what you did!
 
 What information is contained in the unzipped folder?
 
-`$ ls -lh *fastqc`
-
-`$ head *fastqc/summary.txt`
+```
+$ ls -lh *fastqc
+$ head *fastqc/summary.txt
+```
 
 To save a record, let's `cat` all `fastqc summary.txt` files into one `full_report.txt` and move this to `~/unix_oct2015/rnaseq_project/docs`. 
 You can use wildcards in paths as well as file names.  Do you remember how we said `cat` is really meant for concatenating text files?
