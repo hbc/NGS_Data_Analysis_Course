@@ -10,7 +10,8 @@ Approximate time: 90 minutes
 
 * Use STAR to align sequence reads to the reference genome
 * Learning the intricacies of alignment tools used in NGS analysis (parameters, usage, etc)
-* Understannding alignment file formats
+* Understanding alignment file formats
+* Assessing alignment quality 
 
 ## Aligning reads
 
@@ -89,7 +90,7 @@ $ cp -r /groups/hbctraining/unix_oct2015_other/trimmed_fastq data/
 
 ```
 
-### Running STAR on a single sample
+### Running STAR 
 
 For this workshop we will be using STAR (Spliced Transcripts Alignment to a Reference), an aligner designed to specifically address many of the challenges of RNAseq data mapping, and utilizes a novel strategy for spliced alignments. STAR is shown to have high accuracy and outperforms other aligners by more than a factor of 50 in mapping speed (but also requires quite a bit of memory). More details on the algorithm itself can be found in the publication linked above. 
 
@@ -173,6 +174,8 @@ How many files do you see in your output directory? Using the `less` command tak
 
 The output we requested from STAR is a BAM file, and by default returns a file in SAM format. BAM is a binary version of the SAM file, also known as Sequence Alignment Map format. The SAM file is a tab-delimited text file that contains information for each individual read and its alignment to the genome. The file begins with a header, which is optional, followed by an alignment section.  If present, the header must be prior to the alignments and starts with '@'. Each line that follows corresponds to alignment information for a read. Each alignment line has **11 mandatory fields for essential mapping information** and a variable number of fields for aligner specific information.
 
+
+**Need a more in-depth description of the SAM file format**
 
 These fields are described briefly below, but for more detailed information the paper by [Heng Li et al](http://bioinformatics.oxfordjournals.org/content/25/16/2078.full) is a good start.
 
