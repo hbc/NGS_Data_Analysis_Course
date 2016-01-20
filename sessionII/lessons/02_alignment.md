@@ -89,7 +89,7 @@ $ cp -r /groups/hbctraining/unix_oct2015_other/trimmed_fastq data/
 
 ```
 
-### Running STAR
+### Running STAR on a single sample
 
 For this workshop we will be using STAR (Spliced Transcripts Alignment to a Reference), an aligner designed to specifically address many of the challenges of RNAseq data mapping, and utilizes a novel strategy for spliced alignments. STAR is shown to have high accuracy and outperforms other aligners by more than a factor of 50 in mapping speed (but also requires quite a bit of memory). More details on the algorithm itself can be found in the publication linked above. 
 
@@ -165,7 +165,8 @@ How many files do you see in your output directory? Using the `less` command tak
 
 1. How many reads are uniquely mapped?
 2. How many reads map to more than 10 locations on the genome?
-3. How many reads are unmapped due to read length?
+3. How many reads are unmapped due to read length?   
+
 **************
 
 ### Alignment file format: SAM/BAM
@@ -188,6 +189,18 @@ $ samtools view -h results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam | less
 ```
  
 Scroll through the SAM file and see how the fields correspond to what we expected.
+
+****
+
+**Exercise:**
+On examining the SAM file
+
+***
+
+
+### Running STAR on multiple samples
+
+Create a job submission script to run STAR on all FASTQ files
 
 
 
