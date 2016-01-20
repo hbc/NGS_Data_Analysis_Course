@@ -541,34 +541,9 @@ By default, `rm`, will NOT delete directories. You can tell `rm` to delete a dir
 
 ```$ rm -r new_backup/ backup/```
 
-## Writing files
-
-We've been able to do a lot of work with files that already exist, but what if we want to write our own files. Obviously, we're not going to type in a FASTA file, but you'll see as we go through other tutorials, there are a lot of reasons we'll want to write a file, or edit an existing file.
-
-To write in files, we're going to use the command `nano`. We're going to create
-a file that contains some text. We'll name this file 'awesome.txt'.
-
-```$ nano awesome.txt```
-
-Now you have something that looks like
-
-![nano1.png](../img/nano1.png)
-
-Type in a sentence, something like "nano is awesome"
-
-Now we want to save the file and exit. At the bottom of nano, you see the "\^X Exit". That means that we use Ctrl-X to exit. Type `Ctrl-X`. It will ask if you want to save it. Type `y` for yes. Then it asks if you want that file name. Hit 'Enter'.
-
-Now you've written a file. You can take a look at it with less or cat, or open it up again and edit it.
-
 
 ****
 **Exercise**
-
-Open 'awesome.txt' and on a new line add the following `echo "This is my first file written in nano"`, and save the file.
-****
-
-****
-**Exercise-extra**
 
 Let's try to find a *hidden directory* in `unix_oct2015`, and list its contents.  What is the name of the file within the hidden directory?
 
@@ -602,7 +577,6 @@ cp
 mdkir
 mv
 rm
-nano
 ```
 
 #### Information on the shell
