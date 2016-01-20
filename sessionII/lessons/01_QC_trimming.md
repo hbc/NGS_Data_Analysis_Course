@@ -12,11 +12,13 @@ Approximate time: 60 minutes
 
 ##Quality Control - Trimming
 
+Let us revisit the workflow that we introduced in Session I. We got as far as taking the raw reads and running them through FASTQC to see whether our samples were good enough quality to proceed.
+
 ![Workflow](../img/rnaseq_workflow_trimming.png)
 
-###How to clean reads using *Trimmomatic*
+### Trimmomatic
 
-Once we have an idea of the quality of our raw data, it is time to trim away adapters and filter out poor quality score reads. To accomplish this task we will use [*Trimmomatic*](http://www.usadellab.org/cms/?page=trimmomatic).
+Now that we have an idea of the quality of our raw data, it is time to trim away adapters and filter out poor quality score reads. To accomplish this task we will use [*Trimmomatic*](http://www.usadellab.org/cms/?page=trimmomatic).
 
 *Trimmomatic* is a java based program that can remove sequencer specific reads and nucleotides that fall below a certain threshold. *Trimmomatic* can be multithreaded to run quickly. 
 
@@ -60,7 +62,7 @@ OPTION:VALUE... # DO NOT RUN THIS
 
 The next two arguments are input file and output file names. These are then followed by a series of options. The specifics of how options are passed to a program are different depending on the program. You will always have to read the manual of a new program to learn which way it expects its command-line arguments to be composed.
 
-###Running Trimmomatic
+### Running Trimmomatic (on a single sample)
 
 Change directories to the untrimmed fastq data location:
 
@@ -101,7 +103,7 @@ TrimmomaticSE: Completed successfully
 
 Now that we know the command successfully runs, let's make the *Trimmomatic* command into a submission script. A submission script is oftentimes preferable to executing commands on the terminal. We can use it to store the parameters we used for a command(s) inside a file. If we need to run the program on other files, we can easily change the script. Also, using scripts to store your commands helps with reproducibility. In the future, if we forget which parameters we used during our analysis, we can just check our script.
 
-#### Running our *Trimmomatic* command as a job submission to the LSF scheduler
+### Running Trimmomatic on multiple samples
 
 To run the *Trimmomatic* command on a worker node via the job scheduler, we need to create a submission script with two important components:
 
@@ -219,7 +221,7 @@ Now move all fastqc files to the `fastqc_trimmed_reads` directory:
 
 Let's use *FileZilla* to download the fastqc html for Mov10_oe_1. Has our read quality improved with trimming?
 
-#### Running our *Trimmomatic* command with paired-end data
+### Trimmomatic with paired-end data
 
 
 ![paired-end_data](../img/paired-end_data.png)
