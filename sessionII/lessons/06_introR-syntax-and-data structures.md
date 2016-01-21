@@ -159,6 +159,12 @@ or logical values,
 
 **Note that all values in a vector must be of the same data type.** If you try to create a vector with more than a single data type, R will try to coerce it into a single data type. 
 
+For example if you try to create the following vector:
+
+![mixed vector](../img/vector3.png)
+
+R will coerce it into:
+
 ![mixed img](../img/vector4.png)
 
 The analogy for a vector is that your bucket now has different compartments; these compartments in a vector are called *elements*. 
