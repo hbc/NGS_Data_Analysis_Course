@@ -113,7 +113,7 @@ in R with dots in their names for historical reasons, but because dots have a
 special meaning in R (for methods) and other programming languages, it's best to
 avoid them. 
 - Use nouns for object names and verbs for function names
-- **R is case sensitive** (e.g., `genome_length` is different from `Genome_length`)
+- Keep in mind that **R is case sensitive** (e.g., `genome_length` is different from `Genome_length`)
 - Be consistent with the styling of your code (where you put spaces, how you name variable, etc.). In R, two popular style guides are [Hadley Wickham's style guide](http://adv-r.had.co.nz/Style.html) and [Google's](https://google-styleguide.googlecode.com/svn/trunk/Rguide.xml).
 
 
