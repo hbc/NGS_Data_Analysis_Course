@@ -80,7 +80,7 @@ You can visualize your working directory by selecting the `Files` tab from the *
 
 >If you wanted to choose a different directory to be your working directory, you could navigate to a different folder in the `Files` tab, then, click on the `More` dropdown menu and select `Set As Working Directory`.
  
-![Setting your working directory](../../img/setwd.png =400x)
+![Setting your working directory](../../img/setwd.png)
 
 
 ### Structuring your working directory
@@ -88,12 +88,12 @@ To organize your working directory for a particular analysis, you should separat
 
 Let's create these three directories within your working directory by clicking on `New Folder` within the `Files` tab. 
 
-![Structuring your working directory](../../img/wd_setup.png =500x)
+![Structuring your working directory](../../img/wd_setup.png)
 
 
 When finished, your working directory should look like:
 
-![Your organized working directory](../../img/complete_wd_setup.png =300x)
+![Your organized working directory](../../img/complete_wd_setup.png)
 
 
 ## Interacting with R
@@ -109,7 +109,7 @@ Let's test it out:
 3 + 5
 ```
 
-![Running in the console](../../img/console.png =400x)
+![Running in the console](../../img/console.png)
 
 ### Script editor
 
@@ -127,11 +127,11 @@ Now let's try entering commands to the **script editor** and using the comments 
 	## I am adding 3 and 5. R is fun!
 	3+5
 
-![Running in the script editor](../../img/script_editor.png =250x)
+![Running in the script editor](../../img/script_editor.png)
 
 You should see the command run in the console and output the result.
 
-![Script editor output](../../img/script_editor_output.png =300x)
+![Script editor output](../../img/script_editor_output.png)
 	
 What happens if we do that same command without the comment symbol `#`? Re-run the command after removing the # sign in the front:
 
