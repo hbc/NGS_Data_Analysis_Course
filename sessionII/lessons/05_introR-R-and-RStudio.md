@@ -46,7 +46,7 @@ Let's create a new project directory for our "Introduction to R" lesson today.
 
 7. Go to the `File` menu and select `New File`, and select `R Script`. Your RStudio interface should now look like: 
 
-![RStudio interface](../../img/Rstudio_interface.png =800x)
+![RStudio interface](../img/Rstudio_interface.png =800)
 
 ## Presentation of RStudio
 
@@ -76,7 +76,7 @@ Your working directory should be the `Intro-to-R` folder constructed when you cr
 
 You can visualize your working directory by selecting the `Files` tab from the **Files/Plots/Packages/Help** window. 
 
-![Viewing your working directory](../../img/getwd.png =800x)
+![Viewing your working directory](../img/getwd.png | width=800x)
 
 >If you wanted to choose a different directory to be your working directory, you could navigate to a different folder in the `Files` tab, then, click on the `More` dropdown menu and select `Set As Working Directory`.
  
