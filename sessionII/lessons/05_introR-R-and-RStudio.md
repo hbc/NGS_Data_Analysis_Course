@@ -46,7 +46,7 @@ Let's create a new project directory for our "Introduction to R" lesson today.
 
 7. Go to the `File` menu and select `New File`, and select `R Script`. Your RStudio interface should now look like: 
 
-![RStudio interface](../img/Rstudio_interface.png)
+![RStudio interface](../img/Rstudio_interface.png {width=40px height=400px})
 
 ## Presentation of RStudio
 
