@@ -9,74 +9,16 @@ Approximate time: 60 minutes
 ## Learning Objectives:
 
 * Learn the intricacies of various tools used in NGS analysis (parameters, usage, etc)
-* Understand the contents of a FastQ file
 * Be able to evaluate a FastQC report
-* Use a For loop to automate operations on multiple files
+* Use a `for` loop to automate operations on multiple files
 
 
-## Running a Workflow
+##Quality Control of FASTQ files
 
-Without getting into the details for each step of the workflow, we first describe a general overview of the steps involved in RNA-Seq analysis:
+A critical first step in the analysis of your NGS data is assessing the quality of your data and performing any necessary quality control measures, such as trimming.
 
-![Workflow](../img/rnaseq_workflow.png)
-
-1. Quality control - Assessing quality using FastQC
-2. Quality control - Trimming and/or filtering reads (if necessary)
-3. Index the reference genome for use by STAR
-4. Align reads to reference genome using STAR (splice-aware aligner)
-5. Count the number of reads mapping to each gene using htseq-count
-6. Statistical analysis (count normalization, linear modeling using R-based tools)
-
-
-Assessing the quality of your data and performing any necessary quality control measures, such as trimming, is a critical first step in the analysis of your RNA-Seq data. 
-
-
-So let's get started.
-
-##Quality Control - FASTQC
 ![Workflow](../img/rnaseq_workflow_FASTQC.png)
 
-###Unmapped read data (FASTQ)
-
-NGS reads from a sequencing run are stored in fastq (fasta with qualities). Although it looks complicated  (and maybe it is), its easy to understand the [fastq](https://en.wikipedia.org/wiki/FASTQ_format) format with a little decoding. Some rules about the format include...
-
-|Line|Description|
-|----|-----------|
-|1|Always begins with '@' and then information about the read|
-|2|The actual DNA sequence|
-|3|Always begins with a '+' and sometimes the same info in line 1|
-|4|Has a string of characters which represent the quality scores; must have same number of characters as line 2|
-
-so for example in our data set, one complete read is:
-
-```
-@HWI-ST330:304:H045HADXX:1:1101:1111:61397
-CACTTGTAAGGGCAGGCCCCCTTCACCCTCCCGCTCCTGGGGGANNNNNNNNNNANNNCGAGGCCCTGGGGTAGAGGGNNNNNNNNNNNNNNGATCTTGG
-+
-@?@DDDDDDHHH?GH:?FCBGGB@C?DBEGIIIIAEF;FCGGI#########################################################
-```
-This is one of our bad reads. 
-
-As mentioned previously, line 4 has characters encoding the quality of the nucleotide calls, with each character representing the probability that the corresponding nucleotide call is incorrect. The legend below provides the quality scores (Phred-33) associated with the quality encoding characters.
-
- ```
- Quality encoding: !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
-                   |         |         |         |         |
-    Quality score: 0........10........20........30........40                                
-```
- 
-Using the quality encoding character legend, the first nucelotide in the read (C) is called with a quality score of 31 and our Ns are called with a score of 2.  This quality score is logarithmically based and the score values can be interpreted as follows:
-
-|Phred Quality Score |Probability of incorrect base call |Base call accuracy|
-|:-------------------|:---------------------------------:|-----------------:|
-|10	|1 in 10 |	90%|
-|20	|1 in 100|	99%|
-|30	|1 in 1000|	99.9%|
-|40	|1 in 10,000|	99.99%|
-|50	|1 in 100,000|	99.999%|
-|60	|1 in 1,000,000|	99.9999%|
-
-Therefore, for the first nucleotide in the read (C), there is less than a 1 in 1000 chance that the base was called incorrectly.
 
 ### FastQC
 Now that we know about what information is stored in a FASTQ file, the next step is to assess that information to see if the data contained within are of good quality.
@@ -97,11 +39,11 @@ The main functions of FastQC are:
 
 To perform our quality checks, we will be working within our recently created `rnaseq_project` directory. We need to create two directories within the `data` directory for this quality control step. 
 
-`$ cd unix_oct2015/rnaseq_project/data`
-
-`$ mkdir untrimmed_fastq`
-
-`$ mkdir trimmed_fastq`
+```
+$ cd unix_oct2015/rnaseq_project/data
+$ mkdir untrimmed_fastq
+$ mkdir trimmed_fastq
+```
     
 The raw_fastq data we will be working with is currently in the `unix_oct2015/raw_fastq` directory. We need to copy the raw fastq files to our `untrimmed_fastq` directory:
 
@@ -139,9 +81,10 @@ To run the FastQC program, we first need to load the appropriate module, so it p
 
 Once a module for a tool is loaded, you have essentially made it directly available to you like any other basic UNIX command.
 
-`$ module list`
-
-`$ $PATH`
+```
+$ module list
+$ $PATH
+```
 
 FastQC will accept multiple file names as input, so we can use the *.fq wildcard.
 
@@ -151,13 +94,12 @@ FastQC will accept multiple file names as input, so we can use the *.fq wildcard
 
 Exit the interactive session and start a new one with 6 cores, and use the multi-threading funcionality of FastQC to run 6 jobs at once.
 
-`$ exit`      #exit the current interactive session
-	
-`$ bsub -Is -n 6 -q interactive bash`      #start a new one with 6 cpus (-n 6)
-	
-`$ module load seq/fastqc/0.11.3`     #you'll have to reload the module for the new session
-	
-`$ fastqc -t 6 *.fq`      #note the extra parameter we specified for 6 threads
+```
+$ exit  #exit the current interactive session
+$ bsub -Is -n 6 -q interactive bash   #start a new one with 6 cpus (-n 6)
+$ module load seq/fastqc/0.11.  #reload the module for the new session
+$ fastqc -t 6 *.fq  #note the extra parameter we specified for 6 threads
+```
 
 How did I know about the -t argument for FastQC?
 
@@ -170,9 +112,10 @@ Now, let's create a home for our results
 
 ...and move them there (recall, we are still in `~/unix_oct2015/rnaseq_project/data/untrimmed_fastq/`)
 
-`$ mv *.zip ~/unix_oct2015/rnaseq_project/results/fastqc_untrimmed_reads/`
-
-`$ mv *.html ~/unix_oct2015/rnaseq_project/results/fastqc_untrimmed_reads/`
+```
+$ mv *.zip ~/unix_oct2015/rnaseq_project/results/fastqc_untrimmed_reads/
+$ mv *.html ~/unix_oct2015/rnaseq_project/results/fastqc_untrimmed_reads/
+```
 
 ####C. Results
    
@@ -225,9 +168,10 @@ The "Overrepresented sequences" table displays the sequences (at least 20 bp) th
 
 Let's go back to the terminal now. The other output of FastQC is a .zip file. These .zip files need to be unpacked with the `unzip` program. If we try to `unzip` them all at once:
 
-`$ cd ~/unix_oct2015/rnaseq_project/results/fastqc_untrimmed_reads/`
-    
-`$ unzip *.zip`
+```
+$ cd ~/unix_oct2015/rnaseq_project/results/fastqc_untrimmed_reads/    
+$ unzip *.zip
+```
 
 Did it work? 
 
@@ -242,7 +186,7 @@ Note that in the first line, we create a variable named `zip`.  After that, we c
 
 This loop is basically a simple program. When it runs
 
-```bash
+```
 $ for zip in *.zip
 > do
 > unzip $zip
@@ -260,9 +204,10 @@ When you check your history later, it will help you remember what you did!
 
 What information is contained in the unzipped folder?
 
-`$ ls -lh *fastqc`
-
-`$ head *fastqc/summary.txt`
+```
+$ ls -lh *fastqc
+$ head *fastqc/summary.txt
+```
 
 To save a record, let's `cat` all `fastqc summary.txt` files into one `full_report.txt` and move this to `~/unix_oct2015/rnaseq_project/docs`. 
 You can use wildcards in paths as well as file names.  Do you remember how we said `cat` is really meant for concatenating text files?

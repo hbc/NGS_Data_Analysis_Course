@@ -6,14 +6,14 @@ date: "Wednesday, October 7, 2015"
 
 Contributors: Mary Piper
 
-Approximate time:  minutes
+Approximate time: 3 hours
 
 ## Learning Objectives
 
 * learn the pros/cons of different biological databases
-* learn how to use biological databases during an NGS analysis
+* learn how to use features of biological databases to access information and data during an NGS analysis
 
-## Intro to biological databases
+## Intro to biological databases - 15-20 min.
 
 This section should be covered in a lecture-based format. It will include:
 
@@ -23,22 +23,22 @@ This section should be covered in a lecture-based format. It will include:
 - no discussion of Ensembl/NCBI/UCSC interfaces or features
 
 
-## Intro to specific databases (Ensembl/NCBI/UCSC)
+## Intro to specific databases (Ensembl/NCBI/UCSC) - 50 min. each
 
-### Overview of features and interface without activities (can follow along if desired)
+### Overview of features and interface without activities (can follow along if desired) - 10 min.
 - basic or useful features of the database
 
 ### Use of biological databases in NGS analysis
 Hands-on activities addressing important uses of biological databases during an NGS analysis
 
-1. Hypothesis generation / exploration of genes of interest - Search for a gene and explore some of the info available, including basic info., sequence, isoform info., visualization, etc.
-2. Access to genome and gene annotation files - show where to find ftp sites
-3. Bringing data into an analysis - finding homologs, converting annotation ids, retreiving other NGS analysis data, etc.
-4. Exploring NGS analysis results - population frequencies for variant calls, binding motifs, etc
+1. Hypothesis generation / exploration of genes of interest - Search for a gene and explore some of the info available, including basic info., sequence, isoform info., visualization, etc. - 10 min
+2. Access to genome and gene annotation files - show where to find ftp sites - 5 min
+3. Bringing data into an analysis - finding homologs, converting annotation ids, retreiving other NGS analysis data, etc. - 15-25 min.
+4. Exploring NGS analysis results - population frequencies for variant calls, binding motifs, etc - only if have time
 
 
-	
-	
+## Formatting	
+The remaining sections are for formatting only. To maintain consistency throughout our lessons, we can format exercises and commands as follows.	
 
 ****
 **Exercise**
@@ -49,8 +49,6 @@ the name of the sequence.
 
 2) Search for that sequence in all Mov10 replicate fastq files.
 ****
-
-## Redirection
 
 Let's try it out and put all the sequences that contain 'NNNNNNNNNN'
 from all the files in to another file called `bad_reads.txt`.
