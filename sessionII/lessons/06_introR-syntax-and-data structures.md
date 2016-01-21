@@ -159,7 +159,7 @@ or logical values,
 
 **Note that all values in a vector must be of the same data type.** If you try to create a vector with more than a single data type, R will try to coerce it into a single data type. 
 
-For example if you try to create the following vector:
+For example, if you were to try to create the following vector:
 
 ![mixed vector](../img/vector3.png)
 
