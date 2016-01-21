@@ -78,7 +78,7 @@ You can visualize your working directory by selecting the `Files` tab from the *
 
 ![Viewing your working directory](../img/getwd.png)
 
->If you wanted to choose a different directory to be your working directory, you could navigate to a different folder in the `Files` tab, then, click on the `More` dropdown menu and select `Set As Working Directory`.
+If you wanted to choose a different directory to be your working directory, you could navigate to a different folder in the `Files` tab, then, click on the `More` dropdown menu and select `Set As Working Directory`.
  
 ![Setting your working directory](../img/setwd.png)
 
