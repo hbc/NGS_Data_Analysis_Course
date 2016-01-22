@@ -232,9 +232,11 @@ You should now be in `raw_fastq` and you got there without having to go through 
 
 
 ****
+
 **Exercise**
 
 List the `Mov10_oe_1.subset.fq` file from your home directory without changing directories
+
 ****
 
 ## Full vs. Relative Paths
@@ -266,11 +268,15 @@ You can usually use either a full path or a relative path depending on what is m
 
 Over time, it will become easier for you to keep a mental note of the structure of the directories that you are using and how to quickly navigate amongst them.
 
+
 ***
+
 **Exercise**
+
 * Change directories to `~/unix_oct2015/raw_fastq/`, and list the contents of `unix_oct2015/other` without changing directories again.
 
 * List the contents of the `/bin` directory. Do you see anything familiar in there? How can you tell these are programs rather than plain files?
+
 ***
 
 ## Saving time with shortcuts, wild cards, and tab completion
@@ -332,6 +338,7 @@ So how does this actually work? The shell (bash) considers an asterisk "*" to be
 > An asterisk/star is only one of the many wildcards in UNIX, but this is the most powerful one and we will be using this one the most for our exercises.
 
 ****
+
 **Exercise**
 
 Do each of the following using a single `ls` command without
@@ -397,7 +404,9 @@ then you could repeat command #260 by simply entering:
 
 * \^-a will bring you to the start of the command you are writing.
 
+
 ****
+
 **Exercise**
 
 1. Find the line number in your history for the last exercise (listing
@@ -522,7 +531,8 @@ just nicely put the files in the Trash. They're really gone.
 >
 > Same with moving and renaming files. It will **not** ask you if you are sure that you want to "replace existing file".
 
-* * * *
+****
+
 **Exercise**
 
 Do the following:
@@ -531,7 +541,7 @@ Do the following:
 2.  Create a backup directory called `new_backup`
 3.  Copy your backup files there
 
-* * * *
+****
 
 By default, `rm`, will NOT delete directories. You can tell `rm` to delete a directory using the `-r` option. Let's delete both backup directories, `backup` and `new_backup`. Enter the following command:
 
@@ -539,11 +549,13 @@ By default, `rm`, will NOT delete directories. You can tell `rm` to delete a dir
 
 
 ****
+
 **Exercise**
 
 Let's try to find a *hidden directory* in `unix_oct2015`, and list its contents.  What is the name of the file within the hidden directory?
 
 Hint: hidden files and folders in unix start with `.`, for example `.bashrc`
+
 ****
 
 
@@ -575,7 +587,7 @@ mv
 rm
 ```
 
-#### Information on the shell
+### Resources on the shell
 
 shell cheat sheets:<br>
 * [http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/](http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/)
@@ -587,6 +599,7 @@ a shell command are doing.
 * [http://www.commandlinefu.com](http://www.commandlinefu.com)
 
 ---
+
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). All instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
 
 * *The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 

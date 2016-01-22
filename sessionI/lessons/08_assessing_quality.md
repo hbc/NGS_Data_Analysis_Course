@@ -96,7 +96,8 @@ Exit the interactive session and start a new one with 6 cores, and use the multi
 
 ```
 $ exit  #exit the current interactive session
-$ bsub -Is -n 6 -q interactive bash   #start a new one with 6 cpus (-n 6)
+
+$ bsub -Is -n 6 -q interactive bash   #start a new session with 6 cpus (-n 6)
 $ module load seq/fastqc/0.11.  #reload the module for the new session
 $ fastqc -t 6 *.fq  #note the extra parameter we specified for 6 threads
 ```
