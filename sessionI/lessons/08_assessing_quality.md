@@ -1,5 +1,5 @@
 ---
-title: "RNA-Seq workflow - Part I: Quality Control - FASTQC"
+title: "Quality control using "FASTQC"
 author: "Bob Freeman, Mary Piper"
 date: "Tuesday, November 10, 2015"
 ---
@@ -35,6 +35,7 @@ The main functions of FastQC are:
 
 
 ### Running FASTQC
+
 ####A. Stage your data
 
 To perform our quality checks, we will be working within our recently created `rnaseq_project` directory. We need to create two directories within the `data` directory for this quality control step. 
@@ -217,5 +218,7 @@ You can use wildcards in paths as well as file names.  Do you remember how we sa
 
 
 ---
-*The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). All instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
+
+* *The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
 All Data Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*

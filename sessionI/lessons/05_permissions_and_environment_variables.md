@@ -12,7 +12,7 @@ Approximate time: 30 minutes
 * What is an "Environment Variable" in a shell.
 * What is $PATH, and why I should care.
 
-## **Permissions**
+## Permissions
 
 Unix controls who can read, modify, and run files using *permissions*.
 
@@ -186,7 +186,7 @@ Which of the following statements is true?
 4. members of zoo (a group) cannot execute myfile.php
 ****
 
-## **Environment Variables**
+## Environment Variables
 
 Environment variables are, in short, variables that describe the environment in which programs run in. Two commonly encountered variables are HOME and PATH.
 
@@ -269,6 +269,9 @@ $ nano ~/.bashrc
 **In closing, permissions and environment variables, especially $PATH, are very useful and important concepts to understand in the context of UNIX and HPC.**
 
 ---
-*The materials used in this lesson was derived from work that is Copyright © Software Carpentry (http://software-carpentry.org/). 
+
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). All instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
+
+* *The materials used in this lesson was derived from work that is Copyright © Software Carpentry (http://software-carpentry.org/). 
 All Software Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
 
