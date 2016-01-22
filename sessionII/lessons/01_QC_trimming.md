@@ -1,5 +1,5 @@
 ---
-title: "NGS workflow - Quality Control - Trimming"
+title: "Quality Control - Trimming"
 author: "Bob Freeman, Mary Piper"
 date: "Tuesday, November 10, 2015"
 ---
@@ -62,7 +62,7 @@ OPTION:VALUE... # DO NOT RUN THIS
 
 The next two arguments are input file and output file names. These are then followed by a series of options. The specifics of how options are passed to a program are different depending on the program. You will always have to read the manual of a new program to learn which way it expects its command-line arguments to be composed.
 
-### Running Trimmomatic (on a single sample)
+### Running Trimmomatic 
 
 Change directories to the untrimmed fastq data location:
 
@@ -103,7 +103,7 @@ TrimmomaticSE: Completed successfully
 
 Now that we know the command successfully runs, let's make the *Trimmomatic* command into a submission script. A submission script is oftentimes preferable to executing commands on the terminal. We can use it to store the parameters we used for a command(s) inside a file. If we need to run the program on other files, we can easily change the script. Also, using scripts to store your commands helps with reproducibility. In the future, if we forget which parameters we used during our analysis, we can just check our script.
 
-### Running Trimmomatic on multiple samples
+### Running Trimmomatic using a script
 
 To run the *Trimmomatic* command on a worker node via the job scheduler, we need to create a submission script with two important components:
 
@@ -162,10 +162,9 @@ We now have a new fastq file with our trimmed and cleaned up data:
 `$ ls ../trimmed_fastq/`    
 
 
-***
-**Exercise**
 
-**Run *Trimmomatic* on all the fastq files**
+
+### Run Trimmomatic on all the fastq files
 
 Now we know how to run *Trimmomatic*, but there is some good news and bad news.  
 One should always ask for the bad news first.  *Trimmomatic* only operates on 
@@ -242,5 +241,8 @@ TRAILING:25 \
 MINLEN:35
 ```
 ***
-*The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
+
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). All instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
+
+* *The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
 All Data Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*

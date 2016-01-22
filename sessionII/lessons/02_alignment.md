@@ -4,14 +4,14 @@ author: "Meeta Mistry, Bob Freeman"
 date: "Wednesday, October 7, 2015"
 ---
 
-Approximate time: 90 minutes
+Approximate time:
 
 ## Learning Objectives:
 
 * Use STAR to align sequence reads to the reference genome
 * Learning the intricacies of alignment tools used in NGS analysis (parameters, usage, etc)
-* Understanding alignment file formats
-* Assessing alignment quality 
+* Evaluating the alignment summary 
+* Running STAR on multiple samples
 
 ## Aligning reads
 
@@ -159,7 +159,7 @@ STAR --runThreadN 6 --genomeDir /groups/hbctraining/unix_oct2015_other/reference
 --outSAMattributes NH HI NM MD AS
 ```
 
-********************
+****
 **Exercise**
 
 How many files do you see in your output directory? Using the `less` command take a look at `Mov10_oe_1_Log.final.out` and answer the following questions:  
@@ -168,45 +168,22 @@ How many files do you see in your output directory? Using the `less` command tak
 2. How many reads map to more than 10 locations on the genome?
 3. How many reads are unmapped due to read length?   
 
-**************
-
-### Alignment file format: SAM/BAM
-
-The output we requested from STAR is a BAM file, and by default returns a file in SAM format. BAM is a binary version of the SAM file, also known as Sequence Alignment Map format. The SAM file is a tab-delimited text file that contains information for each individual read and its alignment to the genome. The file begins with a header, which is optional, followed by an alignment section.  If present, the header must be prior to the alignments and starts with '@'. Each line that follows corresponds to alignment information for a read. Each alignment line has **11 mandatory fields for essential mapping information** and a variable number of fields for aligner specific information.
-
-
-**Need a more in-depth description of the SAM file format**
-
-These fields are described briefly below, but for more detailed information the paper by [Heng Li et al](http://bioinformatics.oxfordjournals.org/content/25/16/2078.full) is a good start.
-
-![SAM](../img/SAM_file.png)
-
-
-Let's take a quick look at our alignment. To do so we first convert our BAM file into SAM format using samtools and then pipe it to the `less` command. This allows us to look at the contents without having to write it to file (since we don't need a SAM file for downstream analyses). We first need to load the samtools module:
-
-	module load seq/samtools/1.2
-
-```
-$ samtools view -h results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam | less
-
-```
- 
-Scroll through the SAM file and see how the fields correspond to what we expected.
-
-****
-
-**Exercise:**
-On examining the SAM file
-
 ***
+
 
 
 ### Running STAR on multiple samples
 
 Create a job submission script to run STAR on all FASTQ files
 
+```
+add script here 
+with LSF directives
 
+```
 
+---
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). All instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
 
 
 
