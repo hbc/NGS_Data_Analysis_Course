@@ -231,6 +231,7 @@ the command line, automate something you don't really need to automate.
 grep
 > (output redirection)
 >> (output redirection, append)
+| (output redirection, pipe)
 wc
 cut
 sort
