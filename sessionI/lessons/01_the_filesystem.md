@@ -78,9 +78,13 @@ Press enter after you type in that command. You will get a couple of messages, b
 
 Make sure that your command prompt is now preceded by a character string that contain words like "clarinet", "bassoon", etc.
 
-Copy our example data folder to your home directory using the following command:
+Let's make a a directory in your home folder for everything we do in this NGS Data Analysis course. We will use the `mkdir` command which we will discuss in more detail later.For now, you can copy/paste the command below.
 
-```$ cp -r /groups/hbctraining/unix_oct2015/ .```
+	mkdir ngs_data_analysis2016
+
+Copy our example data folder into your new directory using the following command:
+
+```$ cp -r /groups/hbctraining/unix_oct2015/ ngs_data_analysis2016/```
 
 >'cp' is the command for copy. This command required you to specify the location of the item you want to copy (/groups/hbctraining/unix_oct2015/) and the location of the destination (.) please note the space between the 2 in the command. The "-r" is an option that modifies the copy command to do something slightly different than usual. The "." means "here", i.e. the destination location is where you currently are.
 
