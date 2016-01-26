@@ -154,7 +154,7 @@ FastQC has a really well documented [manual page](http://www.bioinformatics.babr
 
 We recommend looking at [this post](http://bioinfo-core.org/index.php/9th_Discussion-28_October_2010) for more information on what bad plots look like and what they mean for your data.
 
-We will focus on two of the most important analysis modules in FastQC, the "Per base sequence quality" plot and the "Overrepresented sequences" table. 
+We will focus on two of the most important analysis modules in FastQC, the **"Per base sequence quality"** plot and the **"Overrepresented sequences"** table. 
 
 The "Per base sequence quality" plot provides the distribution of quality scores across all bases at each position in the reads.
 
