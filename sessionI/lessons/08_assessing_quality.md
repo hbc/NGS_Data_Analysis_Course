@@ -1,5 +1,5 @@
 ---
-title: "RNA-Seq workflow - Part I: Quality Control - FASTQC"
+title: "Quality control using "FASTQC"
 author: "Bob Freeman, Mary Piper"
 date: "Tuesday, November 10, 2015"
 ---
@@ -35,6 +35,7 @@ The main functions of FastQC are:
 
 
 ### Running FASTQC
+
 ####A. Stage your data
 
 To perform our quality checks, we will be working within our recently created `rnaseq_project` directory. We need to create two directories within the `data` directory for this quality control step. 
@@ -96,7 +97,8 @@ Exit the interactive session and start a new one with 6 cores, and use the multi
 
 ```
 $ exit  #exit the current interactive session
-$ bsub -Is -n 6 -q interactive bash   #start a new one with 6 cpus (-n 6)
+
+$ bsub -Is -n 6 -q interactive bash   #start a new session with 6 cpus (-n 6)
 $ module load seq/fastqc/0.11.  #reload the module for the new session
 $ fastqc -t 6 *.fq  #note the extra parameter we specified for 6 threads
 ```
@@ -216,5 +218,7 @@ You can use wildcards in paths as well as file names.  Do you remember how we sa
 
 
 ---
-*The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
+
+* *The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
 All Data Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*

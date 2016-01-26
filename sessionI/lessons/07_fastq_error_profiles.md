@@ -1,5 +1,5 @@
 ---
-title: "RNA-Seq workflow - Part I: FASTQ Data format"
+title: "Introuducing FASTQ format and error profiles"
 author: "Mary Piper, Meeta Mistry"
 date: "Tuesday, November 10, 2015"
 ---
@@ -111,7 +111,10 @@ Now let's take a look at a quality plot on the other end of the spectrum.
 
 Here, we see positions within the read in which the boxes span a much wider range. Also, quality scores drop quite low into the 'bad' range, particularly on the tail end of the reads. When you encounter a quality plot such as this one, the first step is to troubleshoot. Why might we be seeing something like this? 
 
+## Error profiles
+
 The FASTQC tool produces several other diagostic plots to assess samples, in addition to the one plotted above. We will discuss various error profiles and potential causes in the [slides provided here](../slides/error_profiles.pdf). 
 
+----
 
-
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*

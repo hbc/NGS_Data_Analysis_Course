@@ -1,11 +1,8 @@
 ---
 title: "The Shell: Searching and Redirection"
 author: "Sheldon  McKay, Bob Freeman, Mary Piper"
-date: "Wednesday, October 7, 2015"
+date: "January 22, 2016"
 ---
-
-Adapted from the lesson by Tracy Teal.
-Contributors: Paul Wilson, Milad Fatenejad, Sasha Wood, and Radhika Khetani for Software Carpentry (http://software-carpentry.org/)
 
 Approximate time: 60 minutes
 
@@ -51,11 +48,10 @@ for example:
 ****
 **Exercise**
 
-1) Search for the sequence CTCAATGAAGAAATCTCTTAAAC in `Mov10_oe_1.subset.fq`.
+1. Search for the sequence CTCAATGAAGAAATCTCTTAAAC in `Mov10_oe_1.subset.fq`.
 In addition to finding the sequence, have your search also return
 the name of the sequence.
-
-2) Search for that sequence in all Mov10 replicate fastq files.
+2. Search for that sequence in all Mov10 replicate fastq files.
 ****
 
 ## Redirection
@@ -202,13 +198,14 @@ Now, to count how many unique exons are on chromosome 1, we need to pipe the out
     
 
 ****
-**Final Exercise**
 
-1) How could have you have determined the number of total exons by combining all of the previous commands (starting with the original chr1-hg19_genes.gtf), into a single command (no intermediate files) using pipes?
+**Exercise**
 
-2) There is an argument for the 'sort' command that will only keep unique lines of data. Determine the number of unique exons without using the 'uniq' command.
+1. How could have you have determined the number of total exons by combining all of the previous commands (starting with the original chr1-hg19_genes.gtf), into a single command (no intermediate files) using pipes?
 
-3) There is an argument for the 'uniq' command that will count the number of occurrences of non-unique exons. Use the uniq command to count the number of non-unique exons and determine the most occurrences of an exon in the dataset.
+2. There is an argument for the 'sort' command that will only keep unique lines of data. Determine the number of unique exons without using the 'uniq' command.
+
+3. There is an argument for the 'uniq' command that will count the number of occurrences of non-unique exons. Use the uniq command to count the number of non-unique exons and determine the most occurrences of an exon in the dataset.
 ****
 
 
@@ -226,29 +223,6 @@ out.  Write your next paper in nano (really emacs or vi), open pdfs from
 the command line, automate something you don't really need to automate.
 
 
-## Bonus:
-
-**backtick, xargs**: Example find all files with certain text
-
-**alias** -> rm -i
-
-**variables** -> use a path example
-
-**.bashrc**
-
-**du**
-
-**ln**
-
-**ssh and scp**
-
-**Regular Expressions**
-
-**Permissions**
-
-**Chaining commands together**
-
-
 **Commands, options, and keystrokes covered in this lesson**
 
 ```bash
@@ -261,6 +235,10 @@ sort
 ```
 
 ---
-*The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
+
+* *The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
 All Data Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
+
+* *Adapted from the lesson by Tracy Teal. Contributors: Paul Wilson, Milad Fatenejad, Sasha Wood, and Radhika Khetani for Software Carpentry (http://software-carpentry.org/)*
 

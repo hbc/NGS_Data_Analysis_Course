@@ -50,16 +50,16 @@ this should give the result: `/home/user_name`
 
 **Tip** If you were not in your home directory, the easiest way to get there is to enter the command `cd` - which always returns you to home. 
 
-Now, make a directory for your project within the `unix_oct2015` folder using the `mkdir` command
+Now, make a directory for the RNA-seq analysis within the `ngs_course` folder using the `mkdir` command
 
 ```
-$ mkdir unix_oct2015/rnaseq_project
+$ mkdir ngs_course/rnaseq
 ```
 
 Next you want to set up the following structure within your project directory to keep files organized:
 
 ```
-rnaseq_project/
+rnaseq/
 ├── data
 ├── meta
 ├── results
@@ -83,7 +83,7 @@ This is a generic structure and can be tweaked based on personal preferences. A 
 Let's create the directory structure for our  changing into `rnaseq_project` and then using `mkdir` to create the four directories.
 
 ```
-$ cd unix_oct2015/rnaseq_project
+$ cd ngs_course/rnaseq
 $ mkdir data
 $ mkdir meta
 $ mkdir results
@@ -170,6 +170,9 @@ Ok so now you are all set up to start your analyses! You have set up your space 
 
 
 ---
-*The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
+
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
+
+* *The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
 All Data Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
 
