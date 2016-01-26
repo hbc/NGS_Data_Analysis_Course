@@ -80,11 +80,11 @@ Make sure that your command prompt is now preceded by a character string that co
 
 Let's make a a directory in your home folder for everything we do in this NGS Data Analysis course. We will use the `mkdir` command which we will discuss in more detail later.For now, you can copy/paste the command below.
 
-	mkdir ngs_data_analysis2016
+	mkdir ngs_course
 
 Copy our example data folder into your new directory using the following command:
 
-```$ cp -r /groups/hbctraining/unix_oct2015/ ngs_data_analysis2016/```
+```$ cp -r /groups/hbctraining/unix_oct2015/ ngs_course/```
 
 >'cp' is the command for copy. This command required you to specify the location of the item you want to copy (/groups/hbctraining/unix_oct2015/) and the location of the destination (.) please note the space between the 2 in the command. The "-r" is an option that modifies the copy command to do something slightly different than usual. The "." means "here", i.e. the destination location is where you currently are.
 
