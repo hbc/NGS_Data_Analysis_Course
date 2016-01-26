@@ -22,7 +22,7 @@ Let's give it a try!
 Suppose we want to see how many reads in our file `Mov10_oe_1.subset.fq` are really bad, with 10 consecutive Ns  
 Let's search for the string NNNNNNNNNN: 
 
-`$ cd ~/unix_oct2015/raw_fastq`
+`$ cd ~/ngs_course/unix_lesson/raw_fastq`
 
 `$ grep NNNNNNNNNN Mov10_oe_1.subset.fq`
 
@@ -81,7 +81,9 @@ If we use '>>', it will append to rather than overwrite a file.  This can be use
     
 `$ grep -B1 -A2 NNNNNNNNNN Mov10_oe_2.subset.fq >> bad_reads.txt`
 
-Since our `bad_reads.txt` file isn't a raw_fastq file, we should move it to a different location within our directory. We decide to move it to the `other` folder using the command `mv`. 
+Since our `bad_reads.txt` file isn't a raw_fastq file, we should move it to a different location within our directory. We decide to create a new folder called `other`, and move the `bad_reads.txt` to this `other` folder using the command `mv`. 
+
+`$ mkdir ../other/`
 
 `$ mv bad_reads.txt ../other/`
 
@@ -123,7 +125,7 @@ learn to become proficient with the pipe and redirection operators:
 
 Finally, let's use the new tools in our kit and a few new ones to examine our gene annotation file, **chr1-hg19_genes.gtf**, which we will be using later to find the genomic coordinates of all known exons on chromosome 1.
 
-`$ cd ~/unix_oct2015/reference_data/`
+`$ cd ~/ngs_course/unix_lesson/reference_data/`
 
 Let's explore our `chr1-hg19_genes.gtf` file a bit. What information does it contain?
 
@@ -147,7 +149,7 @@ This search returns two different transcripts of the same gene, NM_001160184 and
 
 Now that we know what type of information is inside of our gtf file, let's explore our commands to answer a simple question about our data. Let's find how many total exons are present on chromosome 1 using our **gtf** file, `chr1-hg19_genes.gtf`. 
 
-To determine the number of unique exons on chromosome 1, we are going to perform a series of steps:
+To determine the number of total exons on chromosome 1, we are going to perform a series of steps:
 	
 	1. Subset the dataset to only include the feature type and genomic location information
 	2. Extract only the genomic coordinates of exon features
@@ -203,9 +205,9 @@ Now, to count how many unique exons are on chromosome 1, we need to pipe the out
 
 1. How could have you have determined the number of total exons by combining all of the previous commands (starting with the original chr1-hg19_genes.gtf), into a single command (no intermediate files) using pipes?
 
-2. There is an argument for the 'sort' command that will only keep unique lines of data. Determine the number of unique exons without using the 'uniq' command.
+2. There is an argument for the 'sort' command that will only keep unique lines of data. Determine the number of total exons without using the 'uniq' command.
 
-3. There is an argument for the 'uniq' command that will count the number of occurrences of non-unique exons. Use the uniq command to count the number of non-unique exons and determine the most occurrences of an exon in the dataset.
+3. There is an argument for the 'uniq' command that will count the number of occurrences of non-unique exons. Use the uniq command to count the number of duplicated exons and determine the most occurrences of an exon in the dataset.
 ****
 
 
@@ -237,7 +239,7 @@ sort
 ---
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 
-* *The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
+* *The materials used in this lesson were derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
 All Data Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
 
 * *Adapted from the lesson by Tracy Teal. Contributors: Paul Wilson, Milad Fatenejad, Sasha Wood, and Radhika Khetani for Software Carpentry (http://software-carpentry.org/)*
