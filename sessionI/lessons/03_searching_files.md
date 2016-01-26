@@ -8,9 +8,9 @@ Approximate time: 60 minutes
 
 ## Learning Objectives
 
-* learn the `grep` command and useful options
-* learn about output redirection 
-* use the pipe (`|`) character to chain together commands
+* learn how to search for characters or patterns in a text file using the `grep` command and some of it's useful options
+* learn about output redirection
+* learn how to use the pipe (`|`) character to chain together commands
 
 ## Searching files
 
