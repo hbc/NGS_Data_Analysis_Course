@@ -547,31 +547,30 @@ By default, `rm`, will NOT delete directories. You can tell `rm` to delete a dir
 
 **Commands, options, and keystrokes covered in this lesson**
 
-```bash
-cd
-ls
-man
-pwd
-~ (home dir)
-. (current dir)
-.. (parent dir)
-*  (wildcard)
-echo
-ctrl-c (cancel current command)
-ctrl-r (reverse history search)
-ctrl-a (start of line)
-ctrl-e (end of line)
-history
-! (repeat cmd)
-cat
-less
-head
-tail
-cp
-mdkir
-mv
-rm
-```
+	bash
+	cd
+	ls
+	man
+	pwd
+	~	#home dir
+	.	#current dir
+	..	#parent dir
+	*	#wildcard
+	echo
+	ctrl-c	#cancel current command
+	ctrl-r	#reverse history search
+	ctrl-a	#start of line
+	ctrl-e	#end of line
+	history
+	!	#repeat cmd
+	cat
+	less
+	head
+	tail
+	cp
+	mdkir
+	mv
+	rm
 
 ### Learning resources on the shell
 
