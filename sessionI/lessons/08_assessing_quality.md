@@ -8,8 +8,7 @@ Approximate time: 60 minutes
 
 ## Learning Objectives:
 
-* Learn the intricacies of various tools used in NGS analysis (parameters, usage, etc)
-* Be able to evaluate a FastQC report
+* Learn how to evaluate the quality of your NGS data using the program FastQC
 * Use a `for` loop to automate operations on multiple files
 
 
