@@ -78,31 +78,33 @@ Press enter after you type in that command. You will get a couple of messages, b
 
 Make sure that your command prompt is now preceded by a character string that contain words like "clarinet", "bassoon", etc.
 
-Let's make a a directory in your home folder for everything we do in this NGS Data Analysis course. We will use the `mkdir` command which we will discuss in more detail later.For now, you can copy/paste the command below.
+Let's make a a directory in your home folder for everything we do in this NGS Data Analysis course. We will use the `mkdir` command which we will discuss in more detail later. For now, type the following command at the command prompt.
 
 	mkdir ngs_course
 
 Copy our example data folder into your new directory using the following command:
 
-```$ cp -r /groups/hbctraining/unix_oct2015/ ngs_course/```
+```$ cp -r /groups/hbctraining/ngs-data-analysis2016/unix_lesson/ ngs_course/```
 
 >'cp' is the command for copy. This command required you to specify the location of the item you want to copy (/groups/hbctraining/unix_oct2015/) and the location of the destination (.) please note the space between the 2 in the command. The "-r" is an option that modifies the copy command to do something slightly different than usual. The "." means "here", i.e. the destination location is where you currently are.
 
 ## Starting with the shell
 
-We have each created our own copy of the example data folder into our home directory, **unix_oct2015**. Let's go into the data folder and explore the data using the shell.
+We have each created our own copy of the data folder into our home directory, **unix_lesson**. 
 
-```$ cd unix_oct2015```
+Let's go into the data folder and explore the data using the shell. We will do this sequentially using the `cd` command. `cd` stands for "'"change directory".
 
-> 'cd' stands for 'change directory'
+	$ cd ngs_course
+	
+	$ cd unix_lesson
 
-Let's see what is in here. Type:
+Let's see what is in the `unix_lesson` directory/folder. Type:
 
 ```$ ls```
 
 You will see:
 
-	genomics_data  other  raw_fastq  README.txt  reference_data
+	genomics_data  raw_fastq  README.txt  reference_data
 
 > ls stands for 'list' and it lists the contents of a directory.
 
@@ -110,7 +112,7 @@ There are five items listed.  What are they? We can use a "modifier" with `ls` t
 
 ```$ ls -F```
 
-	genomics_data/  other/  raw_fastq/  README.txt  reference_data/
+	genomics_data/  raw_fastq/  README.txt  reference_data/
 
 Anything with a "/" after it is a directory. Things with a "*" after them are programs.  If there are no decorations after the name, it's a file.
 
@@ -121,12 +123,11 @@ You can also use the command:
 ```$ ls -l```
 to see whether items in a directory are files or directories. `ls -l` gives a lot more information too.
 
-	total 124
-	drwxrwsr-x 2 mp298 mp298  78 Sep 30 10:47 genomics_data
-	drwxrwsr-x 6 mp298 mp298 107 Sep 30 10:47 other
-	drwxrwsr-x 2 mp298 mp298 228 Sep 30 10:47 raw_fastq
-	-rw-rw-r-- 1 mp298 mp298 377 Sep 30 10:47 README.txt
-	drwxrwsr-x 2 mp298 mp298 238 Sep 30 10:47 reference_data
+	total 122
+	drwxrwsr-x 2 rsk27 hbctraining 227 Jan 26 11:36 genomics_data
+	drwxrwsr-x 2 rsk27 hbctraining 228 Jan 26 10:44 raw_fastq
+	-rw-rw-r-- 1 rsk27 hbctraining 244 Jan 26 11:40 README.txt
+	drwxrwsr-x 2 rsk27 hbctraining  62 Jan 26 10:44 reference_data
 
 Let's go into the raw_fastq directory and see what is in there.
 
@@ -137,12 +138,12 @@ Let's go into the raw_fastq directory and see what is in there.
 	Irrel_kd_1.subset.fq  Irrel_kd_3.subset.fq  Mov10_oe_2.subset.fq
 	Irrel_kd_2.subset.fq  Mov10_oe_1.subset.fq  Mov10_oe_3.subset.fq
 
-All six items in this directory have no trailing slashes, so they are all files.
+All six items in this directory have no trailing slashes, so they are all files, and not folders/directories.
 
 
 #### Arguments
 
-Most commands take additional arguments that control their exact behavior. For example, `-F` and `-l` are arguments to `ls`.  The `ls` command, like many commands, take a lot of arguments. Another useful one is `-a`, which shows everything, including hidden files.  How do we know what the available arguments that go with a particular command are?
+Most commands take additional arguments that control their exact behavior. For example, `-F` and `-l` are arguments to `ls`.  The `ls` command, like many commands, take a lot of arguments. Another useful one is `-t`, which will show a listing sorted by the time stamp.  How do we know what the available arguments that go with a particular command are?
 
 Most commonly used shell commands have a manual available in the shell. You can access the
 manual using the `man` command. Try entering:
@@ -164,10 +165,10 @@ As you've already just seen, you can move around in different directories or fol
 
 Let's practice moving around a bit.
 
-We're going to work in that `unix_oct2015` directory.
+We're going to work in that `unix_lesson` directory.
 
 First we did something like go to the folder of our username. Then we opened
-`unix_oct2015` then `raw_fastq`
+`unix_lesson` then `raw_fastq`
 
 Like on any computer you have used before the file structure within unix is hierarchical, like an upside down tree with root (/) as the starting point of the tree-like structure:
 
@@ -188,7 +189,7 @@ Type
 > This puts you in your home directory. No matter where you are in the directory system, `cd` will always bring you back to your home directory.
 
 
-Now using `cd` and `ls`, go in to the `unix_oct2015` directory and list its contents. Now go into the `raw_fastq` directory, and list its contents.
+Now using `cd` and `ls`, go in to the `unix_lesson` directory and list its contents. Now go into the `raw_fastq` directory, and list its contents.
 
 Let's also check to see where we are. Sometimes when we're wandering around in the file system, it's easy to lose track of where we are. The command that tells you this is:
 
@@ -196,7 +197,7 @@ Let's also check to see where we are. Sometimes when we're wandering around in t
 
 > This stands for 'print working directory'. i.e. the directory you're currently working in.
 
-What if we want to move back up and out of the `raw_fastq` directory? Can we just type `cd unix_oct2015`? Try it and see what happens.
+What if we want to move back up and out of the `raw_fastq` directory? Can we just type `cd unix_lesson`? Try it and see what happens.
 
 To go 'back up a level' we can use `..`
 
@@ -219,14 +220,14 @@ Type:
 
 Then enter the command:
 
-```$ ls unix_oct2015/```
+```$ ls unix_lesson/```
 
-This will list the contents of the `unix_oct2015` directory without you having to navigate there.
+This will list the contents of the `unix_lesson` directory without you having to navigate there.
 
 The `cd` command works in a similar way.
 
 ```
-$ cd unix_oct2015/raw_fastq/
+$ cd unix_lesson/raw_fastq/
 $ pwd
 ```
 
@@ -249,20 +250,20 @@ The `cd` command takes an argument which is the directory name. Directories can 
 
 `$ pwd`
 
-`/home/username`
+`/home/<username>`
 
 which is the full path for your home directory. This tells you that you are in a directory called `username`, which sits inside a directory called `home` which sits inside the very top directory in the hierarchy, the *root directory*. So, to summarize: `username` is a directory in `home` which is a directory in `/`.
 
 Now enter the following command:
 
-```$ cd /home/username/unix_oct2015/raw_fastq/```
+```$ cd /home/username/ngs_course/unix_lesson/raw_fastq/```
 
 This jumps to `raw_fastq`. Now go back to the home directory (`cd`). We saw
 earlier that the command:
 
-```$ cd unix_oct2015/raw_fastq/```
+```$ cd unix_lesson/raw_fastq/```
 
-had the same effect - it took us to the `raw_fastq` directory. But, instead of specifying the full path (`/home/username/unix_oct2015/raw_fastq`), we specified a *relative path*. In other words, we specified the path **relative to our current working directory**. 
+had the same effect - it took us to the `raw_fastq` directory. But, instead of specifying the full path (`/home/username/unix_lesson/raw_fastq`), we specified a *relative path*. In other words, we specified the path **relative to our current working directory**. 
 
 A full path always starts with a `/`. A relative path does not.
 
@@ -277,7 +278,7 @@ Over time, it will become easier for you to keep a mental note of the structure 
 
 **Exercise**
 
-* Change directories to `~/unix_oct2015/raw_fastq/`, and list the contents of `unix_oct2015/other` without changing directories again.
+* Change directories to `~/unix_lesson/raw_fastq/`, and list the contents of `unix_oct2015/other` without changing directories again.
 
 * List the contents of the `/bin` directory. Do you see anything familiar in there? How can you tell these are programs rather than plain files?
 
