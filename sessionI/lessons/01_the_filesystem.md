@@ -82,7 +82,7 @@ Let's make a a directory in your home folder for everything we do in this NGS Da
 
 	mkdir ngs_course
 
-Copy our example data folder into your new directory using the following command:
+Copy the data folder `unix_lesson` from a shared folder on Orchestra into your new directory using the following command:
 
 ```$ cp -r /groups/hbctraining/ngs-data-analysis2016/unix_lesson/ ngs_course/```
 
