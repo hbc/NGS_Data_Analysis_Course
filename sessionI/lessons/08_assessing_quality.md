@@ -1,9 +1,7 @@
 ---
-
 title: "Quality control using "FASTQC"
 author: "Bob Freeman, Mary Piper"
 date: "Tuesday, January 26, 2016"
-
 ---
 
 Approximate time: 60 minutes
