@@ -50,16 +50,16 @@ this should give the result: `/home/user_name`
 
 **Tip** If you were not in your home directory, the easiest way to get there is to enter the command `cd` - which always returns you to home. 
 
-Now, make a directory for your project within the `unix_oct2015` folder using the `mkdir` command
+Now, make a directory for the RNA-seq analysis within the `ngs_course` folder using the `mkdir` command
 
 ```
-$ mkdir unix_oct2015/rnaseq_project
+$ mkdir ngs_course/rnaseq
 ```
 
 Next you want to set up the following structure within your project directory to keep files organized:
 
 ```
-rnaseq_project/
+rnaseq/
 ├── data
 ├── meta
 ├── results
@@ -83,7 +83,7 @@ This is a generic structure and can be tweaked based on personal preferences. A 
 Let's create the directory structure for our  changing into `rnaseq_project` and then using `mkdir` to create the four directories.
 
 ```
-$ cd unix_oct2015/rnaseq_project
+$ cd ngs_course/rnaseq
 $ mkdir data
 $ mkdir meta
 $ mkdir results
