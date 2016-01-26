@@ -9,7 +9,7 @@ Approximate time: 90 minutes
 ## Learning Objectives
 - How do you access the shell?
 - How do you use it?
-  - Getting around the Unix file system
+  - getting around the Unix file system
   - looking at files
   - manipulating files
   - automating tasks
