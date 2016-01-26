@@ -143,10 +143,9 @@ All six items in this directory have no trailing slashes, so they are all files,
 
 #### Arguments
 
-Most commands take additional arguments that control their exact behavior. For example, `-F` and `-l` are arguments to `ls`.  The `ls` command, like many commands, take a lot of arguments. Another useful one is `-t`, which will show a listing sorted by the time stamp.  How do we know what the available arguments that go with a particular command are?
+Most commands take additional arguments that control their exact behavior. For example, `-F` and `-l` are arguments to `ls`.  The `ls` command, like many commands, take a lot of arguments. Another useful one is `-t`, which will show a listing sorted by the time stamp.  
 
-Most commonly used shell commands have a manual available in the shell. You can access the
-manual using the `man` command. Try entering:
+How do we know what the available arguments that go with a particular command are? Most commonly used shell commands have a manual available in the shell. You can access the manual using the `man` command. Try entering:
 
 ```$ man ls```
 
@@ -167,8 +166,7 @@ Let's practice moving around a bit.
 
 We're going to work in that `unix_lesson` directory.
 
-First we did something like go to the folder of our username. Then we opened
-`unix_lesson` then `raw_fastq`
+First we did something like go to the folder of our username. Then we changed directories to `ngs_course`, then `unix_lesson` and then `raw_fastq`
 
 Like on any computer you have used before the file structure within unix is hierarchical, like an upside down tree with root (/) as the starting point of the tree-like structure:
 
@@ -220,20 +218,20 @@ Type:
 
 Then enter the command:
 
-```$ ls unix_lesson/```
+```$ ls ngs_course/```
 
-This will list the contents of the `unix_lesson` directory without you having to navigate there.
+This will list the contents of the `ngs_course` directory without you having to navigate there.
 
 The `cd` command works in a similar way.
 
 ```
-$ cd unix_lesson/raw_fastq/
+$ cd ngs_course/unix_lesson/raw_fastq/
 $ pwd
 ```
 
-You should now be in `raw_fastq` and you got there without having to go through the intermediate directory. 
+You should now be in `raw_fastq` and you got there without having to step through the intermediate directories. 
 
-> If you are aware of the directory structure, you can string together as long a list as you like.
+> If you are aware of the directory structure, you can string together as long a list as you like. (Also see note about Tab Completion later in this lesson).
 
 
 ****
@@ -261,11 +259,11 @@ Now enter the following command:
 This jumps to `raw_fastq`. Now go back to the home directory (`cd`). We saw
 earlier that the command:
 
-```$ cd unix_lesson/raw_fastq/```
+```$ cd ngs_course/unix_lesson/raw_fastq/```
 
-had the same effect - it took us to the `raw_fastq` directory. But, instead of specifying the full path (`/home/username/unix_lesson/raw_fastq`), we specified a *relative path*. In other words, we specified the path **relative to our current working directory**. 
+had the same effect - it took us to the `raw_fastq` directory. But, instead of specifying the full path (`/home/username/ngs_course/unix_lesson/raw_fastq`), we specified a *relative path*. In other words, we specified the path **relative to our current working directory**. 
 
-A full path always starts with a `/`. A relative path does not.
+A full path always starts with a `/`, a relative path does not.
 
 A relative path is like getting directions from someone on the street. They tell you to "go right at the Stop sign, and then turn left on Main Street". That works great if you're standing there together, but not so well if you're trying to tell someone how to get there from another country. A full path is like GPS coordinates. It tells you exactly where something is no matter where you are right now.
 
@@ -278,7 +276,7 @@ Over time, it will become easier for you to keep a mental note of the structure 
 
 **Exercise**
 
-* Change directories to `~/unix_lesson/raw_fastq/`, and list the contents of `unix_oct2015/other` without changing directories again.
+* Change directories to `~/ngs_course/unix_lesson/raw_fastq/`, and list the contents of `unix_lesson/genomics_data` without changing directories again.
 
 * List the contents of the `/bin` directory. Do you see anything familiar in there? How can you tell these are programs rather than plain files?
 
@@ -288,14 +286,13 @@ Over time, it will become easier for you to keep a mental note of the structure 
 
 #### Shortcuts
 
-There are some shortcuts which you should know about. Dealing with the
-home directory is very common. So, in the shell the tilde character,
-"~", is a shortcut for your home directory. Navigate to the `raw_fastq`
-directory:
+There are several shortcuts which you should know about, but today we are going to talk about only a few. As you continue to work with the shell and on the terminal a lot more, you will come across and hopefully adapt many other shortcuts. 
+
+The home directory is often listed in commands, so a shortcut for it seems like a good idea. In the shell the tilde character, "~", is a shortcut for your home directory. Navigate to the `raw_fastq` directory:
 
 ```$ cd```
 
-```$ cd unix_oct2015/raw_fastq```
+```$ cd ngs_course/unix_lesson/raw_fastq```
 
 Then enter the command:
 
@@ -303,11 +300,11 @@ Then enter the command:
 
 This prints the contents of your home directory, without you having to type the full path because the tilde "~" is equivalent to "/home/username".
 
-Another shortcut is the "..":
+Another shortcut is the "..", which we encountered earlier:
 
 ```$ ls ..```
 
-The shortcut `..` always refers to the directory above your current directory. So, it prints the contents of the `unix_oct2015`. You can chain these together, so:
+The shortcut `..` always refers to the directory above your current directory. So, it prints the contents of the `unix_lesson`. You can chain these together, so:
 
 ```$ ls ../..```
 
@@ -321,7 +318,7 @@ To summarize, while you are in your home directory, the commands `ls ~`, `ls ~/.
 
 #### Wild cards
 
-Navigate to the `~/unix_oct2015/raw_fastq` directory. This
+Navigate to the `~/ngs_course/unix_lesson/raw_fastq` directory. This
 directory contains FASTQ files from our RNA-Seq experiment. 
 
 The '*' character is a shortcut for "everything". Thus, if you enter `ls *`, you will see all of the contents of a given directory. Now try this command:
@@ -338,7 +335,7 @@ Lists every file in `/usr/bin` that ends in the characters `.sh`.
 
 lists only the files that begin with 'Mov10' and end with 'fq'
 
-So how does this actually work? The shell (bash) considers an asterisk "*" to be a wildcard character that can be used to substitute for any other single character or a string of characters. 
+So how does this actually work? The shell (bash) considers an asterisk "*" to be a wildcard character that can be used to substitute for any single character or any string of characters. 
 
 > An asterisk/star is only one of the many wildcards in UNIX, but this is the most powerful one and we will be using this one the most for our exercises.
 
@@ -361,17 +358,17 @@ BONUS: List all of the files in `/bin` that contain the letter 'a' or 'c'.
 
 Navigate to the home directory. Typing out directory names can waste a lot of time. When you start typing out the name of a directory, then hit the tab key, the shell will try to fill in the rest of the directory name. For example, type `cd` to get back to your home directly, then enter:
 
-```$ cd uni<tab>```
+```$ cd ngs<tab>```
 
-The shell will fill in the rest of the directory name for `unix_oct2015`. Now go to `unix_oct2015/raw_fastq` and 
+The shell will fill in the rest of the directory name for `ngs_course`. Now go to `ngs_course/unix_lesson/raw_fastq` and type:
 
 ```$ ls Mov10_oe_<tab><tab>```
 
-When you hit the first tab, nothing happens. The reason is that there are multiple directories in the home directory which start with `Mov10_oe_`. Thus, the shell does not know which one to fill in. When you hit tab again, the shell will list the possible choices.
+When you hit the first tab, nothing happens. The reason is that there are multiple files in `raw_fastq` which start with `Mov10_oe_`. Thus, the shell does not know which one to fill in. When you hit tab again, the shell will list the possible choices.
 
 Tab completion can also fill in the names of commands. For example, enter `e<tab><tab>`. You will see the name of every command that starts with an `e`. One of those is `echo`. If you enter `ec<tab>` you will see that tab completion works. 
 
-> **Tab completion is your friend!** It helps prevent spelling mistakes, and speeds up the process of typing in the full command.
+> **Tab completion is your friend!** It helps prevent spelling mistakes, and speeds up the process of typing in the (full or relative) path.
 
 
 #### Command History
@@ -403,11 +400,11 @@ then you could repeat command #260 by simply entering:
 
 > Only a certain number of commands are stored and displayed with `history`, there is a way to modify this to store a different number.
 
-**Other handy command-related shortcuts**
+**Other handy keyboard shortcuts**
 
-* \^-c will cancel the command you are writing, and give you a fresh prompt.
+* control+c will cancel the command you are writing, and give you a fresh prompt.
 
-* \^-a will bring you to the start of the command you are writing.
+* control+a will bring you to the start of the command you are writing.
 
 
 ****
@@ -424,20 +421,20 @@ files in `/bin`) and reissue that command.
 We now know how to move around the file system and look at the
 contents of directories, but how do we look at the contents of files?
 
-The easiest way to examine a file is to just print out all of the
-contents using the command `cat`. Print the contents of `unix_oct2015/other/sequences.fa` by entering the following command:
+The easiest way (but really not the ideal way in most situations) to examine a file is to just print out all of the
+contents using the command `cat`. Enter the following command:
 
-`$ cat ~/unix_oct2015/other/sequences.fa`
+`$ cat ~/ngs_course/unix_lesson/genomics_data/proteins_subset.fa`
 
-This prints out the all the contents of `sequences.fa` to the screen.
+This prints out the all the contents of `proteins_subset.fa` to the screen.
 
 > `cat` stands for catenate; it has many uses and printing the contents of a files onto the terminal is one of them.
 
 What does this file contain?
 
-`cat` is a terrific command, but when the file is really big, it can be annoying to use. The command, `less`, is useful for this case. Let's take a look at the raw_fastq files. These files are quite large, so we probably do not want to use the `cat` command to look at them. Instead, we can use the `less` command. 
+`cat` is a terrific command, but when the file is really big, it should be avoided; `less`, is preferred for files larger than a few bytes. Let's take a look at the fastq files in `raw_fastq`. These files are quite large, so we probably do not want to use the `cat` command to look at them. Instead, we can use the `less` command. 
 
-Move back to our `raw_fastq` directory and enter the following command:
+Move back to the `raw_fastq` directory and enter the following command:
 
 `less Mov10_oe_1.subset.fq`
 
@@ -445,7 +442,7 @@ We will explore fastq files in more detail later, but notice that fastq files ha
 
 The `less` command opens the file, and lets you navigate through it. The keys used to move around the file are identical to the `man` command.
 
-**Some commands in `less`**
+**Some shortcuts for `less`**
 
 | key     | action |
 | ------- | ---------- |
@@ -455,20 +452,18 @@ The `less` command opens the file, and lets you navigate through it. The keys us
 |  "G"    | to go to the end |
 |  "q"    | to quit |
 
-`less` also gives you a way of searching through files. Just hit the "/" key to begin a search. Enter the name of the word you would like to search for and hit enter. It will jump to the next location where that word is found. If you hit "/" then "enter", `less` will just repeat the previous search. `less` searches from the current location and works its way forward. If you are at the end of the file and search for the word "cat", `less` will not find it. You need to go to the beginning of the file and search.
+`less` also gives you a way of searching through files. Just hit the "/" key to begin a search. Enter the name of the string of characters you would like to search for and hit enter. It will jump to the next location where that string is found. If you hit "/" then "enter", `less` will just repeat the previous search. `less` searches from the current location and works its way forward. If you are at the end of the file and search for the word "cat", `less` will not find it. You need to go to the beginning of the file and search.
 
-For instance, let's search for the sequence `GAGACCCCACGGGAGGCCA` in our file. You can see that we go right to that sequence and can see what it looks like. (Remember to hit 'q' to exit the `less` command)
+For instance, let's search for the sequence `GAGACCCCACGGGAGGCCA` in our file. You can see that we go right to that sequence and can see what it looks like. To exit hit "q".
 
-Remember, the `man` command (program) actually uses `less` internally and
-therefore uses the same keys and methods, so you can search manuals
-using "/" as well!
+The `man` command (program) actually uses `less` internally and therefore uses the same keys and methods, so you can search manuals using "/" as well!
 
 There's another way that we can look at files, and in this case, just
 look at part of them. This can be particularly useful if we just want
 to see the beginning or end of the file, or see how it's formatted.
 
 The commands are `head` and `tail` and they just let you look at
-the beginning and end of a file respectively.
+the first 10 lines and the last 10 lines of a file, respectively.
 
 ```$ head Mov10_oe_1.subset.fq ```
 
@@ -482,57 +477,55 @@ The `-n` option to either of these commands can be used to print the first or la
 
 ## Creating, moving, copying, and removing
 
-Now we can move around in the file structure, look at files, search files, redirect. But what if we want to do normal things like copy files or move them around or get rid of them. Sure we could do most of these things without the command line, but what fun would that be?! Besides it's often faster to do it at the command line, or you'll be on a remote server like Amazon where you won't have another option.
+Now we can move around in the directory structure, look at files, search files, redirect. But what if we want to do normal things like copy files or move them around or get rid of them. 
 
 Our raw data in this case is fastq files. We don't want to change the original files,
 so let's make a copy to work with.
 
-Lets copy the file using the copy `cp` command. Navigate to the `raw_fastq` directory and enter:
+Lets copy the file using the copy `cp` command. The copy command requires 2 things, the name of the file to copy, and the location to copy it to. Navigate to the `raw_fastq` directory and enter:
 
-```$ cp Mov10_oe_1.subset.fq Mov10_oe_1.subset-copy.fq```
+```$ cp Mov10_oe_1.subset.fq ~/```
 
-```$ ls -l```
+```$ ls -l ~/```
 
-Now ``Mov10_oe_1.subset-copy.fq`` has been created as a copy of `Mov10_oe_1.subset.fq`
+Now ``Mov10_oe_1.subset.fq`` has been created in our home directory as a copy of `Mov10_oe_1.subset.fq`
 
 Let's make a 'backup' directory where we can put this file.
 
 The `mkdir` command is used to make a directory. Just enter `mkdir`
 followed by a space, then the directory name.
 
-```$ mkdir backup```
+```$ mkdir ~/backup```
 
 > File/directory/program names with spaces in them do not work in unix, use characters like hyphens or underscores instead.
 
-We can now move our backed up file in to this directory. We can move files around using the command `mv`. Enter this command:
+We can now move our copied file in to this directory. We can move files around using the command `mv`. Enter this command:
 
-```$ mv *copy.fq backup```
+	$ cd ~/
+	$ mv Mov10*.fq backup
+	
+	$ ls -l backup
 
-```$ ls -l backup```
+	-rw-rw-r-- 1 mp298 mp298 75706556 Sep 30 13:56 Mov10_oe_1.subset.fq
 
-	drwxrwsr-x 2 mp298 mp298       43 Sep 30 13:59 .
-	drwxrwsr-x 8 mp298 mp298      203 Sep 30 13:58 ..
-	-rw-rw-r-- 1 mp298 mp298 75706556 Sep 30 13:56 Mov10_oe_1.subset-copy.fq
-
-The `mv` command is also how you rename files. Since this file is so
-important, let's rename it:
+The `mv` command is also how you rename files. Let's rename this file to remind our future selves that this is a copy:
 
 ```$ cd backup```
 
-`$ mv Mov10_oe_1.subset-copy.fq Mov10_oe_1.subset-copy.fq_DO_NOT_TOUCH!`
+`$ mv Mov10_oe_1.subset.fq Mov10_oe_1.subset-COPY.fq`
 
 `$ ls`
 
-	Mov10_oe_1.subset-copy.fq_DO_NOT_TOUCH!
+	Mov10_oe_1.subset-COPY.fq
 
-Finally, we decided this was silly and want to start over.
+Finally, we decided this was unnecessary and we can just work with the fastq files in `raw_fastq`.
 
 ```$ cd ..```
 
 ```$ rm backup/Mov*```
 
 > The `rm` file permanently removes the file. Be careful with this command. The shell doesn't
-just nicely put the files in the Trash. They're really gone.
+just nicely put the files in the Trash, they're really gone!
 >
 > Same with moving and renaming files. It will **not** ask you if you are sure that you want to "replace existing file".
 
@@ -542,26 +535,14 @@ just nicely put the files in the Trash. They're really gone.
 
 Do the following:
 
-1.  Create a backup of your fastq files
-2.  Create a backup directory called `new_backup`
-3.  Copy your backup files there
+1.  Create a backup directory called `new_backup`
+2.  Copy all 6 fastq files files there with 1 command
 
 ****
 
 By default, `rm`, will NOT delete directories. You can tell `rm` to delete a directory using the `-r` option. Let's delete both backup directories, `backup` and `new_backup`. Enter the following command:
 
 ```$ rm -r new_backup/ backup/```
-
-
-****
-
-**Exercise**
-
-Let's try to find a *hidden directory* in `unix_oct2015`, and list its contents.  What is the name of the file within the hidden directory?
-
-Hint: hidden files and folders in unix start with `.`, for example `.bashrc`
-
-****
 
 
 **Commands, options, and keystrokes covered in this lesson**
@@ -576,10 +557,10 @@ pwd
 .. (parent dir)
 *  (wildcard)
 echo
-ctrl-C (cancel current command)
-ctrl-R (reverse history search)
-ctrl-A (start of line)
-ctrl-E (end of line)
+ctrl-c (cancel current command)
+ctrl-r (reverse history search)
+ctrl-a (start of line)
+ctrl-e (end of line)
 history
 ! (repeat cmd)
 cat
@@ -592,7 +573,7 @@ mv
 rm
 ```
 
-### Resources on the shell
+### Learning resources on the shell
 
 shell cheat sheets:<br>
 * [http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/](http://fosswire.com/post/2007/08/unixlinux-command-cheat-sheet/)
