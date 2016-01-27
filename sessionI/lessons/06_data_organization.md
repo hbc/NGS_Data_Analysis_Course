@@ -80,7 +80,7 @@ This is a generic structure and can be tweaked based on personal preferences. A 
 * **`logs/`**: It is important to keep track of the commands you run and the specific pararmeters you used, but also to have a record of any standard output that is generated while running the command. This will allow you to go back to your recorded logfiles to explore additional information (e.g., how many adapters were removed, how many reads did not align). Different tools have different ways of reporting log messages and you might have to experiment a bit to figure out what output to capture: you can redirect standard output with the `>` symbol which is equivalent to `1> (standard out)`; other tools might require you to use `2>` to re-direct the standard error instead. 
  
 
-Let's create the directory structure for our changing into `rnaseq` and then using `mkdir` to create the four directories.
+Let's create the directory structure by changing into `rnaseq` and then using `mkdir` to create the four directories.
 
 ```
 $ cd ngs_course/rnaseq
