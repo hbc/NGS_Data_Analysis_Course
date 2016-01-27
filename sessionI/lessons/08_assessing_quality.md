@@ -33,23 +33,9 @@ The main functions of FastQC are:
 * Offline operation to allow automated generation of reports without running the interactive application
 
 
-### Running FASTQC
+### FASTQC
 
-####A. Stage your data
-
-To perform our quality checks, we will be working within our recently created `rnaseq` directory. We need to create two directories within the `data` directory for this quality control step. 
-
-```
-$ cd ~/ngs_course/unix_lesson/rnaseq/data
-$ mkdir untrimmed_fastq
-$ mkdir trimmed_fastq
-```
-    
-The raw_fastq data we will be working with is currently in the `unix_lesson/raw_fastq` directory. We need to copy the raw fastq files to our `untrimmed_fastq` directory:
-
-`$ cp -r ~/ngs_course/unix_lesson/raw_fastq/*fq  ~/ngs_course/unix_lesson/rnaseq/data/untrimmed_fastq`
-
-####B. Run FastQC  
+####A. Run FastQC  
 
 Before we run FastQC, let's start an interactive session on the cluster:
 
@@ -59,7 +45,7 @@ Before we run FastQC, let's start an interactive session on the cluster:
 
 Once your interactive job starts, notice that the command prompt has changed; this is because we are working on a compute node now, not on a login node.
 
-`$ cd ~/ngs_course/unix_lesson/rnaseq/data/untrimmed_fastq`  
+`$ cd ~/ngs_course/rnaseq/data/untrimmed_fastq`  
 
 Before we start using software, we have to load the environments for each software package. On clusters, this is typically done using a **module** system. 
 
