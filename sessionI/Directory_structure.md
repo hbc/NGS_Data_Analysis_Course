@@ -7,7 +7,7 @@ This is the basic directory structure we would like all students to have:
         ├── genomics_data/
         ├── raw_fastq/
         ├── README.txt
-        ├── reference_data/
+        └── reference_data/
     ├── rnaseq/
         ├── data/
         ├── meta/
@@ -17,8 +17,8 @@ This is the basic directory structure we would like all students to have:
         ├── data/
         ├── results/
         ├── .
+        └── .
+    └── variant_calling/
         ├── .
-    ├── variant_calling/
-        ├── .
-        ├── .
+        └── .
 ```
