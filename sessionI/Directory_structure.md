@@ -3,7 +3,7 @@ This is the basic directory structure we would like all students to have:
 ```
 ~/
 ├── ngs_course/
-    ├── unix_lesson
+    ├── unix_lesson/
         ├── genomics_data/
         ├── raw_fastq/
         ├── README.txt
