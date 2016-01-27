@@ -152,7 +152,7 @@ Within the 'Site Manager' window, do the following:
 
 FastQC has a really well documented [manual page](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) with [more details](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/) about all the plots in the report. We recommend looking at [this post](http://bioinfo-core.org/index.php/9th_Discussion-28_October_2010) for more information on what bad plots look like and what they mean for your data.
 
-We will focus on two of the most important analysis modules in FastQC, the **"Per base sequence quality"** plot and the **"Overrepresented sequences"** table. 
+Below are two of the most important analysis modules in FastQC, the **"Per base sequence quality"** plot and the **"Overrepresented sequences"** table. 
 
 The **"Per base sequence quality"** plot provides the distribution of quality scores across all bases at each position in the reads.
 
@@ -161,6 +161,8 @@ The **"Per base sequence quality"** plot provides the distribution of quality sc
 The **"Overrepresented sequences"** table displays the sequences (at least 20 bp) that occur in more than 0.1% of the total number of sequences. This table aids in identifying contamination, such as vector or adapter sequences. 
 
 ![FastQC_contam](../img/FastQC_contam.png)
+
+We will go over the remaining plots in class. Remember, our report only represents a subset of reads (chromosome 1) for Mov10_oe_1.subset.fq, which can skew the QC results. We encourage you to look at the [full set of reads](https://dl.dropboxusercontent.com/u/74036176/Mov10oe_1-fastqc_report.html) for Mov10_oe_1.subset.fq and note how the QC results differ when using the entire dataset.
 
 ##### .zip files   
 
