@@ -197,7 +197,31 @@ You can use wildcards in paths as well as file names.  Do you remember how we sa
     
 `$ cat */summary.txt > ~/ngs_course/rnaseq/docs/fastqc_summaries.txt`
 
+## Automating FASTQC using job submission scripts
+So far in our FASTQC analysis, we have been directly submitting commands to Orchestra using an interactive session (ie. `bsub -Is -n 6 -q interactive bash`). However, there are many more queues available on Orchestra than just the interactive queue. We can submit commands or series of commands to these queues by using job submission scripts. Job submission scripts are just regular scripts, but at the beginning of the scripts, they contain the Orchestra options for job submission, such as number of cores, name of queue, runtime limit, etc. We can submit these scripts to whichever queue we specify using the `bsub` command as follows:
 
+```
+bsub < job_submission_script.lsf
+```
+
+
+
+```bash
+#!/bin/bash
+
+cd ~/unix_oct2015/raw_fastq
+
+for filename in ~/unix_oct2015/raw_fastq/*.fq; do 
+echo $filename;
+grep -B1 -A2 NNNNNNNNNN $filename > $filename-badreads.fastq;
+grep -cH NNNNNNNNNN $filename-badreads.fastq > $filename-badreads.counts;
+done
+
+cat *.counts > bad-reads.count.summary
+
+cat bad-reads.count.summary >> ../runlog.txt
+
+```
 ---
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 
