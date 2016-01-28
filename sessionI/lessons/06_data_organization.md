@@ -117,7 +117,7 @@ The raw_fastq data we will be working with is currently in the `unix_lesson/raw_
 
 Later in the workflow when we perform alignment, we will require reference files to map against. These files are also in the `unix_lesson` directory, you can copy the entore folder over into `data`:
 
-`$ cp -r ~/ngs_course/unix_lesson/reference_data rnaseq_project/data`
+`$ cp -r ~/ngs_course/unix_lesson/reference_data rnaseq/data`
  
  OK we're all setup for our analysis!
 
