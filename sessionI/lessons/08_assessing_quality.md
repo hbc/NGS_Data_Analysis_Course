@@ -145,7 +145,7 @@ The **"Overrepresented sequences"** table displays the sequences (at least 20 bp
 
 ![FastQC_contam](../img/FastQC_contam.png)
 
-We will go over the remaining plots in class. Remember, our report only represents a subset of reads (chromosome 1) for `Mov10_oe_1.subset.fq`, which can skew the QC results. We encourage you to look at the [full set of reads for `Mov10_oe_1.subset.fq`](https://dl.dropboxusercontent.com/u/74036176/Mov10oe_1-fastqc_report.html) and note how the QC results differ when using the entire dataset.
+We will go over the remaining plots in class. Remember, our report only represents a subset of reads (chromosome 1) for `Mov10_oe_1.subset.fq`, which can skew the QC results. We encourage you to look at the [full set of reads for Mov10_oe_1.subset.fq](https://dl.dropboxusercontent.com/u/74036176/Mov10oe_1-fastqc_report.html) and note how the QC results differ when using the entire dataset.
 
 #### .zip files   
 
