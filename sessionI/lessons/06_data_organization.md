@@ -103,7 +103,7 @@ If you have created these directories, you should get the following output from 
 /data  /docs  /meta  /results
 
 ```
-Now we will create the subdirectories for each step in our RNA-Seq analysis. First we will check the quality of our data, and trim the files if necessary. To perform these quality checks, we need to create two directories within the `data` directory, one folder for untrimmed reads and another for our trimmed reads: 
+Now we will create the subdirectories to setup for our RNA-Seq analysis, and populate them with data where we can. First we will be checking the quality of our data, and trimming the files if necessary. We need to create two directories within the `data` directory, one folder for untrimmed reads and another for our trimmed reads: 
 
 ```
 $ cd ~/ngs_course/rnaseq/data
@@ -113,7 +113,11 @@ $ mkdir trimmed_fastq
     
 The raw_fastq data we will be working with is currently in the `unix_lesson/raw_fastq` directory. We need to copy the raw fastq files to our `untrimmed_fastq` directory:
 
-`$ cp -r ~/ngs_course/unix_lesson/raw_fastq/*fq  ~/ngs_course/rnaseq/data/untrimmed_fastq`
+`$ cp ~/ngs_course/unix_lesson/raw_fastq/*fq  ~/ngs_course/rnaseq/data/untrimmed_fastq`
+
+Later in the workflow when we perform alignment, we will require reference files to map against. These files are also in the `unix_lesson` directory, you can copy the entore folder over into `data`:
+
+ cp -r ~/ngs_course/unix_lesson/reference_data rnaseq_project/data
 
 ### Document your activity on the project
 
