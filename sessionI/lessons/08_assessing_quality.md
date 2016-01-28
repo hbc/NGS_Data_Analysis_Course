@@ -255,7 +255,7 @@ ls -lh ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/
 ***
 **Exercise**
 
-1. Change the script to run 9 fastq files in parallel.
+1. Change the `mov10_fastqc.lsf` script to run 9 fastq files in parallel.
 
 
 ---
