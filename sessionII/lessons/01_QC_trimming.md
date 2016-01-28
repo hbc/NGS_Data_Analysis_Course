@@ -18,7 +18,7 @@ Let us revisit the workflow that we introduced in Session I. We got as far as ta
 
 ## Trimming Strategies
 
-Raw sequencing reads will often exhibit decreasing sequence quality at the 5' and 3' ends. Another common problem with the ends of the reads is contamination by adapter or vector sequences. We can improve the overall quality of our data by **trimming** the poor quality bases and adapter sequaences from our reads.
+Raw sequencing reads will often exhibit decreasing sequence quality at the 5' and 3' ends. We can improve the overall quality of our data by **trimming** the poor quality bases, as well as, any contaminating vector or adapter sequaences from our reads.
 
 Many trimming tools have been developed, but there are various strategies employed, and the tool or strategy chosen often relates to the personal preference of the user.
 
