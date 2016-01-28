@@ -10,6 +10,7 @@ Approximate time: 60 minutes
 
 * Learn how to evaluate the quality of your NGS data using the program FastQC
 * Use a `for` loop to automate operations on multiple files
+* Create a job submission script to automate quality assessment
 
 
 ##Quality Control of FASTQ files
