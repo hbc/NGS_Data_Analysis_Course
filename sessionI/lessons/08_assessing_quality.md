@@ -198,30 +198,67 @@ You can use wildcards in paths as well as file names.  Do you remember how we sa
 `$ cat */summary.txt > ~/ngs_course/rnaseq/docs/fastqc_summaries.txt`
 
 ## Automating FASTQC using job submission scripts
-So far in our FASTQC analysis, we have been directly submitting commands to Orchestra using an interactive session (ie. `bsub -Is -n 6 -q interactive bash`). However, there are many more queues available on Orchestra than just the interactive queue. We can submit commands or series of commands to these queues by using job submission scripts. Job submission scripts are just regular scripts, but at the beginning of the scripts, they contain the Orchestra options for job submission, such as number of cores, name of queue, runtime limit, etc. We can submit these scripts to whichever queue we specify using the `bsub` command as follows:
+So far in our FASTQC analysis, we have been directly submitting commands to Orchestra using an interactive session (ie. `bsub -Is -n 6 -q interactive bash`). However, there are many more queues available on Orchestra than just the interactive queue. We can submit commands or series of commands to these queues using job submission scripts. 
+
+**Job submission scripts** for Orchestra are just regular scripts, but at the beginning of the scripts, they contain the Orchestra options for job submission, such as *number of cores, name of queue, runtime limit, etc*. We can submit these scripts to whichever queue we specify using the `bsub` command as follows:
 
 ```
-bsub < job_submission_script.lsf
+$ bsub < job_submission_script.lsf
 ```
+Let's create a job submission script to load the FASTQC module, run FASTQC on all of our .fastq files, unzip our zipped files, and produce the fastqc summary text.
 
+Create a script named `mov10_fastqc.lsf` in `vim`. *Don't forget to enter insert mode, `i`, to start typing*.
 
+The first thing we need in our script is the **shebang line**:
 
 ```bash
 #!/bin/bash
+```
 
-cd ~/unix_oct2015/raw_fastq
+Following the shebang line are the Orchestra options. For the script to run, we need to include options for **queue (-q) and runtime limit (-W)**. To specify our options, we precede the option with `#BSUB`, which tells Orchestra that the line contains options for job submission. 
 
-for filename in ~/unix_oct2015/raw_fastq/*.fq; do 
-echo $filename;
-grep -B1 -A2 NNNNNNNNNN $filename > $filename-badreads.fastq;
-grep -cH NNNNNNNNNN $filename-badreads.fastq > $filename-badreads.counts;
+```bash
+#BSUB -q priority 		# queue name
+#BSUB -W 2:00 		# hours:minutes runlimit after which job will be killed
+#BSUB -n 6 		# number of cores requested -- this needs to be greater than or equal to the number of cores you plan to use to run your job
+#BSUB -J rnaseq_mov10_fastqc 		# Job name
+#BSUB -o %J.out			# File to which standard out will be written
+#BSUB -e %J.err 		# File to which standard err will be written
+```
+Now in the body of the script, we can include any commands we want run:
+
+```bash
+## Changing directories to where I want my FASTQC output files to be saved
+cd ~/ngs_course/rnaseq/data/untrimmed_fastq
+
+## Loading modules required for script commands
+module load seq/fastqc/0.11.3
+
+## Running FASTQC
+fastqc -t 6 *.fq
+
+## Moving files to our results directory
+mv *.zip ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/
+mv *.html ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/
+
+## Unzipping the .zip files
+for zip in *.zip
+do
+unzip $zip
 done
 
-cat *.counts > bad-reads.count.summary
-
-cat bad-reads.count.summary >> ../runlog.txt
-
+## Saving a record
+cat */summary.txt > ~/ngs_course/rnaseq/docs/fastqc_summaries.txt
 ```
+
+Now let's run our script:
+
+```bash
+bsub < mov10_fastqc.lsf
+```
+
+Submission of the script allows the load sharing facility (LSF) to run your job when its your turn. You should receive an email when your job has finished.
+
 ---
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 
