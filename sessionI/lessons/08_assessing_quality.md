@@ -40,7 +40,7 @@ Before we run FastQC, let's start an interactive session on the cluster:
 
 ***An interactive session is a very useful to test tools, workflows, run jobs that open new interactive windows (X11-forwarding) and so on.***
 
-Once your interactive job starts, notice that the command prompt has changed; this is because we are working on a compute node now, not on a login node.
+Once your interactive job starts, notice that the command prompt has changed; this is because we are working on a compute node now, not on a login node. Change directories to `untrimmed_fastq`.
 
 `$ cd ~/ngs_course/rnaseq/data/untrimmed_fastq`  
 
