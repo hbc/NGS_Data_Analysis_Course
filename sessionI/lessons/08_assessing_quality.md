@@ -242,7 +242,15 @@ mv *.zip ../../results/fastqc_untrimmed_reads/
 mv *.html ../../results/fastqc_untrimmed_reads/
 ```
 
-Submission of the script allows the load sharing facility (LSF) to run your job when its your turn. You should receive an email when your job has finished.
+Submission of the script allows the load sharing facility (LSF) to run your job when its your turn. You can check on the status of your job with:
+```
+bjobs
+```
+
+When your job is finished, check the results directory for the output files:
+```bash
+ls -lh ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/
+```
 
 ***
 **Exercise**
