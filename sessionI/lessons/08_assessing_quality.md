@@ -205,7 +205,7 @@ So far in our FASTQC analysis, we have been directly submitting commands to Orch
 ```
 $ bsub < job_submission_script.lsf
 ```
-Let's create a job submission script to load the FASTQC module, run FASTQC on all of our .fastq files, unzip our zipped files, and produce the fastqc summary text.
+Let's create a job submission script to load the FASTQC module, run FASTQC on all of our .fastq files, and move the files to the appropriate directory.
 
 Create a script named `mov10_fastqc.lsf` in `vim`. *Don't forget to enter insert mode, `i`, to start typing*.
 
