@@ -28,14 +28,7 @@ ssh username@orchestra.med.harvard.edu
 $ bsub -Is -n 6 -q interactive bash	
 ```
 
-Change directories into the `unix_oct2015` directory and copy the `reference_data` folder into your project directory:
-
-```
-$ cp reference_data rnaseq_project/data
-
-```
-
-Now move into the `rnaseq_project` directory. You should have a directory tree setup similar to that shown below. it is best practice to have all files you intend on using for your workflow present within the same directory. In our case, we have our original FASTQ files and post-trimming data generated in the previous section. We also have all reference data files that will be used in downstream analyses.
+Change directories into the `rnaseq_project` directory. You should have a directory tree setup similar to that shown below. it is best practice to have all files you intend on using for your workflow present within the same directory. In our case, we have our original FASTQ files and post-trimming data generated in the previous section. We also have all reference data files that will be used in downstream analyses.
 
 ```
 rnaseq_project
@@ -62,7 +55,7 @@ rnaseq_project
 The first command is to change into our working directory:
 
 ```
-$ cd unix_oct2015/rnaseq-project
+$ cd ngs_course/rnaseq
 
 ```
 
@@ -86,7 +79,7 @@ For now, we're going to work on just one sample to set up our workflow. To start
 
 ```bash
 
-$ cp -r /groups/hbctraining/unix_oct2015_other/trimmed_fastq data/
+$ cp -r /groups/hbctraining/unix_oct2015_other/trimmed_fastq data/ .
 
 ```
 
