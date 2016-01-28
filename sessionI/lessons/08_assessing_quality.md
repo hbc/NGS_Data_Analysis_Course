@@ -197,10 +197,10 @@ You can use wildcards in paths as well as file names.  Do you remember how we sa
     
 `$ cat */summary.txt > ~/ngs_course/rnaseq/docs/fastqc_summaries.txt`
 
-## Automating FASTQC using job submission scripts
+## Automating quality assessment using job submission scripts
 So far in our FASTQC analysis, we have been directly submitting commands to Orchestra using an interactive session (ie. `bsub -Is -n 6 -q interactive bash`). However, there are many more queues available on Orchestra than just the interactive queue. We can submit commands or series of commands to these queues using job submission scripts. 
 
-**Job submission scripts** for Orchestra are just regular scripts, but at the beginning of the scripts, they contain the Orchestra options for job submission, such as *number of cores, name of queue, runtime limit, etc*. We can submit these scripts to whichever queue we specify using the `bsub` command as follows:
+**Job submission scripts** for Orchestra are just regular scripts, but contain the Orchestra options for job submission, such as *number of cores, name of queue, runtime limit, etc*. We can submit these scripts to whichever queue we specify in the script using the `bsub` command as follows:
 
 ```
 $ bsub < job_submission_script.lsf
@@ -238,26 +238,17 @@ module load seq/fastqc/0.11.3
 fastqc -t 6 *.fq
 
 ## Moving files to our results directory
-mv *.zip ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/
-mv *.html ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/
-
-## Unzipping the .zip files
-for zip in *.zip
-do
-unzip $zip
-done
-
-## Saving a record
-cat */summary.txt > ~/ngs_course/rnaseq/docs/fastqc_summaries.txt
-```
-
-Now let's run our script:
-
-```bash
-bsub < mov10_fastqc.lsf
+mv *.zip ../../results/fastqc_untrimmed_reads/
+mv *.html ../../results/fastqc_untrimmed_reads/
 ```
 
 Submission of the script allows the load sharing facility (LSF) to run your job when its your turn. You should receive an email when your job has finished.
+
+***
+**Exercise**
+
+1. Change the script to run 9 fastq files in parallel.
+
 
 ---
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
