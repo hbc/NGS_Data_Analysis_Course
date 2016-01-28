@@ -94,7 +94,7 @@ Now, let's create a home for our results
 
 `$ mkdir ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads`
 
-...and move them there (recall, we are still in `~/ngs_course/unix_lesson/rnaseq/data/untrimmed_fastq/`)
+...and move them there (recall, we are still in `~/ngs_course/rnaseq/data/untrimmed_fastq/`)
 
 ```
 $ mv *.zip ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/
