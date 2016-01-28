@@ -200,12 +200,12 @@ You can use wildcards in paths as well as file names.  Do you remember how we sa
 ## Automating quality assessment using job submission scripts
 So far in our FASTQC analysis, we have been directly submitting commands to Orchestra using an interactive session (ie. `bsub -Is -n 6 -q interactive bash`). However, there are many more queues available on Orchestra than just the interactive queue. We can submit commands or series of commands to these queues using job submission scripts. 
 
-**Job submission scripts** for Orchestra are just regular scripts, but contain the Orchestra options for job submission, such as *number of cores, name of queue, runtime limit, etc*. We can submit these scripts to whichever queue we specify in the script using the `bsub` command as follows:
+**Job submission scripts** for Orchestra are just regular scripts, but contain the Orchestra options/directives for job submission, such as *number of cores, name of queue, runtime limit, etc*. We can submit these scripts to whichever queue we specify in the script using the `bsub` command as follows:
 
 ```
 $ bsub < job_submission_script.lsf
 ```
-Let's create a job submission script to load the FASTQC module, run FASTQC on all of our .fastq files, and move the files to the appropriate directory.
+Submission of the script using the `bsub` command allows the load sharing facility (LSF) to run your job when its your turn. Let's create a job submission script to load the FASTQC module, run FASTQC on all of our fastq files, and move the files to the appropriate directory.
 
 Create a script named `mov10_fastqc.lsf` in `vim`. *Don't forget to enter insert mode, `i`, to start typing*.
 
@@ -242,7 +242,7 @@ mv *.zip ../../results/fastqc_untrimmed_reads/
 mv *.html ../../results/fastqc_untrimmed_reads/
 ```
 
-Submission of the script allows the load sharing facility (LSF) to run your job when its your turn. You can check on the status of your job with:
+You can check on the status of your job with:
 ```
 bjobs
 ```
