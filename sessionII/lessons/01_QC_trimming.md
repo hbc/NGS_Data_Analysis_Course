@@ -18,9 +18,9 @@ Let us revisit the workflow that we introduced in Session I. We got as far as ta
 
 For our raw fastq data, we found the quality of the bases decreasing at the 3' ends of our reads. Raw sequencing reads will often exhibit this decreasing sequence quality at the 5' and 3' ends. We can improve the overall quality of our data by **trimming** the poor quality bases, as well as, any contaminating vector or adapter sequences from our reads. Sequencing reads containing poor quality bases or contaminating sequences will be difficult to align properly to the reference genome/transcriptome.  
 
-Quality trimming can be accomplished either by removing the bases entirely from the sequence using a trimming tool, such as Trimmomatic, or by an alignment tool that "soft clips" the low quality bases. Soft clipping doesn't actually remove the sequence, but the clipped sequence is skipped over or ignored when performing downstream operations. However, aligners **will not** remove adapter or vector sequences, so it is still recommended that you use a tool that can remove these sequences from your reads prior to alignment.
+Quality trimming can be accomplished either by removing the bases entirely from the sequence using a trimming tool, such as Trimmomatic, or by an alignment tool that "soft clips" the low quality bases. Soft clipping doesn't actually remove the sequence, but the clipped sequence is skipped over or ignored when performing downstream operations. Although many alignment tools can perform the soft clipping of low quality bases, they **cannot** remove adapter or vector sequences. Therefore, if you use soft clipping, it is still recommended that you use a tool that removes adapter sequences from your reads prior to alignment.
 
-Many trimming tools have been developed, but there are various strategies employed, and the tool or strategy chosen often relates to the personal preference of the user and the downstream tools to be used.
+Many trimming tools have been developed to perform quality and adapter trimming, but there are various strategies employed, and the tool or strategy chosen often relates to the personal preference of the user and the downstream tools to be used.
 
 Trimming tools can perform sequence trimming using the following strategies:
 
@@ -30,8 +30,8 @@ Trimming tools can perform sequence trimming using the following strategies:
 	- remove bases in window if % good quality bases in a window is below a specific percentage (e.g. remove bases in window if % good quality bases ≤ 70%)
 - hard crop - remove a certain number of bases from the ends of all reads(e.g. remove 12 bases from all reads at 5’ end)
 - remove read if % good quality bases in whole read is below a specific threshold (e.g. remove read if % good quality bases ≤ 70%)
-- trim any left over adapter sequences (usually at 5’ end for SE)
-- remove read if the read length is below a certain threshold
+- adapter trimming - trim any left over adapter sequences (usually at 5’ end for SE)
+- minimum length - remove read if the read length is below a certain threshold
 
 
 ## Trimmomatic
