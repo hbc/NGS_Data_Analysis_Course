@@ -16,7 +16,7 @@ Let us revisit the workflow that we introduced in Session I. We got as far as ta
 
 ![Workflow](../img/rnaseq_workflow_trimming.png)
 
-For our raw fastq data, we found the quality of the bases decreasing at the 3' ends of our reads. Raw sequencing reads will often exhibit this decreasing sequence quality at the 5' and 3' ends. We can improve the overall quality of our data by **trimming** the poor quality bases, as well as, any contaminating vector or adapter sequences from our reads. Sequencing reads containing poor quality bases or contaminating sequences will be difficult to align properly to the reference genome/transcriptome.  
+For our raw fastq data, we found the quality of the bases decreasing at the 3' ends of our reads. Raw sequencing reads will often exhibit this decreasing sequence quality at the 5' and 3' ends. We can improve the overall quality of our data by trimming the poor quality bases, as well as, any contaminating vector or adapter sequences from our reads. Sequencing reads containing poor quality bases or contaminating sequences will be difficult to align properly to the reference genome/transcriptome.  
 
 Quality trimming can be accomplished either by removing the bases entirely from the sequence using a trimming tool or by an alignment tool that "soft clips" the low quality bases. Soft clipping doesn't actually remove the sequence, but the clipped sequence is skipped over or ignored when performing downstream operations. Although many alignment tools can perform the soft clipping of low quality bases, they **cannot** remove adapter or vector sequences. Therefore, if you use soft clipping, it is still recommended that you use a tool that removes adapter sequences from your reads prior to alignment.
 
