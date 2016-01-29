@@ -71,6 +71,7 @@ The next two arguments are input file and output file names. These are then foll
 * **_CROP_** Cut the read to a specified length.
 * **_HEADCROP_** Cut the specified number of bases from the start of the read.
 * **_MINLEN_** Drop an entire read if it is below a specified length.
+* **_ILLUMINACLIP_** Cut adapter and other illumina-specific sequences from the read
 * **_TOPHRED33_** Convert quality scores to Phred-33.
 * **_TOPHRED64_** Convert quality scores to Phred-64.
 
