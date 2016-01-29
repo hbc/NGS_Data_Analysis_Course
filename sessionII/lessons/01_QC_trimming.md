@@ -18,7 +18,7 @@ Let us revisit the workflow that we introduced in Session I. We got as far as ta
 
 ## Trimming Strategies
 
-Raw sequencing reads will often exhibit decreasing sequence quality at the 5' and 3' ends. We can improve the overall quality of our data by **trimming** the poor quality bases, as well as, any contaminating vector or adapter sequences from our reads.
+With our raw fastq data, we found the quality of the bases decreasing at the 3' ends of our reads. Raw sequencing reads will often exhibit this decreasing sequence quality at the 5' and 3' ends. We can improve the overall quality of our data by **trimming** the poor quality bases, as well as, any contaminating vector or adapter sequences from our reads. Poor quality bases and contaminating sequences will make it difficult to properly align the reads to the reference genome/transcriptome.  Trimming could be accomplished by a couple of 
 
 Many trimming tools have been developed, but there are various strategies employed, and the tool or strategy chosen often relates to the personal preference of the user.
 
