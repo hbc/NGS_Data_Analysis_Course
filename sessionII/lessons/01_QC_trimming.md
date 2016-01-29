@@ -12,17 +12,17 @@ Approximate time: 60 minutes
 
 ##Quality Control - Trimming
 
-Let us revisit the workflow that we introduced in Session I. We got as far as taking the raw reads and running them through FASTQC to see whether our samples were good enough quality to proceed.
+Let us revisit the workflow that we introduced in Session I. We got as far as taking the raw reads and running them through FASTQC to see whether our samples were good enough quality to proceed. Now we are going to improve the quality of our reads, using a technique called **trimming**.
 
 ![Workflow](../img/rnaseq_workflow_trimming.png)
 
-## Trimming Strategies
+For our raw fastq data, we found the quality of the bases decreasing at the 3' ends of our reads. Raw sequencing reads will often exhibit this decreasing sequence quality at the 5' and 3' ends. We can improve the overall quality of our data by **trimming** the poor quality bases, as well as, any contaminating vector or adapter sequences from our reads. Sequencing reads containing poor quality bases or contaminating sequences will be difficult to align properly to the reference genome/transcriptome.  
 
-With our raw fastq data, we found the quality of the bases decreasing at the 3' ends of our reads. Raw sequencing reads will often exhibit this decreasing sequence quality at the 5' and 3' ends. We can improve the overall quality of our data by **trimming** the poor quality bases, as well as, any contaminating vector or adapter sequences from our reads. Poor quality bases and contaminating sequences will make it difficult to properly align the reads to the reference genome/transcriptome.  Trimming could be accomplished by a couple of 
+Quality trimming can be accomplished either by removing the bases entirely from the sequence using a trimming tool, such as Trimmomatic, or by an alignment tool that "soft clips" the low quality bases. Soft clipping doesn't actually remove the sequence, but the clipped sequence is skipped over or ignored when performing downstream operations. However, aligners **will not** remove adapter or vector sequences, so it is still recommended that you use a tool that can remove these sequences from your reads prior to alignment.
 
-Many trimming tools have been developed, but there are various strategies employed, and the tool or strategy chosen often relates to the personal preference of the user.
+Many trimming tools have been developed, but there are various strategies employed, and the tool or strategy chosen often relates to the personal preference of the user and the downstream tools to be used.
 
-Tools can perform sequence trimming using the following strategies:
+Trimming tools can perform sequence trimming using the following strategies:
 
 - one base at a time - remove base if it is below a certain quality threshold
 - sliding window approach:
