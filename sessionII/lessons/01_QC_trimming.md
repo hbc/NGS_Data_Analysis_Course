@@ -7,7 +7,7 @@ date: "Thursday, January 28th, 2016"
 Approximate time: 60 minutes
 
 ## Learning Objectives:
-* Use Trimmommatic to clean FastQ reads
+* Explore trimming strategies for improving the quality of FASTQ reads
 * Use a `for` loop to automate operations on multiple files
 
 ##Quality Control - Trimming
