@@ -1,6 +1,6 @@
 ---
 title: "The Shell: Loops & Scripts"
-author: "Bob Freeman, Mary Piper, Radhika Khetani"
+author: "Bob Freeman, Mary Piper, Radhika Khetani, Meeta Mistry"
 date: "Wednesday, October 28, 2015"
 ---
 
@@ -62,7 +62,7 @@ Well, in the former, we're setting the value, while in the latter, we're retriev
 
 Let's try another command using the variable that we have created. In the last lesson, we introduced the `wc -l` command which allows us to count the number of lines in a file. We can count the number of lines in `Mov10_oe_1.subset.fq` by referencing the `file` variable, but first move into the `raw_fastq` directory:
 
-	$ cd ~/unix_oct2015/raw_fastq
+	$ cd ~/ngs_course/unix_lesson/raw_fastq
 	$ wc -l $file
 
 Ok, so we know variables are like buckets, and so far we have seen that bucket filled with a single value. **Variables can store more than just a single value.** They can store multiple values and in this way can be useful to carry out many things at once. Let's create a new variable called `filenames` and this time we will store *all of the filenames* in the `raw_fastq` directory as values. 
@@ -121,7 +121,7 @@ Most simply, it writes to the terminal (`echo`) the name of the file and the num
 
 In this case the list of files is specified using the asterisk wildcard: `*.fq`, i.e. all files that end in `.fq`. Then, we execute 2 commands between the `do` and `done`. With a loop, we execute these commands for each file at a time. Once the commands are executed for one file, the loop then executes the same commands on the next file in the list. 
 
-Essentially, **the number of loops == the number of items in the list**, in our case that is 6 times since we have 6 files in `~/unix_oct2015/raw_fastq` that end in `.fq`. This is done by changing the value of the `var` variable 6 times. 
+Essentially, **the number of loops == the number of items in the list**, in our case that is 6 times since we have 6 files in `~/ngs_course/unix_lesson/raw_fastq` that end in `.fq`. This is done by changing the value of the `var` variable 6 times. 
 
 Of course, `var` is a useless variable name. But it doesn't matter what variable name we use and we can make it something more intuitive.
 
@@ -159,9 +159,9 @@ Now that you've learned how to use loops and variables, let's put this processin
 
 You might not realize this, but this is something that you now know how to do. Let's get started...
 
-Move to our sample data directory and use `nano` to create our new script file:
+Move to our sample data directory and use `vi` to create our new script file:
 
-`$ cd ~/unix_oct2015/raw_fastq`
+`$ cd ~/ngs_course/unix_lesson/raw_fastq`
 
 `$ vi generate_bad_reads_summary.sh`
 
@@ -174,13 +174,13 @@ This line is the absolute path to the Bash interpreter. The shebang line ensures
 After the shebang line, we enter the commands we want to execute. First we want to move into our `raw_fastq` directory:
 
 ```
-$ cd ~/unix_oct2015/raw_fastq
+$ cd ~/ngs_course/unix_lesson/raw_fastq
 ```
 
 And now we loop over all the FASTQs:
 
 ```bash
-for filename in ~/unix_oct2015/raw_fastq/*.fq;
+for filename in ~/ngs_course/unix_lesson/raw_fastq/*.fq;
 ```
 
 and we execute the commands for each loop:
@@ -221,9 +221,9 @@ You're script should look like:
 ```bash
 #!/bin/bash
 
-cd ~/unix_oct2015/raw_fastq
+cd ~/ngs_course/unix_lesson/raw_fastq
 
-for filename in ~/unix_oct2015/raw_fastq/*.fq; do 
+for filename in ~/ngs_course/unix_lesson/raw_fastq/*.fq; do 
 echo $filename;
 grep -B1 -A2 NNNNNNNNNN $filename > $filename-badreads.fastq;
 grep -cH NNNNNNNNNN $filename-badreads.fastq > $filename-badreads.counts;
@@ -241,10 +241,10 @@ Exit out of `vi`, and voila! You now have a script you can use to assess the qua
 #!/bin/bash 
 
 # enter directory with raw FASTQs
-cd ~/unix_oct2015/raw_fastq
+cd ~/ngs_course/unix_lesson/raw_fastq
 
 # count bad reads for each FASTQ file in our directory
-for filename in ~/unix_oct2015/raw_fastq/*.fq; do 
+for filename in ~/ngs_course/unix_lesson/raw_fastq/*.fq; do 
   echo $filename; 
 
   # grab all the bad read records
@@ -270,7 +270,7 @@ $ bash generate_bad_reads_summary.sh
 
 To keep your data organized, let's move all of the bad read files out of our `raw_fastq` directory into the `other` directory
 
-`$ mv ~/unix_oct2015/raw_fastq/*bad* ~/unix_oct2015/other`
+`$ mv ~/ngs_course/unix_lesson/raw_fastq/*bad* ~/ngs_course/unix_lesson/other`
 
 
 ---
