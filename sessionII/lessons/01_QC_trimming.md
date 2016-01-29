@@ -176,8 +176,8 @@ We now have a new fastq file with our trimmed and cleaned up data:
 ### Run Trimmomatic on all the fastq files
 
 Now we know how to run *Trimmomatic*, but there is some good news and bad news.  
-One should always ask for the bad news first.  ***Trimmomatic*** only operates on 
-one input file at a time and we have more than one input file.  The good news?
+One should always ask for the bad news first.  ***Trimmomatic* only operates on 
+one input file at a time** and we have more than one input file.  The good news?
 We already know how to use a 'for loop' to deal with this situation. Let's modify our script to run the *Trimmomatic* command for every raw fastq file. Let's also run *FastQC* on each of our trimmed fastq files to evaluate the quality of our reads post-trimming:
 
 ```
