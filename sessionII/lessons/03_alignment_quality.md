@@ -8,21 +8,69 @@ Approximate time:
 
 ## Learning objectives
 
+* Familiarizing with the standard alignment file (SAM/BAM) structure
+* Using `samtools` to evaluate alignment quality 
+* Visualizing alignment quality using IGV (genome browser)  
 
+	
+## Alignment file format: SAM/BAM
 
-### Alignment file format: SAM/BAM
+The output we requested from the STAR aligner (using the appropriate parameters) is a BAM file. By default STAR will return a file in SAM format. BAM is a binary, compressed version of the SAM file, also known as **Sequence Alignment Map format**. The SAM file is a tab-delimited text file that contains information for each individual read and its alignment to the genome. 
 
-The output we requested from STAR is a BAM file, and by default returns a file in SAM format. BAM is a binary version of the SAM file, also known as Sequence Alignment Map format. The SAM file is a tab-delimited text file that contains information for each individual read and its alignment to the genome. The file begins with a header, which is optional, followed by an alignment section.  If present, the header must be prior to the alignments and starts with '@'. Each line that follows corresponds to alignment information for a read. Each alignment line has **11 mandatory fields for essential mapping information** and a variable number of fields for aligner specific information.
+The file begins with a **header**, which is optional. The header is used to describe source of data, reference sequence, method of alignment, etc., this will change depending on the aligner being used. Each section begins with character ‘@’ followed by a two-letter record type code.  These are followed by two-letter tags and values. Example of some common sections are provided below:
 
+```
+@HD  The header line
+VN: format version
+SO: Sorting order of alignments
 
-**Need a more in-depth description of the SAM file format**
+@SQ  Reference sequence dictionary
+SN: reference sequence name
+LN: reference sequence length
+SP: species
 
-These fields are described briefly below, but for more detailed information the paper by [Heng Li et al](http://bioinformatics.oxfordjournals.org/content/25/16/2078.full) is a good start.
+@RG  Read group
+ID: read group identifier
+CN: name of sequencing center
+SM: sample name
+
+@PG  Program
+PN: program name
+VN: program version
+```
+
+Following the header is the **alignment section**. Each line that follows corresponds to alignment information for a single read. Each alignment line has **11 mandatory fields for essential mapping information** and a variable number of other fields for aligner specific information. 
 
 ![SAM](../img/SAM_file.png)
 
+These fields contain information describing the read, quality of the read, and nature alignment of the read to a region of the genome. Below are example entries of alignment information for a single read (*note that in the SAM file this would be displayed tab-delimited, on a single line*): 
 
-### `samtools`
+```
+QNAME  e.g.  M00628:11:000000000-A1P5L:1:1112:26953:13136
+FLAG   e.g.  163
+RNAME  e.g.  CP000921
+POS    e.g.  20
+MAPQ   e.g.  60
+CIGAR  e.g.  149M
+RNEXT  e.g.  = 
+PNEXT  e.g.  108
+TLEN   e.g.  239
+SEQ    e.g.  CCACTATGTTTTTCGATAAAAAGCTTAATAAAT
+QUAL   e.g.  ?????BBBBBDBDB=?FFECFACCFFHHH>09C
+
+```
+Most of the field entries above are pretty self-explanatory, except for two which could use a bit more in-depth of an explanation. These are, the (bitwise) `FLAG` field and `CIGAR`.
+
+### Bitwise flags explained
+
+The query is followed by a bitwise flag field; each flag corresponds to a bit set which is a sum of the binary representation of the individual flags
+
+
+
+For more detailed information on the SAM format the paper by [Heng Li et al](http://bioinformatics.oxfordjournals.org/content/25/16/2078.full) is a good start.
+
+
+## `samtools`
 
 Let's take a quick look at our alignment. To do so we first convert our BAM file into SAM format using samtools and then pipe it to the `less` command. This allows us to look at the contents without having to write it to file (since we don't need a SAM file for downstream analyses). We first need to load the samtools module:
 
@@ -47,6 +95,8 @@ On examining the SAM file
 Index the BAM file for visualization with IGV:
 
     samtools index results/STAR/Mov10_oe_1__Aligned.sortedByCoord.out.bam
+
+Indexing aims to achieve fast retrieval of alignments overlapping a specified region without going through the whole alignments. BAM must be sorted by the reference ID and then the leftmost coordinate before indexing
 
 **Transfer files to your laptop using the command line**
 
