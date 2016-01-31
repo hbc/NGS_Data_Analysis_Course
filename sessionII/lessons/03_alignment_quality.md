@@ -15,7 +15,7 @@ Approximate time:
 	
 ## Alignment file format: SAM/BAM
 
-The output we requested from the STAR aligner (using the appropriate parameters) is a BAM file. By default STAR will return a file in SAM format. BAM is a binary, compressed version of the SAM file, also known as **Sequence Alignment Map format**. The SAM file is a tab-delimited text file that contains information for each individual read and its alignment to the genome. 
+The output we requested from the STAR aligner (using the appropriate parameters) is a BAM file. By default STAR will return a file in SAM format. BAM is a binary, compressed version of the SAM file, also known as **Sequence Alignment Map format**. The SAM file, introduced is a tab-delimited text file that contains information for each individual read and its alignment to the genome. While we will go into some features of the SAM format, the paper by [Heng Li et al](http://bioinformatics.oxfordjournals.org/content/25/16/2078.full) provides a lot more detail on the specification.
 
 The file begins with a **header**, which is optional. The header is used to describe source of data, reference sequence, method of alignment, etc., this will change depending on the aligner being used. Each section begins with character ‘@’ followed by a two-letter record type code.  These are followed by two-letter tags and values. Example of some common sections are provided below:
 
@@ -63,11 +63,27 @@ Most of the field entries above are pretty self-explanatory, except for two whic
 
 ### Bitwise flags explained
 
-The query is followed by a bitwise flag field; each flag corresponds to a bit set which is a sum of the binary representation of the individual flags
+The `FLAG` value that is displayed can be translated into information about the mapping. The flag value corresponds to a bit set which is a sum of the binary representation of the individual flags.
 
+There are 11 bitwise flags describing the alignment:
 
+![bitwise](../img/bitwiseflags.png)
 
-For more detailed information on the SAM format the paper by [Heng Li et al](http://bioinformatics.oxfordjournals.org/content/25/16/2078.full) is a good start.
+* For a given alignment, each of these flags are either on or off indicating the condition is true or false. 
+* These flags are stored as a binary strings of length 11 instead of 11 columns of data. Value of ‘1’ indicates the flag is set.  e.g. 00100000000
+* The combination of all flags are represented in the SAM specification using its hexidecimal representation
+* There is no combination that can be a result of two different sums
+
+So in our example alignment we have a bitwise flag of 163. This is the flag is actually a sum of the 4 different flags.
+
+`163 = 1 + 2 + 32 + +128   (e.g. 00010100011)`
+
+Which tells us that the read is paired, the read is mapped in a proper pair, it is the mate reverse strand and it is the second read in the pair. Bit flags are useful in storing lots of information in little space. Normally, you wouldn't be going through the SAM file manually to evaluate these numbers, but if you were curious about a particular flag and what it means, there is a [Picard utility[(http://broadinstitute.github.io/picard/explain-flags.html) which can help decipher for you.
+
+### CIGAR string explained
+
+The CIGAR string is a sequence of base lengths and associated ‘operations’ that are used to indicate which bases align to the reference (either a match or mismatch), are deleted, are inserted, represent introns, etc.
+
 
 
 ## `samtools`
