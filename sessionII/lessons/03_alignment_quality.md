@@ -86,6 +86,24 @@ The CIGAR string is a sequence of letters and numbers that represent the *edits 
 
 ![cigar](../img/cigar_strings.png)
 
+****
+
+**Exercise**
+
+1. Given the sequence alignment below and the table above, determine what the correct CIGAR string would be.
+
+```
+                            1 1 1 1 1 1 1 1 1 1
+RefPos: 1 2 3 4 5 6 7   8 9 0 1 2 3 4 5 6 7 8 9
+-----------------------------------------------
+Ref:    C C A T A C T   G A A C T G A C T A A C
+Read: 		       A C T A G A A   T G G C T
+
+```
+
+****
+
+
 ## `samtools`
 
 Let's take a quick look at our alignment. To do so we first convert our BAM file into SAM format using samtools and then pipe it to the `less` command. This allows us to look at the contents without having to write it to file (since we don't need a SAM file for downstream analyses). We first need to load the samtools module:
