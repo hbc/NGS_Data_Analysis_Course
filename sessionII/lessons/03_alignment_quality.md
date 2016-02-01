@@ -78,13 +78,13 @@ So in our example alignment we have a bitwise flag of 163. This is the flag is a
 
 `163 = 1 + 2 + 32 + +128   (e.g. 00010100011)`
 
-Which tells us that the read is paired, the read is mapped in a proper pair, it is the mate reverse strand and it is the second read in the pair. Bit flags are useful in storing lots of information in little space. Normally, you wouldn't be going through the SAM file manually to evaluate these numbers, but if you were curious about a particular flag and what it means, there is a [Picard utility[(http://broadinstitute.github.io/picard/explain-flags.html) which can help decipher for you.
+Which tells us that **(1)** the read is paired, **(2)** the read is mapped in a proper pair, **(32)** the read is the mate reverse strand and **(128)** the read is the second read in the pair. Bit flags are useful in storing lots of information in little space. Normally, you wouldn't be going through the SAM file manually to evaluate these numbers, but if you were curious about a particular flag and what it means, there is a [Picard utility](http://broadinstitute.github.io/picard/explain-flags.html) which can help decipher for you.
 
 ### CIGAR string explained
 
-The CIGAR string is a sequence of base lengths and associated ‘operations’ that are used to indicate which bases align to the reference (either a match or mismatch), are deleted, are inserted, represent introns, etc.
+The CIGAR string is a sequence of letters and numbers that represent the *edits or operations* required to match the read to the reference. The letters are operations that are used to indicate which bases align to the reference (i.e. match, mismatch, deletion, insertion), and the numbers indicate the associated base lengths for each 'operation'.
 
-
+![cigar](../img/cigar_strings.png)
 
 ## `samtools`
 
