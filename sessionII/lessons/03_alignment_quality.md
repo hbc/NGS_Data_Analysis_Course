@@ -93,9 +93,7 @@ In our example, SAM entry above the CIGAR string listed is 149M which translates
 
 While it is important to understand what is contained in the SAM file, it is very unlikely that you will ever need to manually look at it since we have tools that help us do this more efficiently.
 
-[SAMtools](http://samtools.sourceforge.net/) is one of these such tools and provides alot of functionality in dealing with SAM files. SAMtools utilities include, but are not limited to, viewing, sorting, filtering, merging, and indexing alignments in the SAM format.
-
-In this lesson we will explore a few of these utilities on our alignment files. Let's get started by loading the `samtools` module:
+[SAMtools](http://samtools.sourceforge.net/) is one of these such tools and provides alot of functionality in dealing with SAM files. SAMtools utilities include, but are not limited to, viewing, sorting, filtering, merging, and indexing alignments in the SAM format. In this lesson we will explore a few of these utilities on our alignment files. Let's get started by loading the `samtools` module:
 
 	module load seq/samtools/1.2
 
@@ -108,9 +106,10 @@ We will do the latter (since we don't really need it for downstream analysis) an
 ```
 $ samtools view -h results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam | less
 
-```
- 
- ### Summarizing and filtering the SAM file
+``` 
+
+### Summarizing and filtering the SAM file
+
 As mentioned previously, manually reading the file line-by-line isn't very productive. It is more useful to be able to summarize across the entire file. Suppose we wanted to set a threshold on mapping quality. For example, we want to know how many reads aligned with a quality score higher than 30. To do this, we can combine the `view` command with additional flags `q 30` and `-c` (to count):
 
 ```
@@ -119,7 +118,7 @@ $ samtools view -q 30 -c results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam
 ```
 *How many of reads have a mapping quality of 30 or higher?*
 
-If we wanted to only work with high quality mapped reads, we could subset these alignments and write them to a new BAM file using the `b` flag:
+If we wanted to only work with high quality mapped reads, we could subset these alignments and write them to a new BAM file using the `-b` flag:
 
 ```
 $ samtools view -q 30 -b results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam Mov10_oe_1_Aligned_q30.bam
@@ -170,22 +169,37 @@ $ samtools view -F 4 -c results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam
 
 *This number should be identical to that reported on line 5 of the `flagstat` results*
 
+### Indexing the BAM file
+
+To perform some functions (i.e. subsetting, visualization) on the BAM file, an index is required. Indexing aims to achieve fast retrieval of alignments overlapping a specified region without going through the whole alignments. In order to index a BAM file, it must be sorted by the reference ID and then the leftmost coordinate, which can also be done with `samtools`. However, in our case we had included a parameter in our STAR alignment run so we know our BAM files are already sorted.
+
+To index the BAM file we use the `index` command:
+
+    $ samtools index results/STAR/Mov10_oe_1__Aligned.sortedByCoord.out.bam
+
+This will create an index in the same directory as the BAM file, which will be identical to the input file in name but with an added extension of `.bai`.
+
+
+### Subsetting the BAM file
+
+Suppose we only wanted to look at a subset of the reads mapping to a specific location on the genome. We can extract these read alignments by using the `view` command and providing the genomic coordinates. Let's take a look at reads mapping to `chr1:200000-500000`:
+
+	samtools view results/STAR/Mov10_oe_1__Aligned.sortedByCoord.out.bam chr1:200000-500000
+
+*Note this will only work, if you have the index file created.* There should only be a few reads printed to screen. Use the `-c` flag to count how many entries are within the specified region.
 
 
 ****
 
 **Exercise:**
-On examining the SAM file
+
+The STAR log file for `Mov10_oe_1` indicated that there were a certain number of reads mapping to multiple locations. When this happens, one of these alignments is considered
+primary and all the other alignments have the secondary alignment flag set in the SAM records. **Using `samtools` and your knowledge of bitwise flags to extract the secondary reads to a file called `Mov10_oe_1_secondary_alignments.bam`. **
 
 ***
 
+
 ### Visualization
-
-Index the BAM file for visualization with IGV:
-
-    samtools index results/STAR/Mov10_oe_1__Aligned.sortedByCoord.out.bam
-
-Indexing aims to achieve fast retrieval of alignments overlapping a specified region without going through the whole alignments. BAM must be sorted by the reference ID and then the leftmost coordinate before indexing
 
 **Transfer files to your laptop using the command line**
 
