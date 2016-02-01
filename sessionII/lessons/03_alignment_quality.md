@@ -194,16 +194,18 @@ Suppose we only wanted to look at a subset of the reads mapping to a specific lo
 **Exercise:**
 
 1. The STAR log file for `Mov10_oe_1` indicated that there were a certain number of reads mapping to multiple locations. When this happens, one of these alignments is considered
-primary and all the other alignments have the secondary alignment flag set in the SAM records. **Using `samtools` and your knowledge of bitwise flags to extract the secondary reads to a file called `Mov10_oe_1_secondary_alignments.bam`.**
+primary and all the other alignments have the secondary alignment flag set in the SAM records. **Use `samtools` and your knowledge of bitwise flags to extract the secondary reads to a file called `Mov10_oe_1_secondary_alignments.bam`.**
 
 ***
 
 
-### Visualization
+## Visualization
 
-**Transfer files to your laptop using the command line**
+Another method for assessing the quality of your alignment is to visualize the alignment using a genome browser. For this course we will be using the [Integrative Genomics Viewer (IGV)(https://www.broadinstitute.org/igv/) from the Broad Institute. *You should already have this downloaded on your laptop.* IGV is an interactive tool which allows exploration of large, integrated genomic datasets. It supports a wide variety of data types, including array-based and next-generation sequence data, and genomic annotations, which facilitates invaluable comparisons.
 
-We previously used FileZilla to transfer files from Orchestra to your laptop. However, there is another way to do so using the command line interface. _This option is only available for Mac and Linux users! PC users can use Filezilla._  Similar to the `cp` command to copy there is a command that allows you to securely copy files between computers. The command is called `scp` and allows files to be copied to, from, or between different hosts. It uses ssh for data transfer and provides the same authentication and same level of security as ssh. 
+### Transfer files
+
+In order to visualize our alignments we will first need to move over the relevant files. We previously used FileZilla to transfer files from Orchestra to your laptop. However, there is another way to do so using the command line interface. **This option is only available for Mac and Linux users! PC users can use Filezilla.**  Similar to the `cp` command to copy there is a command that allows you to securely copy files between computers. The command is called `scp` and allows files to be copied to, from, or between different hosts. It uses ssh for data transfer and provides the same authentication and same level of security as ssh. 
 
 First, identify the location of the _origin file_ you intend to copy, followed by the _destination_ of that file. Since the origin file is located on Orchestra, this requires you to provide remote host and login information.
 
@@ -214,11 +216,11 @@ The following 2 files need to be moved from Orchestra to your local machine,
 `results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam.bai` 
 
 ```
-$ scp user_name@orchestra.med.harvard.edu:/home/user_name/unix_oct2015/rnaseq_project/results/Mov10_oe_1_Aligned.sortedByCoord.out.bam* /path/to/directory_on_laptop
+$ scp user_name@orchestra.med.harvard.edu:/home/user_name/ngs_course/rnaseq/results/Mov10_oe_1_Aligned.sortedByCoord.out.bam* /path/to/directory_on_laptop
 ```
 
 
-**Visualize**
+### Visualize
 
 * Start [IGV](https://www.broadinstitute.org/software/igv/download) _You should have this previously installed on your laptop_
 * Load the Human genome (hg19) into IGV using the dropdown menu at the top left of your screen. _Note: there is also an option to "Load Genomes from File..." under the "Genomes" pull-down menu - this is useful when working with non-model organisms_
@@ -226,12 +228,16 @@ $ scp user_name@orchestra.med.harvard.edu:/home/user_name/unix_oct2015/rnaseq_pr
 
 ![IGV screenshot](../img/igv_screenshot.png)
 
-#### Exercise
+***
+
+**Exercise**
+
 Now that we have done this for one sample, let's try using the same commands to perform alignment on one of the control samples. Using `Irrel_kd_1_qualtrim25.minlen35.fq` walk through the alignment commands above. Copy over the resulting BAM and index file to your laptop and upload into IGV for visualization. 
 
 1. How does the MOV10 gene look in the control sample in comparison to the overexpression sample?
 2. Take a look at a few other genes by typing into the search bar. For example, PPM1J and PTPN22. How do these genes compare? 
 
+***
 
 ---
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
