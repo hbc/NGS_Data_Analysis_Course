@@ -86,36 +86,91 @@ The CIGAR string is a sequence of letters and numbers that represent the *edits 
 
 ![cigar](../img/cigar_strings.png)
 
-****
-
-**Exercise**
-
-1. Given the sequence alignment below and the table above, determine the correct CIGAR string.
-
-```
-                            1 1 1 1 1 1 1 1 1 1
-RefPos: 1 2 3 4 5 6 7   8 9 0 1 2 3 4 5 6 7 8 9
------------------------------------------------
-Ref:    C C A T A C T   G A A C T G A C T A A C
-Read: 		       A C T A G A A   T G G C T
-
-```
-
-****
+In our example, SAM entry above the CIGAR string listed is 149M which translates to 149 matches with the reference. 
 
 
 ## `samtools`
 
-Let's take a quick look at our alignment. To do so we first convert our BAM file into SAM format using samtools and then pipe it to the `less` command. This allows us to look at the contents without having to write it to file (since we don't need a SAM file for downstream analyses). We first need to load the samtools module:
+While it is important to understand what is contained in the SAM file, it is very unlikely that you will ever need to manually look at it since we have tools that help us do this more efficiently.
+
+[SAMtools](http://samtools.sourceforge.net/) is one of these such tools and provides alot of functionality in dealing with SAM files. SAMtools utilities include, but are not limited to, viewing, sorting, filtering, merging, and indexing alignments in the SAM format.
+
+In this lesson we will explore a few of these utilities on our alignment files. Let's get started by loading the `samtools` module:
 
 	module load seq/samtools/1.2
+
+### Viewing the SAM file
+
+Now that we have learned so much about the SAM file format, let's use `samtools` to take a quick peek at our own files. The output we had requested from STAR was a BAM file. The problem is the BAM file is binary and not human-readable. Using the `view` command within `samtools` we can easily convert the BAM into something that we can understand. You will be returned to screen the entire SAM file, and so we can either write to file, or pipe this to the `less` command so we can scroll through it.
+
+We will do the latter (since we don't really need it for downstream analysis) and scroll through the SAM file (using the up and down arrows) to see how the fields correspond to what we expected. Adding the `-h` flag allows to also view the header.
 
 ```
 $ samtools view -h results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam | less
 
 ```
  
-Scroll through the SAM file and see how the fields correspond to what we expected.
+ ### Summarizing and filtering the SAM file
+As mentioned previously, manually reading the file line-by-line isn't very productive. It is more useful to be able to summarize across the entire file. Suppose we wanted to set a threshold on mapping quality. For example, we want to know how many reads aligned with a quality score higher than 30. To do this, we can combine the `view` command with additional flags `q 30` and `-c` (to count):
+
+```
+$ samtools view -q 30 -c results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam 
+
+```
+*How many of reads have a mapping quality of 30 or higher?*
+
+If we wanted to only work with high quality mapped reads, we could subset these alignments and write them to a new BAM file using the `b` flag:
+
+```
+$ samtools view -q 30 -b results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam Mov10_oe_1_Aligned_q30.bam
+
+```
+
+The `flagstat` command can also used to summarize a BAM file:
+
+```
+$ samtools flagstat results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam 
+
+```
+
+*What do you see?* The output from `flagstat` corresponds to information encoded within the 11 bitwise flags that we discussed earlier. For each flag you get the corresponding number of reads that agree. Since we are working with single end reads, many of these do not apply to us.
+
+```
+309507 + 0 in total (QC-passed reads + QC-failed reads)
+9270 + 0 secondary
+0 + 0 supplementary
+0 + 0 duplicates
+295771 + 0 mapped (95.56% : N/A)
+0 + 0 paired in sequencing
+0 + 0 read1
+0 + 0 read2
+0 + 0 properly paired (N/A : N/A)
+0 + 0 with itself and mate mapped
+0 + 0 singletons (N/A : N/A)
+0 + 0 with mate mapped to a different chr
+0 + 0 with mate mapped to a different chr (mapQ>=5)
+```
+
+We can apply filters to keep/remove selected reads based on where they fall within these different categories. Similar to when filtering by quality we need to use the `samtools view` command, however this time use the `-F` or `-f` flags.
+
+These flags are combined with the hexadecimal value of the bitwise flag you are interested in. We know that 4 is the bitwise flag for unmapped reads, so to obtain the number of unmapped reads you would use `-f 4`:
+
+```
+$ samtools view -f 4 -c results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam 
+
+```
+
+But how do we obtain the number of reads that *are mapped*? Remember that the bitwise flags are like boolean values. If the flag exists, the condition is true. To find the number of mapped reads we need to count those reads that do not meet the condition. We do this using the capitalized F flag:
+
+  
+```
+$ samtools view -F 4 -c results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam 
+
+```
+
+*This number should be identical to that reported on line 5 of the `flagstat` results*
+
+
 
 ****
 
