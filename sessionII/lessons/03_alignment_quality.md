@@ -90,7 +90,7 @@ The CIGAR string is a sequence of letters and numbers that represent the *edits 
 
 **Exercise**
 
-1. Given the sequence alignment below and the table above, determine what the correct CIGAR string would be.
+1. Given the sequence alignment below and the table above, determine the correct CIGAR string.
 
 ```
                             1 1 1 1 1 1 1 1 1 1
