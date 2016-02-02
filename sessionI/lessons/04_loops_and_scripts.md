@@ -20,7 +20,7 @@ Welcome to the beauty and purpose of shell scripts.
 
 ## Shell scripts
 
-We are finally ready to see what makes the shell such a powerful programming environment. We are going to take the commands we repeat frequently and save them in files so that we can re-run all those operations again later by typing one single command. For historical reasons, a bunch of commands saved in a file is usually called a shell script, but make no mistake: this is actually a small program.
+We are finally ready to see what makes the shell such a powerful programming environment. We are going to take the commands we repeat frequently and save them in files so that we can re-run all those operations again later by typing one single command. For historical reasons, a bunch of commands saved in a file is usually called a shell script, but make no mistake, this is actually a small program.
 
 Shell scripts are text files that contain commands we want to run over and over again. As with any file, you can give a shell script any name and usually have the extension `.sh`. Let's write a shell script that tells us what our current working directory is and then lists the contents of the directory. First open a new file using `vi`:
 
@@ -44,7 +44,7 @@ Save the file and exit `vi`. Now let's run the new script we have created. To ru
 This is a very simple shell script. In this session and in upcoming sessions, we will be learning how to write more complex ones. You will see how the power of scripts can make our lives much easier.
 
 ## Bash variables
-A *variable* is a common concept shared by many programming languages. Variables are essentially a symbolic/temporary name for, or reference to, information. Variables are analogous to "buckets", where information can be stored, maintained and modified without too much hassle. 
+A *variable* is a common concept shared by many programming languages. Variables are essentially a symbolic/temporary name for, or a reference to, some information. Variables are analogous to "buckets", where information can be stored, maintained and modified without too much hassle. 
 
 Extending the bucket analogy: the bucket has a name associated with it, i.e. the name of the variable, and when referring to the information in the bucket, we use the name of the bucket, and do not directly refer to the actual data stored in it.
 
@@ -56,7 +56,7 @@ Once you press return, you should be back at the command prompt. *How do we know
 
 	$ echo $file
 
-What do you see in the terminal? If the variable was not created, the command will return nothing. Did you notice that when we created the variable we just typed in the variable name, but when using it as an argument to the `echo` command, we explicitly use a `$` in front of it (`$file`). Why? 
+What do you see in the terminal? If the variable was not created, the command will return nothing. Did you notice that when we created the variable we just typed in the variable name, but when using it as an argument to the `echo` command, we explicitly use a `$` in front of it (`$file`)? Why? 
 
 Well, in the former, we're setting the value, while in the latter, we're retrieving the value. This is standard shell notation (syntax) for defining and using variables. **Don't forget the `$` when you want to retrieve the value of a variable!** 
 
@@ -123,7 +123,7 @@ In this case the list of files is specified using the asterisk wildcard: `*.fq`,
 
 Essentially, **the number of loops == the number of items in the list**, in our case that is 6 times since we have 6 files in `~/ngs_course/unix_lesson/raw_fastq` that end in `.fq`. This is done by changing the value of the `var` variable 6 times. 
 
-Of course, `var` is a useless variable name. But it doesn't matter what variable name we use and we can make it something more intuitive.
+Of course, `var` is a useless variable name. But since it doesn't matter what variable name we use, we can make it something more intuitive.
 
 ```bash
 $ for filename in *.fq
@@ -132,7 +132,7 @@ $ for filename in *.fq
 >   wc -l $filename
 > done
 ```
-In the long run, it's best to use a name that will help point out its function, so your future self will understand what you are thinking now.
+In the long run, it's best to use a name that will help point out a variable's function, so your future self will understand what you are thinking now.
 
 Now that we understand the concept of looping, let's put that to work:
 
@@ -157,7 +157,7 @@ Now that you've learned how to use loops and variables, let's put this processin
 - Get the count of the number of bad reads
 - And after all the FASTQ files are processed, we generate one summary file of the bad read counts
 
-You might not realize this, but this is something that you now know how to do. Let's get started...
+You might not realize it, but this is something that you now know how to do. Let's get started...
 
 Move to our sample data directory and use `vi` to create our new script file:
 
