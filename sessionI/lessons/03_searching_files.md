@@ -14,9 +14,9 @@ Approximate time: 60 minutes
 
 ## Searching files
 
-We showed a little how to search within a file using `less`. We can also
+We went over how to search within a file using `less`. We can also
 search within files without even opening them, using `grep`. Grep is a command-line
-utility for searching plain-text data sets for lines matching a string or regular expression.
+utility for searching plain-text data sets for lines matching a string or regular expression (regex).
 Let's give it a try!
 
 Suppose we want to see how many reads in our file `Mov10_oe_1.subset.fq` are really bad, with 10 consecutive Ns  
@@ -29,7 +29,7 @@ Let's search for the string NNNNNNNNNN:
 We get back a lot of lines.  What if we want to see the whole fastq record for each of these reads?
 We can use the '-B' and '-A' arguments for grep to return the matched line plus one before (-B 1) and two
 lines after (-A 2). Since each record is four lines and the second line is the sequence, this should
-give the whole record.
+return the whole record.
 
 `$ grep -B1 -A2 NNNNNNNNNN Mov10_oe_1.subset.fq`
 
