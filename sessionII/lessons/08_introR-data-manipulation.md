@@ -126,7 +126,7 @@ Let's start by creating a vector called age:
 
 	age <- c(15, 22, 45, 52, 73, 81)
 
-![vector indices](../img/vector-index.png =500x)
+![vector indices](../img/vector-index.png)
 
 Suppose we only wanted the fifth value of this vector, we would use the following syntax:
 
@@ -230,7 +230,7 @@ expression[idx]
 
 Dataframes (and matrices) have 2 dimensions (rows and columns), so if we want to select some specific data from it we need to specify the "coordinates" we want from it. We use the same square bracket notation but rather than providing a single index, there are *two indexes required*. Within the square bracket, **row numbers come first followed by column numbers (and the two are separated by a comma)**. Let's explore the `metadata` dataframe, shown below are the first six samples:
 
-![metadata](../img/metadata.png =300x)
+![metadata](../img/metadata.png)
 
 For example:
 
