@@ -56,13 +56,6 @@ Let's create a new project directory for our "Introduction to R" lesson today.
 3. **Workspace/History**: workspace shows all active objects and history keeps track of all commands run in console
 4. **Files/Plots/Packages/Help**
 
-Some of the RStudio features that make using R easier include:
-
-* automatic syntax highlighting/formatting in the script editor
-* direct code execution from script editor to console
-* real-time access to environment, plotting and history
-* good tool for workspace management
-
 ## Organizing your working directory
 
 ### Viewing your working directory
