@@ -100,19 +100,19 @@ content and the structure of a `data.frame`. Here is a non-exhaustive list of
 functions to get a sense of the content/structure of data.
 
 * All data structures - content display:
-	- **str():** compact display of data contents (env.)
-	- **class():** data type (e.g. character, numeric, etc.) of vectors and data structure of dataframes, matrices, and lists.
-	- **summary():** detailed display, including descriptive statistics, frequencies
-	- **head():** will print the beginning entries for the variable
-	- **tail():** will print the end entries for the variable
+	- **`str()`:** compact display of data contents (env.)
+	- **`class()`:** data type (e.g. character, numeric, etc.) of vectors and data structure of dataframes, matrices, and lists.
+	- **`summary()`:** detailed display, including descriptive statistics, frequencies
+	- **`head()`:** will print the beginning entries for the variable
+	- **`tail()`:** will print the end entries for the variable
 * Vector and factor variables: 
-	- **length():** returns the number of elements in the vector or factor
+	- **`length()`:** returns the number of elements in the vector or factor
 * Dataframe and matrix variables:
-	- **dim():** returns dimensions of the dataset
-	- **nrow():** returns the number of rows in the dataset
-	- **ncol():** returns the number of columns in the dataset
-	- **rownames():** returns the row names in the dataset  
-	- **colnames():** returns the column names in the dataset
+	- **`dim()`:** returns dimensions of the dataset
+	- **`nrow()`:** returns the number of rows in the dataset
+	- **`ncol()`:** returns the number of columns in the dataset
+	- **`rownames()`:** returns the row names in the dataset  
+	- **`colnames()`:** returns the column names in the dataset
 
 ## Selecting data using indexes and sequences
 
