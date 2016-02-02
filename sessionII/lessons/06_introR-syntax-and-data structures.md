@@ -252,7 +252,7 @@ A `data.frame` is the _de facto_ data structure for most tabular data and what w
 
 A data frame is the most common way of storing data in R, and if used systematically makes data analysis easier. 
 
-We can create a dataframe by bringing vectors together to form the columns. We do this using the `data.frame()` function, and giving the function the different vectors we would like to bind together. *This function will only work for vectors of the same length.*
+We can create a dataframe by bringing **vectors** together to **form the columns**. We do this using the `data.frame()` function, and giving the function the different vectors we would like to bind together. *This function will only work for vectors of the same length.*
 
 	df <- data.frame(species, glengths)
 
@@ -303,7 +303,10 @@ There are three components corresponding to the three different variables we pas
 2. Print out only the contents of the `genotype` factor variable.
 
 ---
-*The materials used in this lesson is adapted from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
+
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
+
+* *The materials used in this lesson is adapted from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
 All Data Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
 
 
