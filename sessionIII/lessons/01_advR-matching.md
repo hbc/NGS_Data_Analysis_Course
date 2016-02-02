@@ -7,8 +7,8 @@ minutes: 90
 ---
 
 ## Learning Objectives
-* Nested functions
-* Matching and re-organizing data
+* Using nested functions to improve efficiency in executing commands
+* Learning how to match and re-order data 
 
 ## Nested functions
 
