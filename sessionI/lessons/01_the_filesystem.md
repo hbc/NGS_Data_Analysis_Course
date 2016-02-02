@@ -20,7 +20,7 @@ Approximate time: 90 minutes
 
 ![Automation](../img/gvng.jpg)
 
-   Unix is user-friendly. It's just very selective about who its friends are.
+   Unix is user-friendly, it's just very selective about who its friends are.
 
 
 Today we're going to go through how to access Unix/Linux and some of the basic
@@ -46,7 +46,7 @@ You will receive a prompt for your password, and you should type in your ECommon
 
 By default, there is no terminal for the bash shell available in the Windows OS, so you have to use a downloaded program, **[Putty](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html)**.
 
-When you open Putty, you will see the following GUI.
+When you open Putty, you will see the following GUI (Graphical User Interface).
 
 ![Putty window](../img/putty-1.PNG)
 
@@ -81,17 +81,17 @@ Let's make a a directory in your home folder for everything we do in this NGS Da
 
 	mkdir ngs_course
 
-Copy the data folder `unix_lesson` from a shared folder on Orchestra into your new directory using the following command:
+Copy the data folder `unix_lesson` from a shared directory/folder on Orchestra into your new directory using the following command:
 
 ```$ cp -r /groups/hbctraining/ngs-data-analysis2016/unix_lesson/ ngs_course/```
 
->'cp' is the command for copy. This command required you to specify the location of the item you want to copy (/groups/hbctraining/unix_oct2015/) and the location of the destination (.) please note the space between the 2 in the command. The "-r" is an option that modifies the copy command to do something slightly different than usual. The "." means "here", i.e. the destination location is where you currently are.
+>'cp' is the command for copy. This command required you to specify the location of the item you want to copy (/groups/hbctraining/unix_oct2015/) and the location of the destination (.) please note the space between the 2 in the command. The "-r" is an option that modifies the copy command to do something slightly different than usual. The "." means "here", i.e. the destination location is your current location or current directory.
 
 ## Starting with the shell
 
 We have each created our own copy of the data folder into our home directory, **unix_lesson**. 
 
-Let's go into the data folder and explore the data using the shell. We will do this sequentially using the `cd` command. `cd` stands for "'"change directory".
+Let's go into the data folder and explore the data using the shell. We will do this sequentially using the `cd` command. `cd` stands for "change directory".
 
 	$ cd ngs_course
 	
@@ -152,12 +152,12 @@ This will open the manual page for `ls`. Use the space key to go forward and b t
 
 commands that are run from the shell can get extremely complicated. To see an example, open up the manual page for the `find` command. No one can possibly learn all of these arguments, of course. So you will probably find yourself referring to the manual page frequently.
 
-> If the manual page within the terminal is hard to read and traverse, the manual exists online, use your web searching powers to get it! In addition to the arguments, you can also find good examples online; Google is your friend.
+> If the manual page within the terminal is hard to read and traverse, the manual exists online, use your web searching powers to get it! In addition to the arguments, you can also find good usage examples online; Google is your friend.
 
 
 ## The Unix directory file structure (a.k.a. where am I?)
  
-As you've already just seen, you can move around in different directories or folders at the command line. Why would you want to do this, rather than just navigating around the normal way using a GUI (GUI = Graphical User Interface, pronounced like "gooey").
+As you've already just seen, you can move around between different directories or folders at the command line. Why would you want to do this, rather than just navigating around the normal way using a GUI (GUI = Graphical User Interface, pronounced *gooey*).
 
 #### Moving around the file system
 
@@ -167,7 +167,7 @@ We're going to work in that `unix_lesson` directory.
 
 First we did something like go to the folder of our username. Then we changed directories to `ngs_course`, then `unix_lesson` and then `raw_fastq`
 
-Like on any computer you have used before the file structure within unix is hierarchical, like an upside down tree with root (/) as the starting point of the tree-like structure:
+Like on any computer you have used before, the file structure within unix is hierarchical. It's like an upside down tree with root (/) as the starting point of the tree-like structure:
 
 ![Unix](../img/Slide1.jpg)
 
