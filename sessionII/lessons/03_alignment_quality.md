@@ -194,7 +194,7 @@ Suppose we only wanted to look at a subset of the reads mapping to a specific lo
 **Exercise:**
 
 1. The STAR log file for `Mov10_oe_1` indicated that there were a certain number of reads mapping to multiple locations. When this happens, one of these alignments is considered
-primary and all the other alignments have the secondary alignment flag set in the SAM records. **Use `samtools` and your knowledge of bitwise flags to extract the secondary reads to a file called `Mov10_oe_1_secondary_alignments.bam`.**
+primary and all the other alignments have the secondary alignment flag set in the SAM records. **Use `samtools` and your knowledge of [bitwise flags](https://github.com/hbc/NGS_Data_Analysis_Course/blob/master/sessionII/lessons/03_alignment_quality.md#bitwise-flags-explained) to extract the secondary reads to a file called `Mov10_oe_1_secondary_alignments.bam`.**
 
 ***
 
