@@ -14,7 +14,6 @@ Approximate time: 90 minutes
   - manipulating files
   - automating tasks
 - What is it good for?
-- Where are resources where I can learn more? (because the shell is awesome)
 
 
 ## Why use the Unix shell?
