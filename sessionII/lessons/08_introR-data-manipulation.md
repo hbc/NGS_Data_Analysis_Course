@@ -419,7 +419,7 @@ Or we could find the indexes for the metadata replicates 2 and 3:
 
 Everything we have done so far has only modified the data in R; the files have remained unchanged. Whenever we want to save our datasets to file, we need to use a `write` function in R. 
 
-To write our matrix to file in comma separated format (.csv), we can use the `write.csv` function. There are two required arguments: the data structure you are exporting, and the path and filename that you are exporting to. By default the delimiter is set, and columns will be separated by a comma:
+To write our matrix to file in comma separated format (.csv), we can use the `write.csv` function. There are two required arguments: the variable name of the data structure you are exporting, and the path and filename that you are exporting to. By default the delimiter is set, and columns will be separated by a comma:
 
 	write.csv(sub_meta, file="data/counts.rpkm_ordered.csv")
 
