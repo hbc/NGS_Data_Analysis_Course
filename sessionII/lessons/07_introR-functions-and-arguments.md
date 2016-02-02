@@ -28,7 +28,7 @@ The input(s) are called **arguments**, which can include:
 1. the physical object (any data structure) on which the function carries out a task 
 2. specifications that alter the way the function operates (e.g. options)
 
-Not all functions take arguments:
+Not all functions take arguments, for example:
 
 ```
 getwd()
@@ -40,9 +40,9 @@ The **defaults** represent standard values that the author of the function speci
 
 ### Basic functions
 
-We have already used a few examples of basic functions in the previous lessons i.e `getwd`, `c()`, and  `factor()`. These functions are available as part of R's built in capabilities, and we will explore a few more of these base functions below. 
+We have already used a few examples of basic functions in the previous lessons i.e `getwd()`, `c()`, and  `factor()`. These functions are available as part of R's built in capabilities, and we will explore a few more of these base functions below. 
 
-You can also get functions from *libraries* (which we'll talk about in a bit), or even write your own. 
+You can also get functions from external [*packages or libraries*](https://github.com/hbc/NGS_Data_Analysis_Course/blob/master/sessionII/lessons/07_introR-functions-and-arguments.md#packages-and-libraries) (which we'll talk about in a bit), or even write your own. 
 
 Let's revisit a function that we have used previously to combine data `c()` into vectors. The *arguments* it takes is a collection of numbers, characters or strings (separated by a comma). The `c()` function performs the task of combining the numbers or characters into a single vector. You can also use the function to add elements to an existing vector:
 
@@ -74,7 +74,7 @@ Let's try another function, this time using one that we can change some of the *
 	round(3.14159)
 
 
-We can see that we get `3`. That's because the default is to round to the nearest whole number. If we want a different number of digits, we can type `digits=2` or however many we may want.
+We can see that we get `3`. That's because the default is to round to the nearest whole number. If we want a different number of significant digits, we can type `digits=2` or however many we may want.
 
 
 	round(3.14159, digits=2)
@@ -87,7 +87,7 @@ If you provide the arguments in the exact same order as they are defined (in the
 
 
 However, it's usually not recommended practice because it's a lot of remembering to do, and if you share your code with others that includes less known functions
-it makes your code difficult to read. (It's however OK to not include the names of the arguments for basic functions like `mean`, `min`, etc...). Another advantage of naming arguments, is that the order doesn't matter.  This is useful when there start to be more arguments. 
+it makes your code difficult to read. (It's however OK to not include the names of the arguments for basic functions like `mean`, `min`, etc...). Another advantage of naming arguments, is that the order doesn't matter.  This is useful when a function has many arguments. 
 
 ***
 **Exercise** 
@@ -98,7 +98,7 @@ it makes your code difficult to read. (It's however OK to not include the names 
 
 ## Packages and Libraries
 
-**Packages** are collections of R functions, data, and compiled code in a well-defined format created to perform specific tasks. 
+**Packages** are collections of R functions, data, and compiled code in a well-defined format, created to perform specific tasks. 
 
 There are a set of **standard (or base) packages** which are considered part of the R source code and automatically available as part of your R installation. Base packages contain the **basic functions** that allow R to work, and enable standard statistical and graphical functions on datasets; for example, all of the functions that we have been using so far in our examples. 
 
@@ -148,7 +148,7 @@ library(ggplot2)
 
 ### I know the name of the function I want to use, but I'm not sure how to use it
 
-Suppose we didn't know how to use the `round` function and wanted more digits; the best way of finding out this information is to use the `?` followed by the name of the function. Doing this will open up the help manual in the bottom right panel of RStudio that will provide a description of the function, usage, arguments, details, and examples: 
+Suppose we didn't know how to use the `round` function and wanted more significant digits; the best way of finding out this information is to use the `?` followed by the name of the function. Doing this will open up the help manual in the bottom right panel of RStudio that will provide a description of the function, usage, arguments, details, and examples: 
 
 	?round
 
@@ -187,7 +187,7 @@ but it is full of useful information.
 
 ### Asking for help
 
-The key to get help from someone is for them to grasp your problem rapidly. You
+The key to getting help from someone is for them to grasp your problem rapidly. You
 should make it as easy as possible to pinpoint where the issue might be.
 
 1. Try to **use the correct words** to describe your problem. For instance, a package
@@ -249,6 +249,9 @@ it with this command:
   useful guidelines
 
 ---
-*The materials used in this lesson is adapted from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
+
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
+
+* *The materials used in this lesson is adapted from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
 All Data Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
 
