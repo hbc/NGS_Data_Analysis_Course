@@ -126,7 +126,7 @@ Let's start by creating a vector called age:
 
 	age <- c(15, 22, 45, 52, 73, 81)
 
-![vector indices](../../img/vector-index.png =500x)
+![vector indices](../img/vector-index.png =500x)
 
 Suppose we only wanted the fifth value of this vector, we would use the following syntax:
 
@@ -148,7 +148,7 @@ To select a sequence of continuous values from a vector, we would use `:` which 
 
 Alternatively, if you wanted the reverse could try `4:1` for instance, and see what is returned. 
 
-We can also use indexing with logical operators. Logical operators include greater than (>), less than (<), and equal to (==). A full list of logical operators in R is displayed below:
+We can also use indexes with logical operators. Logical operators include greater than (>), less than (<), and equal to (==). A full list of logical operators in R is displayed below:
 
 | Operator | Description |
 | :-----------:|:----------------|
@@ -161,7 +161,7 @@ We can also use indexing with logical operators. Logical operators include great
 | & | and |
 | \| |or |
 
-Let's use indexing with logical operators to select all values in the `age` vector over 50 OR `age` less than 18:
+Let's create an index with logical operators to select all values in the `age` vector over 50 OR `age` less than 18:
 
 	idx <- age > 50 | age < 18
 	
@@ -204,7 +204,7 @@ expression <- factor(expression, levels=c("low", "medium", "high"), ordered=TRUE
 levels(expression)
 min(expression) ## works!
 ```
-Since factors are special vectors, the same rules for selecting values using indexing apply. Let's extract the values of the factor with `high` expression:
+Since factors are special vectors, the same rules for selecting values using indices apply. Let's extract the values of the factor with `high` expression:
 
 First, we create a vector of indices:
 
@@ -230,14 +230,14 @@ expression[idx]
 
 Dataframes (and matrices) have 2 dimensions (rows and columns), so if we want to select some specific data from it we need to specify the "coordinates" we want from it. We use the same square bracket notation but rather than providing a single index, there are *two indexes required*. Within the square bracket, **row numbers come first followed by column numbers (and the two are separated by a comma)**. Let's explore the `metadata` dataframe, shown below are the first six samples:
 
-![metadata](../../img/metadata.png =300x)
+![metadata](../img/metadata.png =300x)
 
 For example:
 
 	metadata[1, 1]   # element from the first row in the first column of the data frame
 	metadata[1, 3]   # element from the first row in the 3rd column
 
-Now if you only wanted to select based on rows, you would provide the indexes for the rows and leave the columns index blank. The key here is to include the comma, to let R know that you are accessing a 2-dimensional data structure:
+Now if you only wanted to select based on rows, you would provide the index for the rows and leave the columns index blank. The key here is to include the comma, to let R know that you are accessing a 2-dimensional data structure:
 
 	metadata[3, ]    # vector containing all elements in the 3rd row
 
