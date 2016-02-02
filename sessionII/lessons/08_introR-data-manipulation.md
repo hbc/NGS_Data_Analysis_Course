@@ -161,7 +161,7 @@ We can also use indexes with logical operators. Logical operators include greate
 | & | and |
 | \| |or |
 
-Let's create an index with logical operators to select all values in the `age` vector over 50 OR `age` less than 18:
+Let's create an index with logical operators to select all values in the `age` vector over 50 **or** `age` less than 18:
 
 	idx <- age > 50 | age < 18
 	
