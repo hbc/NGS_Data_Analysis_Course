@@ -94,6 +94,11 @@ When finished, your working directory should look like:
 
 ![Your organized working directory](../img/complete_wd_setup.png)
 
+### Adding files to your working directory
+
+There are a few files that we will be working with in the next few lessons and you can access them using the links provided below. If you right click on the link, and "Save link as..", the data will get downloaded 
+
+* Download metadata file using [this link](https://github.com/hbc/NGS_Data_Analysis_Course/raw/master/sessionII/data/mouse_exp_design.csv)
 
 ## Interacting with R
 
