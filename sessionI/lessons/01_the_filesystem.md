@@ -446,7 +446,7 @@ The `less` command opens the file, and lets you navigate through it. The keys us
 | key     | action |
 | ------- | ---------- |
 | "space" | to go forward |
-|  "b"    | to go backwarsd |
+|  "b"    | to go backwards |
 |  "g"    | to go to the beginning |
 |  "G"    | to go to the end |
 |  "q"    | to quit |
