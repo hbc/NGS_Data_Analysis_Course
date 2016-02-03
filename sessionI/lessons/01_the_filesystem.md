@@ -85,7 +85,7 @@ Copy the data folder `unix_lesson` from a shared directory/folder on Orchestra i
 
 ```$ cp -r /groups/hbctraining/ngs-data-analysis2016/unix_lesson/ ngs_course/```
 
->'cp' is the command for copy. This command required you to specify the location of the item you want to copy (/groups/hbctraining/unix_oct2015/) and the location of the destination (.) please note the space between the 2 in the command. The "-r" is an option that modifies the copy command to do something slightly different than usual. The "." means "here", i.e. the destination location is your current location or current directory.
+>'cp' is the command for copy. This command required you to specify the location of the item you want to copy (/groups/hbctraining/ngs-data-analysis2016/unix_lesson/) and the location of the destination (ngs_course/) please note the space between the 2 in the command. The "-r" is an option that modifies the copy command to do something slightly different than usual.
 
 ## Starting with the shell
 
