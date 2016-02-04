@@ -33,6 +33,8 @@ Change to insert mode, then type in the following lines in the `listing.sh` file
 	echo "These are the contents of this directory:"
 	ls -l 
 
+>The `echo` command is a utility for writing to standard output. By providing text in quotations after the command we indicated what it is we wanted written
+
 Save the file and exit `vi`. Now let's run the new script we have created. To run a shell script you usually use the `bash` or `sh` command.
 
 	$ sh listing.sh
