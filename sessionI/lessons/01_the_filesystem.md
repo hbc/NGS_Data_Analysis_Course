@@ -501,7 +501,7 @@ followed by a space, then the directory name.
 We can now move our copied file in to this directory. We can move files around using the command `mv`. Enter this command:
 
 	$ cd ~/
-	$ mv Mov10*.fq backup
+	$ mv Mov10_oe_1.subset.fq backup
 	
 	$ ls -l backup
 
