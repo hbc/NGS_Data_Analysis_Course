@@ -187,17 +187,12 @@ do
 We'll also count the number of these reads and put that in a new file, using the count flag of `grep`:
 
 ```bash
-# grab the # of bad reads from our badreads file
-grep -cH NNNNNNNNNN $filename-badreads.fastq > $filename-badreads.counts;
+# grab the number of bad reads and write it to a summary file
+grep -cH NNNNNNNNNN $filename >> bad-reads.count.summary;
 done
 ```
 
-If you've noticed, we slipped a new `grep` flag `-H` in there. This flag will report the filename along with the match string. This won't matter within each file, but it will matter when we generate the summary:
-
-```bash
-# grab all our bad read info to a summary file
-cat *.counts > bad-reads.count.summary
-```
+If you've noticed, we slipped a new `grep` flag `-H` in there. This flag will report the filename along with the match string. This is useful for when we generate the summary file.
 
 And now, as a best practice of capturing all of our work into a running summary log:
 
@@ -216,10 +211,8 @@ cd ~/ngs_course/unix_lesson/raw_fastq
 for filename in ~/ngs_course/unix_lesson/raw_fastq/*.fq; do 
 echo $filename;
 grep -B1 -A2 NNNNNNNNNN $filename > $filename-badreads.fastq;
-grep -cH NNNNNNNNNN $filename-badreads.fastq > $filename-badreads.counts;
+grep -cH NNNNNNNNNN $filename >> bad-reads.count.summary;
 done
-
-cat *.counts > bad-reads.count.summary
 
 cat bad-reads.count.summary >> ../runlog.txt
 
@@ -240,15 +233,12 @@ for filename in ~/ngs_course/unix_lesson/raw_fastq/*.fq; do
   # grab all the bad read records
   grep -B1 -A2 NNNNNNNNNN $filename > $filename-badreads.fastq;
 
-  # grab the # of bad reads from our bad reads file
-  grep -cH NNNNNNNNNN $filename-badreads.fastq > $filename-badreads.counts;
+  # grab the number of bad reads and write it to a summary file
+  grep -cH NNNNNNNNNN $filename >> bad-reads.count.summary;
 done
 
-# add all our bad read info to a summary file
-cat *.counts > bad-reads.count.summary
-
 # and add this summary to our run log
-cat bad-reads.count.summary >> ../runlog.tx
+cat bad-reads.count.summary >> ../runlog.txt
 
 ```
 
