@@ -206,9 +206,9 @@ Now, to count how many unique exons are on chromosome 1, we need to pipe the out
 
 1. How could have you have determined the number of total exons by combining all of the previous commands (starting with the original chr1-hg19_genes.gtf), into a single command (no intermediate files) using pipes?
 
-2. There is an argument for the 'sort' command that will only keep unique lines of data. Determine the number of total exons without using the 'uniq' command.
+2. There is an argument for the `sort` command that will only keep unique lines of data. Determine the number of total exons without using the `uniq` command.
 
-3. There is an argument for the 'uniq' command that will count the number of occurrences of non-unique exons. Use the uniq command to count the number of duplicated exons and determine the most occurrences of an exon in the dataset.
+3. There is an argument for the `uniq` command that will count the number of occurrences of non-unique exons. Use the `uniq` command to count the number of duplicated exons and determine the most occurrences of an exon in the dataset.
 ****
 
 
