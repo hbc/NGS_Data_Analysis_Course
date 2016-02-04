@@ -22,7 +22,7 @@ Welcome to the beauty and purpose of shell scripts.
 
 We are finally ready to see what makes the shell such a powerful programming environment. We are going to take the commands we repeat frequently and save them in files so that we can re-run all those operations again later by typing one single command. For historical reasons, a bunch of commands saved in a file is usually called a shell script, but make no mistake, this is actually a small program.
 
-Shell scripts are text files that contain commands we want to run over and over again. As with any file, you can give a shell script any name and usually have the extension `.sh`. Let's write a shell script that tells us what our current working directory is and then lists the contents of the directory. First open a new file using `vi`:
+Shell scripts are text files that contain commands we want to run. As with any file, you can give a shell script any name and usually have the extension `.sh`. Let's write a shell script that tells us what our current working directory is and then lists the contents of the directory. First open a new file using `vi`:
 
 	$ vi listing.sh
 	
