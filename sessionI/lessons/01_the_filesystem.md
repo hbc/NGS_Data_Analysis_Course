@@ -405,6 +405,8 @@ then you could repeat command #260 by simply entering:
 
 * "control+a" will bring you to the start of the command you are writing.
 
+* "control+e" will bring you to the end of the command
+
 
 ****
 
@@ -556,10 +558,9 @@ By default, `rm`, will NOT delete directories. You can tell `rm` to delete a dir
 	..	#parent dir
 	*	#wildcard
 	echo
-	ctrl-c	#cancel current command
-	ctrl-r	#reverse history search
-	ctrl-a	#start of line
-	ctrl-e	#end of line
+	ctrl + c	#cancel current command
+	ctrl + a	#start of line
+	ctrl + e	#end of line
 	history
 	!	#repeat cmd
 	cat
