@@ -48,7 +48,7 @@ for example:
 ****
 **Exercise**
 
-1. Search for the sequence CTCAATGAAGAAATCTCTTAAAC in `Mov10_oe_1.subset.fq`.
+1. Search for the sequence CTCAATGA in `Mov10_oe_1.subset.fq`.
 In addition to finding the sequence, have your search also return
 the name of the sequence.
 2. Search for that sequence in all Mov10 replicate fastq files.
