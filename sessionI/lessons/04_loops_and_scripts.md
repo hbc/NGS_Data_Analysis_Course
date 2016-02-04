@@ -22,9 +22,9 @@ Welcome to the beauty and purpose of shell scripts.
 
 We are finally ready to see what makes the shell such a powerful programming environment. We are going to take the commands we repeat frequently and save them in files so that we can re-run all those operations again later by typing one single command. For historical reasons, a bunch of commands saved in a file is usually called a shell script, but make no mistake, this is actually a small program.
 
-Shell scripts are text files that contain commands we want to run. As with any file, you can give a shell script any name and usually have the extension `.sh`. Let's write a shell script that tells us what our current working directory is and then lists the contents of the directory. First open a new file using `vi`:
+Shell scripts are text files that contain commands we want to run. As with any file, you can give a shell script any name and usually have the extension `.sh`. Let's write a shell script that tells us what our current working directory is and then lists the contents of the directory. First open a new file using `vim`:
 
-	$ vi listing.sh
+	$ vim listing.sh
 	
 Change to insert mode, then type in the following lines in the `listing.sh` file:
 
@@ -35,7 +35,7 @@ Change to insert mode, then type in the following lines in the `listing.sh` file
 
 >The `echo` command is a utility for writing to standard output. By providing text in quotations after the command we indicated what it is we wanted written
 
-Save the file and exit `vi`. Now let's run the new script we have created. To run a shell script you usually use the `bash` or `sh` command.
+Save the file and exit `vim`. Now let's run the new script we have created. To run a shell script you usually use the `bash` or `sh` command.
 
 	$ sh listing.sh
 	
@@ -136,18 +136,6 @@ $ for filename in *.fq
 ```
 In the long run, it's best to use a name that will help point out a variable's function, so your future self will understand what you are thinking now.
 
-Now that we understand the concept of looping, let's put that to work:
-
-```bash
-$ for filename in *.fq
-> do 
->   echo $filename >> ../other/number-of-badreads.txt
->   grep -B1 -A2 NNNNNNNNNN $filename | wc -l >> ../other/number-of-badreads.txt
->   grep -B1 -A2 NNNNNNNNNN $filename > ../other/$filename.badreads.fastq 
-> done
-```
-We have used the for loop along with the `>>` redirection symbol to populate one file with all the bad reads in our data set.
-
 Pretty simple and cool, huh?
 
 ## Automating with Scripts
@@ -157,15 +145,15 @@ Now that you've learned how to use loops and variables, let's put this processin
 - Use for loop to iterate over each FASTQ file
 - Dump out bad reads into a new file
 - Get the count of the number of bad reads
-- And after all the FASTQ files are processed, we generate one summary file of the bad read counts
+- And after all the FASTQ files are processed, we generate one summary file of the bad read counts (the number of bad reads found in each FASTQ file)
 
 You might not realize it, but this is something that you now know how to do. Let's get started...
 
-Move to our sample data directory and use `vi` to create our new script file:
+Rather than doing all of this in the terminal we are going to create a script file with all relevant commands. Move to our sample data directory and use `vim` to create our new script file:
 
 `$ cd ~/ngs_course/unix_lesson/raw_fastq`
 
-`$ vi generate_bad_reads_summary.sh`
+`$ vim generate_bad_reads_summary.sh`
 
 We always want to start our scripts with a shebang line: 
 
@@ -196,7 +184,7 @@ do
   grep -B1 -A2 NNNNNNNNNN $filename > $filename-badreads.fastq;
 ``` 
   
-We'll also get the counts of these reads and put that in a new file, using the count flag of `grep`:
+We'll also count the number of these reads and put that in a new file, using the count flag of `grep`:
 
 ```bash
 # grab the # of bad reads from our badreads file
@@ -237,7 +225,7 @@ cat bad-reads.count.summary >> ../runlog.txt
 
 ```
 
-Exit out of `vi`, and voila! You now have a script you can use to assess the quality of all your new datasets. Your finished script, complete with comments, should look like the following:
+Exit out of `vim`, and voila! You now have a script you can use to assess the quality of all your new datasets. Your finished script, complete with comments, should look like the following:
 
 ```bash
 #!/bin/bash 
