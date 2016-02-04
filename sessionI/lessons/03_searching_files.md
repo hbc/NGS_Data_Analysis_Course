@@ -52,6 +52,7 @@ for example:
 In addition to finding the sequence, have your search also return
 the name of the sequence.
 2. Search for that sequence in all Mov10 replicate fastq files.
+
 ****
 
 ## Redirection
