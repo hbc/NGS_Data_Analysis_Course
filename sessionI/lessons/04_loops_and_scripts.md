@@ -73,7 +73,7 @@ To list all the filenames in the directory that have a `.fq` extension, we know 
 
 	$ ls *.fq
 	
-Now we want to re-direct the output of `ls` into a variable. We will give that variable the name `filenames`:
+Now we want to *assign* the output of `ls` to the variable. We will give that variable the name `filenames`:
 
 	$ filenames=`ls *.fq`
 
