@@ -427,7 +427,7 @@ contents using the command `cat`. Enter the following command:
 
 This prints out the all the contents of `proteins_subset.fa` to the screen.
 
-> `cat` stands for catenate; it has many uses and printing the contents of a files onto the terminal is one of them.
+> `cat` stands for concatenate; it has many uses and printing the contents of a files onto the terminal is one of them.
 
 What does this file contain?
 
