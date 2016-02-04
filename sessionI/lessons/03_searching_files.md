@@ -236,6 +236,7 @@ grep
 wc
 cut
 sort
+uniq
 ```
 
 ---
