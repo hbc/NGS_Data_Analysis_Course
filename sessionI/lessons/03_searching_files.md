@@ -112,12 +112,12 @@ just want the number of lines, we can use the `-l` flag for `lines`.
 
 `$ grep NNNNNNNNNN Mov10_oe_1.subset.fq | wc -l`
 
-Redirecting is not super intuitive, but it's really powerful for stringing
+Redirecting is not super intuitive, but it's powerful for stringing
 together these different commands, so you can do whatever you need to do.
 
 The philosophy behind these commands is that none of them
 really do anything all that impressive. BUT when you start chaining
-them together, you can do some really powerful things really
+them together, you can do some really powerful things 
 efficiently. If you want to be proficient at using the shell, you must
 learn to become proficient with the pipe and redirection operators:
 `|`, `>`, `>>`.
