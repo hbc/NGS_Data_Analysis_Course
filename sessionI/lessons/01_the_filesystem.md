@@ -401,9 +401,9 @@ then you could repeat command #260 by simply entering:
 
 **Other handy keyboard shortcuts**
 
-* `control+c` will cancel the command you are writing, and give you a fresh prompt.
+* "control+c" will cancel the command you are writing, and give you a fresh prompt.
 
-* `control+a` will bring you to the start of the command you are writing.
+* "control+a" will bring you to the start of the command you are writing.
 
 
 ****
