@@ -1,24 +1,42 @@
 ---
-title: "NGS workflow - Quality Control - Trimming"
+title: "Quality Control - Trimming"
 author: "Bob Freeman, Mary Piper"
-date: "Tuesday, November 10, 2015"
+date: "Thursday, January 28th, 2016"
 ---
 
 Approximate time: 60 minutes
 
 ## Learning Objectives:
-* Use Trimmommatic to clean FastQ reads
-* Use a For loop to automate operations on multiple files
+* Explore trimming strategies for improving the quality of FASTQ reads
+* Use a `for` loop to automate operations on multiple files
 
 ##Quality Control - Trimming
 
+Let us revisit the workflow that we introduced in Session I. We got as far as taking the raw reads and running them through FASTQC to see whether our samples were good enough quality to proceed. Now we are going to improve the quality of our reads, using a technique called **trimming**.
+
 ![Workflow](../img/rnaseq_workflow_trimming.png)
 
-###How to clean reads using *Trimmomatic*
+For our raw fastq data, we found the quality of the bases decreasing at the 3' ends of our reads. Raw sequencing reads will often exhibit this decreasing sequence quality at the 5' and 3' ends. We can improve the overall quality of our data by trimming the poor quality bases, as well as, any contaminating vector or adapter sequences from our reads. Sequencing reads containing poor quality bases or contaminating sequences will be difficult to align properly to the reference genome/transcriptome.  
 
-Once we have an idea of the quality of our raw data, it is time to trim away adapters and filter out poor quality score reads. To accomplish this task we will use [*Trimmomatic*](http://www.usadellab.org/cms/?page=trimmomatic).
+Quality trimming can be accomplished either by removing the bases entirely from the sequence using a trimming tool or by an alignment tool that "soft clips" the low quality bases. Soft clipping doesn't actually remove the sequence, but the clipped sequence is skipped over or ignored when performing downstream operations. Although many alignment tools can perform the soft clipping of low quality bases, they **cannot** remove adapter or vector sequences. Therefore, if you use soft clipping, it is still recommended that you use a tool that removes adapter sequences from your reads prior to alignment.
 
-*Trimmomatic* is a java based program that can remove sequencer specific reads and nucleotides that fall below a certain threshold. *Trimmomatic* can be multithreaded to run quickly. 
+Many trimming tools have been developed to perform quality and adapter trimming, but there are various strategies employed, and the tool or strategy chosen often relates to the personal preference of the user and the downstream tools to be used.
+
+Trimming tools can perform sequence trimming using the following strategies:
+
+- one base at a time - remove base if it is below a certain quality threshold
+- sliding window approach:
+	- remove all bases in window if the average quality across a window size (e.g. 5 bases) is below a specific threshold 
+	- remove bases in window if % good quality bases in a window is below a specific percentage (e.g. remove bases in window if % good quality bases ≤ 70%)
+- hard crop - remove a certain number of bases from the ends of all reads(e.g. remove 12 bases from all reads at 5’ end)
+- remove read if % good quality bases in whole read is below a specific threshold (e.g. remove read if % good quality bases ≤ 70%)
+- adapter trimming - trim any left over adapter sequences (usually at 5’ end for SE)
+- minimum length - remove read if the read length is below a certain threshold
+
+
+## Trimmomatic
+
+We will use [*Trimmomatic*](http://www.usadellab.org/cms/?page=trimmomatic) to trim away adapters and filter out poor quality score reads. *Trimmomatic* is a java based program that can remove sequencer specific reads and nucleotides that fall below a certain threshold. *Trimmomatic* offers the option to trim reads using a hard crop, sliding window or base-by-base methods. It can also trim adapter sequences and remove reads if below a minimum length. In addition, *Trimmomatic* can be multithreaded to run quickly using a single, complex command. 
 
 Let's load the *Trimmomatic* module:
 
@@ -26,28 +44,9 @@ Let's load the *Trimmomatic* module:
 
 By loading the *Trimmomatic* module, the **trimmomatic-0.33.jar** file is now accessible to us in the **opt/** directory, allowing us to run the program. 
 
-Because *Trimmomatic* is java based, it is run using the command:
+`$ $PATH`
 
-`$ java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar`
-
-
-
-What follows below are the specific commands that tells the *Trimmomatic* program exactly how you want it to operate. *Trimmomatic* has a variety of options and parameters:
-
-* **_-threads_** How many processors do you want *Trimmomatic* to run with?
-* **_SE_** or **_PE_** Single End or Paired End reads?
-* **_-phred33_** or **_-phred64_** Which quality score do your reads have?
-* **_SLIDINGWINDOW_** Perform sliding window trimming, cutting once the average quality within the window falls below a threshold.
-* **_LEADING_** Cut bases off the start of a read, if below a threshold quality.
-* **_TRAILING_** Cut bases off the end of a read, if below a threshold quality.
-* **_CROP_** Cut the read to a specified length.
-* **_HEADCROP_** Cut the specified number of bases from the start of the read.
-* **_MINLEN_** Drop an entire read if it is below a specified length.
-* **_TOPHRED33_** Convert quality scores to Phred-33.
-* **_TOPHRED64_** Convert quality scores to Phred-64.
-
-
-A general command for *Trimmomatic* on this cluster will look something like this:
+Because *Trimmomatic* is java based, it is run using the `java -jar` command:
 
 ```
 $ java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE \
@@ -56,23 +55,35 @@ inputfile \
 outputfile \
 OPTION:VALUE... # DO NOT RUN THIS
 ```
-`java -jar` calls the Java program, which is needed to run *Trimmomatic*, which is a 'jar' file (`trimmomatic-0.33.jar`). A 'jar' file is a special kind of java archive that is often used for programs written in the Java programming language.  If you see a new program that ends in '.jar', you will know it is a java program that is executed `java -jar` <*location of program .jar file*>.  The `SE` argument is a keyword that specifies we are working with single-end reads. We have to specify the `-threads` parameter because Trimmomatic uses 16 threads by default.
 
-The next two arguments are input file and output file names. These are then followed by a series of options. The specifics of how options are passed to a program are different depending on the program. You will always have to read the manual of a new program to learn which way it expects its command-line arguments to be composed.
+`java -jar` calls the Java program, which is needed to run *Trimmomatic*, which is a 'jar' file (`trimmomatic-0.33.jar`). A 'jar' file is a special kind of java archive that is often used for programs written in the Java programming language.  If you see a new program that ends in '.jar', you will know it is a java program that is executed `java -jar` <*location of program .jar file*>.  
 
-###Running Trimmomatic
+The `SE` argument is a keyword that specifies we are working with single-end reads. We have to specify the `-threads` parameter because *Trimmomatic* uses 16 threads by default.
+
+The next two arguments are input file and output file names. These are then followed by a series of options. The options tell the *Trimmomatic* program exactly how you want it to operate. *Trimmomatic* has a variety of options and parameters:
+
+* **_SE_** or **_PE_** Single End or Paired End reads?
+* **_-threads_** How many processors do you want *Trimmomatic* to run with?  
+* **_-phred33_** or **_-phred64_** Which quality score do your reads have?
+* **_SLIDINGWINDOW_** Perform sliding window trimming, cutting once the average quality within the window falls below a threshold.
+* **_LEADING_** Cut bases off the start of a read, if below a threshold quality.
+* **_TRAILING_** Cut bases off the end of a read, if below a threshold quality.
+* **_CROP_** Cut the read to a specified length.
+* **_HEADCROP_** Cut the specified number of bases from the start of the read.
+* **_MINLEN_** Drop an entire read if it is below a specified length.
+* **_ILLUMINACLIP_** Cut adapter and other illumina-specific sequences from the read
+* **_TOPHRED33_** Convert quality scores to Phred-33.
+* **_TOPHRED64_** Convert quality scores to Phred-64.
+
+### Running Trimmomatic 
 
 Change directories to the untrimmed fastq data location:
 
-`$ cd ~/unix_oct2015/rnaseq_project/data/untrimmed_fastq`
+`$ cd ~/ngs_course/rnaseq/data/untrimmed_fastq`
 
-Let's load the trimmomatic module:
+Since the *Trimmomatic* command is complicated and we will be running it a number of times, let's draft the command in a **text editor**, such as Sublime, TextWrangler or Notepad++. When finished, we will copy and paste the command into the terminal.
 
-`$ module load seq/Trimmomatic/0.33`
-
-Since the *Timmomatic* command is complicated and we will be running it a number of times, let's draft the command in a text editor, such as Sublime, TextWrangler or Notepad++. When finished, we will copy and paste the command into the terminal.
-
-For the single fastq input file 'Mov10_oe_1.subset.fq', the command would be:
+For the single fastq input file `Mov10_oe_1.subset.fq`, the command is:
 
 ```
 $ java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE \
@@ -99,9 +110,9 @@ Input Reads: 305900 Surviving: 300423 (98.21%) Dropped: 5477 (1.79%)
 TrimmomaticSE: Completed successfully
 ```
 
-Now that we know the command successfully runs, let's make the *Trimmomatic* command into a submission script. A submission script is oftentimes preferable to executing commands on the terminal. We can use it to store the parameters we used for a command(s) inside a file. If we need to run the program on other files, we can easily change the script. Also, using scripts to store your commands helps with reproducibility. In the future, if we forget which parameters we used during our analysis, we can just check our script.
+Now that we know the command successfully runs, let's make the *Trimmomatic* command into a submission script. We know a submission script is oftentimes preferable to executing commands on the terminal because we can use it to store the parameters we used for a command(s) inside a file. If we need to run the program on other files, we can easily change the script. Also, using scripts to store your commands helps with reproducibility. In the future, if we forget which parameters we used during our analysis, we can just check our script.
 
-#### Running our *Trimmomatic* command as a job submission to the LSF scheduler
+### Running Trimmomatic using a script
 
 To run the *Trimmomatic* command on a worker node via the job scheduler, we need to create a submission script with two important components:
 
@@ -112,11 +123,11 @@ To run the *Trimmomatic* command on a worker node via the job scheduler, we need
 
 To make a *Trimmomatic* job submission script for Orchestra LSF scheduler:
 
-`$ cd ~/unix_oct2015`
+`$ cd ~/ngs_course/rnaseq/data`
 
-`$ vi trimmomatic_mov10.lsf`
+`$ vim trimmomatic_mov10.lsf`
 
-Within nano we will add our shebang line, the Orchestra job submission commands, and our Trimmomatic command. Remember that you can find the submission commands in the [Orchestra New User Guide](https://wiki.med.harvard.edu/Orchestra/NewUserGuide).
+Within `vim` we now add our shebang line, the Orchestra job submission commands, and our *Trimmomatic* command. Remember that you can find the submission commands in the [Orchestra New User Guide](https://wiki.med.harvard.edu/Orchestra/NewUserGuide).
 
 
 ```
@@ -129,7 +140,7 @@ Within nano we will add our shebang line, the Orchestra job submission commands,
 #BSUB -o %J.out       # File to which standard out will be written
 #BSUB -e %J.err       # File to which standard err will be written
 
-cd ~/unix_oct2015/rnaseq_project/data/untrimmed_fastq
+cd ~/ngs_course/rnaseq/data/untrimmed_fastq
 
 java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE \
 -threads 4 \
@@ -160,14 +171,13 @@ We now have a new fastq file with our trimmed and cleaned up data:
 `$ ls ../trimmed_fastq/`    
 
 
-***
-**Exercise**
 
-**Run *Trimmomatic* on all the fastq files**
+
+### Run Trimmomatic on all the fastq files
 
 Now we know how to run *Trimmomatic*, but there is some good news and bad news.  
-One should always ask for the bad news first.  *Trimmomatic* only operates on 
-one input file at a time and we have more than one input file.  The good news?
+One should always ask for the bad news first.  ***Trimmomatic* only operates on 
+one input file at a time** and we have more than one input file.  The good news?
 We already know how to use a 'for loop' to deal with this situation. Let's modify our script to run the *Trimmomatic* command for every raw fastq file. Let's also run *FastQC* on each of our trimmed fastq files to evaluate the quality of our reads post-trimming:
 
 ```
@@ -180,7 +190,7 @@ We already know how to use a 'for loop' to deal with this situation. Let's modif
 #BSUB -o %J.out       # File to which standard out will be written
 #BSUB -e %J.err       # File to which standard err will be written
 
-cd ~/unix_oct2015/rnaseq_project/data/untrimmed_fastq
+cd ~/ngs_course/rnaseq/data/untrimmed_fastq
 
 module load seq/Trimmomatic/0.33
 module load seq/fastqc/0.11.3
@@ -192,7 +202,8 @@ for infile in *.fq; do
   java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE \
   -threads 4 \
   -phred33 \
-  $infile ../trimmed_fastq/$outfile \
+  $infile 
+  ../trimmed_fastq/$outfile \
   ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
   TRAILING:25 \
   MINLEN:35;
@@ -209,17 +220,17 @@ Do you remember how the variable name in the first line of a 'for loop' specifie
 
 After we have created the trimmed fastq files, we wanted to make sure that the quality of our reads look good, so we ran a *FASTQC* on our `$outfile`, which is located in the ../trimmed_fastq directory.
 
-Let's make a new directory for our fasqc files for the trimmed reads:
+Let's make a new directory for our fastqc files for the trimmed reads:
 
-`$ mkdir ~/unix_oct2015/rnaseq_project/results/fastqc_trimmed_reads`
+`$ mkdir ~/ngs_course/rnaseq/results/fastqc_trimmed_reads`
 
 Now move all fastqc files to the `fastqc_trimmed_reads` directory:
 
-`$ mv ~/unix_oct2015/rnaseq_project/data/trimmed_fastq/*fastqc**`
+`$ mv ~/ngs_course/rnaseq/data/trimmed_fastq/*fastqc** ~/ngs_course/rnaseq/results/fastqc_trimmed_reads`
 
-Let's use *FileZilla* to download the fastqc html for Mov10_oe_1. Has our read quality improved with trimming?
+Let's use *FileZilla* to download the fastqc html for `Mov10_oe_1.subset.fq`. Has our read quality improved with trimming?
 
-#### Running our *Trimmomatic* command with paired-end data
+### Trimmomatic with paired-end data
 
 
 ![paired-end_data](../img/paired-end_data.png)
@@ -240,5 +251,8 @@ TRAILING:25 \
 MINLEN:35
 ```
 ***
-*The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
+
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). All instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
+
+* *The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
 All Data Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*

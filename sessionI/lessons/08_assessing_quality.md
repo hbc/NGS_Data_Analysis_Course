@@ -1,27 +1,27 @@
 ---
-title: "RNA-Seq workflow - Part I: Quality Control - FASTQC"
+title: "Quality control using FASTQC"
 author: "Bob Freeman, Mary Piper"
-date: "Tuesday, November 10, 2015"
+date: "Tuesday, January 26, 2016"
 ---
 
 Approximate time: 60 minutes
 
 ## Learning Objectives:
 
-* Learn the intricacies of various tools used in NGS analysis (parameters, usage, etc)
-* Be able to evaluate a FastQC report
+* Learn how to evaluate the quality of your NGS data using the program FastQC
 * Use a `for` loop to automate operations on multiple files
+* Create a job submission script to automate quality assessment
 
 
 ##Quality Control of FASTQ files
-Assessing the quality of your data and performing any necessary quality control measures, such as trimming, is a critical first step in the analysis of your RNA-Seq data. 
 
+A critical first step in the analysis of your NGS data is assessing the quality of your data and performing any necessary quality control measures, such as trimming.
 
 ![Workflow](../img/rnaseq_workflow_FASTQC.png)
 
 
-### FastQC
-Now that we know about what information is stored in a FASTQ file, the next step is to assess that information to see if the data contained within are of good quality.
+## FastQC
+Now that we have our directory structure set up, and we know about what information is stored in a FASTQ file, the next step is to examine quality metrics for our data.
 
 FastQC (http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) provides a simple way to do some quality control checks on raw sequence data coming from high throughput sequencing pipelines. It provides a modular set of analyses which you can use to give a quick impression of whether your data has any problems of which you should be aware before doing any further analysis.
 
@@ -33,23 +33,7 @@ The main functions of FastQC are:
 * Export of results to an HTML based permanent report
 * Offline operation to allow automated generation of reports without running the interactive application
 
-
-### Running FASTQC
-####A. Stage your data
-
-To perform our quality checks, we will be working within our recently created `rnaseq_project` directory. We need to create two directories within the `data` directory for this quality control step. 
-
-`$ cd unix_oct2015/rnaseq_project/data`
-
-`$ mkdir untrimmed_fastq`
-
-`$ mkdir trimmed_fastq`
-    
-The raw_fastq data we will be working with is currently in the `unix_oct2015/raw_fastq` directory. We need to copy the raw fastq files to our `untrimmed_fastq` directory:
-
-`$ cp -r ~/unix_oct2015/raw_fastq/*fq  ~/unix_oct2015/rnaseq_project/data/untrimmed_fastq`
-
-####B. Run FastQC  
+###A. Run FastQC  
 
 Before we run FastQC, let's start an interactive session on the cluster:
 
@@ -57,9 +41,9 @@ Before we run FastQC, let's start an interactive session on the cluster:
 
 ***An interactive session is a very useful to test tools, workflows, run jobs that open new interactive windows (X11-forwarding) and so on.***
 
-Once your interactive job starts, notice that the command prompt has changed; this is because we are working on a compute node now, not on a login node.
+Once your interactive job starts, notice that the command prompt has changed; this is because we are working on a compute node now, not on a login node. Change directories to `untrimmed_fastq`.
 
-`$ cd ~/unix_oct2015/rnaseq_project/data/untrimmed_fastq/`  
+`$ cd ~/ngs_course/rnaseq/data/untrimmed_fastq`  
 
 Before we start using software, we have to load the environments for each software package. On clusters, this is typically done using a **module** system. 
 
@@ -81,9 +65,10 @@ To run the FastQC program, we first need to load the appropriate module, so it p
 
 Once a module for a tool is loaded, you have essentially made it directly available to you like any other basic UNIX command.
 
-`$ module list`
-
-`$ $PATH`
+```
+$ module list
+$ $PATH
+```
 
 FastQC will accept multiple file names as input, so we can use the *.fq wildcard.
 
@@ -93,13 +78,13 @@ FastQC will accept multiple file names as input, so we can use the *.fq wildcard
 
 Exit the interactive session and start a new one with 6 cores, and use the multi-threading funcionality of FastQC to run 6 jobs at once.
 
-`$ exit`      #exit the current interactive session
-	
-`$ bsub -Is -n 6 -q interactive bash`      #start a new one with 6 cpus (-n 6)
-	
-`$ module load seq/fastqc/0.11.3`     #you'll have to reload the module for the new session
-	
-`$ fastqc -t 6 *.fq`      #note the extra parameter we specified for 6 threads
+```
+$ exit  #exit the current interactive session
+
+$ bsub -Is -n 6 -q interactive bash   #start a new session with 6 cpus (-n 6)
+$ module load seq/fastqc/0.11.3  #reload the module for the new session
+$ fastqc -t 6 *.fq  #note the extra parameter we specified for 6 threads
+```
 
 How did I know about the -t argument for FastQC?
 
@@ -108,30 +93,31 @@ How did I know about the -t argument for FastQC?
 
 Now, let's create a home for our results
 
-`$ mkdir ~/unix_oct2015/rnaseq_project/results/fastqc_untrimmed_reads`
+`$ mkdir ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads`
 
-...and move them there (recall, we are still in `~/unix_oct2015/rnaseq_project/data/untrimmed_fastq/`)
+...and move them there (recall, we are still in `~/ngs_course/rnaseq/data/untrimmed_fastq/`)
 
-`$ mv *.zip ~/unix_oct2015/rnaseq_project/results/fastqc_untrimmed_reads/`
+```
+$ mv *.zip ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/
+$ mv *.html ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/
+```
 
-`$ mv *.html ~/unix_oct2015/rnaseq_project/results/fastqc_untrimmed_reads/`
-
-####C. Results
+###B. Results
    
 Let's take a closer look at the files generated by FastQC:
    
-`$ ls -lh ~/unix_oct2015/rnaseq_project/results/fastqc_untrimmed_reads/`
+`$ ls -lh ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/`
 
-##### HTML reports
-The .html files contain the final reports generated by fastqc, let's take a closer look at them. Transfer one of them over to your laptop via *FileZilla*.
+#### HTML reports
+The .html files contain the final reports generated by fastqc, let's take a closer look at them. Transfer the file for `Mov10_oe_1.subset.fq` over to your laptop via *FileZilla*.
 
-######Filezilla - Step 1
+#####Filezilla - Step 1
 
 Open *FileZilla*, and click on the File tab. Choose 'Site Manager'.
  
 ![FileZilla_step1](../img/Filezilla_step1.png)
 
-######Filezilla - Step 2
+#####Filezilla - Step 2
 
 Within the 'Site Manager' window, do the following: 
 
@@ -145,31 +131,31 @@ Within the 'Site Manager' window, do the following:
 	
 ![FileZilla_step2](../img/Filezilla_step2.png)
 
-
 	
 ***FastQC is just an indicator of what's going on with your data, don't take the "PASS"es and "FAIL"s too seriously.***
 
-FastQC has a really well documented [manual page](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) with [more details](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/) about all the plots in the report.
+FastQC has a really well documented [manual page](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/) with [more details](http://www.bioinformatics.babraham.ac.uk/projects/fastqc/Help/) about all the plots in the report. We recommend looking at [this post](http://bioinfo-core.org/index.php/9th_Discussion-28_October_2010) for more information on what bad plots look like and what they mean for your data.
 
-We recommend looking at [this post](http://bioinfo-core.org/index.php/9th_Discussion-28_October_2010) for more information on what bad plots look like and what they mean for your data.
+Below are two of the most important analysis modules in FastQC, the **"Per base sequence quality"** plot and the **"Overrepresented sequences"** table. 
 
-We will focus on two of the most important analysis modules in FastQC, the "Per base sequence quality" plot and the "Overrepresented sequences" table. 
-
-The "Per base sequence quality" plot provides the distribution of quality scores across all bases at each position in the reads.
+The **"Per base sequence quality"** plot provides the distribution of quality scores across all bases at each position in the reads.
 
 ![FastQC_seq_qual](../img/FastQC_seq_qual.png)
 
-The "Overrepresented sequences" table displays the sequences (at least 20 bp) that occur in more than 0.1% of the total number of sequences. This table aids in identifying contamination, such as vector or adapter sequences. 
+The **"Overrepresented sequences"** table displays the sequences (at least 20 bp) that occur in more than 0.1% of the total number of sequences. This table aids in identifying contamination, such as vector or adapter sequences. 
 
 ![FastQC_contam](../img/FastQC_contam.png)
 
-##### .zip files   
+We will go over the remaining plots in class. Remember, our report only represents a subset of reads (chromosome 1) for `Mov10_oe_1.subset.fq`, which can skew the QC results. We encourage you to look at the [full set of reads](https://dl.dropboxusercontent.com/u/74036176/Mov10oe_1-fastqc_report.html) and note how the QC results differ when using the entire dataset.
+
+#### .zip files   
 
 Let's go back to the terminal now. The other output of FastQC is a .zip file. These .zip files need to be unpacked with the `unzip` program. If we try to `unzip` them all at once:
 
-`$ cd ~/unix_oct2015/rnaseq_project/results/fastqc_untrimmed_reads/`
-    
-`$ unzip *.zip`
+```
+$ cd ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/    
+$ unzip *.zip
+```
 
 Did it work? 
 
@@ -184,7 +170,7 @@ Note that in the first line, we create a variable named `zip`.  After that, we c
 
 This loop is basically a simple program. When it runs
 
-```bash
+```
 $ for zip in *.zip
 > do
 > unzip $zip
@@ -202,16 +188,79 @@ When you check your history later, it will help you remember what you did!
 
 What information is contained in the unzipped folder?
 
-`$ ls -lh *fastqc`
+```
+$ ls -lh *fastqc
+$ head *fastqc/summary.txt
+```
 
-`$ head *fastqc/summary.txt`
-
-To save a record, let's `cat` all `fastqc summary.txt` files into one `full_report.txt` and move this to `~/unix_oct2015/rnaseq_project/docs`. 
+To save a record, let's `cat` all `fastqc summary.txt` files into one `full_report.txt` and move this to `~/ngs_course/rnaseq/docs`. 
 You can use wildcards in paths as well as file names.  Do you remember how we said `cat` is really meant for concatenating text files?
     
-`$ cat */summary.txt > ~/unix_oct2015/rnaseq_project/docs/fastqc_summaries.txt`
+`$ cat */summary.txt > ~/ngs_course/rnaseq/docs/fastqc_summaries.txt`
+
+## Performing quality assessment using job submission scripts
+So far in our FASTQC analysis, we have been directly submitting commands to Orchestra using an interactive session (ie. `bsub -Is -n 6 -q interactive bash`). However, there are many more queues available on Orchestra than just the interactive queue. We can submit commands or series of commands to these queues using job submission scripts. 
+
+**Job submission scripts** for Orchestra are just regular scripts, but contain the Orchestra options/directives for job submission, such as *number of cores, name of queue, runtime limit, etc*. We can submit these scripts to whichever queue we specify in the script using the `bsub` command as follows:
+
+```
+$ bsub < job_submission_script.lsf
+```
+Submission of the script using the `bsub` command allows the load sharing facility (LSF) to run your job when its your turn. Let's create a job submission script to load the FASTQC module, run FASTQC on all of our fastq files, and move the files to the appropriate directory.
+
+Create a script named `mov10_fastqc.lsf` in `vim`. *Don't forget to enter insert mode, `i`, to start typing*.
+
+The first thing we need in our script is the **shebang line**:
+
+```bash
+#!/bin/bash
+```
+
+Following the shebang line are the Orchestra options. For the script to run, we need to include options for **queue (-q) and runtime limit (-W)**. To specify our options, we precede the option with `#BSUB`, which tells Orchestra that the line contains options for job submission. 
+
+```bash
+#BSUB -q priority 		# queue name
+#BSUB -W 2:00 		# hours:minutes runlimit after which job will be killed
+#BSUB -n 6 		# number of cores requested -- this needs to be greater than or equal to the number of cores you plan to use to run your job
+#BSUB -J rnaseq_mov10_fastqc 		# Job name
+#BSUB -o %J.out			# File to which standard out will be written
+#BSUB -e %J.err 		# File to which standard err will be written
+```
+Now in the body of the script, we can include any commands we want run:
+
+```bash
+## Changing directories to where I want my FASTQC output files to be saved
+cd ~/ngs_course/rnaseq/data/untrimmed_fastq
+
+## Loading modules required for script commands
+module load seq/fastqc/0.11.3
+
+## Running FASTQC
+fastqc -t 6 *.fq
+
+## Moving files to our results directory
+mv *.zip ../../results/fastqc_untrimmed_reads/
+mv *.html ../../results/fastqc_untrimmed_reads/
+```
+
+You can check on the status of your job with:
+```
+bjobs
+```
+
+When your job is finished, check the results directory for the output files:
+```bash
+ls -lh ~/ngs_course/rnaseq/results/fastqc_untrimmed_reads/
+```
+
+***
+**Exercise**
+
+1. Change the `mov10_fastqc.lsf` script to run 9 fastq files in parallel.
 
 
 ---
-*The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
+
+* *The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
 All Data Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*

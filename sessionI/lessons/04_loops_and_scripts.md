@@ -1,6 +1,6 @@
 ---
 title: "The Shell: Loops & Scripts"
-author: "Bob Freeman, Mary Piper, Radhika Khetani"
+author: "Bob Freeman, Mary Piper, Radhika Khetani, Meeta Mistry"
 date: "Wednesday, October 28, 2015"
 ---
 
@@ -20,11 +20,12 @@ Welcome to the beauty and purpose of shell scripts.
 
 ## Shell scripts
 
-We are finally ready to see what makes the shell such a powerful programming environment. We are going to take the commands we repeat frequently and save them in files so that we can re-run all those operations again later by typing one single command. For historical reasons, a bunch of commands saved in a file is usually called a shell script, but make no mistake: this is actually a small program.
+We are finally ready to see what makes the shell such a powerful programming environment. We are going to take the commands we repeat frequently and save them in files so that we can re-run all those operations again later by typing one single command. For historical reasons, a bunch of commands saved in a file is usually called a shell script, but make no mistake, this is actually a small program.
 
-Shell scripts are text files that contain commands we want to run over and over again. As with any file, you can give a shell script any name and usually have the extension `.sh`. Let's write a shell script that tells us what our current working directory is and then lists the contents of the directory. First open a new file using `vi`:
+Shell scripts are text files that contain commands we want to run. As with any file, you can give a shell script any name and usually have the extension `.sh`. Let's write a shell script that tells us what our current working directory is and then lists the contents of the directory. First let's move into the `unix_lesson` directory and open a new file using `vim`:
 
-	$ vi listing.sh
+	$ cd ~/ngs_course_unix_lesson
+	$ vim listing.sh
 	
 Change to insert mode, then type in the following lines in the `listing.sh` file:
 
@@ -33,7 +34,9 @@ Change to insert mode, then type in the following lines in the `listing.sh` file
 	echo "These are the contents of this directory:"
 	ls -l 
 
-Save the file and exit `vi`. Now let's run the new script we have created. To run a shell script you usually use the `bash` or `sh` command.
+>The `echo` command is a utility for writing to standard output. By providing text in quotations after the command we indicated what it is we wanted written
+
+Save the file and exit `vim`. Now let's run the new script we have created. To run a shell script you usually use the `bash` or `sh` command.
 
 	$ sh listing.sh
 	
@@ -44,7 +47,7 @@ Save the file and exit `vi`. Now let's run the new script we have created. To ru
 This is a very simple shell script. In this session and in upcoming sessions, we will be learning how to write more complex ones. You will see how the power of scripts can make our lives much easier.
 
 ## Bash variables
-A *variable* is a common concept shared by many programming languages. Variables are essentially a symbolic/temporary name for, or reference to, information. Variables are analogous to "buckets", where information can be stored, maintained and modified without too much hassle. 
+A *variable* is a common concept shared by many programming languages. Variables are essentially a symbolic/temporary name for, or a reference to, some information. Variables are analogous to "buckets", where information can be stored, maintained and modified without too much hassle. 
 
 Extending the bucket analogy: the bucket has a name associated with it, i.e. the name of the variable, and when referring to the information in the bucket, we use the name of the bucket, and do not directly refer to the actual data stored in it.
 
@@ -56,13 +59,13 @@ Once you press return, you should be back at the command prompt. *How do we know
 
 	$ echo $file
 
-What do you see in the terminal? If the variable was not created, the command will return nothing. Did you notice that when we created the variable we just typed in the variable name, but when using it as an argument to the `echo` command, we explicitly use a `$` in front of it (`$file`). Why? 
+What do you see in the terminal? If the variable was not created, the command will return nothing. Did you notice that when we created the variable we just typed in the variable name, but when using it as an argument to the `echo` command, we explicitly use a `$` in front of it (`$file`)? Why? 
 
 Well, in the former, we're setting the value, while in the latter, we're retrieving the value. This is standard shell notation (syntax) for defining and using variables. **Don't forget the `$` when you want to retrieve the value of a variable!** 
 
 Let's try another command using the variable that we have created. In the last lesson, we introduced the `wc -l` command which allows us to count the number of lines in a file. We can count the number of lines in `Mov10_oe_1.subset.fq` by referencing the `file` variable, but first move into the `raw_fastq` directory:
 
-	$ cd ~/unix_oct2015/raw_fastq
+	$ cd ~/ngs_course/unix_lesson/raw_fastq
 	$ wc -l $file
 
 Ok, so we know variables are like buckets, and so far we have seen that bucket filled with a single value. **Variables can store more than just a single value.** They can store multiple values and in this way can be useful to carry out many things at once. Let's create a new variable called `filenames` and this time we will store *all of the filenames* in the `raw_fastq` directory as values. 
@@ -71,7 +74,7 @@ To list all the filenames in the directory that have a `.fq` extension, we know 
 
 	$ ls *.fq
 	
-Now we want to re-direct the output of `ls` into a variable. We will give that variable the name `filenames`:
+Now we want to *assign* the output of `ls` to the variable. We will give that variable the name `filenames`:
 
 	$ filenames=`ls *.fq`
 
@@ -121,9 +124,9 @@ Most simply, it writes to the terminal (`echo`) the name of the file and the num
 
 In this case the list of files is specified using the asterisk wildcard: `*.fq`, i.e. all files that end in `.fq`. Then, we execute 2 commands between the `do` and `done`. With a loop, we execute these commands for each file at a time. Once the commands are executed for one file, the loop then executes the same commands on the next file in the list. 
 
-Essentially, **the number of loops == the number of items in the list**, in our case that is 6 times since we have 6 files in `~/unix_oct2015/raw_fastq` that end in `.fq`. This is done by changing the value of the `var` variable 6 times. 
+Essentially, **the number of loops == the number of items in the list**, in our case that is 6 times since we have 6 files in `~/ngs_course/unix_lesson/raw_fastq` that end in `.fq`. This is done by changing the value of the `var` variable 6 times. 
 
-Of course, `var` is a useless variable name. But it doesn't matter what variable name we use and we can make it something more intuitive.
+Of course, `var` is a useless variable name. But since it doesn't matter what variable name we use, we can make it something more intuitive.
 
 ```bash
 $ for filename in *.fq
@@ -132,19 +135,7 @@ $ for filename in *.fq
 >   wc -l $filename
 > done
 ```
-In the long run, it's best to use a name that will help point out its function, so your future self will understand what you are thinking now.
-
-Now that we understand the concept of looping, let's put that to work:
-
-```bash
-$ for filename in *.fq
-> do 
->   echo $filename >> ../other/number-of-badreads.txt
->   grep -B1 -A2 NNNNNNNNNN $filename | wc -l >> ../other/number-of-badreads.txt
->   grep -B1 -A2 NNNNNNNNNN $filename > ../other/$filename.badreads.fastq 
-> done
-```
-We have used the for loop along with the `>>` redirection symbol to populate one file with all the bad reads in our data set.
+In the long run, it's best to use a name that will help point out a variable's function, so your future self will understand what you are thinking now.
 
 Pretty simple and cool, huh?
 
@@ -155,15 +146,15 @@ Now that you've learned how to use loops and variables, let's put this processin
 - Use for loop to iterate over each FASTQ file
 - Dump out bad reads into a new file
 - Get the count of the number of bad reads
-- And after all the FASTQ files are processed, we generate one summary file of the bad read counts
+- And after all the FASTQ files are processed, we generate one summary file of the bad read counts (the number of bad reads found in each FASTQ file)
 
-You might not realize this, but this is something that you now know how to do. Let's get started...
+You might not realize it, but this is something that you now know how to do. Let's get started...
 
-Move to our sample data directory and use `nano` to create our new script file:
+Rather than doing all of this in the terminal we are going to create a script file with all relevant commands. Move to our sample data directory and use `vim` to create our new script file:
 
-`$ cd ~/unix_oct2015/raw_fastq`
+`$ cd ~/ngs_course/unix_lesson/raw_fastq`
 
-`$ vi generate_bad_reads_summary.sh`
+`$ vim generate_bad_reads_summary.sh`
 
 We always want to start our scripts with a shebang line: 
 
@@ -174,13 +165,13 @@ This line is the absolute path to the Bash interpreter. The shebang line ensures
 After the shebang line, we enter the commands we want to execute. First we want to move into our `raw_fastq` directory:
 
 ```
-$ cd ~/unix_oct2015/raw_fastq
+$ cd ~/ngs_course/unix_lesson/raw_fastq
 ```
 
 And now we loop over all the FASTQs:
 
 ```bash
-for filename in ~/unix_oct2015/raw_fastq/*.fq;
+for filename in ~/ngs_course/unix_lesson/raw_fastq/*.fq;
 ```
 
 and we execute the commands for each loop:
@@ -194,20 +185,15 @@ do
   grep -B1 -A2 NNNNNNNNNN $filename > $filename-badreads.fastq;
 ``` 
   
-We'll also get the counts of these reads and put that in a new file, using the count flag of `grep`:
+We'll also count the number of these reads and put that in a new file, using the count flag of `grep`:
 
 ```bash
-# grab the # of bad reads from our badreads file
-grep -cH NNNNNNNNNN $filename-badreads.fastq > $filename-badreads.counts;
+# grab the number of bad reads and write it to a summary file
+grep -cH NNNNNNNNNN $filename >> bad-reads.count.summary;
 done
 ```
 
-If you've noticed, we slipped a new `grep` flag `-H` in there. This flag will report the filename along with the match string. This won't matter within each file, but it will matter when we generate the summary:
-
-```bash
-# grab all our bad read info to a summary file
-cat *.counts > bad-reads.count.summary
-```
+If you've noticed, we slipped a new `grep` flag `-H` in there. This flag will report the filename along with the match string. This is useful for when we generate the summary file.
 
 And now, as a best practice of capturing all of our work into a running summary log:
 
@@ -221,44 +207,39 @@ You're script should look like:
 ```bash
 #!/bin/bash
 
-cd ~/unix_oct2015/raw_fastq
+cd ~/ngs_course/unix_lesson/raw_fastq
 
-for filename in ~/unix_oct2015/raw_fastq/*.fq; do 
+for filename in ~/ngs_course/unix_lesson/raw_fastq/*.fq; do 
 echo $filename;
 grep -B1 -A2 NNNNNNNNNN $filename > $filename-badreads.fastq;
-grep -cH NNNNNNNNNN $filename-badreads.fastq > $filename-badreads.counts;
+grep -cH NNNNNNNNNN $filename >> bad-reads.count.summary;
 done
-
-cat *.counts > bad-reads.count.summary
 
 cat bad-reads.count.summary >> ../runlog.txt
 
 ```
 
-Exit out of `vi`, and voila! You now have a script you can use to assess the quality of all your new datasets. Your finished script, complete with comments, should look like the following:
+Exit out of `vim`, and voila! You now have a script you can use to assess the quality of all your new datasets. Your finished script, complete with comments, should look like the following:
 
 ```bash
 #!/bin/bash 
 
 # enter directory with raw FASTQs
-cd ~/unix_oct2015/raw_fastq
+cd ~/ngs_course/unix_lesson/raw_fastq
 
 # count bad reads for each FASTQ file in our directory
-for filename in ~/unix_oct2015/raw_fastq/*.fq; do 
+for filename in ~/ngs_course/unix_lesson/raw_fastq/*.fq; do 
   echo $filename; 
 
   # grab all the bad read records
   grep -B1 -A2 NNNNNNNNNN $filename > $filename-badreads.fastq;
 
-  # grab the # of bad reads from our bad reads file
-  grep -cH NNNNNNNNNN $filename-badreads.fastq > $filename-badreads.counts;
+  # grab the number of bad reads and write it to a summary file
+  grep -cH NNNNNNNNNN $filename >> bad-reads.count.summary;
 done
 
-# add all our bad read info to a summary file
-cat *.counts > bad-reads.count.summary
-
 # and add this summary to our run log
-cat bad-reads.count.summary >> ../runlog.tx
+cat bad-reads.count.summary >> ../runlog.txt
 
 ```
 
@@ -270,10 +251,12 @@ $ bash generate_bad_reads_summary.sh
 
 To keep your data organized, let's move all of the bad read files out of our `raw_fastq` directory into the `other` directory
 
-`$ mv ~/unix_oct2015/raw_fastq/*bad* ~/unix_oct2015/other`
+`$ mv ~/ngs_course/unix_lesson/raw_fastq/*bad* ~/ngs_course/unix_lesson/other`
 
 
 ---
-*The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
+
+* *The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
 All Data Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
 

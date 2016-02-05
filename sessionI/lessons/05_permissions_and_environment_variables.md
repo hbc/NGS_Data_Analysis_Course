@@ -12,7 +12,7 @@ Approximate time: 30 minutes
 * What is an "Environment Variable" in a shell.
 * What is $PATH, and why I should care.
 
-## **Permissions**
+## Permissions
 
 Unix controls who can read, modify, and run files using *permissions*.
 
@@ -70,9 +70,7 @@ Let's look at this model in action.
 
 If we say,
 
-```
-$ ls -l /bin/ls
-```
+	$ ls -l /bin/ls
 
 It tells us `-rwxr-xr-x. 1 root root 109208 Oct 15  2014 /bin/ls`. 
  
@@ -80,30 +78,30 @@ So, `ls` is an executable file that belong to user root and group root, and only
 
 > ### Necessary But Not Sufficient
 >
-> The fact that something is marked as executable doesn't actually mean it contains or is a program of some kind. We could easily mark the `~/unix_oct2015/raw_fastq/Irrel_kd_1.subset.fq` file as executable using the commands that are introduced below. Depending on the operating system we're using, trying to "run" it will fail (because it doesn't contain instructions the computer recognizes).
+> The fact that something is marked as executable doesn't actually mean it contains or is a program of some kind. We could easily mark the `~/ngs_course/unix_lesson/raw_fastq/Irrel_kd_1.subset.fq` file as executable using the commands that are introduced below. Depending on the operating system we're using, trying to "run" it will fail (because it doesn't contain instructions the computer recognizes).
 
 
-Now let's run the command `ls -l ~/unix_oct2015`, to list the files in that directory:
+Now let's run the command `ls -l ~/ngs_course/unix_lesson`, to list the files in that directory:
 
-```
-$ ls -l
+	
+	$ ls -l
 
-drwxrwsr-x 2 rsk27 rsk27  78 Oct  6 10:29 genomics_data
-drwxrwsr-x 2 rsk27 rsk27 228 Oct  6 10:28 raw_fastq
--rw-rw-r-- 1 rsk27 rsk27 377 Oct  6 10:28 README.txt
-drwxrwsr-x 2 rsk27 rsk27 238 Oct  6 10:28 reference_data
-```
+	drwxrwsr-x 2 rsk27 rsk27  78 Oct  6 10:29 genomics_data
+	drwxrwsr-x 2 rsk27 rsk27 228 Oct  6 10:28 raw_fastq
+	-rw-rw-r-- 1 rsk27 rsk27 377 Oct  6 10:28 README.txt
+	drwxrwsr-x 2 rsk27 rsk27 238 Oct  6 10:28 reference_data
+
 
 The `-l` flag tells `ls` to give us a long-form listing. It's a lot of information, so let's go through the columns in turn.
 
-On the right side, we have the files' names. Next to them, moving left, are the times and dates they were last modified. Backup systems and other tools use this information in a variety of ways, but you can use it to tell when you (or anyone else with permission) last changed a file.
+On the right side, we have the file names. Next to them, moving left, are the times and dates they were last modified. Backup systems and other tools use this information in a variety of ways, but you can use it to tell when you (or anyone else with permission) last changed a file.
 
 Next to the modification time is the file's size in bytes and the names of the user and group that owns it (in this case, `rsk27` and `rsk27` respectively). We'll skip over the second column for now (the one showing `1` for each file),  because it's the first column that we care about most. This shows the file's permissions, i.e., who can read, write, or execute it.
 
 Let's have a closer look at one of those permission strings for README.txt:
-```
--rw-rw-r--
-```
+	
+	-rw-rw-r--
+
 The first character tells us what type of thing this is: '-' means it's a regular file, while 'd' means it's a directory, and other characters mean more esoteric things.
 
 The next three characters tell us what permissions the file's owner has. Here, the owner can read and write the file: `rw-`.
@@ -114,34 +112,32 @@ The final triplet shows us what everyone who isn't the file's owner, or in the f
 
 To change permissions, we use the `chmod` command (whose name stands for "change mode"). Let's make our README.txt file **inaccessible** to all users other than you and your group, currently they are able to read it:
 
-```
-$ ls -l ~/unix_oct2015/README.txt
+	
+	$ ls -l ~/ngs_course/unix_lesson/README.txt
 
--rw-rw-r-- 1 rsk27 rsk27 377 Oct  6 10:28 /home/rsk27/unix_oct2015/README.txt
+	-rw-rw-r-- 1 rsk27 rsk27 377 Oct  6 10:28 /home/rsk27/ngs_course/unix_lesson/README.txt
 
-$ chmod o-rw ~/unix_oct2015/README.txt         # the "-" after o denotes removing that permission
+	$ chmod o-rw ~/ngs_course/unix_lesson/README.txt         # the "-" after o denotes removing that permission
+	
+	$ ls -l ~/ngs_course/unix_lesson/README.txt
 
-$ ls -l ~/unix_oct2015/README.txt
+	-rw-rw---- 1 rsk27 rsk27 377 Oct  6 10:28 /home/rsk27/ngs_course/unix_lesson/README.txt
 
--rw-rw---- 1 rsk27 rsk27 377 Oct  6 10:28 /home/rsk27/unix_oct2015/README.txt
-```
 
 The 'o' signals that we're changing the privileges of "others".
 
 Let's change it back to allow it to be readable by others:
+	
+	$ chmod o+r ~/ngs_course/unix_lesson/README.txt         # the "+" after o denotes adding/giving that permission
 
-```
-$ chmod o+r ~/unix_oct2015/README.txt         # the "+" after o denotes adding/giving that permission
+	$ ls -l ~/ngs_course/unix_lesson/README.txt
 
-$ ls -l ~/unix_oct2015/README.txt
-
--rw-rw-r-- 1 rsk27 rsk27 377 Oct  6 10:28 /home/rsk27/unix_oct2015/README.txt
-```
+	-rw-rw-r-- 1 rsk27 rsk27 377 Oct  6 10:28 /home/rsk27/ngs_course/unix_lesson/README.txt
 
 If we wanted to make this an executable file for ourselves (the file's owners) we would say `chmod u+rwx`, where the 'u' signals that we are changing permission for the file's owner. To change permissions for a whole group, you'd use the letter "g" `chmod g-w`. 
 
 Before we go any further,
-let's run `ls -l` on the `~/unix_oct2015` directory to get a long-form listing:
+let's run `ls -l` on the `~/ngs_course/unix_lesson` directory to get a long-form listing:
 
 ```
 $ ls -l
@@ -186,7 +182,7 @@ Which of the following statements is true?
 4. members of zoo (a group) cannot execute myfile.php
 ****
 
-## **Environment Variables**
+## Environment Variables
 
 Environment variables are, in short, variables that describe the environment in which programs run in. Two commonly encountered variables are HOME and PATH.
 
@@ -230,7 +226,7 @@ I have a lot of full/absolute paths in my $PATH variable, which are separated fr
 
 These are the directories that the shell will look in (in the same order as they are listed) for an executable file that you type on the command prompt. 
 
-When someone says a command or an executable file is "in you path", they mean that the parent directory for that command/file is contained in the list in the PATH variable. 
+When someone says a command or an executable file is "*in you path*", they mean that the parent directory for that command/file is contained in the list in the PATH variable. 
 
 For any command you execute on the command prompt, you can find out where they are located using the which command.
 
@@ -269,6 +265,9 @@ $ nano ~/.bashrc
 **In closing, permissions and environment variables, especially $PATH, are very useful and important concepts to understand in the context of UNIX and HPC.**
 
 ---
-*The materials used in this lesson was derived from work that is Copyright © Software Carpentry (http://software-carpentry.org/). 
+
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
+
+* *The materials used in this lesson was derived from work that is Copyright © Software Carpentry (http://software-carpentry.org/). 
 All Software Carpentry instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
 
