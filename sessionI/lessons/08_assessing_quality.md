@@ -39,7 +39,7 @@ Before we run FastQC, let's start an interactive session on the cluster:
 
 `$ bsub -Is -n 1 -q interactive bash`
 
-***An interactive session is a very useful to test tools, workflows, run jobs that open new interactive windows (X11-forwarding) and so on.***
+***An interactive session is very useful to test tools, workflows, run jobs that open new interactive windows (X11-forwarding) and so on.***
 
 Once your interactive job starts, notice that the command prompt has changed; this is because we are working on a compute node now, not on a login node. Change directories to `untrimmed_fastq`.
 
@@ -70,13 +70,13 @@ $ module list
 $ $PATH
 ```
 
-FastQC will accept multiple file names as input, so we can use the *.fq wildcard.
+FastQC will accept multiple file names as input, so we can use the `*.fq` wildcard.
 
 `$ fastqc *.fq`
 
 *Did you notice how each file was processed serially? How do we speed this up?*
 
-Exit the interactive session and start a new one with 6 cores, and use the multi-threading funcionality of FastQC to run 6 jobs at once.
+Exit the interactive session and start a new one with 6 cores, and use the multi-threading functionality of FastQC to run 6 jobs at once.
 
 ```
 $ exit  #exit the current interactive session
