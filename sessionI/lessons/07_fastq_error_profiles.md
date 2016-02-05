@@ -113,7 +113,7 @@ Here, we see positions within the read in which the boxes span a much wider rang
 
 ## Error profiles
 
-The FASTQC tool produces several other diagostic plots to assess sample quality, in addition to the one plotted above. We will discuss various error profiles and potential causes in the [slides provided here](../slides/error_profiles.pdf). 
+The FASTQC tool produces several other diagostic plots to assess sample quality, in addition to the one plotted above. We will discuss various error profiles and potential causes in the [slides provided here](../slides/error_profiles_mm.pdf). 
 
 ----
 
