@@ -115,7 +115,7 @@ The raw_fastq data we will be working with is currently in the `unix_lesson/raw_
 
 `$ cp ~/ngs_course/unix_lesson/raw_fastq/*fq  ~/ngs_course/rnaseq/data/untrimmed_fastq`
 
-Later in the workflow when we perform alignment, we will require reference files to map against. These files are also in the `unix_lesson` directory, you can copy the entore folder over into `data`:
+Later in the workflow when we perform alignment, we will require reference files to map against. These files are also in the `unix_lesson` directory, you can copy the entire folder over into `data`:
 
 `$ cp -r ~/ngs_course/unix_lesson/reference_data rnaseq/data`
  
@@ -123,9 +123,9 @@ Later in the workflow when we perform alignment, we will require reference files
 
 ### Document your activity on the project
 
-Keeping notes on what happened in what order, what was done and by whom, is essential for reproducible research.  It is essential for good science.  If you don’t keep good notes, then you will forget what you did pretty quickly, and if you don’t know what you did, no-one else has a chance. After setting up the filesystem it is useful to have a README file within your project directory. This file will usually contain a quick one line summary about the project and any other lines that follow will describe the files/directories found within it. Within each sub-directory you can also include README files to describe the files that were generated. 
+Keeping notes on what happened in what order, what was done, and by whom, is essential for reproducible research.  It is essential for good science.  If you don’t keep good notes, then you will forget what you did pretty quickly, and if you don’t know what you did, noone else has a chance. After setting up the filesystem it is useful to have a README file within your project directory. This file will usually contain a quick one line summary about the project and any other lines that follow will describe the files/directories found within it. Within each sub-directory you can also include README files to describe the files that were generated. 
  
-> Take a moment to create a `README.txt` for `rnaseq` (hint: use vi to create the file). Give a short description of the project with today's date and a brief descriptions of the types of file you intend to store within each of the sub-directories.
+> Take a moment to create a `README.txt` for `rnaseq` (hint: use `vim` to create the file). Give a short description of the project with today's date and a brief descriptions of the types of file you intend to store within each of the sub-directories.
 
 
 To keep track of the commands you have used while analyzing your data, the `history` command is very convenient. We haven't gotten to any data analysis just yet, but as an example we can document the commands we have used to create these folders. 
@@ -142,10 +142,10 @@ The history likely contains many more commands that you have used just for these
 $ history | tail -n7
 ```
 
-As you may remember from the shell lesson, the pipe '|' sends the output of history to the next program, in this case, tail. We have used the -n option to give the last 7 lines. Using your knowledge of the shell use the append redirect `'>>'` to create a file called **ngs_course_log_XXXX_XX_XX.txt** (Use the four-digit year, two-digit month, and two digit day, e.g. ngs_course_log_2016_02_07.txt)
+As you may remember from the shell lesson, the pipe '|' sends the output of history to the next program, in this case, `tail`. We have used the `-n` option to give the last 7 lines. Using your knowledge of the shell, redirect `'>>'` and append those lines to create a file called **ngs_course_log_XXXX_XX_XX.txt** (Use the four-digit year, two-digit month, and two digit day, e.g. ngs_course_log_2016_02_09.txt)
 
 
-You may have noticed that your history may contain the *history* command itself. To remove this redundancy from our log, lets use the `vi` text editor to fix the file. From the nano screen, you should be able to use your cursor to navigate, type, and delete any redundant lines. 
+You may have noticed that your history may contain the `history` command itself. To remove this redundancy from our log, lets use the `vim` text editor to fix the file. From the `vim` screen, you should be able to use your cursor to navigate, type, and delete any redundant lines. 
 
 Add a dateline and comment above the lines of history:
 
@@ -154,20 +154,19 @@ Add a dateline and comment above the lines of history:
 # Created sample directories for the Intro to Unix workshop
 ```
 
-Next, remove any lines of the history that are not relevant. Just navigate to those lines and use your delete key. Save the file and exit `vi` Now that you have created the file, move the file to `rnaseq/logs`
+Next, remove any lines of the history that are not relevant. Just navigate to those lines and use the delete shortcuts or backspace key. Save the file and exit `vim` Now that you have created the file, move the file to `rnaseq/logs`
 
 ### Naming files
 
 A few months from now, you may not remember what you were up to when you created a particular set of files. Below is a short list of things we suggest when it comes to file naming:
 
-1. **Keep sample names short and meaningful.** If required, include some form a long explanation for the sample names (i.e comment lines at the top of the metadata file, or add it in your README file).
+1. **Keep sample names short and meaningful.** If required, include some form of a long explanation for the sample names (i.e comment lines at the top of the metadata file, or add it in your README file).
 2. Have **unique sample names** and try to avoid names that look like dates (Dec14), times (AM1245) and other things that Excel might auto-convert. 
 3. **Remove spaces and punctuation.** When working on the command line, spaces in file names make everything exponentially more difficult. Replace all your spaces with under_scores and avoid the use of any special characters.
 
 ## Best practices for NGS Analysis 
 
 Ok so now you are all set up to start your analyses! You have set up your space in a way such that someone unfamiliar with your project should be able to look at your computer files and understand in detail what you did and why. Now before we move on to any actual data, we have a few words of wisdom to impart upon you:
-
 
 1. **Make sure to use the appropriate software.** Do your research and find out what is best for the data you are working with. Don't just work with tools that you are able to easily install. Also, make sure you are using the most up-to-date versions! If you run out-of-date software, you are probably introducing errors into your workflow; and you may be missing out on more accurate methods.
 
