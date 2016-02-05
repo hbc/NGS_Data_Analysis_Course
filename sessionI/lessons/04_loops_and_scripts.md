@@ -24,7 +24,7 @@ We are finally ready to see what makes the shell such a powerful programming env
 
 Shell scripts are text files that contain commands we want to run. As with any file, you can give a shell script any name and usually have the extension `.sh`. Let's write a shell script that tells us what our current working directory is and then lists the contents of the directory. First let's move into the `unix_lesson` directory and open a new file using `vim`:
 
-	$ cd ~/ngs_course_unix_lesson
+	$ cd ~/ngs_course/unix_lesson
 	$ vim listing.sh
 	
 Change to insert mode, then type in the following lines in the `listing.sh` file:
