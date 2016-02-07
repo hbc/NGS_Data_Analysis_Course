@@ -20,9 +20,15 @@ Welcome to the beauty and purpose of shell scripts.
 
 ## Shell scripts
 
-We are finally ready to see what makes the shell such a powerful programming environment. We are going to take the commands we repeat frequently and save them in files so that we can re-run all those operations again later by typing one single command. For historical reasons, a bunch of commands saved in a file is usually called a shell script, but make no mistake, this is actually a small program.
+Shell scripts are text files that contain commands we want to run. As with any file, you can give a shell script any name and usually have the extension `.sh`. For historical reasons, a bunch of commands saved in a file is usually called a shell script, but make no mistake, this is actually a small program. 
 
-Shell scripts are text files that contain commands we want to run. As with any file, you can give a shell script any name and usually have the extension `.sh`. Let's write a shell script that tells us what our current working directory is and then lists the contents of the directory. First let's move into the `unix_lesson` directory and open a new file using `vim`:
+
+We are going to take the commands we repeat frequently and save them into a file so that we can **re-run all those operations** again later by typing **one single command**. Let's write a shell script that will do two things:
+
+1. Tell us what is our current working directory
+2. Lists the contents of the directory 
+
+First let's move into the `unix_lesson` directory and open a new file using `vim`:
 
 	$ cd ~/ngs_course/unix_lesson
 	$ vim listing.sh
