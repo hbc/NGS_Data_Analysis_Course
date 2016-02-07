@@ -175,7 +175,7 @@ $ cd ~/ngs_course/unix_lesson/raw_fastq
 And now we loop over all the FASTQs:
 
 ```bash
-for filename in ~/ngs_course/unix_lesson/raw_fastq/*.fq;
+for filename in *.fq;
 ```
 
 and we execute the commands for each loop:
