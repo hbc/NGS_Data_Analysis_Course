@@ -156,9 +156,7 @@ Now that you've learned how to use loops and variables, let's put this processin
 
 You might not realize it, but this is something that you now know how to do. Let's get started...
 
-Rather than doing all of this in the terminal we are going to create a script file with all relevant commands. Move to our sample data directory and use `vim` to create our new script file:
-
-`$ cd ~/ngs_course/unix_lesson/raw_fastq`
+Rather than doing all of this in the terminal we are going to create a script file with all relevant commands. Use `vim` to create our new script file:
 
 `$ vim generate_bad_reads_summary.sh`
 
