@@ -151,8 +151,8 @@ Now that you've learned how to use loops and variables, let's put this processin
 
 - Use for loop to iterate over each FASTQ file
 - Dump out bad reads into a new file
-- Get the count of the number of bad reads
-- And after all the FASTQ files are processed, we generate one summary file of the bad read counts (the number of bad reads found in each FASTQ file)
+- Get the count of the number of bad reads and generate a summary file
+- And after all the FASTQ files are processed, write the summary to a log file
 
 You might not realize it, but this is something that you now know how to do. Let's get started...
 
