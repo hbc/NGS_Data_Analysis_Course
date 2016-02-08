@@ -79,7 +79,7 @@ Make sure that your command prompt is now preceded by a character string that co
 
 Let's make a a directory in your home folder for everything we do in this NGS Data Analysis course. We will use the `mkdir` command which we will discuss in more detail later. For now, type the following command at the command prompt.
 
-	mkdir ngs_course
+	$ mkdir ngs_course
 
 Copy the data folder `unix_lesson` from a shared directory/folder on Orchestra into your new directory using the following command:
 
@@ -478,7 +478,7 @@ The `-n` option to either of these commands can be used to print the first or la
 
 ## Creating, moving, copying, and removing
 
-Now we can move around in the directory structure, look at files, search files, redirect. But what if we want to do normal things like copy files or move them around or get rid of them. 
+Now we can move around in the directory structure, look at files, search files. But what if we want to do normal things like copy files or move them around or get rid of them. 
 
 Our raw data in this case is fastq files. We don't want to change the original files,
 so let's make a copy to work with.
