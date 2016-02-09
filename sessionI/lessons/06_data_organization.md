@@ -87,7 +87,7 @@ $ cd ngs_course/rnaseq
 $ mkdir data
 $ mkdir meta
 $ mkdir results
-$ mkdir docs
+$ mkdir logs
 
 ``` 
 
@@ -100,7 +100,7 @@ $ ls -F
 If you have created these directories, you should get the following output from that command:
 
 ```
-/data  /docs  /meta  /results
+/data  /logs  /meta  /results
 
 ```
 Now we will create the subdirectories to setup for our RNA-Seq analysis, and populate them with data where we can. First we will be checking the quality of our data, and trimming the files if necessary. We need to create two directories within the `data` directory, one folder for untrimmed reads and another for our trimmed reads: 
