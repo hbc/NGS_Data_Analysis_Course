@@ -191,7 +191,7 @@ Environment variables are, in short, variables that describe the environment in 
 
 In the context of the shell the Environment variables are usually all upper case.
 
-First, let's see our list of environmental variables:
+First, let's see our list of environment variables:
 ```
 $ env
 ```
