@@ -256,7 +256,7 @@ Open the .bashrc file and at the end of the file add the export command that add
 The location we want to add to the beginning of the list is `/opt/bcbio/local/bin`, we need this for when we run the RNA-Seq workflow tomorrow.
 
 ```
-$ vi ~/.bashrc
+$ vim ~/.bashrc
 
 # at the end of the file type in the following - "export PATH=/opt/bcbio/local/bin:$PATH"
 # Don't forget the ":" between!
