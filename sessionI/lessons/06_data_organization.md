@@ -28,11 +28,11 @@ Project organization is one of the most important parts of a sequencing project,
 
 You should approach your sequencing project in a very similar way to how you do a biological experiment, and ideally, begins with experimental design. **We're going to assume that you've already designed a beautiful sequencing experiment to address your biological question, collected appropriate samples, and that you have enough statistical power.** We will cover experimental design in more detail as they apply to the different workflows. 
 
-For all of those steps taken in the wetlab (collecting specimens, extracting DNA, prepping your samples) you've likely kept a lab notebook that details how and why you did each step, but documentation doesn't stop at the sequencer! 
+For all of those steps taken in the wetlab (collecting specimens, extracting DNA, prepping your samples) you've likely kept a lab notebook that details how and why you did each step, but documentation doesn't stop at the sequencer! With the computational part of your experiment there are also a ton of things you will need to keep track of. You will need to keep track of the different tools (and versions) used at every stage, in addition to the parameters you set for each. 
 
-Every computational analysis you do is going to spawn many files, and inevitability, you'll want to run some of those analysis again. **Genomics projects can quickly accumulate hundreds of files across tens of folders.** Do you remember what PCR conditions you used to create your sequencing library? Probably not. Similarly, you probably won't remember whether your best alignment results were in Analysis1, AnalysisRedone, or AnalysisRedone2; or which quality cutoff you used.
+Every step in the computational analysis you do is going to spawn many files, and inevitability, you'll need to run some of those analyses again. **Genomics projects can quickly accumulate hundreds of files across tens of folders.** Do you remember what PCR conditions you used to create your sequencing library? Probably not. Similarly, you probably won't remember whether your best alignment results were in Analysis1, AnalysisRedone, or AnalysisRedone2; or which quality cutoff you used.
 
-Luckily, recording your computational experiments is even easier than recording lab data. Sensible file names will make your analysis traversable by you and your collaborators, and writing the methods section for your next paper will be a breeze. Let's look at the best practices for organizing your genomics project. 
+Luckily, recording your computational experiments is even easier than recording wet lab data. Let's look at the best practices for organizing your genomics project. 
 
 Your future self will thank you.
 
@@ -122,7 +122,7 @@ Later in the workflow when we perform alignment, we will require reference files
  OK we're all setup for our analysis!
 
 ### Document your activity on the project
-
+.
 Keeping notes on what happened in what order, what was done, and by whom, is essential for reproducible research.  It is essential for good science.  If you don’t keep good notes, then you will forget what you did pretty quickly, and if you don’t know what you did, noone else has a chance. After setting up the filesystem it is useful to have a README file within your project directory. This file will usually contain a quick one line summary about the project and any other lines that follow will describe the files/directories found within it. Within each sub-directory you can also include README files to describe the files that were generated. 
  
 > Take a moment to create a `README.txt` for `rnaseq` (hint: use `vim` to create the file). Give a short description of the project with today's date and a brief descriptions of the types of file you intend to store within each of the sub-directories.
@@ -158,7 +158,8 @@ Next, remove any lines of the history that are not relevant. Just navigate to th
 
 ### Naming files
 
-A few months from now, you may not remember what you were up to when you created a particular set of files. Below is a short list of things we suggest when it comes to file naming:
+A few months from now, you may not remember what you were up to when you created a particular set of files. 
+Sensible file names will make your analysis traversable by you and your collaborators, and writing the methods section for your next paper will be a breeze. Below is a short list of things we suggest when it comes to file naming:
 
 1. **Keep sample names short and meaningful.** If required, include some form of a long explanation for the sample names (i.e comment lines at the top of the metadata file, or add it in your README file).
 2. Have **unique sample names** and try to avoid names that look like dates (Dec14), times (AM1245) and other things that Excel might auto-convert. 
