@@ -19,15 +19,43 @@ The alignment process consists of choosing an appropriate reference genome to ma
 
 ## STAR Aligner
 
-To determine where on the human genome our reads originated from, we will align our reads to the reference genome using STAR (Spliced Transcripts Alignment to a Reference). STAR is an aligner designed to specifically address many of the challenges of RNA-seq data mapping, and utilizes a novel strategy for spliced alignments. 
+To determine where on the human genome our reads originated from, we will align our reads to the reference genome using [STAR](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3530905/) (Spliced Transcripts Alignment to a Reference). STAR is an aligner designed to specifically address many of the challenges of RNA-seq data mapping, and utilizes a novel strategy for spliced alignments. 
 
 ### STAR Alignment Strategy
 
 STAR is shown to have high accuracy and outperforms other aligners by more than a factor of 50 in mapping speed (but also requires quite a bit of memory). The algorithm achieves this highly efficient mapping by performing a two-step process:
 
-1. Seed search
-2. 
+1. Seed searching
+2. Clustering, stitching, and scoring
+
+#### Seed searching
+
+For every read that STAR aligns, STAR will search for the longest sequence that exactly matches one or more locations on the reference genome. These longest matching sequences are called the Maximal Mappable Prefixes (MMPs):
+
+![STAR_step1](../img/alignment_STAR_step1.png)
 	
+The different parts of the read that are mapped separately are called 'seeds'. So the first MMP that is mapped to the genome is called *seed1*.
+
+STAR will then search again for only the unmapped portion of the read to find the next longest sequence that exactly matches the reference genome, or the next MMP, which will be *seed2*. This sequential searching of only the unmapped portions of reads underlies the efficiency of the STAR algorithm. STAR uses uncompressed suffix arrays (SAs) to search for the MMPs, which allow for quick searching against even the largest reference genomes. Other slower aligners use algorithms that often search for the entire read sequence before splitting reads and performing iterative rounds of mapping.
+
+![STAR_step2](../img/alignment_STAR_step2.png)
+
+If STAR does not find an exact matching sequence for each part of the read due to mismatches or indels, the previous MMPs can be extended.
+
+![STAR_step3](../img/alignment_STAR_step3.png)
+
+If extension does not give a good alignment, then the poor quality or adapter sequence (or other contaminating sequence) will be soft clipped.
+
+![STAR_step4](../img/alignment_STAR_step4.png)
+
+
+#### Clustering, stitching, and scoring
+
+The separate seeds are stitched together to create a complete read by first clustering the seeds together based on proximity to a set of 'anchor' seeds, or seeds that are not multi-mapping.
+
+Then the seeds are stitched together based on the best alignment for the read (scoring based on mismatches, indwells, gaps, etc.). 
+
+![STAR_step5](../img/alignment_STAR_step5.png)
 
 ### Running STAR
 
