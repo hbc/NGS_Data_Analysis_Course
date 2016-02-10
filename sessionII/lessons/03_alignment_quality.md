@@ -16,7 +16,7 @@ Approximate time:
 After running our FASTQ files through the STAR aligner, you should have noticed a number of output files in the `~/ngs_course/rnaseq/results/STAR` directory. Let's take a quick look at some of the files that were generated and explore the content of some of them. What you should see, is that for each FASTQ file you have **5 output files** and a single tmp directory. Briefly, these files are described below:
 
 * `Aligned.sortedByCoord.out.bam` - the aligned reads, sorted by coordinate, in BAM format
-* `Log.final.out` - a summary of mapping statistcs for the sample
+* `Log.final.out` - a summary of mapping statistics for the sample
 * `Log.out` - a running log from STAR, with information about the run 
 * `Log.progress.out` -  job progress with the number of processed reads, % of mapped reads etc., updated every ~1 minute
 * `SJ.out.tab` - high confidence collapsed splice junctions in tab-delimited format. Only junctions supported by uniquely mapping reads are reported
@@ -97,12 +97,14 @@ The CIGAR string is a sequence of letters and numbers that represent the *edits 
 
 In our example, SAM entry above the CIGAR string listed is 149M which translates to 149 matches with the reference. 
 
+## Mapping statistics
+
+While it is important to understand what is contained in the SAM file, it is very unlikely that you will ever need to manually look at it. Rather than looking at each read alignment, it can be more useful to evaluate statistics that give a general overview for the sample. One of the output files from the STAR aligner contains mapping statistics, let's take a closer look at `Mov10_oe_1.Log.final.out`):
+
 
 ## `samtools`
 
-While it is important to understand what is contained in the SAM file, it is very unlikely that you will ever need to manually look at it since we have tools that help us do this more efficiently.
-
-[SAMtools](http://samtools.sourceforge.net/) is one of these such tools and provides alot of functionality in dealing with SAM files. SAMtools utilities include, but are not limited to, viewing, sorting, filtering, merging, and indexing alignments in the SAM format. In this lesson we will explore a few of these utilities on our alignment files. Let's get started by loading the `samtools` module:
+[SAMtools](http://samtools.sourceforge.net/) is a tool that provides alot of functionality in dealing with SAM files. SAMtools utilities include, but are not limited to, viewing, sorting, filtering, merging, and indexing alignments in the SAM format. In this lesson we will explore a few of these utilities on our alignment files. Let's get started by loading the `samtools` module:
 
 	module load seq/samtools/1.2
 
