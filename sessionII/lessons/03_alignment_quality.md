@@ -12,7 +12,16 @@ Approximate time:
 * Using `samtools` to evaluate alignment quality 
 * Visualizing alignment quality using IGV (genome browser)  
 
-	
+# Alignment quality
+After running our FASTQ files through the STAR aligner, you should have noticed a number of output files in the `~/ngs_course/rnaseq/results/STAR` directory. Let's take a quick look at some of the files that were generated and explore the content of some of them. What you should see, is that for each FASTQ file you have **5 output files** and a single tmp directory. Briefly, these files are described below:
+
+* `Aligned.sortedByCoord.out.bam` - the aligned reads, sorted by coordinate, in BAM format
+* `Log.final.out` - a summary of mapping statistcs for the sample
+* `Log.out` - a running log from STAR, with information about the run 
+* `Log.progress.out` -  job progress with the number of processed reads, % of mapped reads etc., updated every ~1 minute
+* `SJ.out.tab` - high confidence collapsed splice junctions in tab-delimited format. Only junctions supported by uniquely mapping reads are reported
+
+
 ## Alignment file format: SAM/BAM
 
 The output we requested from the STAR aligner (using the appropriate parameters) is a BAM file. By default STAR will return a file in SAM format. BAM is a binary, compressed version of the SAM file, also known as **Sequence Alignment Map format**. The SAM file, introduced is a tab-delimited text file that contains information for each individual read and its alignment to the genome. While we will go into some features of the SAM format, the paper by [Heng Li et al](http://bioinformatics.oxfordjournals.org/content/25/16/2078.full) provides a lot more detail on the specification.
