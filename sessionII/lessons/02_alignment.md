@@ -28,7 +28,7 @@ STAR is shown to have high accuracy and outperforms other aligners by more than 
 1. Seed searching
 2. Clustering, stitching, and scoring
 
-#### Seed searching
+#### 1. Seed searching
 
 For every read that STAR aligns, STAR will search for the longest sequence that exactly matches one or more locations on the reference genome. These longest matching sequences are called the Maximal Mappable Prefixes (MMPs):
 
@@ -49,7 +49,7 @@ If extension does not give a good alignment, then the poor quality or adapter se
 ![STAR_step4](../img/alignment_STAR_step4.png)
 
 
-#### Clustering, stitching, and scoring
+#### 2. Clustering, stitching, and scoring
 
 The separate seeds are stitched together to create a complete read by first clustering the seeds together based on proximity to a set of 'anchor' seeds, or seeds that are not multi-mapping.
 
