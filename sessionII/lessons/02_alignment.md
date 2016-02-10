@@ -53,7 +53,7 @@ If extension does not give a good alignment, then the poor quality or adapter se
 
 The separate seeds are stitched together to create a complete read by first clustering the seeds together based on proximity to a set of 'anchor' seeds, or seeds that are not multi-mapping.
 
-Then the seeds are stitched together based on the best alignment for the read (scoring based on mismatches, indwells, gaps, etc.). 
+Then the seeds are stitched together based on the best alignment for the read (scoring based on mismatches, indels, gaps, etc.). 
 
 ![STAR_step5](../img/alignment_STAR_step5.png)
 
