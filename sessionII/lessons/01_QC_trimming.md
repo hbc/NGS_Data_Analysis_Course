@@ -16,9 +16,15 @@ Let us revisit the workflow that we introduced in Session I. We got as far as ta
 
 ![Workflow](../img/rnaseq_workflow_trimming.png)
 
-For our raw fastq data, we found the quality of the bases decreasing at the 3' ends of our reads. Raw sequencing reads will often exhibit this decreasing sequence quality at the 5' and 3' ends. We can improve the overall quality of our data by trimming the poor quality bases, as well as, any contaminating vector or adapter sequences from our reads. Sequencing reads containing poor quality bases or contaminating sequences will be difficult to align properly to the reference genome/transcriptome.  
+Remember, that for our raw fastq data, we found the quality of the bases decreasing at the 3' ends of our reads:
 
-Quality trimming can be accomplished either by removing the bases entirely from the sequence using a trimming tool or by an alignment tool that "soft clips" the low quality bases. Soft clipping doesn't actually remove the sequence, but the clipped sequence is skipped over or ignored when performing downstream operations. Although many alignment tools can perform the soft clipping of low quality bases, they **cannot** remove adapter or vector sequences. Therefore, if you use soft clipping, it is still recommended that you use a tool that removes adapter sequences from your reads prior to alignment.
+![FASTQC_results](../img/fastqc_results.png)
+
+Raw sequencing reads will often exhibit this decreasing sequence quality at the 5' and 3' ends. We can improve the overall quality of our data by trimming the poor quality bases, as well as, any contaminating vector or adapter sequences from our reads. **Sequencing reads containing poor quality bases or contaminating sequences will be difficult to align properly to the reference genome/transcriptome.**
+
+## Trimming Tools  
+
+Quality trimming can be accomplished either by removing the bases entirely from the sequence using a trimming tool or by an alignment tool that *"soft clips"* the low quality bases. Soft clipping doesn't actually remove the sequence, but the clipped sequence is skipped over or ignored when performing downstream operations. Although many alignment tools can perform the soft clipping of low quality bases, they **cannot** remove adapter or vector sequences. Therefore, if you use soft clipping, it is still recommended that you use a tool that removes adapter sequences from your reads prior to alignment.
 
 Many trimming tools have been developed to perform quality and adapter trimming, but there are various strategies employed, and the tool or strategy chosen often relates to the personal preference of the user and the downstream tools to be used.
 
@@ -28,7 +34,7 @@ Trimming tools can perform sequence trimming using the following strategies:
 - sliding window approach:
 	- remove all bases in window if the average quality across a window size (e.g. 5 bases) is below a specific threshold 
 	- remove bases in window if % good quality bases in a window is below a specific percentage (e.g. remove bases in window if % good quality bases ≤ 70%)
-- hard crop - remove a certain number of bases from the ends of all reads(e.g. remove 12 bases from all reads at 5’ end)
+- hard crop - remove a certain number of bases from the ends of all reads (e.g. remove 12 bases from all reads at 5’ end)
 - remove read if % good quality bases in whole read is below a specific threshold (e.g. remove read if % good quality bases ≤ 70%)
 - adapter trimming - trim any left over adapter sequences (usually at 5’ end for SE)
 - minimum length - remove read if the read length is below a certain threshold
@@ -36,7 +42,7 @@ Trimming tools can perform sequence trimming using the following strategies:
 
 ## Trimmomatic
 
-We will use [*Trimmomatic*](http://www.usadellab.org/cms/?page=trimmomatic) to trim away adapters and filter out poor quality score reads. *Trimmomatic* is a java based program that can remove sequencer specific reads and nucleotides that fall below a certain threshold. *Trimmomatic* offers the option to trim reads using a hard crop, sliding window or base-by-base methods. It can also trim adapter sequences and remove reads if below a minimum length. In addition, *Trimmomatic* can be multithreaded to run quickly using a single, complex command. 
+We will use [*Trimmomatic*](http://www.usadellab.org/cms/?page=trimmomatic) to trim away adapters and filter out poor quality score reads. *Trimmomatic* is a java based program that can remove sequencer specific reads and nucleotides that fall below a certain threshold. *Trimmomatic* offers the option to trim reads using a hard crop, sliding window or base-by-base methods. It can also trim adapter sequences and remove reads if below a minimum length. In addition, *Trimmomatic* can be multi-threaded to run quickly using a single, complex command. 
 
 Let's load the *Trimmomatic* module:
 
@@ -153,7 +159,7 @@ MINLEN:35
 ```
 Now, let's run it:
 
-`$ bsub < trimmomatic_mov10.sh`
+`$ bsub < trimmomatic_mov10.lsf`
 
 After the job finishes, you should receive an email with output: 
 
@@ -166,10 +172,11 @@ Input Reads: 305900 Surviving: 300423 (98.21%) Dropped: 5477 (1.79%)
 TrimmomaticSE: Completed successfully
 ```
 
+This information should also be contained in your standard out file, `rnaseq_mov10_trim.out`. 
+
 We now have a new fastq file with our trimmed and cleaned up data:
 
 `$ ls ../trimmed_fastq/`    
-
 
 
 
@@ -190,10 +197,10 @@ We already know how to use a 'for loop' to deal with this situation. Let's modif
 #BSUB -o %J.out       # File to which standard out will be written
 #BSUB -e %J.err       # File to which standard err will be written
 
-cd ~/ngs_course/rnaseq/data/untrimmed_fastq
-
 module load seq/Trimmomatic/0.33
 module load seq/fastqc/0.11.3
+
+cd ~/ngs_course/rnaseq/data/untrimmed_fastq
 
 for infile in *.fq; do
 
@@ -206,7 +213,7 @@ for infile in *.fq; do
   ../trimmed_fastq/$outfile \
   ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
   TRAILING:25 \
-  MINLEN:35;
+  MINLEN:35
   
 done
     
@@ -246,7 +253,7 @@ java -jar ~/tools/Trimmomatic-0.33/trimmomatic-0.33.jar PE \
 <input 1> <input 2> \
 <paired output 1> <unpaired output 1> \
 <paired output 2> <unpaired output 2> \
-ILLUMINACLIP:/home/rsk27/tools/Trimmomatic-0.33/adapters/TruSeq3-PE.fa:2:30:10 \
+ILLUMINACLIP:/home/username/tools/Trimmomatic-0.33/adapters/TruSeq3-PE.fa:2:30:10 \
 TRAILING:25 \
 MINLEN:35
 ```
