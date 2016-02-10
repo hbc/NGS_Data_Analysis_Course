@@ -197,27 +197,45 @@ We already know how to use a 'for loop' to deal with this situation. Let's modif
 #BSUB -o %J.out       # File to which standard out will be written
 #BSUB -e %J.err       # File to which standard err will be written
 
+# Load modules necessary for running commands
+
 module load seq/Trimmomatic/0.33
 module load seq/fastqc/0.11.3
 
+# Change directories to folder where fastq files are located
+
 cd ~/ngs_course/rnaseq/data/untrimmed_fastq
+
+# Run a 'for loop' to run the Trimmomatic command on each of the untrimmed fastq files
 
 for infile in *.fq; do
 
+  # Create names for the output trimmed files
   outfile=$infile.qualtrim25.minlen35.fq;
-
+  
+  # Run Trimmomatic command
   java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE \
   -threads 4 \
   -phred33 \
-  $infile 
+  $infile \
   ../trimmed_fastq/$outfile \
   ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
   TRAILING:25 \
-  MINLEN:35
+  MINLEN:35;
   
 done
     
+# Run FastQC on each of the trimmed fastq files
+
 fastqc -t 6 ../trimmed_fastq/*.fq
+
+# Create a directory for the trimmed FastQC results
+
+mkdir ../../results/fastqc_trimmed_reads
+
+# Move FastQC results to the new directory
+
+mv ../trimmed_fastq/*fastqc* ../../results/fastqc_trimmed_reads
 ```
 `$ bsub < trimmomatic_mov10.sh`
 
@@ -227,15 +245,7 @@ Do you remember how the variable name in the first line of a 'for loop' specifie
 
 After we have created the trimmed fastq files, we wanted to make sure that the quality of our reads look good, so we ran a *FASTQC* on our `$outfile`, which is located in the ../trimmed_fastq directory.
 
-Let's make a new directory for our fastqc files for the trimmed reads:
-
-`$ mkdir ~/ngs_course/rnaseq/results/fastqc_trimmed_reads`
-
-Now move all fastqc files to the `fastqc_trimmed_reads` directory:
-
-`$ mv ~/ngs_course/rnaseq/data/trimmed_fastq/*fastqc** ~/ngs_course/rnaseq/results/fastqc_trimmed_reads`
-
-Let's use *FileZilla* to download the fastqc html for `Mov10_oe_1.subset.fq`. Has our read quality improved with trimming?
+Let's use *FileZilla* to download the FastQC html for `Mov10_oe_1.subset.fq`. Has our read quality improved with trimming?
 
 ### Trimmomatic with paired-end data
 

@@ -1,34 +1,45 @@
 ---
 title: "Alignment with STAR"
-author: "Meeta Mistry, Bob Freeman"
-date: "Wednesday, October 7, 2015"
+author: "Meeta Mistry, Bob Freeman, Mary Piper"
+date: "Wednesday, February 10, 2016"
 ---
 
 Approximate time:
 
 ## Learning Objectives:
 
-* Use STAR to align sequence reads to the reference genome
-* Learning the intricacies of alignment tools used in NGS analysis (parameters, usage, etc)
-* Evaluating the alignment summary 
+* Understanding the alignment method STAR utilizes to align sequence reads to the reference genome
+* Identifying the intricacies of alignment tools used in NGS analysis (parameters, usage, etc)
+* Choosing appropriate STAR alignment parameters for our dataset
 * Running STAR on multiple samples
 
-## Aligning reads
+## Read Alignment
 
-The alignment process consists of choosing an appropriate reference genome to map our reads against, and performing the read alignment using one of several splice-aware alignment tools such as [STAR](http://bioinformatics.oxfordjournals.org/content/early/2012/10/25/bioinformatics.bts635) or [TopHat2](https://ccb.jhu.edu/software/tophat/index.shtml). The choice of aligner is a personal preference and also dependent on the computational resources that are available to you.
+The alignment process consists of choosing an appropriate reference genome to map our reads against and performing the read alignment using one of several splice-aware alignment tools such as [STAR](http://bioinformatics.oxfordjournals.org/content/early/2012/10/25/bioinformatics.bts635) or [TopHat2](https://ccb.jhu.edu/software/tophat/index.shtml). The choice of aligner is a personal preference and also dependent on the computational resources that are available to you.
 
-### Setting up
+## STAR Aligner
 
-To get started with this lesson, we will login to the cluster but this time we are going to ask for 6 cores. We will do this by adding `-n 6` to our `bsub` command:
+To determine where on the human genome our reads originated from, we will align our reads to the reference genome using STAR (Spliced Transcripts Alignment to a Reference). STAR is an aligner designed to specifically address many of the challenges of RNA-seq data mapping, and utilizes a novel strategy for spliced alignments. 
+
+### STAR Alignment Strategy
+
+STAR is shown to have high accuracy and outperforms other aligners by more than a factor of 50 in mapping speed (but also requires quite a bit of memory). The algorithm achieves this highly efficient mapping by performing a two-step process:
+
+1. Seed search
+2. 
+	
+
+### Running STAR
+
+#### Set-up
+
+To get started with this lesson, start an interactive session with 6 cores:
 
 ```
-ssh username@orchestra.med.harvard.edu
-(enter password)
-
 $ bsub -Is -n 6 -q interactive bash	
 ```
 
-Change directories into the `rnaseq` directory. You should have a directory tree setup similar to that shown below. it is best practice to have all files you intend on using for your workflow present within the same directory. In our case, we have our original FASTQ files and post-trimming data generated in the previous section. We also have all reference data files that will be used in downstream analyses.
+You should have a directory tree setup similar to that shown below. it is best practice to have all files you intend on using for your workflow present within the same directory. In our case, we have our original FASTQ files and post-trimming data generated in the previous section. We also have all reference data files that will be used in downstream analyses.
 
 ```
 rnaseq
@@ -52,7 +63,7 @@ rnaseq
 ```
 
 
-The first command is to change into our working directory:
+Change into the rnaseq folder. This will be our working directory:
 
 ```
 $ cd ngs_course/rnaseq
@@ -72,7 +83,7 @@ $ mkdir results/STAR
 
 ```
 
-For now, we're going to work on just one sample to set up our workflow. To start we will use the trimmed first replicate in the Mov10 overexpression group, `Mov10_oe_1.qualtrim25.minlen35.fq` 
+For now, we're going to work on just one sample to set up our workflow. To start we will use the trimmed first replicate in the Mov10 over-expression group, `Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq`.
 
 
 **NOTE: if you did not follow the last section, please execute the following command:** (this will copy over the required files into your home directory.)
@@ -83,9 +94,8 @@ $ cp -r /groups/hbctraining/unix_oct2015_other/trimmed_fastq data/ .
 
 ```
 
-### Running STAR 
+#### Aligning Reads
 
-For this workshop we will be using STAR (Spliced Transcripts Alignment to a Reference), an aligner designed to specifically address many of the challenges of RNAseq data mapping, and utilizes a novel strategy for spliced alignments. STAR is shown to have high accuracy and outperforms other aligners by more than a factor of 50 in mapping speed (but also requires quite a bit of memory). More details on the algorithm itself can be found in the publication linked above. 
 
 Aligning reads using STAR is a two step process:   
 
@@ -94,9 +104,9 @@ Aligning reads using STAR is a two step process:
 
 > A quick note on shared databases for human and other commonly used model organisms. The Orchestra cluster has a designated directory at `/groups/shared_databases/` in which there are files that can be accessed by any user. These files contain, but are not limited to, genome indices for various tools, reference sequences, tool specific data, and data from public databasese such as NCBI and PDB. So when using a tool and requires a reference of sorts, it is worth taking a quick look here because chances are it's already been taken care of for you. 
 
-#### Creating a genome index
+##### Creating a genome index
 
-Indexing of the reference genome has already been done for you. **You do not need to run this code**. For this step you need to provide a reference genome and an annotation file. For this workshop we are using reads that originate from a small subsection of chromosome 1 (~300,00 reads) and so we are using only chr1 as the reference genome, and have provided the appropriate indices. Depending on the size of your genome, this can take awhile. 
+Indexing of the reference genome has already been done for you. **You do not need to run this code**. For this step you need to provide a reference genome and an annotation file. For this workshop we are using reads that originate from a small subsection of chromosome 1 (~300,000 reads) and so we are using only chr1 as the reference genome, and have provided the appropriate indices. Depending on the size of your genome, this can take a while. 
 
 The basic options to **generate genome indices** using STAR as follows:
 
@@ -114,7 +124,7 @@ STAR --runThreadN 5 --runMode genomeGenerate --genomeDir ./ --genomeFastaFiles c
 
 ```
 
-#### Aligning reads
+##### Aligning reads
 
 The basic options for aligning reads to the genome using STAR is as follows:
 
