@@ -8,13 +8,13 @@ Approximate time:
 
 ## Learning objectives
 
-* Evaluating the aligner output files
+* Evaluating the STAR aligner output files
 * Understanding the standard alignment file (SAM/BAM) structure
 * Using `samtools` to evaluate alignment quality 
 * Visualizing alignment quality using IGV (genome browser)  
 
 
-## Assessin alignment quality
+## Assessing alignment quality
 
 After running our FASTQ files through the STAR aligner, you should have noticed a number of output files in the `~/ngs_course/rnaseq/results/STAR` directory. Let's take a quick look at some of the files that were generated and explore the content of some of them. What you should see, is that for each FASTQ file you have **5 output files** and a single tmp directory. Briefly, these files are described below:
 
@@ -30,9 +30,18 @@ Having completed the alignment, the first thing we want to know is how well did 
 
 	$ less Mov10_oe_1.Log.final.out
 	
-The log file provides information on reads that 1) mapped uniquely, 2) reads that mapped to mutliple locations and 3) reads that are unmapped. Additionally, we get details on splicing, insertion and deletion. From this file the most informative statistics include the **mapping rate and the number of multimappers**. As an example, a good quality sample will have **alteast 70% of the reads uniquely mapped**. These values will depend on the organism you are studying to some extent. Sometimes you will find that while you have a good percentage of the reads being mapped, that number drops when you look at only the uniquely mapped reads. This is an indication that you have many reads mapping to multiple locations.
+The log file provides information on reads that 1) mapped uniquely, 2) reads that mapped to mutliple locations and 3) reads that are unmapped. Additionally, we get details on splicing, insertion and deletion. From this file the most informative statistics include the **mapping rate and the number of multimappers**.
 
-Also talk about RNASEQC and rRNA, # genes detected, and intronic/exonic mapping
+* As an example, a good quality sample will have **alteast 75% of the reads uniquely mapped**. Once values start to drop lower than 60% it's advisable to start troubleshooting. The lower the number of uniquely mapping reads means the higher the number of reads that are mapping to multiple locations. It is best to keep this number low because multi-mappers are not included when we start counting reads
+
+In addition, to the aligner-specific summary we can obtain additional quality metrics using tools like [RNA-SeQC](https://www.broadinstitute.org/cancer/cga/rna-seqc). The input for can be one or more BAM files and the output consists of HTML reports and tab delimited files of metrics data. This program can be valuable for comparing sequencing quality across different samples, but can also be run on individual samples as a means of quality control before continuing with downstream analysis. Some of the features are listed below:
+
+* **Transcript-annotated reads**: Even if you have high genomic mapping rate for all samples, check to see where the reads are mapping. Ensure that there is not an unusually high number of **reads mapping to intronic regions** (~30% expected) and fewer than normally observed **mapping to exons** (~55%). A high intronic mapping suggests possible genomic DNA contamination and/or pre-mRNA. 
+* Ribosomal RNA (rRNA) constitutes a large majority (> 97%) of the RNA species in any total RNA preparation. Despite depletion methods, you can never achieve 100% rRNA removal. Poly-A enrichment is generally better at removing ribosomal RNA but a small percentage of ribosomal RNA can stick to the enrichment beads non-specifically. **Excess ribosomal content (> 2%)** will normally have to be filtered out so that differences in rRNA mapped reads across samples do not affect alignment rates and skew subsequent normalization of the data. 
+* GC bias 
+* Strand specificity
+* Depth of coverage across transcript length
+
 
 *** 
 
