@@ -8,10 +8,13 @@ Approximate time:
 
 ## Learning objectives
 
-* Familiarizing with the standard alignment file (SAM/BAM) structure
+* Evaluating the aligner output files
+* Understanding the standard alignment file (SAM/BAM) structure
 * Using `samtools` to evaluate alignment quality 
 * Visualizing alignment quality using IGV (genome browser)  
 
+
+## Assessin alignment quality
 
 After running our FASTQ files through the STAR aligner, you should have noticed a number of output files in the `~/ngs_course/rnaseq/results/STAR` directory. Let's take a quick look at some of the files that were generated and explore the content of some of them. What you should see, is that for each FASTQ file you have **5 output files** and a single tmp directory. Briefly, these files are described below:
 
@@ -27,13 +30,15 @@ Having completed the alignment, the first thing we want to know is how well did 
 
 	$ less Mov10_oe_1.Log.final.out
 	
-The log file contains statistics on reads that mapped uniquely, reads that mapped to mutliple locations and reads that are unmapped. Additionally, we get details on splicing, insertion and deletion. From this file the most informative statistics include the mapping rate and the number of multimapping. These values will depend on the organism you are studying to some extent, but for human and model organisms a good quality sample will have alteast 70% of the reads uniquely mapped.  
+The log file provides information on reads that 1) mapped uniquely, 2) reads that mapped to mutliple locations and 3) reads that are unmapped. Additionally, we get details on splicing, insertion and deletion. From this file the most informative statistics include the **mapping rate and the number of multimappers**. As an example, a good quality sample will have **alteast 70% of the reads uniquely mapped**. These values will depend on the organism you are studying to some extent. Sometimes you will find that while you have a good percentage of the reads being mapped, that number drops when you look at only the uniquely mapped reads. This is an indication that you have many reads mapping to multiple locations.
+
+Also talk about RNASEQC and rRNA, # genes detected, and intronic/exonic mapping
 
 *** 
 
 **Exercise**
 
-Using the less command take a look at Mov10_oe_1_Log.final.out and answer the following questions:
+Using the less command take a look at `Mov10_oe_1_Log.final.out` and answer the following questions:
 
 1. How many reads map to more than 10 locations on the genome?
 2. How many reads are unmapped due to read length?
