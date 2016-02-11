@@ -28,7 +28,7 @@ STAR is shown to have high accuracy and outperforms other aligners by more than 
 1. Seed searching
 2. Clustering, stitching, and scoring
 
-#### 1. Seed searching
+#### Seed searching
 
 For every read that STAR aligns, STAR will search for the longest sequence that exactly matches one or more locations on the reference genome. These longest matching sequences are called the Maximal Mappable Prefixes (MMPs):
 
@@ -36,11 +36,13 @@ For every read that STAR aligns, STAR will search for the longest sequence that 
 	
 The different parts of the read that are mapped separately are called 'seeds'. So the first MMP that is mapped to the genome is called *seed1*.
 
-STAR will then search again for only the unmapped portion of the read to find the next longest sequence that exactly matches the reference genome, or the next MMP, which will be *seed2*. This sequential searching of only the unmapped portions of reads underlies the efficiency of the STAR algorithm. STAR uses uncompressed suffix arrays (SAs) to search for the MMPs, which allow for quick searching against even the largest reference genomes. Other slower aligners use algorithms that often search for the entire read sequence before splitting reads and performing iterative rounds of mapping.
+STAR will then search again for only the unmapped portion of the read to find the next longest sequence that exactly matches the reference genome, or the next MMP, which will be *seed2*. 
 
 ![STAR_step2](../img/alignment_STAR_step2.png)
 
-If STAR does not find an exact matching sequence for each part of the read due to mismatches or indels, the previous MMPs can be extended.
+This sequential searching of only the unmapped portions of reads underlies the efficiency of the STAR algorithm. STAR uses an uncompressed suffix array (SA) to efficiently search for the MMPs, this allows for quick searching against even the largest reference genomes. Other slower aligners use algorithms that often search for the entire read sequence before splitting reads and performing iterative rounds of mapping.
+
+If STAR does not find an exact matching sequence for each part of the read due to mismatches or indels, the previous MMPs will be extended.
 
 ![STAR_step3](../img/alignment_STAR_step3.png)
 
@@ -49,7 +51,7 @@ If extension does not give a good alignment, then the poor quality or adapter se
 ![STAR_step4](../img/alignment_STAR_step4.png)
 
 
-#### 2. Clustering, stitching, and scoring
+#### Clustering, stitching, and scoring
 
 The separate seeds are stitched together to create a complete read by first clustering the seeds together based on proximity to a set of 'anchor' seeds, or seeds that are not multi-mapping.
 
@@ -67,6 +69,13 @@ To get started with this lesson, start an interactive session with 6 cores:
 $ bsub -Is -n 6 -q interactive bash	
 ```
 
+Change directories into the `rnaseq` folder. 
+
+```
+$ cd ngs_course/rnaseq
+
+```
+
 You should have a directory tree setup similar to that shown below. it is best practice to have all files you intend on using for your workflow present within the same directory. In our case, we have our original FASTQ files and post-trimming data generated in the previous section. We also have all reference data files that will be used in downstream analyses.
 
 ```
@@ -78,12 +87,12 @@ rnaseq
  	|   ├── untrimmed_fastq
 	│   │   
 	│   └── trimmed_fastq
-	│       ├── Irrel_kd_1.qualtrim25.minlen35.fq
-	│       ├── Irrel_kd_2.qualtrim25.minlen35.fq
-	│       ├── Irrel_kd_3.qualtrim25.minlen35.fq
-	│       ├── Mov10_oe_1.qualtrim25.minlen35.fq
-	│       ├── Mov10_oe_2.qualtrim25.minlen35.fq
-	│       └── Mov10_oe_3.qualtrim25.minlen35.fq
+	│       ├── Irrel_kd_1.subset.fq.qualtrim25.minlen35.fq
+	│       ├── Irrel_kd_2.subset.fq.qualtrim25.minlen35.fq
+	│       ├── Irrel_kd_3.subset.fq.qualtrim25.minlen35.fq
+	│       ├── Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq
+	│       ├── Mov10_oe_2.subset.fq.qualtrim25.minlen35.fq
+	│       └── Mov10_oe_3.subset.fq.qualtrim25.minlen35.fq
 	|
 	├── meta
 	├── results
@@ -91,35 +100,11 @@ rnaseq
 ```
 
 
-Change into the rnaseq folder. This will be our working directory:
 
-```
-$ cd ngs_course/rnaseq
-
-```
-
-Let's also load up the STAR module: 
+To use the STAR aligner, load the Orchestra module: 
 
 ```
 $ module load seq/STAR/2.4.0j
-```
-
-Create an output directory for our alignment files:
-
-```bash
-$ mkdir results/STAR
-
-```
-
-For now, we're going to work on just one sample to set up our workflow. To start we will use the trimmed first replicate in the Mov10 over-expression group, `Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq`.
-
-
-**NOTE: if you did not follow the last section, please execute the following command:** (this will copy over the required files into your home directory.)
-
-```bash
-
-$ cp -r /groups/hbctraining/unix_oct2015_other/trimmed_fastq data/ .
-
 ```
 
 #### Aligning Reads
@@ -132,11 +117,23 @@ Aligning reads using STAR is a two step process:
 
 > A quick note on shared databases for human and other commonly used model organisms. The Orchestra cluster has a designated directory at `/groups/shared_databases/` in which there are files that can be accessed by any user. These files contain, but are not limited to, genome indices for various tools, reference sequences, tool specific data, and data from public databasese such as NCBI and PDB. So when using a tool and requires a reference of sorts, it is worth taking a quick look here because chances are it's already been taken care of for you. 
 
+```
+ls -l /groups/shared_databases/igenome/
+
+```
+
 ##### Creating a genome index
 
-Indexing of the reference genome has already been done for you. **You do not need to run this code**. For this step you need to provide a reference genome and an annotation file. For this workshop we are using reads that originate from a small subsection of chromosome 1 (~300,000 reads) and so we are using only chr1 as the reference genome, and have provided the appropriate indices. Depending on the size of your genome, this can take a while. 
+Indexing of the reference genome has already been done for you. **You do not need to run this code**. For this step you need to provide a reference genome and an annotation file. For this workshop we are using reads that originate from a small subsection of chromosome 1 (~300,000 reads) and so we are using only chr1 as the reference genome, and we have provided the appropriate indices. Depending on the size of your genome, this can take a while. 
 
-The basic options to **generate genome indices** using STAR as follows:
+To store our genome indices, we need to create a directory:
+
+```
+mkdir my_genome_index
+
+```
+
+The basic options to **generate genome indices** using STAR are as follows:
 
 
 * `--runThreadN`: number of threads
@@ -146,48 +143,78 @@ The basic options to **generate genome indices** using STAR as follows:
 * `--sjdbGTFfile`: /path/to/GTF_file
 * `--sjdbOverhang`: readlength -1
 
+
+Now let's create a job submission script to generate the genome index:
+
 ```
-** Do not run this**
-STAR --runThreadN 5 --runMode genomeGenerate --genomeDir ./ --genomeFastaFiles chr1.fa --sjdbGTFfile chr1-hg19_genes.gtf --sjdbOverhang 99
+vim genome_index.lsf
+```
+Within `vim` we now add our shebang line, the Orchestra job submission commands, and our STAR command. 
+
+```
+#!/bin/bash
+
+#BSUB -q priority # queue name
+#BSUB -W 2:00 # hours:minutes runlimit after which job will be killed.
+#BSUB -n 5 # number of cores requested
+#BSUB -J STAR_index         # Job name
+#BSUB -o %J.out       # File to which standard out will be written
+#BSUB -e %J.err       # File to which standard err will be written
+
+STAR --runThreadN 5 \
+--runMode genomeGenerate \
+--genomeDir my_genome_index \
+--genomeFastaFiles chr1.fa \
+--sjdbGTFfile chr1-hg19_genes.gtf \
+--sjdbOverhang 99
 
 ```
 
 ##### Aligning reads
 
-The basic options for aligning reads to the genome using STAR is as follows:
+After you have the genome indices generated, you can perform the read alignment. We previously generated the genome indices for you in `/groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data/reference_STAR` directory so that we don't get held up waiting on the indices.
+
+Change directories to the `rnaseq` folder and create an output directory for our alignment files:
+
+```bash
+
+$ cd ~/ngs_course/rnaseq
+
+$ mkdir results/STAR
+
+```
+
+For now, we're going to work on just one sample to set up our workflow. To start we will use the trimmed first replicate in the Mov10 over-expression group, `Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq`. Details on STAR and its functionality can be found in the [user manual](https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf), we encourage you to peruse through to get familiar with all available options.
+
+The basic options for aligning reads to the genome using STAR are:
 
 * `--runThreadN`: number of threads
 * `--readFilesIn`: /path/to/FASTQ_file
 * `--genomeDir`: /path/to/genome_indices
 * `--outFileNamePrefix`: prefix for all output files
 
-
-More details on STAR and its functionality can be found in the [user manual](https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf), we encourage you to peruse through to get familiar with all available options.
-
-We can access the software by simply using the STAR command followed by the basic parameters described above and any additional parameters. The full command is provided below for you to copy paste into your terminal. If you want to manually enter the command, it is advisable to first type out the full command in a text editor (i.e. [Sublime Text](http://www.sublimetext.com/) or [Notepad++](https://notepad-plus-plus.org/)) on your local machine and then copy paste into the terminal. This will make it easier to catch typos and make appropriate changes. 
-
-Below, we first describe some the extra parameters we have added.
-
-Advanced parameters:
+Listed below are additional parameters that we will use in our command:
 
 * `--outFilterMultimapNmax`: max number of multiple alignments allowed for a read
-* `--outSAMstrandField`: compatability with Cufflinks (for transcriptome assembly)
 * `--outReadsUnmapped`: file format for unmapped reads
 * `--outSAMtype`: output filetype (SAM default)
 * `--outSAMUnmapped`: what to do with unmapped reads
 * `--outSAMattributes`: specify SAM attributes in output file
 
+We can access the software by simply using the STAR command followed by the basic parameters described above and any additional parameters. The full command is provided below for you to copy paste into your terminal. If you want to manually enter the command, it is advisable to first type out the full command in a text editor (i.e. [Sublime Text](http://www.sublimetext.com/) or [Notepad++](https://notepad-plus-plus.org/)) on your local machine and then copy paste into the terminal. This will make it easier to catch typos and make appropriate changes. 
+
 
 ```
-STAR --runThreadN 6 --genomeDir /groups/hbctraining/unix_oct2015_other/reference_STAR \
---readFilesIn data/trimmed_fastq/Mov10_oe_1.qualtrim25.minlen35.fq \ 
+STAR --genomeDir /groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data/reference_STAR \
+--runThreadN 1 \
+--readFilesIn data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq \
 --outFileNamePrefix results/STAR/Mov10_oe_1_ \
 --outFilterMultimapNmax 10 \
---outSAMstrandField intronMotif \
 --outReadsUnmapped Fastx \
 --outSAMtype BAM SortedByCoordinate \
 --outSAMunmapped Within \
---outSAMattributes NH HI NM MD AS
+--outSAMattributes Standard \
+
 ```
 
 ****
@@ -196,7 +223,7 @@ STAR --runThreadN 6 --genomeDir /groups/hbctraining/unix_oct2015_other/reference
 How many files do you see in your output directory? Using the `less` command take a look at `Mov10_oe_1_Log.final.out` and answer the following questions:  
 
 1. How many reads are uniquely mapped?
-2. How many reads map to more than 10 locations on the genome?
+2. How many multimapping reads map to more than 10 locations on the genome?
 3. How many reads are unmapped due to read length?   
 
 ***
