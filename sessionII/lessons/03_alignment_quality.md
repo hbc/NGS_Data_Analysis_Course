@@ -8,18 +8,52 @@ Approximate time:
 
 ## Learning objectives
 
-* Familiarizing with the standard alignment file (SAM/BAM) structure
+* Evaluating the STAR aligner output files
+* Understanding the standard alignment file (SAM/BAM) structure
 * Using `samtools` to evaluate alignment quality 
 * Visualizing alignment quality using IGV (genome browser)  
 
-# Alignment quality
+
+## Assessing alignment quality
+
 After running our FASTQ files through the STAR aligner, you should have noticed a number of output files in the `~/ngs_course/rnaseq/results/STAR` directory. Let's take a quick look at some of the files that were generated and explore the content of some of them. What you should see, is that for each FASTQ file you have **5 output files** and a single tmp directory. Briefly, these files are described below:
 
+* `Log.final.out` - a summary of mapping statistics for the sample
 * `Aligned.sortedByCoord.out.bam` - the aligned reads, sorted by coordinate, in BAM format
-* `Log.final.out` - a summary of mapping statistcs for the sample
 * `Log.out` - a running log from STAR, with information about the run 
 * `Log.progress.out` -  job progress with the number of processed reads, % of mapped reads etc., updated every ~1 minute
 * `SJ.out.tab` - high confidence collapsed splice junctions in tab-delimited format. Only junctions supported by uniquely mapping reads are reported
+
+## Mapping statistics
+
+Having completed the alignment, the first thing we want to know is how well did our reads align to the reference? Rather than looking at each read alignment, it can be more useful to evaluate statistics that give a general overview for the sample. One of the output files from the STAR aligner contains mapping statistics, let's take a closer look at one of those files. We'll use the `less` command which allows us to scroll through it easily: 
+
+	$ less Mov10_oe_1.Log.final.out
+	
+The log file provides information on reads that 1) mapped uniquely, 2) reads that mapped to mutliple locations and 3) reads that are unmapped. Additionally, we get details on splicing, insertion and deletion. From this file the most informative statistics include the **mapping rate and the number of multimappers**.
+
+* As an example, a good quality sample will have **alteast 75% of the reads uniquely mapped**. Once values start to drop lower than 60% it's advisable to start troubleshooting. The lower the number of uniquely mapping reads means the higher the number of reads that are mapping to multiple locations. It is best to keep this number low because multi-mappers are not included when we start counting reads
+
+In addition, to the aligner-specific summary we can obtain additional quality metrics using tools like [RNA-SeQC](https://www.broadinstitute.org/cancer/cga/rna-seqc). The input for can be one or more BAM files and the output consists of HTML reports and tab delimited files of metrics data. This program can be valuable for comparing sequencing quality across different samples, but can also be run on individual samples as a means of quality control before continuing with downstream analysis. Some of the features are listed below:
+
+* **Transcript-annotated reads**: Even if you have high genomic mapping rate for all samples, check to see where the reads are mapping. Ensure that there is not an unusually high number of **reads mapping to intronic regions** (~30% expected) and fewer than normally observed **mapping to exons** (~55%). A high intronic mapping suggests possible genomic DNA contamination and/or pre-mRNA. 
+* Ribosomal RNA (rRNA) constitutes a large majority (> 97%) of the RNA species in any total RNA preparation. Despite depletion methods, you can never achieve 100% rRNA removal. Poly-A enrichment is generally better at removing ribosomal RNA but a small percentage of ribosomal RNA can stick to the enrichment beads non-specifically. **Excess ribosomal content (> 2%)** will normally have to be filtered out so that differences in rRNA mapped reads across samples do not affect alignment rates and skew subsequent normalization of the data. 
+* GC bias 
+* Strand specificity
+* Depth of coverage across transcript length
+
+
+*** 
+
+**Exercise**
+
+Using the less command take a look at `Mov10_oe_1_Log.final.out` and answer the following questions:
+
+1. How many reads map to more than 10 locations on the genome?
+2. How many reads are unmapped due to read length?
+3. What is the average mapped length per read?
+
+***
 
 
 ## Alignment file format: SAM/BAM
@@ -97,12 +131,9 @@ The CIGAR string is a sequence of letters and numbers that represent the *edits 
 
 In our example, SAM entry above the CIGAR string listed is 149M which translates to 149 matches with the reference. 
 
-
 ## `samtools`
 
-While it is important to understand what is contained in the SAM file, it is very unlikely that you will ever need to manually look at it since we have tools that help us do this more efficiently.
-
-[SAMtools](http://samtools.sourceforge.net/) is one of these such tools and provides alot of functionality in dealing with SAM files. SAMtools utilities include, but are not limited to, viewing, sorting, filtering, merging, and indexing alignments in the SAM format. In this lesson we will explore a few of these utilities on our alignment files. Let's get started by loading the `samtools` module:
+[SAMtools](http://samtools.sourceforge.net/) is a tool that provides alot of functionality in dealing with SAM files. SAMtools utilities include, but are not limited to, viewing, sorting, filtering, merging, and indexing alignments in the SAM format. In this lesson we will explore a few of these utilities on our alignment files. Let's get started by loading the `samtools` module:
 
 	module load seq/samtools/1.2
 
