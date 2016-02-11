@@ -8,8 +8,8 @@ Approximate time:
 
 ## Learning Objectives:
 
-*
-* 
+* learn about tools that generate read counts, a measure of gene expression
+* generate a count matrix for statistical analyses
 
 
 ### Counting reads
