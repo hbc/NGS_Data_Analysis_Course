@@ -26,7 +26,7 @@ After running our FASTQ files through the STAR aligner, you should have noticed 
 
 ## Mapping statistics
 
-Having completed the alignment, the first thing we want to know is how well did our reads align to the reference? Rather than looking at each read alignment, it can be more useful to evaluate statistics that give a general overview for the sample. One of the output files from the STAR aligner contains mapping statistics, let's take a closer look at one of those files. We'll use the `less` command which allows us to scroll through it easily: 
+Having completed the alignment, the first thing we want to know is how well did our reads align to the reference. Rather than looking at each read alignment, it can be more useful to evaluate statistics that give a general overview for the sample. One of the output files from the STAR aligner contains mapping statistics, let's take a closer look at one of those files. We'll use the `less` command which allows us to scroll through it easily: 
 
 	$ less Mov10_oe_1.Log.final.out
 	
@@ -34,12 +34,14 @@ The log file provides information on reads that 1) mapped uniquely, 2) reads tha
 
 * As an example, a good quality sample will have **alteast 75% of the reads uniquely mapped**. Once values start to drop lower than 60% it's advisable to start troubleshooting. The lower the number of uniquely mapping reads means the higher the number of reads that are mapping to multiple locations. It is best to keep this number low because multi-mappers are not included when we start counting reads
 
-In addition, to the aligner-specific summary we can obtain additional quality metrics using tools like [RNA-SeQC](https://www.broadinstitute.org/cancer/cga/rna-seqc). The input for can be one or more BAM files and the output consists of HTML reports and tab delimited files of metrics data. This program can be valuable for comparing sequencing quality across different samples, but can also be run on individual samples as a means of quality control before continuing with downstream analysis. Some of the features are listed below:
+> NOTE: The thresholds suggested above will vary depending on the organism that you are working with. Much of what is discussed here is in the context of working with human or mouse data. For example, 75% of mapped reads holds true only if the genome is good or mature. For badly assembled genomes we may not observe a high mapping rate, even if the actual sequence sample is good.
 
-* **Transcript-annotated reads**: Even if you have high genomic mapping rate for all samples, check to see where the reads are mapping. Ensure that there is not an unusually high number of **reads mapping to intronic regions** (~30% expected) and fewer than normally observed **mapping to exons** (~55%). A high intronic mapping suggests possible genomic DNA contamination and/or pre-mRNA. 
-* Ribosomal RNA (rRNA) constitutes a large majority (> 97%) of the RNA species in any total RNA preparation. Despite depletion methods, you can never achieve 100% rRNA removal. Poly-A enrichment is generally better at removing ribosomal RNA but a small percentage of ribosomal RNA can stick to the enrichment beads non-specifically. **Excess ribosomal content (> 2%)** will normally have to be filtered out so that differences in rRNA mapped reads across samples do not affect alignment rates and skew subsequent normalization of the data. 
-* GC bias 
-* Strand specificity
+
+In addition to the aligner-specific summary we can also obtain quality metrics using tools like [RNA-SeQC](https://www.broadinstitute.org/cancer/cga/rna-seqc). The input for RNA-SeQC can be one or more BAM files and the output consists of HTML reports and tab delimited files of metrics data. This tool can be valuable for comparing sequencing quality across different samples, but can also be run on individual samples as a means of quality control before continuing with downstream analysis. We will not be using this tool in the course, but some of the features are listed below:
+
+* Transcript-annotated reads: Even if you have high genomic mapping rate for all samples, check to see where the reads are mapping. Ensure that there is not an unusually high number of **reads mapping to intronic regions** (~30% expected) and fewer than normally observed **mapping to exons** (~55%). A high intronic mapping suggests possible genomic DNA contamination and/or pre-mRNA. 
+* Ribosomal RNA (rRNA) constitutes a large majority of the RNA species in any total RNA preparation. Despite depletion methods, you can never achieve complete rRNA removal. Even with Poly-A enrichment a small percentage of ribosomal RNA can stick to the enrichment beads non-specifically. **Excess ribosomal content (> 2%)** will normally have to be filtered out so that differences in rRNA mapped reads across samples do not affect alignment rates and skew subsequent normalization of the data. 
+* GC bias and strand specificity
 * Depth of coverage across transcript length
 
 
