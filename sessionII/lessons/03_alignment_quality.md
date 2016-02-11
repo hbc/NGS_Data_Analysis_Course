@@ -12,14 +12,34 @@ Approximate time:
 * Using `samtools` to evaluate alignment quality 
 * Visualizing alignment quality using IGV (genome browser)  
 
-# Alignment quality
+
 After running our FASTQ files through the STAR aligner, you should have noticed a number of output files in the `~/ngs_course/rnaseq/results/STAR` directory. Let's take a quick look at some of the files that were generated and explore the content of some of them. What you should see, is that for each FASTQ file you have **5 output files** and a single tmp directory. Briefly, these files are described below:
 
-* `Aligned.sortedByCoord.out.bam` - the aligned reads, sorted by coordinate, in BAM format
 * `Log.final.out` - a summary of mapping statistics for the sample
+* `Aligned.sortedByCoord.out.bam` - the aligned reads, sorted by coordinate, in BAM format
 * `Log.out` - a running log from STAR, with information about the run 
 * `Log.progress.out` -  job progress with the number of processed reads, % of mapped reads etc., updated every ~1 minute
 * `SJ.out.tab` - high confidence collapsed splice junctions in tab-delimited format. Only junctions supported by uniquely mapping reads are reported
+
+## Mapping statistics
+
+Having completed the alignment, the first thing we want to know is how well did our reads align to the reference? Rather than looking at each read alignment, it can be more useful to evaluate statistics that give a general overview for the sample. One of the output files from the STAR aligner contains mapping statistics, let's take a closer look at one of those files. We'll use the `less` command which allows us to scroll through it easily: 
+
+	$ less Mov10_oe_1.Log.final.out
+	
+The log file contains statistics on reads that mapped uniquely, reads that mapped to mutliple locations and reads that are unmapped. Additionally, we get details on splicing, insertion and deletion. From this file the most informative statistics include the mapping rate and the number of multimapping. These values will depend on the organism you are studying to some extent, but for human and model organisms a good quality sample will have alteast 70% of the reads uniquely mapped.  
+
+*** 
+
+**Exercise**
+
+Using the less command take a look at Mov10_oe_1_Log.final.out and answer the following questions:
+
+1. How many reads map to more than 10 locations on the genome?
+2. How many reads are unmapped due to read length?
+3. What is the average mapped length per read?
+
+***
 
 
 ## Alignment file format: SAM/BAM
@@ -96,11 +116,6 @@ The CIGAR string is a sequence of letters and numbers that represent the *edits 
 ![cigar](../img/cigar_strings.png)
 
 In our example, SAM entry above the CIGAR string listed is 149M which translates to 149 matches with the reference. 
-
-## Mapping statistics
-
-While it is important to understand what is contained in the SAM file, it is very unlikely that you will ever need to manually look at it. Rather than looking at each read alignment, it can be more useful to evaluate statistics that give a general overview for the sample. One of the output files from the STAR aligner contains mapping statistics, let's take a closer look at `Mov10_oe_1.Log.final.out`):
-
 
 ## `samtools`
 
