@@ -206,7 +206,7 @@ We can access the software by simply using the STAR command followed by the basi
 
 ```
 STAR --genomeDir /groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data/reference_STAR \
---runThreadN 1 \
+--runThreadN 6 \
 --readFilesIn data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq \
 --outFileNamePrefix results/STAR/Mov10_oe_1_ \
 --outFilterMultimapNmax 10 \
@@ -217,27 +217,156 @@ STAR --genomeDir /groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data
 
 ```
 
-****
-**Exercise**
-
-How many files do you see in your output directory? Using the `less` command take a look at `Mov10_oe_1_Log.final.out` and answer the following questions:  
-
-1. How many reads are uniquely mapped?
-2. How many multimapping reads map to more than 10 locations on the genome?
-3. How many reads are unmapped due to read length?   
-
-***
-
-
 
 ### Running STAR on multiple samples
 
-Create a job submission script to run STAR on all FASTQ files
+The interactive queue on Orchestra offers a great way to test commands to make sure they perform the way you intend before adding them a script. Now that we know the STAR command executed properly, let's create a script to run align the reads from all of the trimmed fastq files.
+
+
+#### Create a script to run STAR on a file specified in the command prompt
 
 ```
-add script here 
-with LSF directives
+vim star_analysis_on_input_file.sh
+```
 
+```
+#! /bin/bash
+
+fq=$1
+
+# location of genome reference index files + the gene annotation file
+
+genome=/groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data/reference_STAR 
+
+gtf=~/ngs_course/rnaseq/reference_data/chr1-hg19_genes.gtf
+
+# set up our software environment
+
+module load seq/STAR/2.4.0j
+
+# feedback from our script to help with future debugging
+
+echo "Processing file $fq ..."
+
+# grab base of filename for future naming
+base=$(basename $fq .subset.fq.qualtrim25.minlen35.fq)
+
+echo "basename is $base"
+
+```
+
+There are 2 new things of note above:
+
+1. the `basename` command: this command takes a path or a name and trims away all the information before the last `\` and if you specify the string to clear away at the end, it will do that as well. In this case, if the variable `$fq` contains the path "~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq", `basename $fq .subset.fq.qualtrim25.minlen35.fq` will output "Mov10_oe_1".
+2. to assign this value to the `base` variable, we place the `basename ...` command in parentheses and put a `$` outside. This syntax is necessary for assigning the output of a command to a variable.
+
+```
+# set up output filenames and locations
+
+align_out=~/ngs_course/rnaseq/results/STAR/${base}_
+```
+
+Our variables are now staged. We now need to modify the STAR command to use it so that it will run the steps of the analytical workflow with more flexibility:
+
+```
+# Run STAR
+STAR --runThreadN 6 \
+--genomeDir $genome \
+--readFilesIn $fq \
+--outFileNamePrefix $align_out \
+--outFilterMultimapNmax 10 \
+--outSAMstrandField intronMotif \
+--outReadsUnmapped Fastx \
+--outSAMtype BAM SortedByCoordinate \
+--outSAMunmapped Within \
+--outSAMattributes Standard 
+```
+Once you save this new script, it is ready for running:
+
+```
+$ chmod u+rwx star_analysis_on_input_file.sh      # make it executable, this is good to do, even if your script runs fine without it to ensure that it always does and you are able to tell that it's an executable shell script.
+
+$ sh star_analysis_on_input_file.sh <name of fastq>
+```
+It is always nice to have comments at the top of a more complex script to make sure that when your future self, or a co-worker, uses it they know exactly how to run it and what the script will do. So for our script, we can have the following lines of comments right at the top after #!/bin/bash/:
+
+```
+# This script takes a trimmed fastq file of RNA-Seq data and outputs a alignment files for it.
+# USAGE: sh star_analysis_on_input_file.sh <name of fastq file>
+```
+
+#### Running our script iteratively as a job submission to the LSF scheduler
+
+**The above script will run in an interactive session for one file at a time. If we wanted to run this script as a job submission to LSF, and with only one command have LSF run through the analysis for all your input fastq files?**
+
+To run the above script iteratively for all of the files on a worker node via the job scheduler, we need to create a **new submission script** that will need 2 important components:
+
+1. our **LSF directives** at the beginning of the script. This is so that the scheduler knows what resources we need in order to run our job on the compute node(s).
+2. a **for loop** that iterates through and runs the above script for all the fastq files.
+
+Let's create a new file with `vim` and call it `rnaseq_analysis_on_allfiles.lsf`:
+
+```
+$ vim rnaseq_analysis_on_allfiles.lsf
+```
+
+The top of the file should contain the shebang line and LSF directives:
+
+```
+#!/bin/bash
+
+#BSUB -q priority       # Partition to submit to (comma separated)
+#BSUB -n 6                  # Number of cores, since we are running the STAR command with 6 threads
+#BSUB -W 1:30               # Runtime in D-HH:MM (or use minutes)
+#BSUB -R "rusage[mem=4000]"    # Memory in MB
+#BSUB -J rnaseq_mov10         # Job name
+#BSUB -o %J.out       # File to which standard out will be written
+#BSUB -e %J.err       # File to which standard err will be written
+
+# this for loop, will take our trimmed fastq files as input and run the script for all of them one after the other. 
+
+for fq in ~/ngs_course/rnaseq/data/trimmed_fastq/*.fq; do
+        sh star_analysis_on_input_file.sh $fq;
+done
+```
+
+
+```
+$ bsub < rnaseq_analysis_on_allfiles.lsf
+```
+
+#### Parallelizing workflow for efficiency
+
+**The above script will run through the analysis for all your input fastq files, but it will do so in serial. We can set it up so that the pipeline is working on all the trimmed data in parallel (at the same time). This will save us a lot of time when we have realistic datasets.**
+
+Let's make a modified version of the above script to parallelize our analysis. To do this need to modify one major aspect which will enable us to work with some of the constraints that this scheduler (LSF) has. We will be using a `for loop` for submission and putting the directives for each submission in the bsub command.
+
+Let's make a new file called `rnaseq_analysis_on_allfiles-for_lsf.sh`. Note this is a normal shell script.
+
+```
+$ vim rnaseq_analysis_on_allfiles_for-lsf.sh
+```
+
+This file will loop through the same files as in the previous script, but the command it submits will be the actual bsub command:
+
+```
+#! /bin/bash
+
+for fq in ~/ngs_course/rnaseq/data/trimmed_fastq/*.fq
+do
+  bsub -q priority -n 6 -W 1:30 -R "rusage[mem=4000]" -J rnaseq_mov10 -o %J.out -e %J.err "sh star_analysis_on_input_file.sh $fq"
+  sleep 1
+done
+```
+
+**In the above for loop please note that after the bsub directives the sh rnaseq_analysis_on_input_file.sh $fq command is in quotes!**
+
+>NOTE: All job schedulers are similar, but not the same. Once you understand how one works, you can transition to another one without too much trouble. They all have their pros and cons that the system administrators for your setup have taken into consideration and picked one that fits the needs of the users best.
+What you should see on the output of your screen would be the jobIDs that are returned from the scheduler for each of the jobs that your script submitted.
+
+You can see their progress by using the bjobs command (though there is a lag of about 60 seconds between what is happening and what is reported).
+
+Don't forget about the bkill command, should something go wrong and you need to cancel your jobs.
 ```
 
 ---
