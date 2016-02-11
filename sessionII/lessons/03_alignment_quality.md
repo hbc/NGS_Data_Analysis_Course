@@ -4,7 +4,7 @@ author: "Meeta Mistry, Bob Freeman"
 date: "Wednesday, October 7, 2015"
 ---
 
-Approximate time:
+Approximate time: 120 minutes
 
 ## Learning objectives
 
