@@ -13,6 +13,8 @@ Approximate time:
 * Choosing appropriate STAR alignment parameters for our dataset
 * Running STAR on multiple samples
 
+[ADD WORKFLOW IMG]
+
 ## Read Alignment
 
 The alignment process consists of choosing an appropriate reference genome to map our reads against and performing the read alignment using one of several splice-aware alignment tools such as [STAR](http://bioinformatics.oxfordjournals.org/content/early/2012/10/25/bioinformatics.bts635) or [TopHat2](https://ccb.jhu.edu/software/tophat/index.shtml). The choice of aligner is a personal preference and also dependent on the computational resources that are available to you.
