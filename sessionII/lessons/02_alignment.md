@@ -120,8 +120,7 @@ Aligning reads using STAR is a two step process:
 > A quick note on shared databases for human and other commonly used model organisms. The Orchestra cluster has a designated directory at `/groups/shared_databases/` in which there are files that can be accessed by any user. These files contain, but are not limited to, genome indices for various tools, reference sequences, tool specific data, and data from public databasese such as NCBI and PDB. So when using a tool and requires a reference of sorts, it is worth taking a quick look here because chances are it's already been taken care of for you. 
 
 ```
-ls -l /groups/shared_databases/igenome/
-
+$ ls -l /groups/shared_databases/igenome/
 ```
 
 ##### Creating a genome index
@@ -131,8 +130,7 @@ Indexing of the reference genome has already been done for you. **You do not nee
 To store our genome indices, we need to create a directory:
 
 ```
-mkdir my_genome_index
-
+$ mkdir my_genome_index
 ```
 
 The basic options to **generate genome indices** using STAR are as follows:
@@ -149,7 +147,7 @@ The basic options to **generate genome indices** using STAR are as follows:
 Now let's create a job submission script to generate the genome index:
 
 ```
-vim genome_index.lsf
+$ vim genome_index.lsf
 ```
 Within `vim` we now add our shebang line, the Orchestra job submission commands, and our STAR command. 
 
@@ -233,11 +231,11 @@ To write our script we need to learn about a few other commands or variables:
 #### Create a script to run STAR on a file specified in the command prompt
 
 ```
-vim star_analysis_on_input_file.sh
+$ vim star_analysis_on_input_file.sh
 ```
 
 ```
-#! /bin/bash
+#!/bin/bash
 
 fq=$1
 
