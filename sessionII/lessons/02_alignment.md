@@ -220,8 +220,13 @@ STAR --genomeDir /groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data
 
 ### Running STAR on multiple samples
 
-The interactive queue on Orchestra offers a great way to test commands to make sure they perform the way you intend before adding them a script. Now that we know the STAR command executed properly, let's create a script to run align the reads from all of the trimmed fastq files.
+The interactive queue on Orchestra offers a great way to test commands to make sure they perform the way you intend before adding them a script. Now that we know the STAR command executed properly, let's create a script to run align the take a filename as input, then use a loop to submit the script for each of the trimmed fastq files.
 
+To write our script we need to learn about a few other commands or variables:
+
+#### Section on command line parameter variables
+
+#### Introduce basename and use of $ to create a variable as a result of a command
 
 #### Create a script to run STAR on a file specified in the command prompt
 
@@ -295,7 +300,7 @@ It is always nice to have comments at the top of a more complex script to make s
 # USAGE: sh star_analysis_on_input_file.sh <name of fastq file>
 ```
 
-#### Running our script iteratively as a job submission to the LSF scheduler
+#### Running our script iteratively as a job submission to the LSF scheduler - REMOVE THIS SECTION
 
 **The above script will run in an interactive session for one file at a time. If we wanted to run this script as a job submission to LSF, and with only one command have LSF run through the analysis for all your input fastq files?**
 
