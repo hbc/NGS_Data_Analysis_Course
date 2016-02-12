@@ -350,7 +350,7 @@ $ vim rnaseq_analysis_on_allfiles_for-lsf.sh
 This file will loop through the same files as in the previous script, but the command it submits will be the actual bsub command:
 
 ```
-#! /bin/bash
+#!/bin/bash
 
 for fq in ~/ngs_course/rnaseq/data/trimmed_fastq/*.fq
 do
