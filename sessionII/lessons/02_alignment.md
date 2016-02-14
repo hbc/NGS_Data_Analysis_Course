@@ -118,7 +118,7 @@ Aligning reads using STAR is a two step process:
 $ ls -l /groups/shared_databases/igenome/
 ```
 
-##### Creating a genome index
+#### Creating a genome index
 
 For this workshop we are using reads that originate from a small subsection of chromosome 1 (~300,000 reads) and so we are using only chr1 as the reference genome. 
 
@@ -165,7 +165,7 @@ STAR --runThreadN 6 \
 
 ```
 
-##### Aligning reads
+#### Aligning reads
 
 After you have the genome indices generated, you can perform the read alignment. We previously generated the genome indices for you in `/groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data/reference_STAR` directory so that we don't get held up waiting on the generation of the indices.
 
@@ -185,7 +185,7 @@ We are going to explore how to **automate running the STAR command** by doing th
 2. specifying a filename as a command line parameter when running the STAR command in a script
 3. executing the command in parallel from a script
 
-###### STAR command in interactive bash
+##### STAR command in interactive bash
 
 For now, we're going to work on just one sample to set up our workflow. To start we will use the trimmed first replicate in the Mov10 over-expression group, `Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq`. Details on STAR and its functionality can be found in the [user manual](https://github.com/alexdobin/STAR/blob/master/doc/STARmanual.pdf); we encourage you to peruse through to get familiar with all available options.
 
@@ -219,11 +219,11 @@ STAR --genomeDir /groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data
 
 ```
 
-###### Running STAR script to take a filename as input
+##### Running STAR script to take a filename as input
 
 The interactive queue on Orchestra offers a great way to test commands to make sure they perform the way you intend before adding them a script. Now that we know the STAR command executed properly, we want to create a script with some flexibility that will take a filename as input to run the STAR command.
 
-####### Positional parameters
+###### Positional parameters
 
 We can specify a filename as input using **positional parameters**. Positional parameters allow flexibility within a script.
 
@@ -270,7 +270,7 @@ In this command, `word_count.sh` is $0 and `Mov10_oe_1.subset.fq.qualtrim25.minl
 
 [This is an example of a simple script that used the concept of positional parameters and the associated variables.](http://steve-parker.org/sh/eg/var3.sh.txt)
 
-####### Using positional parameters to specify an input filename for the STAR command
+###### Using positional parameters to specify an input filename for the STAR command
 
 Now let's write a script to run the STAR command and use positional parameters to specify which filename to run the script on:
 
