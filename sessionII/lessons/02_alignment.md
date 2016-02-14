@@ -223,11 +223,13 @@ STAR --genomeDir /groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data
 
 The interactive queue on Orchestra offers a great way to test commands to make sure they perform the way you intend before adding them a script. Now that we know the STAR command executed properly, we want to create a script with some flexibility that will take a filename as input to run the STAR command.
 
-We can specify a filename as input using positional parameters. Positional parameters allow flexibility within a script.
+####### Positional parameters
 
-"The command-line arguments $1, $2, $3,...$9 are positional parameters, with $0 pointing to the actual command, program or shell script, and $1, $2, $3, ...$9 as the arguments to the command." This basically means that "Script Name" == $0, "First Parameter" == $1, "Second Parameter" == $2 and so on...
+We can specify a filename as input using **positional parameters**. Positional parameters allow flexibility within a script.
 
-For example, let's create a script called `word_count.sh` to count the number of words, lines, and characters in a specified file:
+*The command-line arguments $1, $2, $3,...$9 are positional parameters, with $0 pointing to the actual command, program or shell script, and $1, $2, $3, ...$9 as the arguments to the command." This basically means that "Script Name" == $0, "First Parameter" == $1, "Second Parameter" == $2 and so on...*
+
+To explore positional parameters, let's create a script called `word_count.sh` to count the number of words, lines, and characters in a specified file:
 
 ```
 $ vim word_count.sh
@@ -235,6 +237,8 @@ $ vim word_count.sh
 In the script, write the following:
 
 ```
+#!/bin/bash
+
 # Exploring positional parameters
 
 wc $1
@@ -247,9 +251,13 @@ $ sh word_count.sh Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq
 ```
 In this command, `word_count.sh` is $0 and `Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq` is $1.
 
-Let's say we wanted to specify as input the option or flag to the `wc` command to return the number of words, lines, or characters. We could create another variable, $2 as the flag for `wc`:
+Let's say we wanted to specify as input the option or flag of the `wc` command to return the number of words, lines, or characters. We could create another variable, $2 as the flag for `wc`:
 
 ```
+#!/bin/bash
+
+# Exploring positional parameters
+
 wc -$2 $1
 ```
 Now we can determine the number of **lines** in the Mov10 rep1 file with:
@@ -260,8 +268,9 @@ sh word_count.sh Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq l
 
 In this command, `word_count.sh` is $0 and `Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq` is $1 and `l` is $2. When these parameters are used in the script, the full command executed is: `wc -l Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq`.
 
-
 [This is an example of a simple script that used the concept of positional parameters and the associated variables.](http://steve-parker.org/sh/eg/var3.sh.txt)
+
+####### Using positional parameters to specify an input filename for the STAR command
 
 Now let's write a script to run the STAR command and use positional parameters to specify which filename to run the script on:
 
@@ -275,7 +284,7 @@ Within the script, add the shebang line and create a variable named `fq` to be t
 #!/bin/bash
 
 fq=$1
-````
+```
 
 Next, we'll initialize variables that contain the paths to where the common files are stored and then use the variable names (with a $) in the actual commands later in the script. This is a shortcut for when you want to use this script for a dataset that used a different genome, e.g. mouse; you'll just have to change the contents of these variable at the beginning of the script.
 
