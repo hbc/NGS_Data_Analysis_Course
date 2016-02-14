@@ -179,7 +179,7 @@ $ mkdir ../../results/STAR
 
 ```
 
-We are going to explore how to automate running the STAR command by doing the following:
+We are going to explore how to **automate running the STAR command** by doing the following:
 
 1. running in the interactive shell to ensure the command is functional
 2. specifying a filename as a command line parameter when running the STAR command in a script
