@@ -15,11 +15,9 @@ Approximate time:
 
 ## Read Alignment
 
-Now that we have our quality-trimmed reads, we can move on to read alignment. We perform read alignment or mapping to determine where in the genome are reads originated from.
-
 ![rnaseq_workflow](../img/workflow_alignment.png)
 
-The alignment process consists of choosing an appropriate reference genome to map our reads against and performing the read alignment using one of several splice-aware alignment tools such as [STAR](http://bioinformatics.oxfordjournals.org/content/early/2012/10/25/bioinformatics.bts635) or [TopHat2](https://ccb.jhu.edu/software/tophat/index.shtml). The choice of aligner is a personal preference and also dependent on the computational resources that are available to you.
+Now that we have our quality-trimmed reads, we can move on to read alignment. We perform read alignment or mapping to determine where in the genome are reads originated from. The alignment process consists of choosing an appropriate reference genome to map our reads against and performing the read alignment using one of several splice-aware alignment tools such as [STAR](http://bioinformatics.oxfordjournals.org/content/early/2012/10/25/bioinformatics.bts635) or [TopHat2](https://ccb.jhu.edu/software/tophat/index.shtml). The choice of aligner is a personal preference and also dependent on the computational resources that are available to you.
 
 ## STAR Aligner
 
@@ -109,9 +107,6 @@ To use the STAR aligner, load the Orchestra module:
 $ module load seq/STAR/2.4.0j
 ```
 
-#### Aligning Reads
-
-
 Aligning reads using STAR is a two step process:   
 
 1. Create a genome index 
@@ -149,19 +144,19 @@ Now let's create a job submission script to generate the genome index:
 ```
 $ vim genome_index.lsf
 ```
-Within `vim` we now add our shebang line, the Orchestra job submission commands, and our STAR command. 
+Within `vim` we now add our shebang line, the Orchestra LSF directives, and our STAR command. 
 
 ```
 #!/bin/bash
 
 #BSUB -q priority # queue name
 #BSUB -W 2:00 # hours:minutes runlimit after which job will be killed.
-#BSUB -n 5 # number of cores requested
+#BSUB -n 6 # number of cores requested
 #BSUB -J STAR_index         # Job name
 #BSUB -o %J.out       # File to which standard out will be written
 #BSUB -e %J.err       # File to which standard err will be written
 
-STAR --runThreadN 5 \
+STAR --runThreadN 6 \
 --runMode genomeGenerate \
 --genomeDir my_genome_index \
 --genomeFastaFiles chr1.fa \
@@ -174,7 +169,7 @@ STAR --runThreadN 5 \
 
 After you have the genome indices generated, you can perform the read alignment. We previously generated the genome indices for you in `/groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data/reference_STAR` directory so that we don't get held up waiting on the generation of the indices.
 
-To get started with read alignment, change directories to the `rnaseq` folder and create an output directory for our alignment files:
+To get started with read alignment, change directories to the `trimmed_fastq` folder and create an output directory for our alignment files:
 
 ```bash
 
@@ -184,7 +179,7 @@ $ mkdir ../../results/STAR
 
 ```
 
-We are going to explore how to automate running the STAR command by doing the following:
+We are going to explore how to **automate running the STAR command** by doing the following:
 
 1. running in the interactive shell to ensure the command is functional
 2. specifying a filename as a command line parameter when running the STAR command in a script
@@ -211,7 +206,6 @@ Listed below are additional parameters that we will use in our command:
 
 We can access the software by simply using the STAR command followed by the basic parameters described above and any additional parameters. The full command is provided below for you to copy paste into your terminal. If you want to manually enter the command, it is advisable to first type out the full command in a text editor (i.e. [Sublime Text](http://www.sublimetext.com/) or [Notepad++](https://notepad-plus-plus.org/)) on your local machine and then copy paste into the terminal. This will make it easier to catch typos and make appropriate changes. 
 
-
 ```
 STAR --genomeDir /groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data/reference_STAR \
 --runThreadN 6 \
@@ -221,20 +215,21 @@ STAR --genomeDir /groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data
 --outReadsUnmapped Fastx \
 --outSAMtype BAM SortedByCoordinate \
 --outSAMunmapped Within \
---outSAMattributes Standard \
+--outSAMattributes Standard 
 
 ```
 
-
-###### Running script to take a filename as input
+###### Running STAR script to take a filename as input
 
 The interactive queue on Orchestra offers a great way to test commands to make sure they perform the way you intend before adding them a script. Now that we know the STAR command executed properly, we want to create a script with some flexibility that will take a filename as input to run the STAR command.
 
-We can specify a filename as input using positional parameters. Positional parameters allow flexibility within a script.
+####### Positional parameters
 
-"The command-line arguments $1, $2, $3,...$9 are positional parameters, with $0 pointing to the actual command, program or shell script, and $1, $2, $3, ...$9 as the arguments to the command." This basically means that "Script Name" == $0, "First Parameter" == $1, "Second Parameter" == $2 and so on...
+We can specify a filename as input using **positional parameters**. Positional parameters allow flexibility within a script.
 
-For example, let's create a script called `word_count.sh` to count the number of words, lines, and characters in a specified file:
+*The command-line arguments $1, $2, $3,...$9 are positional parameters, with $0 pointing to the actual command, program or shell script, and $1, $2, $3, ...$9 as the arguments to the command." This basically means that "Script Name" == $0, "First Parameter" == $1, "Second Parameter" == $2 and so on...*
+
+To explore positional parameters, let's create a script called `word_count.sh` to count the number of words, lines, and characters in a specified file:
 
 ```
 $ vim word_count.sh
@@ -242,6 +237,8 @@ $ vim word_count.sh
 In the script, write the following:
 
 ```
+#!/bin/bash
+
 # Exploring positional parameters
 
 wc $1
@@ -250,47 +247,51 @@ wc $1
 We can run this script by entering the following:
 
 ```
-$ sh word_count.sh data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq
+$ sh word_count.sh Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq
 ```
-In this command, `word_count.sh` is $0 and `data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq` is $1.
-```
+In this command, `word_count.sh` is $0 and `Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq` is $1.
 
-Let's say we wanted the option to specify as a parameter the option or flag to the `wc` command to return the number of words, lines, or characters. We could create another variable, $2 as the flag for `wc`:
+Let's say we wanted to specify as input the option or flag of the `wc` command to return the number of words, lines, or characters. We could create another variable, $2 as the flag for `wc`:
 
 ```
+#!/bin/bash
+
+# Exploring positional parameters
+
 wc -$2 $1
 ```
 Now we can determine the number of **lines** in the Mov10 rep1 file with:
 
 ```
-sh word_count.sh data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq l
+sh word_count.sh Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq l
 ```
 
-In this command, `word_count.sh` is $0 and `data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq` is $1 and `l` is $2.
-
+In this command, `word_count.sh` is $0 and `Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq` is $1 and `l` is $2. When these parameters are used in the script, the full command executed is: `wc -l Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq`.
 
 [This is an example of a simple script that used the concept of positional parameters and the associated variables.](http://steve-parker.org/sh/eg/var3.sh.txt)
+
+####### Using positional parameters to specify an input filename for the STAR command
+
+Now let's write a script to run the STAR command and use positional parameters to specify which filename to run the script on:
 
 ```
 $ vim star_analysis_on_input_file.sh
 ```
 
-Within the script, create a variable named `fq` to be the first command line parameter used when running the script:
+Within the script, add the shebang line and create a variable named `fq` to be the first command line parameter used when running the script:
 
 ```
 #!/bin/bash
 
 fq=$1
-````
+```
 
 Next, we'll initialize variables that contain the paths to where the common files are stored and then use the variable names (with a $) in the actual commands later in the script. This is a shortcut for when you want to use this script for a dataset that used a different genome, e.g. mouse; you'll just have to change the contents of these variable at the beginning of the script.
 
 ```
-# location of genome reference index files + the gene annotation file
+# location of genome reference index files
 
 genome=/groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data/reference_STAR 
-
-gtf=~/ngs_course/rnaseq/reference_data/chr1-hg19_genes.gtf
 
 # set up our software environment
 
@@ -319,7 +320,7 @@ STAR --runThreadN 6 \
 --outSAMunmapped Within \
 --outSAMattributes Standard 
 ```
-Once you save this new script, it is almost ready for running:
+Once you save this new script, it is ready for running:
 
 ```
 $ chmod u+rwx star_analysis_on_input_file.sh      # make it executable, this is good to do, even if your script runs fine without it to ensure that it always does and you are able to tell that it's an executable shell script.
@@ -361,7 +362,7 @@ The top of the file should contain the shebang line and LSF directives:
 #BSUB -o %J.out       # File to which standard out will be written
 #BSUB -e %J.err       # File to which standard err will be written
 
-# this for loop, will take our trimmed fastq files as input and run the script for all of them one after the other. 
+# this 'for loop', will take our trimmed fastq files as input and run the script for all of them one after the other. 
 
 for fq in ~/ngs_course/rnaseq/data/trimmed_fastq/*.fq; do
         sh star_analysis_on_input_file.sh $fq;
@@ -404,12 +405,12 @@ $ sh star_analysis_on_allfiles_for-lsf.sh
 **In the above 'for loop' please note that after the bsub directives the sh star_analysis_on_input_file.sh $fq command is in quotes!**
 
 >NOTE: All job schedulers are similar, but not the same. Once you understand how one works, you can transition to another one without too much trouble. They all have their pros and cons that the system administrators for your setup have taken into consideration and picked one that fits the needs of the users best.
+
 What you should see on the output of your screen would be the jobIDs that are returned from the scheduler for each of the jobs that your script submitted.
 
 You can see their progress by using the `bjobs` command (though there is a lag of about 60 seconds between what is happening and what is reported).
 
 Don't forget about the `bkill` command, should something go wrong and you need to cancel your jobs.
-```
 
 ---
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). All instructional material is made available under the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0).*
