@@ -215,7 +215,7 @@ STAR --genomeDir /groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data
 --outReadsUnmapped Fastx \
 --outSAMtype BAM SortedByCoordinate \
 --outSAMunmapped Within \
---outSAMattributes Standard \
+--outSAMattributes Standard 
 
 ```
 
