@@ -1,7 +1,7 @@
 ---
 title: "Counting reads"
-author: "Meeta Mistry, Bob Freeman"
-date: "Wednesday, October 7, 2015"
+author: "Meeta Mistry, Bob Freeman, Radhika Khetani"
+date: "Friday, February 12, 2016"
 ---
 
 Approximate time: 
@@ -13,12 +13,14 @@ Approximate time:
 
 
 ### Generating raw counts as a measure of gene expression
-Once we have our reads aligned to the genome, the next step is to count how many reads have been mapped to each gene. There are many tools that can use BAM files as input and output the number of reads (counts) associated with each feature of interest (genes, exons, transcripts, etc.). There are 2 commonly used counting tools, [featureCounts](http://bioinf.wehi.edu.au/featureCounts/) and [htseq-count](http://www-huber.embl.de/users/anders/HTSeq/doc/count.html). In addition to BAM files, counting tools also require the GTF/GFF file as input; these will provide the list of features and their respective genomic coordinates.
+Once we have our reads aligned to the genome, the next step is to count how many reads have been mapped to each gene. There are many tools that can use BAM files as input and output the number of reads (counts) associated with each feature of interest (genes, exons, transcripts, etc.). There are 2 commonly used counting tools, [featureCounts](http://bioinf.wehi.edu.au/featureCounts/) and [htseq-count](http://www-huber.embl.de/users/anders/HTSeq/doc/count.html). 
 
 
 
 ### Counting using featureCounts
-htseq-count works by taking the alignment coordinates for each read and cross-referencing that to the coordinates for features described in the GTF. Most commonly a feature is considered to be a gene, which is the union of all exons (which is a feature type) that map to that gene. There is no minimum overlap to determine whether or not a read is counted for a particular gene, rather it is the mode that the user chooses. 
+In addition to BAM files, counting tools also require the GTF/GFF file as input; these will provide the list of features and their respective genomic coordinates. featureCounts works by taking the alignment coordinates for each read and cross-referencing that to the coordinates for features described in the GTF. Most commonly a feature is considered to be a gene ('gene_id' in a GTF), which is the union of all exons (which is a feature type) that map to that gene. 
+
+There is no minimum overlap to determine whether or not a read is counted for a particular gene, rather it is the mode that the user chooses. 
 
 
 We will be using the 'union' mode as it is default and most commonly used. To find out more on the different modes and how they affect your output, take a look at the [manual](http://www-huber.embl.de/users/anders/HTSeq/doc/count.html)
