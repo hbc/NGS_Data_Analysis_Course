@@ -334,7 +334,7 @@ It is always nice to have comments at the top of a more complex script to make s
 # USAGE: sh star_analysis_on_input_file.sh <name of fastq file>
 ```
 
-#### Running our script iteratively as a job submission to the LSF scheduler
+##### Running our script iteratively as a job submission to the LSF scheduler
 
 **The above script will run in an interactive session for one file at a time. If we wanted to run this script as a job submission to LSF, and with only one command have LSF run through the analysis for all your input fastq files?**
 
