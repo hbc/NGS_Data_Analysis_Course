@@ -4,7 +4,7 @@ author: "Meeta Mistry, Bob Freeman, Mary Piper"
 date: "Wednesday, February 10, 2016"
 ---
 
-Approximate time:
+Approximate time: 90 minutes
 
 ## Learning Objectives:
 
