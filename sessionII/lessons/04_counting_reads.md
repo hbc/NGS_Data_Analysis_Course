@@ -46,6 +46,7 @@ You will notice at the end of the command we have added a redirection symbol. Si
 
 	featureCounts -T 6 -a ~/ngs_course/unix_lesson/reference_data/chr1-hg19_genes.gtf \
 		-o ~/ngs_course/unix_lesson/rnaseq/results/counts/counts.txt \
+		-s 2 \
 		~/ngs_course/unix_lesson/rnaseq/results/STAR/*bam
 
 
