@@ -215,7 +215,7 @@ for infile in *.fq
   	outfile=$infile.qualtrim25.minlen35.fq
   
  # Run Trimmomatic command
-	 java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE \
+	java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE \
   	-threads 4 \
   	-phred33 \
   	$infile \
