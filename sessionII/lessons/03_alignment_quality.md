@@ -279,7 +279,7 @@ $ scp user_name@orchestra.med.harvard.edu:/home/user_name/ngs_course/rnaseq/resu
 
 **Exercise**
 
-Now that we have done this for one sample, let's try using the same commands to perform the indexing on a the Irrelevant replicate 1 and copy over the resulting BAM and index (bai) file to your laptop and upload into IGV for visualization. 
+Now that we have done this for one sample, let's try using the same commands to perform the indexing on a the Irrelevant replicate 1 and copy over the index (bai) file along with the corresponding BAM file to your laptop. Then upload the BAM file into IGV for visualization. 
 
 1. How does the MOV10 gene look in the control sample in comparison to the overexpression sample?
 2. Take a look at a few other genes by typing into the search bar. For example, PPM1J and PTPN22. How do these genes compare? 
