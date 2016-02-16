@@ -188,6 +188,10 @@ one input file at a time** and we have more than one input file.  The good news?
 We already know how to use a 'for loop' to deal with this situation. Let's modify our script to run the *Trimmomatic* command for every raw fastq file. Let's also run *FastQC* on each of our trimmed fastq files to evaluate the quality of our reads post-trimming:
 
 ```
+vim trimmomatic_mov10_allfiles.lsf
+```
+
+```
 #!/bin/bash
 
 #BSUB -q priority 		# queue name
@@ -238,7 +242,7 @@ mkdir ../../results/fastqc_trimmed_reads
 
 mv ../trimmed_fastq/*fastqc* ../../results/fastqc_trimmed_reads
 ```
-`$ bsub < trimmomatic_mov10.sh`
+`$ bsub < trimmomatic_mov10_allfiles.lsf`
 
 It is good practice to load the modules we plan to use at the beginning of the script. Therefore, if we run this script in the future, we don't have to worry about whether we have loaded all of the necessary modules prior to executing the script. 
 
