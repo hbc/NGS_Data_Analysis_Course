@@ -97,8 +97,7 @@ rnaseq
 Change directories into the `reference_data` folder. 
 
 ```
-$ cd ngs_course/rnaseq/data/reference_data
-
+$ cd ~/ngs_course/rnaseq/data/reference_data
 ```
 
 To use the STAR aligner, load the Orchestra module: 
