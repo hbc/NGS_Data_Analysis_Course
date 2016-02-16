@@ -172,11 +172,11 @@ Input Reads: 305900 Surviving: 300423 (98.21%) Dropped: 5477 (1.79%)
 TrimmomaticSE: Completed successfully
 ```
 
-This information should also be contained in your standard out file, `rnaseq_mov10_trim.out`. 
+This information should also be contained in your standard out file, `job#.out`. 
 
 We now have a new fastq file with our trimmed and cleaned up data:
 
-`$ ls ../trimmed_fastq/`    
+`$ ls -l ../trimmed_fastq/`    
 
 
 
