@@ -356,7 +356,6 @@ The top of the file should contain the shebang line and LSF directives:
 
 ```
 #!/bin/bash
-
 #BSUB -q priority       # Partition to submit to (comma separated)
 #BSUB -n 6                  # Number of cores, since we are running the STAR command with 6 threads
 #BSUB -W 1:30               # Runtime in D-HH:MM (or use minutes)
@@ -367,9 +366,11 @@ The top of the file should contain the shebang line and LSF directives:
 
 # this 'for loop', will take our trimmed fastq files as input and run the script for all of them one after the other. 
 
-for fq in ~/ngs_course/rnaseq/data/trimmed_fastq/*.fq 
+cd ~/ngs_course/rnaseq/data/trimmed_fastq/
+
+for fq in *.fq 
 do
-        sh star_analysis_on_input_file.sh $fq
+sh ~/ngs_course/rnaseq/data/trimmed_fastq/star_analysis_on_input_file.sh $fq
 done
 ```
 
@@ -394,10 +395,12 @@ This file will loop through the same files as in the previous script, but the co
 ```
 #!/bin/bash
 
-for fq in ~/ngs_course/rnaseq/data/trimmed_fastq/*.fq
+cd ~/ngs_course/rnaseq/data/trimmed_fastq/
+
+for fq in *.fq
 do
-  bsub -q priority -n 6 -W 1:30 -R "rusage[mem=4000]" -J rnaseq_mov10 -o %J.out -e %J.err "sh star_analysis_on_input_file.sh $fq"
-  sleep 1
+bsub -q priority -n 6 -W 1:30 -R "rusage[mem=4000]" -J rnaseq_mov10 -o %J.out -e %J.err "sh ~/ngs_course/rnaseq/data/trimmed_fastq/star_analysis_on_input_file.sh $fq"
+sleep 1
 done
 ```
 
