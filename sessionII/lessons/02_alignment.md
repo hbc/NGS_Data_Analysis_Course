@@ -213,7 +213,7 @@ We can access the software by simply using the STAR command followed by the basi
 STAR --genomeDir /groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data/reference_STAR \
 --runThreadN 6 \
 --readFilesIn Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq \
---outFileNamePrefix results/STAR/Mov10_oe_1_ \
+--outFileNamePrefix ../../results/STAR/Mov10_oe_1_ \
 --outFilterMultimapNmax 10 \
 --outReadsUnmapped Fastx \
 --outSAMtype BAM SortedByCoordinate \
