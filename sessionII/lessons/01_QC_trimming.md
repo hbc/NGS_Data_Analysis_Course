@@ -208,22 +208,23 @@ cd ~/ngs_course/rnaseq/data/untrimmed_fastq
 
 # Run a 'for loop' to run the Trimmomatic command on each of the untrimmed fastq files
 
-for infile in *.fq; do
+for infile in *.fq
+   do
 
   # Create names for the output trimmed files
-  outfile=$infile.qualtrim25.minlen35.fq;
+  	outfile=$infile.qualtrim25.minlen35.fq
   
-  # Run Trimmomatic command
-  java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE \
-  -threads 4 \
-  -phred33 \
-  $infile \
-  ../trimmed_fastq/$outfile \
-  ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
-  TRAILING:25 \
-  MINLEN:35;
-  
-done
+ # Run Trimmomatic command
+	 java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE \
+  	-threads 4 \
+  	-phred33 \
+  	$infile \
+  	../trimmed_fastq/$outfile \
+	 ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
+  	TRAILING:25 \
+  	MINLEN:35
+  	
+   done
     
 # Run FastQC on each of the trimmed fastq files
 
