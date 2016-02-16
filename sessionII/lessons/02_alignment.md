@@ -164,6 +164,10 @@ STAR --runThreadN 6 \
 
 ```
 
+```
+$ bsub < genome_index.lsf 
+```
+
 #### Aligning reads
 
 After you have the genome indices generated, you can perform the read alignment. We previously generated the genome indices for you in `/groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data/reference_STAR` directory so that we don't get held up waiting on the generation of the indices.
