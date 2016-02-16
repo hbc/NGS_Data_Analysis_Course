@@ -395,7 +395,7 @@ sample2       Wt    typeA         2
 sample3       Wt    typeA         3
 ```
 
-Alternatively, we could try looking at only the first two replicates of each sample set. Here, we can use the less than operator since replicate is currently a numeric vector. Adding in the argument select allows us to specify which columns to keep. Which columns are left?
+Alternatively, we could try looking at only the first two replicates of each sample set. Here, we can use the less than operator since replicate is currently a numeric vector. Adding in the argument `select` allows us to specify which columns to keep. Which columns are left?
 
 	sub_meta <- subset(metadata, replicate < 3, select = c('genotype', 'celltype'))
 	
