@@ -220,7 +220,7 @@ for infile in *.fq
   	-phred33 \
   	$infile \
   	../trimmed_fastq/$outfile \
-	 ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
+	ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
   	TRAILING:25 \
   	MINLEN:35
   	
