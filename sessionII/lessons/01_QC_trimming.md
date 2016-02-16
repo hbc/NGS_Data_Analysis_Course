@@ -12,7 +12,7 @@ Approximate time: 60 minutes
 
 ##Quality Control - Trimming
 
-Let us revisit the workflow that we introduced in Session I. We got as far as taking the raw reads and running them through FASTQC to see whether our samples were good enough quality to proceed. Now we are going to improve the quality of our reads, using a technique called **trimming**.
+Let us revisit the workflow that we introduced in Session I. We got as far as taking the raw reads and running them through FastQC to see whether our samples were good enough quality to proceed. Now we are going to improve the quality of our reads, using a technique called **trimming**.
 
 ![Workflow](../img/rnaseq_workflow_trimming.png)
 
@@ -172,11 +172,11 @@ Input Reads: 305900 Surviving: 300423 (98.21%) Dropped: 5477 (1.79%)
 TrimmomaticSE: Completed successfully
 ```
 
-This information should also be contained in your standard out file, `rnaseq_mov10_trim.out`. 
+This information should also be contained in your standard out file, `job#.out`. 
 
 We now have a new fastq file with our trimmed and cleaned up data:
 
-`$ ls ../trimmed_fastq/`    
+`$ ls -l trimmed_fastq/`    
 
 
 
@@ -186,6 +186,10 @@ Now we know how to run *Trimmomatic*, but there is some good news and bad news.
 One should always ask for the bad news first.  ***Trimmomatic* only operates on 
 one input file at a time** and we have more than one input file.  The good news?
 We already know how to use a 'for loop' to deal with this situation. Let's modify our script to run the *Trimmomatic* command for every raw fastq file. Let's also run *FastQC* on each of our trimmed fastq files to evaluate the quality of our reads post-trimming:
+
+```
+vim trimmomatic_mov10_allfiles.lsf
+```
 
 ```
 #!/bin/bash
@@ -208,22 +212,23 @@ cd ~/ngs_course/rnaseq/data/untrimmed_fastq
 
 # Run a 'for loop' to run the Trimmomatic command on each of the untrimmed fastq files
 
-for infile in *.fq; do
+for infile in *.fq
+   do
 
   # Create names for the output trimmed files
-  outfile=$infile.qualtrim25.minlen35.fq;
+  	outfile=$infile.qualtrim25.minlen35.fq
   
-  # Run Trimmomatic command
-  java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE \
-  -threads 4 \
-  -phred33 \
-  $infile \
-  ../trimmed_fastq/$outfile \
-  ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
-  TRAILING:25 \
-  MINLEN:35;
-  
-done
+ # Run Trimmomatic command
+	java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE \
+  	-threads 4 \
+  	-phred33 \
+  	$infile \
+  	../trimmed_fastq/$outfile \
+	ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 \
+  	TRAILING:25 \
+  	MINLEN:35
+  	
+   done
     
 # Run FastQC on each of the trimmed fastq files
 
@@ -237,13 +242,13 @@ mkdir ../../results/fastqc_trimmed_reads
 
 mv ../trimmed_fastq/*fastqc* ../../results/fastqc_trimmed_reads
 ```
-`$ bsub < trimmomatic_mov10.sh`
+`$ bsub < trimmomatic_mov10_allfiles.lsf`
 
 It is good practice to load the modules we plan to use at the beginning of the script. Therefore, if we run this script in the future, we don't have to worry about whether we have loaded all of the necessary modules prior to executing the script. 
 
 Do you remember how the variable name in the first line of a 'for loop' specifies a variable that is assigned the value of each item in the list in turn?  We can call it whatever we like.  This time it is called `infile`.  Note that the fifth line of this 'for loop' is creating a second variable called `outfile`.  We assign it the value of `$infile` with `'.qualtrim25.minlen35.fq'` appended to it. **There are no spaces before or after the '='.**
 
-After we have created the trimmed fastq files, we wanted to make sure that the quality of our reads look good, so we ran a *FASTQC* on our `$outfile`, which is located in the ../trimmed_fastq directory.
+After we have created the trimmed fastq files, we wanted to make sure that the quality of our reads look good, so we ran a *FastQC* on our `$outfile`, which is located in the ../trimmed_fastq directory.
 
 Let's use *FileZilla* to download the FastQC html for `Mov10_oe_1.subset.fq`. Has our read quality improved with trimming?
 

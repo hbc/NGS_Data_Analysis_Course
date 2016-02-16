@@ -16,7 +16,11 @@ Approximate time: 120 minutes
 
 ## Assessing alignment quality
 
-After running our FASTQ files through the STAR aligner, you should have noticed a number of output files in the `~/ngs_course/rnaseq/results/STAR` directory. Let's take a quick look at some of the files that were generated and explore the content of some of them. What you should see, is that for each FASTQ file you have **5 output files** and a single tmp directory. Briefly, these files are described below:
+After running our FASTQ files through the STAR aligner, you should have noticed a number of output files in the `~/ngs_course/rnaseq/results/STAR` directory. Let's take a quick look at some of the files that were generated and explore the content of some of them. 
+
+	$ ls -lh ~/ngs_course/rnaseq/results/STAR
+
+What you should see, is that for each FASTQ file you have **5 output files** and a single tmp directory. Briefly, these files are described below:
 
 * `Log.final.out` - a summary of mapping statistics for the sample
 * `Aligned.sortedByCoord.out.bam` - the aligned reads, sorted by coordinate, in BAM format
