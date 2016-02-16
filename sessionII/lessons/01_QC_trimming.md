@@ -265,14 +265,14 @@ Let's use *FileZilla* to download the FastQC html for `Mov10_oe_1.subset.fq`. Ha
 How would our command change if we were using paired-end data?**
 
 ```
-java -jar ~/tools/Trimmomatic-0.33/trimmomatic-0.33.jar PE \
+java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar PE \
 -phred33 \
 -threads 4 \
 -trimlog raw_fastq/trimmomatic.log \
 <input 1> <input 2> \
 <paired output 1> <unpaired output 1> \
 <paired output 2> <unpaired output 2> \
-ILLUMINACLIP:/home/username/tools/Trimmomatic-0.33/adapters/TruSeq3-PE.fa:2:30:10 \
+ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-PE.fa:2:30:10 \
 TRAILING:25 \
 MINLEN:35
 ```
