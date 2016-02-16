@@ -306,7 +306,7 @@ echo "Processing file $fq ..."
 
 # set up output filenames and locations
 
-align_out=~/ngs_course/rnaseq/results/STAR/$fq_
+align_out=~/ngs_course/rnaseq/results/STAR/${fq}_
 ```
 
 Our variables are now staged. We now need to modify the STAR command to use it so that it will run the steps of the analytical workflow with more flexibility:
