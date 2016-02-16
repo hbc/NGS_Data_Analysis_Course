@@ -44,6 +44,10 @@ Trimming tools can perform sequence trimming using the following strategies:
 
 We will use [*Trimmomatic*](http://www.usadellab.org/cms/?page=trimmomatic) to trim away adapters and filter out poor quality score reads. *Trimmomatic* is a java based program that can remove sequencer specific reads and nucleotides that fall below a certain threshold. *Trimmomatic* offers the option to trim reads using a hard crop, sliding window or base-by-base methods. It can also trim adapter sequences and remove reads if below a minimum length. In addition, *Trimmomatic* can be multi-threaded to run quickly using a single, complex command. 
 
+First let's get an interactive session with 4 cores:
+	
+	$ bsub -Is -n 4 -q interactive bash
+
 Let's load the *Trimmomatic* module:
 
 `$ module load seq/Trimmomatic/0.33`
