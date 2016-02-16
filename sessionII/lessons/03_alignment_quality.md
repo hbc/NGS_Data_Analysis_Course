@@ -24,6 +24,7 @@ What you should see, is that for each FASTQ file you have **5 output files** and
 
 * `Log.final.out` - a summary of mapping statistics for the sample
 * `Aligned.sortedByCoord.out.bam` - the aligned reads, sorted by coordinate, in BAM format
+* `Unmapped.out.mate1` - unmapped reads in FASTQ format
 * `Log.out` - a running log from STAR, with information about the run 
 * `Log.progress.out` -  job progress with the number of processed reads, % of mapped reads etc., updated every ~1 minute
 * `SJ.out.tab` - high confidence collapsed splice junctions in tab-delimited format. Only junctions supported by uniquely mapping reads are reported
