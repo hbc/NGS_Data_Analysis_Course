@@ -176,7 +176,7 @@ This information should also be contained in your standard out file, `job#.out`.
 
 We now have a new fastq file with our trimmed and cleaned up data:
 
-`$ ls -l ../trimmed_fastq/`    
+`$ ls -l trimmed_fastq/`    
 
 
 
