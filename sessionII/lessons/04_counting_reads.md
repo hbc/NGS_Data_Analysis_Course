@@ -110,7 +110,7 @@ The next step is to clean it up a little further by modifying the header line:
 
 For Paired-end data the bam file contains information about whether both read1 and read2 mapped and if they were at roughly the correct distance from each other, that is to say if they were "properly" paired. For most counting tools, only properly paired reads are considered by default, and each read pair is counted only once as a single "fragment". 
 
-### Keeping track of your reads
+### Keeping track of read numbers
 
 It is important to keep track of how many reads you started with and how many were counted as being associated with genes. This is important because it will help you pick out any obvious outlier, and it will also alert you early on to any issues with contamination and so on.
 
@@ -118,7 +118,7 @@ The things to keep track of for each sample are the following:
 * number of raw reads
 * number of reads left after trimming
 * number of reads aligned to genome
-* total number of reads associated with genes 
+* number of reads associated with genes 
  
 We have an [Excel template](https://dl.dropboxusercontent.com/u/74036176/rna-seq_reads_template.xlsx) available, to get you started.
 
