@@ -12,9 +12,12 @@ Approximate time:
 * learn how to use the featureCounts tool to generate a count matrix for statistical analyses
 
 
-### Generating raw counts as a measure of gene expression
-Once we have our reads aligned to the genome, the next step is to count how many reads have been mapped to each gene. There are many tools that can use BAM files as input and output the number of reads (counts) associated with each feature of interest (genes, exons, transcripts, etc.). There are 2 commonly used counting tools, [featureCounts](http://bioinf.wehi.edu.au/featureCounts/) and [htseq-count](http://www-huber.embl.de/users/anders/HTSeq/doc/count.html). 
 
+
+### Generating raw counts as a measure of gene expression
+Once we have our reads aligned to the genome, the next step is to count how many reads have mapped to each gene. There are many tools that can use BAM files as input and output the number of reads (counts) associated with each feature of interest (genes, exons, transcripts, etc.). There are 2 commonly used counting tools, [featureCounts](http://bioinf.wehi.edu.au/featureCounts/) and [htseq-count](http://www-huber.embl.de/users/anders/HTSeq/doc/count.html). 
+
+![rnaseq_workflow](../img/counts_workflow.png)
 
 
 ### Counting using featureCounts
