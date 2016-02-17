@@ -65,7 +65,7 @@ Learning to understand nested functions is a critical part of your mastery of R.
 
 ## Matching data 
 
-Often when working with genomic data, we have a data file that corresponds with our metadata file. The data file contains measurements from the biological assay for each individual sample. In our case, the biological assay is gene expression and data was generated using RNA-Seq. Let's first download a file of RPKM values into our `data/` folder. To do so use the "Save link as.." after right clicking on [this link](https://github.com/hbc/NGS_Data_Analysis_Course/blob/master/sessionII/data/counts.rpkm)
+Often when working with genomic data, we have a data file that corresponds with our metadata file. The data file contains measurements from the biological assay for each individual sample. In our case, the biological assay is gene expression and data was generated using RNA-Seq. Let's first download a file of RPKM values into our `data/` folder. To do so use the "Save link as.." after right clicking on [this link](https://raw.githubusercontent.com/hbc/NGS_Data_Analysis_Course/master/sessionII/data/counts.rpkm.csv)
 
 	rpkm_data <- read.csv("data/counts.rpkm")
 
