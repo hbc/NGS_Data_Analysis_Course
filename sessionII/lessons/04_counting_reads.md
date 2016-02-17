@@ -20,20 +20,20 @@ Once we have our reads aligned to the genome, the next step is to count how many
 
 * There are other tools available that are able to account for multiple transcripts for a given gene. In this case the counts are not whole numbers, but have fractions. In the simplest example case, if 1 read is associated with 2 transcripts, it can get counted as 0.5 and 0.5 and the resulting count for that transcript is not a whole number.
 
-> **Input for counting**: BAM files + GTF file.
-> Simply speaking, the genomic coordinates of where the read is mapped (BAM) are cross-referenced with the genomic coordinates of whichever feature you are interested in counting expression of (GTF), it can be exons, genes or transcripts.
+**Input for counting**: BAM files + GTF file.
+Simply speaking, the genomic coordinates of where the read is mapped (BAM) are cross-referenced with the genomic coordinates of whichever feature you are interested in counting expression of (GTF), it can be exons, genes or transcripts.
 
 <img src="../img/count-fig1.png" width="600">
 
-> **Output of counting**: A count matrix, with genes as rows and samples are columns. 
-> These are the "raw" counts and will be used in statistical programs downstream for differential gene expression.
+**Output of counting**: A count matrix, with genes as rows and samples are columns. 
+These are the "raw" counts and will be used in statistical programs downstream for differential gene expression.
 
 <img src="../img/count-matrix.png" width="500">
 
 ### Counting using featureCounts
 Today, we will be using the featureCounts tool to get the *gene* counts, since this tool is accurate and it is relatively easy to use. This tool only counts reads that are mapping to a single location (uniquely mapping) and follows the scheme in the figure below for assigning reads to a gene/exon. 
 
-<img src="../img/union.png" width="400">
+<img src="../img/union.png" width="300">
 
 (figure adapted from http://www-huber.embl.de/users/anders/HTSeq/doc/count.html)
 
@@ -56,7 +56,7 @@ featureCounts is not available as a module on Orchestra, but we can add the path
 
 What options/parameters are available to us for this tool?
 
-	```$ featureCounts 
+	$ featureCounts 
 
 	  Version 1.4.4
 
@@ -78,7 +78,7 @@ What options/parameters are available to us for this tool?
 	  .
 	  .
 	  .
-	  .```
+	  .
 
 Now
 
