@@ -32,30 +32,36 @@ These are the "raw" counts and will be used in statistical programs downstream f
 <img src="../img/count-matrix.png" width="300">
 
 ### Counting using featureCounts
-Today, we will be using the featureCounts tool to get the *gene* counts, since this tool is accurate and it is relatively easy to use. This tool only counts reads that are mapping to a single location (uniquely mapping) and follows the scheme in the figure below for assigning reads to a gene/exon. 
+Today, we will be using the [featureCounts](http://bioinf.wehi.edu.au/featureCounts/) tool to get the *gene* counts. We picked this tool because it is accurate, fast and is relatively easy to use. It counts reads that map to a single location (uniquely mapping) and follows the scheme in the figure below for assigning reads to a gene/exon. 
 
 <img src="../img/union.png" width="300">
 
-featureCounts can also take into account whether your data are **stranded** or not. If strandedness is specified then, in addition to considering the genomic coordinates, it will also take the strand into account for counting. If your data are stranded, please do specify it.
+featureCounts can also take into account whether your data are **stranded** or not. If strandedness is specified then, in addition to considering the genomic coordinates, it will also take the strand into account for counting. If your data are stranded, always specify it.
 
-First things first, start an interactive session with 4 cores
+#### Setting up to run featureCounts
+First things first, start an interactive session with 4 cores:
 	
 	$ bsub -Is -n 4 -q interactive bash
 
-Now, change directories to your rnaseq directory and start by creating 2 directories, (1) a directory for the output and (2) a directory for just the bam files we generated yesterday:
+Now, change directories to your rnaseq directory and start by creating 2 directories, (1) a directory for the output and (2) a directory for the bam files we generated yesterday:
 
 	$ cd ~/ngs_course/rnaseq/
 	$ mkdir results/counts results/STAR/bams
 	
-Let's move over the bam files over to the `results/STAR/bams` directory
+Let's move the bam files over to the `results/STAR/bams` directory
 	
 	$ mv ~/ngs_course/rnaseq/results/STAR/*fq_Aligned*bam ~/ngs_course/rnaseq/results/STAR/bams
+	
+	# check to make sure the move worked and that only the files we wanted moved over
 
-featureCounts is not available as a module on Orchestra, but we can add the path for it (parent directory) to our PATH variable. 
+featureCounts is not available as a module on Orchestra, but we can add the path for it to our `$PATH` variable. 
 
 	$ export PATH=/opt/bcbio/local/bin:$PATH
 
-> Remember that this export command is only valid for this interactive session. If you want to make sure that the tool is available to you all the time, add the above command to your `~/.bashrc` or your `~/.bash_profile` files.
+> Remember that this export command is going to "put featureCounts in your path" only for this interactive session. If you want to have the tool available to you all the time, add the above command to your `~/.bashrc` or your `~/.bash_profile` files.
+
+
+#### Running featureCounts
 
 How do we use this tool, what is the command and what options/parameters are available to us?
 
@@ -66,36 +72,42 @@ So, it looks like the usage is `featureCounts [options] -a <annotation_file> -o 
 We are going to use the following options:
 
 `-T 4` # specify 4 cores
+
 `-s 2` # these data are "reverse"ly stranded
 
 and the following are the values for the required parameters:
 
 `-a ~/ngs_course/rnaseq/data/reference_data/chr1-hg19_genes.gtf` # required option. Specify path to GTF
+
 `-o ~/ngs_course/rnaseq/results/counts/Mov10_featurecounts.txt` #  required option. Specify path to, and name of the text output (count matrix)
+
 `~/ngs_course/rnaseq/results/STAR/bams/*bam` # the list of all the bam files we want to collect count information for
 
-We are now going to run this in the interactive session using 4 cores.
+Let's run this now:
 
 	$ featurecounts -T 4 -s 2\ 
 	  -a ~/ngs_course/unix_lesson/reference_data/chr1-hg19_genes.gtf \
 	  -o ~/ngs_course/unix_lesson/rnaseq/results/counts/Mov10_featurecounts.txt \
 	  ~/ngs_course/rnaseq/results/STAR/bams/*bam
 	  
-> If you wanted to collect the information that is on the screen as the job runs, you can run it using the `2> filename` redirection, this type of redirection will collect all the information from the standard output into a file.
+> If you wanted to collect the information that is on the screen as the job runs, you can modify the command and add the `2>` redirection at the end. This type of redirection will collect all the information from the standard output (screen) into a file.
 
-	**DO NOT RUN THIS**
-
+	**DO NOT RUN THIS** 
+	# note the last line of the command below
+	
 	$ featurecounts -T 4 -s 2\ 
 	  -a ~/ngs_course/unix_lesson/reference_data/chr1-hg19_genes.gtf \
 	  -o ~/ngs_course/unix_lesson/rnaseq/results/counts/Mov10_featurecounts.txt \
 	  ~/ngs_course/rnaseq/results/STAR/bams/*bam \
 	  2> ~/ngs_course/unix_lesson/rnaseq/results/counts/Mov10_featurecounts.stdout
 
-The output of this tool is 2 files, *a count matrix* and *a summary file* that tabulates how many the reads were "assigned"/counted and the reason they remained "unassigned". Lets take a look at the summary file:
+#### featureCounts output
+
+The output of this tool is 2 files, *a count matrix* and *a summary file* that tabulates how many the reads were "assigned" or counted and the reason they remained "unassigned". Let's take a look at the summary file:
 	
 	$ less results/counts/Mov10_featurecounts.txt.summary
 	
-Now lets look at the count matrix:
+Now let's look at the count matrix:
 	
 	$ less results/counts/Mov10_featurecounts.txt
 	
