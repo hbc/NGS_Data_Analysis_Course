@@ -120,7 +120,8 @@ In our example we have a number that exist in the table, making it relatively ea
 
 `163 = 1 + 2 + 32 + +128  `
 
-Which tells us that:
+Which tells us that:  
+
 1. the read is mapped
 2. the read is mapped as part of a pair
 3. this is the mate revers strand
@@ -147,7 +148,7 @@ Suppose our read has a CIGAR string of `50M3I80M2D` which translates to:
 
 Now to the remaning fields in our SAM file:
 
-![SAM1](../img/sam_bam2.png)
+![SAM1](../img/sam_bam3.png)
 
 The next three fields are more pertinent to paired-end data. `MRNM` is the mate reference name. `MPOS` is the mate position (1-based, leftmost). `ISIZE` is the inferred insert size.
 
