@@ -16,7 +16,7 @@ Approximate time:
 
 Once we have our reads aligned to the genome, the next step is to count how many reads have mapped to each gene. There are many tools that can use BAM files as input and output the number of reads (counts) associated with each feature of interest (genes, exons, transcripts, etc.). There are 2 commonly used counting tools, [featureCounts](http://bioinf.wehi.edu.au/featureCounts/) and [htseq-count](http://www-huber.embl.de/users/anders/HTSeq/doc/count.html). 
 
-* The above tools only report the "raw" counts of reads that map to a single location (uniquely mapping) and are best at counting at the gene level. Essentially, total read count associated with a gene (*attribute*) = the sum of reads associated with each of the exons (*feature*) that "belong" to that gene.
+* The above tools only report the "raw" counts of reads that map to a single location (uniquely mapping) and are best at counting at the gene level. Essentially, total read count associated with a gene (*meta-feature*) = the sum of reads associated with each of the exons (*feature*) that "belong" to that gene.
 
 * There are other tools available that are able to account for multiple transcripts for a given gene. In this case the counts are not whole numbers, but have fractions. In the simplest example case, if 1 read is associated with 2 transcripts, it can get counted as 0.5 and 0.5 and the resulting count for that transcript is not a whole number.
 
@@ -35,9 +35,7 @@ Today, we will be using the featureCounts tool to get the *gene* counts, since t
 
 <img src="../img/union.png" width="300">
 
-(figure adapted from http://www-huber.embl.de/users/anders/HTSeq/doc/count.html)
-
-featureCounts can take into account whether your data are stranded or not. If strandedness is specified then, in addition to considering the genomic coordinates, it will also take the strand into account for counting.
+featureCounts can also take into account whether your data are **stranded** or not. If strandedness is specified then, in addition to considering the genomic coordinates, it will also take the strand into account for counting. If your data are stranded, please do specify it.
 
 First things first, start an interactive session with 4 cores
 	
@@ -46,56 +44,66 @@ First things first, start an interactive session with 4 cores
 Now, change directories to your rnaseq directory and start by creating 2 directories, (1) a directory for the output and (2) a directory for just the bam files we generated yesterday:
 
 	$ cd ~/ngs_course/rnaseq/
-	$ mkdir results/counts results/STAR/bam
+	$ mkdir results/counts results/STAR/bams
+	
+Let's move over the bam files over to the `results/STAR/bams` directory
+	
+	$ mv ~/ngs_course/rnaseq/results/STAR/*fq_Aligned*bam ~/ngs_course/rnaseq/results/STAR/bams
 
-featureCounts is not available as a module on Orchestra, but we can add the path for it to our PATH variable. 
+featureCounts is not available as a module on Orchestra, but we can add the path for it (parent directory) to our PATH variable. 
 
 	$ export PATH=/opt/bcbio/local/bin:$PATH
 
 > Remember that this export command is only valid for this interactive session. If you want to make sure that the tool is available to you all the time, add the above command to your `~/.bashrc` or your `~/.bash_profile` files.
 
-What options/parameters are available to us for this tool?
+How do we use this tool, what is the command and what options/parameters are available to us?
 
-	$ featureCounts 
+	$ featureCounts
 
-	  Version 1.4.4
+So, it looks like the usage is `featureCounts [options] -a <annotation_file> -o <output_file> input_file1 [input_file2] ... `, where `-a`, `-o` and input files are required.
 
-	  Usage: featureCounts [options] -a <annotation_file> -o <output_file> input_file1 [input_file2] ... 
-	  Required arguments:
+We are going to use the following options:
 
-	  -a <string>         Name of an annotation file. GTF format by default. See -F 
-	                      option for more formats.
+`-T 4` # specify 4 cores
+`-s 2` # these data are "reverse"ly stranded
 
-	  -o <string>         Name of the output file including read counts. A separate 
-	                      file including summary statistics of counting results is 
-	                      also included in the output (`<string>.summary')
+and the following are the values for the required parameters:
 
-	  input_files         List of input files in BAM or SAM format. Users do not 
-	                      need to specify it is BAM or SAM.
+`-a ~/ngs_course/rnaseq/data/reference_data/chr1-hg19_genes.gtf` # required option. Specify path to GTF
+`-o ~/ngs_course/rnaseq/results/counts/Mov10_featurecounts.txt` #  required option. Specify path to, and name of the text output (count matrix)
+`~/ngs_course/rnaseq/results/STAR/bams/*bam` # the list of all the bam files we want to collect count information for
+
+We are now going to run this in the interactive session using 4 cores.
+
+	$ featurecounts -T 4 -s 2\ 
+	  -a ~/ngs_course/unix_lesson/reference_data/chr1-hg19_genes.gtf \
+	  -o ~/ngs_course/unix_lesson/rnaseq/results/counts/Mov10_featurecounts.txt \
+	  ~/ngs_course/rnaseq/results/STAR/bams/*bam
 	  
-	  Optional arguments:
+> If you wanted to collect the information that is on the screen as the job runs, you can run it using the `2> filename` redirection, this type of redirection will collect all the information from the standard output into a file.
+>	
+>	**DO NOT RUN THIS**
 
-	  .
-	  .
-	  .
-	  .
+	$ featurecounts -T 4 -s 2\ 
+	  -a ~/ngs_course/unix_lesson/reference_data/chr1-hg19_genes.gtf \
+	  -o ~/ngs_course/unix_lesson/rnaseq/results/counts/Mov10_featurecounts.txt \
+	  ~/ngs_course/rnaseq/results/STAR/bams/*bam \
+	  2> ~/ngs_course/unix_lesson/rnaseq/results/counts/Mov10_featurecounts.stdout
 
-Now
+The output of this tools is 2 files, a counts matrix and a summary file that tabulates how many the reads were "assigned"/counted and the reason they remained "unassigned". Lets take a look at the summary file:
+	
+	$ less results/counts/Mov10_featurecounts.txt.summary
+	
+Now lets look at the count matrix:
+	
+	$ less results/counts/Mov10_featurecounts.txt
+	
+There is information about the genomic coordinates and the length of the gene, we don't need this for the next step, so we are going to extract the columns that we are interested in.
+	
+	$ cut -f1,7,8,9,10,11,12 results/counts/Mov10_featurecounts.txt > results/counts/Mov10_featurecounts.Rmatrix.txt
 
-	featureCounts -T 4 -a ~/ngs_course/unix_lesson/reference_data/chr1-hg19_genes.gtf \
-		-o ~/ngs_course/unix_lesson/rnaseq/results/counts/counts.txt \
-		-s 2 \
-		~/ngs_course/unix_lesson/rnaseq/results/STAR/*bam
-
-
-#### Exercise
-Take a look at the end of the file using the `tail` command. You should see a summary of how the reads were classified. 
-
-1. How many reads were assigned as no_feature? Why would they be classified this way?
-2. How many reads were found to map to multiple locations?
-
-
-
-
+The next step is to clean it up and modify the headers:
+	
+	$ vim results/counts/Mov10_featurecounts.Rmatrix.txt
 
 
