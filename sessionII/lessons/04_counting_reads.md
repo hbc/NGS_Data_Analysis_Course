@@ -25,16 +25,14 @@ Simply speaking, the genomic coordinates of where the read is mapped (BAM) are c
 
 <img src="../img/count-fig1.png" width="600">
 
-**Output for counting**: A count matrix, with genes as rows and samples are columns. These are considered the "raw" counts and will be used in statistical programs downstream for differential gene expression.
+**Output of counting**: A count matrix, with genes as rows and samples are columns. These are considered the "raw" counts and will be used in statistical programs downstream for differential gene expression.
 
 <img src="../img/count-matrix.png" width="500">
 
 ### Counting using featureCounts
-Today, we will be using the featureCounts tool to get the gene counts, since this tool is accurate and it is easy to use. 
+Today, we will be using the featureCounts tool to get the *gene* counts, since this tool is accurate and it is relatively easy to use. This tool only counts reads that are mapping to a single location and follows the scheme in the figure for assigning reads to a gene/exon.
 
-Most commonly a feature is considered to be a gene ('gene_id' in a GTF), which is the union of all exons that "belong" to that gene.
-
-By default
+<img src="../img/union.png" width="500">
 
 	
 	$ featureCounts 
