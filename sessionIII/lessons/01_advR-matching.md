@@ -49,9 +49,9 @@ Now, let's say that you are interested in counting the number samples in your da
 	
 	wt_loc <- which(metadata$genotype == "Wt")
 	
-**Step 2:** Extract the samples with "Wt" `genotype`:
+**Step 2:** Extract the sample names of the "Wt" samples:
 	
-	wt <- metadata$genotype[wt_loc]
+	wt <- row.names(metadata)[wt_loc]
 
 **Step 3:** Determine the number of samples with `genotype` "Wt":
 	
