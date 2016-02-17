@@ -72,17 +72,17 @@ So, it looks like the usage is `featureCounts [options] -a <annotation_file> -o 
 
 We are going to use the following options:
 
-`-T 4` # specify 4 cores
+`-T 4 # specify 4 cores`
 
-`-s 2` # these data are "reverse"ly stranded
+`-s 2 # these data are "reverse"ly stranded`
 
 and the following are the values for the required parameters:
 
-`-a ~/ngs_course/rnaseq/data/reference_data/chr1-hg19_genes.gtf` # required option. Specify path to GTF
+`-a ~/ngs_course/rnaseq/data/reference_data/chr1-hg19_genes.gtf # required option for specifying path to GTF`
 
-`-o ~/ngs_course/rnaseq/results/counts/Mov10_featurecounts.txt` #  required option. Specify path to, and name of the text output (count matrix)
+`-o ~/ngs_course/rnaseq/results/counts/Mov10_featurecounts.txt # required option for specifying path to, and name of the text output (count matrix)`
 
-`~/ngs_course/rnaseq/results/STAR/bams/*bam` # the list of all the bam files we want to collect count information for
+`~/ngs_course/rnaseq/results/STAR/bams/*bam # the list of all the bam files we want to collect count information for`
 
 Let's run this now:
 
