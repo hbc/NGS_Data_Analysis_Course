@@ -93,25 +93,9 @@ Following the header is the **alignment section**. Each line that follows corres
 
 ![SAM](../img/SAM_file.png)
 
-These fields contain information describing the read, quality of the read, and nature alignment of the read to a region of the genome. Below are example entries of alignment information for a single read (*note that in the SAM file this would be displayed tab-delimited, on a single line*): 
+These fields contain information describing the read, quality of the read, and nature alignment of the read to a region of the genome. Most of the field entries above are pretty self-explanatory, except for two which could use a bit more in-depth of an explanation. These are, the (bitwise) `FLAG` field and `CIGAR`.
 
-```
-QNAME  e.g.  M00628:11:000000000-A1P5L:1:1112:26953:13136
-FLAG   e.g.  163
-RNAME  e.g.  CP000921
-POS    e.g.  20
-MAPQ   e.g.  60
-CIGAR  e.g.  149M
-RNEXT  e.g.  = 
-PNEXT  e.g.  108
-TLEN   e.g.  239
-SEQ    e.g.  CCACTATGTTTTTCGATAAAAAGCTTAATAAAT
-QUAL   e.g.  ?????BBBBBDBDB=?FFECFACCFFHHH>09C
-
-```
-Most of the field entries above are pretty self-explanatory, except for two which could use a bit more in-depth of an explanation. These are, the (bitwise) `FLAG` field and `CIGAR`.
-
-### Bitwise flags explained
+### `FLAG` explained
 
 The `FLAG` value that is displayed can be translated into information about the mapping. 
 
@@ -129,24 +113,31 @@ The `FLAG` value that is displayed can be translated into information about the 
 | 512 | read fails platform/vendor quality checks |
 | 1024| read is PCR or optical duplicate |
 
-* For a given alignment, each of these flags are either on or off indicating the condition is true or false. 
-* These flags are stored as a binary strings of length 11 instead of 11 columns of data. Value of ‘1’ indicates the flag is set.  e.g. 00100000000
-* The combination of all flags are represented in the SAM specification using its hexidecimal representation
-* There is no combination that can be a result of two different sums
+* For a given alignment, each of these flags are either **on or off** indicating the condition is **true or false**. 
+* The `FLAG` is a combination of all of the individual flags (from the table above) that are true for the alignment 
+* The beauty of the flag values is that any combination of flags can only result in one sum.
 
-So in our example alignment we have a bitwise flag of 163. This is the flag is actually a sum of the 4 different flags.
+Suppose our read alignment has a flag of 163 -- what does this translate to? It is the sum of 4 different flags:
 
-`163 = 1 + 2 + 32 + +128   (e.g. 00010100011)`
+`163 = 1 + 2 + 32 + +128  `
 
-Which tells us that **(1)** the read is paired, **(2)** the read is mapped in a proper pair, **(32)** the read is the mate reverse strand and **(128)** the read is the second read in the pair. Bit flags are useful in storing lots of information in little space. Normally, you wouldn't be going through the SAM file manually to evaluate these numbers, but if you were curious about a particular flag and what it means, there is a [Picard utility](http://broadinstitute.github.io/picard/explain-flags.html) which can help decipher for you.
+Which tells us that:
+1. the read is mapped
+2. the read is mapped as part of a pair
+3. this is the mate revers strand
+4. this read is the second of the pair
 
-### CIGAR string explained
+### CIGAR string
 
 The CIGAR string is a sequence of letters and numbers that represent the *edits or operations* required to match the read to the reference. The letters are operations that are used to indicate which bases align to the reference (i.e. match, mismatch, deletion, insertion), and the numbers indicate the associated base lengths for each 'operation'.
 
 ![cigar](../img/cigar_strings.png)
 
-In our example, SAM entry above the CIGAR string listed is 149M which translates to 149 matches with the reference. 
+Suppose our read has a CIGAR string of `50M3I80M2D` which translates to:
+* 50 matches or mismatches
+* 3 bp insertion
+* 80 matches/mismatches
+* 2 bp deletion
 
 ## `samtools`
 
@@ -165,9 +156,9 @@ $ samtools view -h results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam | less
 
 ``` 
 
-### Summarizing and filtering the SAM file
+### Filtering the SAM file
 
-As mentioned previously, manually reading the file line-by-line isn't very productive. It is more useful to be able to summarize across the entire file. Suppose we wanted to set a threshold on mapping quality. For example, we want to know how many reads aligned with a quality score higher than 30. To do this, we can combine the `view` command with additional flags `q 30` and `-c` (to count):
+Now we know that we have all of this information for each of the reads -- wouldn't it be useful to summarize and filter based on selected criteria? Suppose we wanted to set a threshold on mapping quality. For example, we want to know how many reads aligned with a quality score higher than 30. To do this, we can combine the `view` command with additional flags `q 30` and `-c` (to count):
 
 ```
 $ samtools view -q 30 -c results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam 
@@ -182,49 +173,24 @@ $ samtools view -q 30 -b results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam M
 
 ```
 
-The `flagstat` command can also used to summarize a BAM file:
+We can also apply filters to keep/remove selected reads based on where they fall within the `FLAG` categories. Remember that the bitwise flags are like boolean values. If the flag exists, the statement is true. Similar to when filtering by quality we need to use the `samtools view` command, however this time use the `-F` or `-f` flags.
 
-```
-$ samtools flagstat results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam 
+* `-f` - to find the reads that agree with the flag statement 
+* `-F`  - to find the reads that do not agree with the flag statement
 
-```
-
-*What do you see?* The output from `flagstat` corresponds to information encoded within the 11 bitwise flags that we discussed earlier. For each flag you get the corresponding number of reads that agree. Since we are working with single end reads, many of these do not apply to us.
-
-```
-309507 + 0 in total (QC-passed reads + QC-failed reads)
-9270 + 0 secondary
-0 + 0 supplementary
-0 + 0 duplicates
-295771 + 0 mapped (95.56% : N/A)
-0 + 0 paired in sequencing
-0 + 0 read1
-0 + 0 read2
-0 + 0 properly paired (N/A : N/A)
-0 + 0 with itself and mate mapped
-0 + 0 singletons (N/A : N/A)
-0 + 0 with mate mapped to a different chr
-0 + 0 with mate mapped to a different chr (mapQ>=5)
-```
-
-We can apply filters to keep/remove selected reads based on where they fall within these different categories. Similar to when filtering by quality we need to use the `samtools view` command, however this time use the `-F` or `-f` flags.
-
-These flags are combined with the hexadecimal value of the bitwise flag you are interested in. We know that 4 is the bitwise flag for unmapped reads, so to obtain the number of unmapped reads you would use `-f 4`:
+Let's use the modifier to find the number of reads that do not map anywhere. From the table above we know that flag 4 translates to the read is unmapped, so our command would be:
 
 ```
 $ samtools view -f 4 -c results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam 
 
 ```
 
-But how do we obtain the number of reads that *are mapped*? Remember that the bitwise flags are like boolean values. If the flag exists, the condition is true. To find the number of mapped reads we need to count those reads that do not meet the condition. We do this using the capitalized F flag:
+To find the number of reads that do map, we need to count those reads that **do not meet the condition**. We do this using the capitalized F flag:
 
-  
 ```
 $ samtools view -F 4 -c results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam 
 
 ```
-
-*This number should be identical to that reported on line 5 of the `flagstat` results*
 
 ### Indexing the BAM file
 
@@ -235,15 +201,6 @@ To index the BAM file we use the `index` command:
     $ samtools index results/STAR/Mov10_oe_1__Aligned.sortedByCoord.out.bam
 
 This will create an index in the same directory as the BAM file, which will be identical to the input file in name but with an added extension of `.bai`.
-
-
-### Subsetting the BAM file
-
-Suppose we only wanted to look at a subset of the reads mapping to a specific location on the genome. We can extract these read alignments by using the `view` command and providing the genomic coordinates. Let's take a look at reads mapping to `chr1:200000-500000`:
-
-	samtools view results/STAR/Mov10_oe_1__Aligned.sortedByCoord.out.bam chr1:200000-500000
-
-*Note this will only work, if you have the index file created.* There should only be a few reads printed to screen. Use the `-c` flag to count how many entries are within the specified region.
 
 
 ****
