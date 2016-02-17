@@ -122,13 +122,13 @@ The next step is to clean it up a little further by modifying the header line:
 
 ### Note on counting PE data
 
-For Paired-end data the bam file contains information about whether both read1 and read2 mapped and if they were at roughly the correct distance from each other, that is to say if they were "properly" paired. For most counting tools, only properly paired reads are considered by default, and each read pair is counted only once as a single "fragment". 
+For paired-end (PE) data, the bam file contains information about whether both read1 and read2 mapped and if they were at roughly the correct distance from each other, that is to say if they were "properly" paired. For most counting tools, only properly paired reads are considered by default, and each read pair is counted only once as a single "fragment". 
 
-Usually for PE data, the input bam files need to be sorted by read name (i.e. alignment information about both read pairs in adjoining rows). The alignment tool might sort them for you, but watch out for what the sorting was done on. If they are sorted by coordinates (like with STAR), you will need to use `samtools sort` to re-sort them by read name before using as input in featureCounts. If you do not sort you BAM file by read name before using as input, featureCounts assumes that almost all the reads are not properly paired.
+For counting PE fragments associated with genes, the input bam files need to be sorted by read name (i.e. alignment information about both read pairs in adjoining rows). The alignment tool might sort them for you, but watch out for how the sorting was done. If they are sorted by coordinates (like with STAR), you will need to use `samtools sort` to re-sort them by read name before using as input in featureCounts. If you do not sort you BAM file by read name before using as input, featureCounts assumes that almost all the reads are not properly paired.
 
 ### Keeping track of read numbers
 
-It is important to keep track of how many reads you started with and how many were counted as being associated with genes. This is important because it will help you pick out any obvious outlier, and it will also alert you early on to any issues with contamination and so on.
+It is important to keep track of how many reads you started with and how many of those ended up being associated with genes. This will help you pick out any obvious outliers, and it will also alert you early on about issues with contamination and so on.
 
 The things to keep track of for each sample are the following:
 * number of raw reads
