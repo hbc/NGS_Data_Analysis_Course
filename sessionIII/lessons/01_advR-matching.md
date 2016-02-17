@@ -59,7 +59,7 @@ Now, let's say that you are interested in counting the number samples in your da
 	
 Alternatively, we could combine all steps:
 
-	length(metadata$genotype[which(metadata$genotype == "Wt")])
+	length(row.names(metadata)[which(metadata$genotype == "Wt")])
 
 Learning to understand nested functions is a critical part of your mastery of R. Not only will their use improve your efficiency, but nested functions are frequently encountered in help forums and R package documentation, so understanding them is critical to your learning process. 
 
