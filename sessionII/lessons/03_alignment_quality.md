@@ -124,7 +124,7 @@ Which tells us that:
 
 1. the read is mapped
 2. the read is mapped as part of a pair
-3. this is the mate revers strand
+3. this is the mate reverse strand
 4. this read is the second of the pair
 
 Moving along the fields of the SAM file, we then have `RNAME` which is the reference sequence name. The example read is from chromosome 1 which explains why we see 'chr1'. `POS` refers to the 1-based leftmost position of the alignment. `MAPQ` is giving us the alignment quality, the scale of which will depend on the aligner being used. 
@@ -187,19 +187,27 @@ We can also apply filters to select reads based on where they fall within the `F
 * `-f` - to find the reads that agree with the flag statement 
 * `-F`  - to find the reads that do not agree with the flag statement
 
-Let's use the modifier to find the number of reads that do not map anywhere. From the table above we know that flag 4 translates to the read is unmapped, so our command would be:
+Let's use the modifier to find the number of reads that map to the reverse strand. From the table above we know that flag 16 translates to the read is reverse strand, so our command would be:
 
 ```
-$ samtools view -f 4 -c results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam 
+$ samtools view -f 16 -c results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam 
 
 ```
 
-To find the number of reads that do map, we need to count those reads that **do not meet the condition**. We do this using the capitalized F flag:
+To find the number of reads on the forward strand, we need to count those reads that **do not meet the condition 16**. We do this using the capitalized F flag:
 
 ```
-$ samtools view -F 4 -c results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam 
+$ samtools view -F 16 -c results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam 
 
 ```
+***
+
+**Excercise**
+
+Use the flags table to count how many reads are unmapped? How many reads are mapped?
+
+***
+
 
 ### Indexing the BAM file
 
@@ -217,7 +225,9 @@ This will create an index in the same directory as the BAM file, which will be i
 **Exercise:**
 
 1. The STAR log file for `Mov10_oe_1` indicated that there were a certain number of reads mapping to multiple locations. When this happens, one of these alignments is considered
-primary and all the other alignments have the secondary alignment flag set in the SAM records. **Use `samtools` and your knowledge of [bitwise flags](https://github.com/hbc/NGS_Data_Analysis_Course/blob/master/sessionII/lessons/03_alignment_quality.md#bitwise-flags-explained) to extract the secondary reads to a file called `Mov10_oe_1_secondary_alignments.bam`.**
+primary and all the other alignments have the secondary alignment flag set in the SAM records. **Use `samtools` and your knowledge of [bitwise flags](https://github.com/hbc/NGS_Data_Analysis_Course/blob/master/sessionII/lessons/03_alignment_quality.md#bitwise-flags-explained) to count the number of  secondary reads to a file called `Mov10_oe_1_secondary_alignments.bam`.**
+
+2. Use the `-b` flag to write these reads to a new BAM file (this is only possible if you have an index for your BAM file!)
 
 ***
 
