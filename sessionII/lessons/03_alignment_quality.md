@@ -182,14 +182,7 @@ $ samtools view -q 30 -c results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam
 ```
 *How many of reads have a mapping quality of 30 or higher?*
 
-If we wanted to only work with high quality mapped reads, we could subset these alignments and write them to a new BAM file using the `-b` flag:
-
-```
-$ samtools view -q 30 -b results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam Mov10_oe_1_Aligned_q30.bam
-
-```
-
-We can also apply filters to keep/remove selected reads based on where they fall within the `FLAG` categories. Remember that the bitwise flags are like boolean values. If the flag exists, the statement is true. Similar to when filtering by quality we need to use the `samtools view` command, however this time use the `-F` or `-f` flags.
+We can also apply filters to select reads based on where they fall within the `FLAG` categories. Remember that the bitwise flags are like boolean values. If the flag exists, the statement is true. Similar to when filtering by quality we need to use the `samtools view` command, however this time use the `-F` or `-f` flags.
 
 * `-f` - to find the reads that agree with the flag statement 
 * `-F`  - to find the reads that do not agree with the flag statement
