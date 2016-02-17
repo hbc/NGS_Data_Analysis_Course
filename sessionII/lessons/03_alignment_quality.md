@@ -202,7 +202,7 @@ $ samtools view -F 16 -c results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam
 ```
 ***
 
-**Excercise**
+**Exercise**
 
 Use the flags table to count how many reads are unmapped? How many reads are mapped?
 
@@ -211,7 +211,7 @@ Use the flags table to count how many reads are unmapped? How many reads are map
 
 ### Indexing the BAM file
 
-To perform some functions (i.e. subsetting, visualization) on the BAM file, an index is required. Indexing aims to achieve fast retrieval of alignments overlapping a specified region without going through the whole alignments. In order to index a BAM file, it must be sorted by the reference ID and then the leftmost coordinate, which can also be done with `samtools`. However, in our case we had included a parameter in our STAR alignment run so we know our BAM files are already sorted.
+To perform some functions (i.e. subsetting, visualization) on the BAM file, an index is required. Think of an index located at the back of a textbook. When you are interested in a particular subject area you look for the keyword in the index and identify the pages that contain the relevant information. Similaril indexing the BAM file aims to achieve fast retrieval of alignments overlapping a specified region without going through the whole alignment file. In order to index a BAM file, it must first be sorted by the reference ID and then the leftmost coordinate, which can also be done with `samtools`. However, in our case we had included a parameter in our STAR alignment run so we know our BAM files are already sorted.
 
 To index the BAM file we use the `index` command:
 
