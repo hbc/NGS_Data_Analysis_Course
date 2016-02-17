@@ -8,7 +8,8 @@ Approximate time:
 
 ## Learning Objectives:
 
-* learn how to use the featureCounts tool to generate a count matrix for statistical analyses
+* learn about read counting tools
+* learn to generate a count matrix using featureCounts
 
 ## Counting reads as a measure of gene expression
 <img src="../img/counts-workflow.png" width="400">
