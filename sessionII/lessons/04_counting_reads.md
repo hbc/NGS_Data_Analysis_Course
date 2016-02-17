@@ -8,7 +8,6 @@ Approximate time:
 
 ## Learning Objectives:
 
-* learn about tools that generate read counts, a measure of gene expression
 * learn how to use the featureCounts tool to generate a count matrix for statistical analyses
 
 ## Counting reads as a measure of gene expression
@@ -90,7 +89,7 @@ We are now going to run this in the interactive session using 4 cores.
 	  ~/ngs_course/rnaseq/results/STAR/bams/*bam \
 	  2> ~/ngs_course/unix_lesson/rnaseq/results/counts/Mov10_featurecounts.stdout
 
-The output of this tools is 2 files, a counts matrix and a summary file that tabulates how many the reads were "assigned"/counted and the reason they remained "unassigned". Lets take a look at the summary file:
+The output of this tool is 2 files, *a count matrix* and *a summary file* that tabulates how many the reads were "assigned"/counted and the reason they remained "unassigned". Lets take a look at the summary file:
 	
 	$ less results/counts/Mov10_featurecounts.txt.summary
 	
