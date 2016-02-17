@@ -91,16 +91,15 @@ VN: program version
 
 Following the header is the **alignment section**. Each line that follows corresponds to alignment information for a single read. Each alignment line has **11 mandatory fields for essential mapping information** and a variable number of other fields for aligner specific information. 
 
-![SAM](../img/SAM_file.png)
+![SAM1](../img/sam_bam.png)
 
-These fields contain information describing the read, quality of the read, and nature alignment of the read to a region of the genome. Most of the field entries above are pretty self-explanatory, except for two which could use a bit more in-depth of an explanation. These are, the (bitwise) `FLAG` field and `CIGAR`.
+An example read mapping is displayed above. Let's go through the fields one at a time. You have the read name, followed by a `FLAG` 
 
-### `FLAG` explained
 
 The `FLAG` value that is displayed can be translated into information about the mapping. 
 
 | Flag | Description |
-| -----------:|:-------------------------------:|
+| ------:|:----------------------:|
 | 1 | read is mapped |
 | 2 | read is mapped as part of a pair |
 | 4 | read is unmapped |
@@ -117,7 +116,7 @@ The `FLAG` value that is displayed can be translated into information about the 
 * The `FLAG` is a combination of all of the individual flags (from the table above) that are true for the alignment 
 * The beauty of the flag values is that any combination of flags can only result in one sum.
 
-Suppose our read alignment has a flag of 163 -- what does this translate to? It is the sum of 4 different flags:
+In our example we have a number that exist in the table, making it relatively easy to translate. But suppose our read alignment has a flag of 163 -- what does this translate to? It is the sum of 4 different flags:
 
 `163 = 1 + 2 + 32 + +128  `
 
@@ -127,17 +126,33 @@ Which tells us that:
 3. this is the mate revers strand
 4. this read is the second of the pair
 
-### CIGAR string
+Moving along the fields of the SAM file, we then have `RNAME` which is the reference sequence name. The example read is from chromosome 1 which explains why we see 'chr1'. `POS` refers to the 1-based leftmost position of the alignment. `MAPQ` is giving us the alignment quality, the scale of which will depend on the aligner being used. 
 
-The CIGAR string is a sequence of letters and numbers that represent the *edits or operations* required to match the read to the reference. The letters are operations that are used to indicate which bases align to the reference (i.e. match, mismatch, deletion, insertion), and the numbers indicate the associated base lengths for each 'operation'.
 
-![cigar](../img/cigar_strings.png)
+`CIGAR` is a sequence of letters and numbers that represent the *edits or operations* required to match the read to the reference. The letters are operations that are used to indicate which bases align to the reference (i.e. match, mismatch, deletion, insertion), and the numbers indicate the associated base lengths for each 'operation'.
+
+| Operation | Description |
+| ------:|:----------------------:|
+| M | sequence match or mismatch |
+| I | insertion to the reference |
+| D | deletion from reference |
+| N | skipped region from the reference|
+
 
 Suppose our read has a CIGAR string of `50M3I80M2D` which translates to:
 * 50 matches or mismatches
 * 3 bp insertion
 * 80 matches/mismatches
 * 2 bp deletion
+
+Now to the remaning fields in our SAM file:
+
+![SAM1](../img/sam_bam2.png)
+
+The next three fields are more pertinent to paired-end data. `MRNM` is the mate reference name. `MPOS` is the mate position (1-based, leftmost). `ISIZE` is the inferred insert size.
+
+Finally, you have the data from the original FASTQ file stored for each read. That is the raw sequence (`SEQ`) and the associated quality values for each position in the read (`QUAL`).
+
 
 ## `samtools`
 
