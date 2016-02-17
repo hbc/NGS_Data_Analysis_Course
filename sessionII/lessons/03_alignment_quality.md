@@ -120,10 +120,11 @@ In our example we have a number that exist in the table, making it relatively ea
 
 `163 = 1 + 2 + 32 + +128  `
 
-Which tells us that:
+Which tells us that:  
+
 1. the read is mapped
 2. the read is mapped as part of a pair
-3. this is the mate revers strand
+3. this is the mate reverse strand
 4. this read is the second of the pair
 
 Moving along the fields of the SAM file, we then have `RNAME` which is the reference sequence name. The example read is from chromosome 1 which explains why we see 'chr1'. `POS` refers to the 1-based leftmost position of the alignment. `MAPQ` is giving us the alignment quality, the scale of which will depend on the aligner being used. 
@@ -147,7 +148,7 @@ Suppose our read has a CIGAR string of `50M3I80M2D` which translates to:
 
 Now to the remaning fields in our SAM file:
 
-![SAM1](../img/sam_bam2.png)
+![SAM1](../img/sam_bam3.png)
 
 The next three fields are more pertinent to paired-end data. `MRNM` is the mate reference name. `MPOS` is the mate position (1-based, leftmost). `ISIZE` is the inferred insert size.
 
@@ -181,35 +182,36 @@ $ samtools view -q 30 -c results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam
 ```
 *How many of reads have a mapping quality of 30 or higher?*
 
-If we wanted to only work with high quality mapped reads, we could subset these alignments and write them to a new BAM file using the `-b` flag:
-
-```
-$ samtools view -q 30 -b results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam Mov10_oe_1_Aligned_q30.bam
-
-```
-
-We can also apply filters to keep/remove selected reads based on where they fall within the `FLAG` categories. Remember that the bitwise flags are like boolean values. If the flag exists, the statement is true. Similar to when filtering by quality we need to use the `samtools view` command, however this time use the `-F` or `-f` flags.
+We can also apply filters to select reads based on where they fall within the `FLAG` categories. Remember that the bitwise flags are like boolean values. If the flag exists, the statement is true. Similar to when filtering by quality we need to use the `samtools view` command, however this time use the `-F` or `-f` flags.
 
 * `-f` - to find the reads that agree with the flag statement 
 * `-F`  - to find the reads that do not agree with the flag statement
 
-Let's use the modifier to find the number of reads that do not map anywhere. From the table above we know that flag 4 translates to the read is unmapped, so our command would be:
+Let's use the modifier to find the number of reads that map to the reverse strand. From the table above we know that flag 16 translates to the read is reverse strand, so our command would be:
 
 ```
-$ samtools view -f 4 -c results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam 
+$ samtools view -f 16 -c results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam 
 
 ```
 
-To find the number of reads that do map, we need to count those reads that **do not meet the condition**. We do this using the capitalized F flag:
+To find the number of reads on the forward strand, we need to count those reads that **do not meet the condition 16**. We do this using the capitalized F flag:
 
 ```
-$ samtools view -F 4 -c results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam 
+$ samtools view -F 16 -c results/STAR/Mov10_oe_1_Aligned.sortedByCoord.out.bam 
 
 ```
+***
+
+**Exercise**
+
+Use the flags table to count how many reads are unmapped? How many reads are mapped?
+
+***
+
 
 ### Indexing the BAM file
 
-To perform some functions (i.e. subsetting, visualization) on the BAM file, an index is required. Indexing aims to achieve fast retrieval of alignments overlapping a specified region without going through the whole alignments. In order to index a BAM file, it must be sorted by the reference ID and then the leftmost coordinate, which can also be done with `samtools`. However, in our case we had included a parameter in our STAR alignment run so we know our BAM files are already sorted.
+To perform some functions (i.e. subsetting, visualization) on the BAM file, an index is required. Think of an index located at the back of a textbook. When you are interested in a particular subject area you look for the keyword in the index and identify the pages that contain the relevant information. Similaril indexing the BAM file aims to achieve fast retrieval of alignments overlapping a specified region without going through the whole alignment file. In order to index a BAM file, it must first be sorted by the reference ID and then the leftmost coordinate, which can also be done with `samtools`. However, in our case we had included a parameter in our STAR alignment run so we know our BAM files are already sorted.
 
 To index the BAM file we use the `index` command:
 
@@ -223,7 +225,9 @@ This will create an index in the same directory as the BAM file, which will be i
 **Exercise:**
 
 1. The STAR log file for `Mov10_oe_1` indicated that there were a certain number of reads mapping to multiple locations. When this happens, one of these alignments is considered
-primary and all the other alignments have the secondary alignment flag set in the SAM records. **Use `samtools` and your knowledge of [bitwise flags](https://github.com/hbc/NGS_Data_Analysis_Course/blob/master/sessionII/lessons/03_alignment_quality.md#bitwise-flags-explained) to extract the secondary reads to a file called `Mov10_oe_1_secondary_alignments.bam`.**
+primary and all the other alignments have the secondary alignment flag set in the SAM records. **Use `samtools` and your knowledge of [bitwise flags](https://github.com/hbc/NGS_Data_Analysis_Course/blob/master/sessionII/lessons/03_alignment_quality.md#bitwise-flags-explained) to count the number of  secondary reads to a file called `Mov10_oe_1_secondary_alignments.bam`.**
+
+2. Use the `-b` flag to write these reads to a new BAM file (this is only possible if you have an index for your BAM file!)
 
 ***
 
