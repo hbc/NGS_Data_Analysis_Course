@@ -113,11 +113,21 @@ Most of the field entries above are pretty self-explanatory, except for two whic
 
 ### Bitwise flags explained
 
-The `FLAG` value that is displayed can be translated into information about the mapping. The flag value corresponds to a bit set which is a sum of the binary representation of the individual flags.
+The `FLAG` value that is displayed can be translated into information about the mapping. 
 
-There are 11 bitwise flags describing the alignment:
-
-![bitwise](../img/bitwiseflags.png)
+| Flag | Description |
+| -----------:|:-------------------------------:|
+| 1 | read is mapped |
+| 2 | read is mapped as part of a pair |
+| 4 | read is unmapped |
+| 8 | mate is unmapped |
+| 16| read reverse strand|
+| 32 | mate reverse strand |
+| 64 | first in pair |
+| 128 | second in pair |
+| 256 | not primary alignment |
+| 512 | read fails platform/vendor quality checks |
+| 1024| read is PCR or optical duplicate |
 
 * For a given alignment, each of these flags are either on or off indicating the condition is true or false. 
 * These flags are stored as a binary strings of length 11 instead of 11 columns of data. Value of ‘1’ indicates the flag is set.  e.g. 00100000000
