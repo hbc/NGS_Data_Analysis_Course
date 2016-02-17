@@ -22,7 +22,7 @@ Once we have our reads aligned to the genome, the next step is to count how many
 **Input for counting**: BAM files + GTF file.
 Simply speaking, the genomic coordinates of where the read is mapped (BAM) are cross-referenced with the genomic coordinates of whichever feature you are interested in counting expression of (GTF), it can be exons, genes or transcripts.
 
-<img src="../img/count-fig1.png" width="600">
+<img src="../img/count-fig2.png" width="600">
 
 **Output of counting**: A count matrix, with genes as rows and samples are columns. 
 These are the "raw" counts and will be used in statistical programs downstream for differential gene expression.
