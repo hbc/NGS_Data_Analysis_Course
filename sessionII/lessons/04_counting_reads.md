@@ -88,7 +88,7 @@ and the following are the values for the required parameters:
 
 Let's run this now:
 
-	$ featureCounts -T 4 -s 2\ 
+	$ featureCounts -T 4 -s 2 \ 
 	  -a ~/ngs_course/unix_lesson/reference_data/chr1-hg19_genes.gtf \
 	  -o ~/ngs_course/unix_lesson/rnaseq/results/counts/Mov10_featurecounts.txt \
 	  ~/ngs_course/rnaseq/results/STAR/bams/*bam
