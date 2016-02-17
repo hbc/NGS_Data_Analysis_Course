@@ -89,8 +89,8 @@ and the following are the values for the required parameters:
 Let's run this now:
 
 	$ featureCounts -T 4 -s 2 \ 
-	  -a ~/ngs_course/unix_lesson/reference_data/chr1-hg19_genes.gtf \
-	  -o ~/ngs_course/unix_lesson/rnaseq/results/counts/Mov10_featurecounts.txt \
+	  -a ~/ngs_course/rnaseq/data/reference_data/chr1-hg19_genes.gtf \
+	  -o ~/ngs_course/rnaseq/results/counts/Mov10_featurecounts.txt \
 	  ~/ngs_course/rnaseq/results/STAR/bams/*bam
 	  
 > If you wanted to collect the information that is on the screen as the job runs, you can modify the command and add the `2>` redirection at the end. This type of redirection will collect all the information from the terminal/screen into a file.
@@ -99,10 +99,10 @@ Let's run this now:
 	# note the last line of the command below
 	
 	$ featurecounts -T 4 -s 2 \ 
-	  -a ~/ngs_course/unix_lesson/reference_data/chr1-hg19_genes.gtf \
-	  -o ~/ngs_course/unix_lesson/rnaseq/results/counts/Mov10_featurecounts.txt \
+	  -a ~/ngs_course/rnaseq/data/reference_data/chr1-hg19_genes.gtf \
+	  -o ~/ngs_course/rnaseq/results/counts/Mov10_featurecounts.txt \
 	  ~/ngs_course/rnaseq/results/STAR/bams/*bam \
-	  2> ~/ngs_course/unix_lesson/rnaseq/results/counts/Mov10_featurecounts.screen-output
+	  2> /ngs_course/rnaseq/results/counts/Mov10_featurecounts.screen-output
 
 #### featureCounts output
 
