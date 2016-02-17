@@ -13,18 +13,20 @@ Approximate time:
 ## Counting reads as a measure of gene expression
 <img src="../img/counts-workflow.png" width="400">
 
-Once we have our reads aligned to the genome, the next step is to count how many reads have mapped to each gene. There are many tools that can use BAM files as input and output the number of reads (counts) associated with each feature of interest (genes, exons, transcripts, etc.). There are 2 commonly used counting tools, [featureCounts](http://bioinf.wehi.edu.au/featureCounts/) and [htseq-count](http://www-huber.embl.de/users/anders/HTSeq/doc/count.html). 
+Once we have our reads aligned to the genome, the next step is to count how many reads have mapped to each gene. There are many tools that can use BAM files as input and output the number of reads (counts) associated with each feature of interest (genes, exons, transcripts, etc.). 2 commonly used counting tools are [featureCounts](http://bioinf.wehi.edu.au/featureCounts/) and [htseq-count](http://www-huber.embl.de/users/anders/HTSeq/doc/count.html). 
 
 * The above tools only report the "raw" counts of reads that map to a single location (uniquely mapping) and are best at counting at the gene level. Essentially, total read count associated with a gene (*meta-feature*) = the sum of reads associated with each of the exons (*feature*) that "belong" to that gene.
 
 * There are other tools available that are able to account for multiple transcripts for a given gene. In this case the counts are not whole numbers, but have fractions. In the simplest example case, if 1 read is associated with 2 transcripts, it can get counted as 0.5 and 0.5 and the resulting count for that transcript is not a whole number.
 
-**Input for counting**: BAM files + GTF file.
+**Input for counting = multiple BAM files + 1 GTF file**
+
 Simply speaking, the genomic coordinates of where the read is mapped (BAM) are cross-referenced with the genomic coordinates of whichever feature you are interested in counting expression of (GTF), it can be exons, genes or transcripts.
 
 <img src="../img/count-fig2.png" width="600">
 
-**Output of counting**: A count matrix, with genes as rows and samples are columns. 
+**Output of counting = A count matrix, with genes as rows and samples are columns**
+
 These are the "raw" counts and will be used in statistical programs downstream for differential gene expression.
 
 <img src="../img/count-matrix.png" width="300">
