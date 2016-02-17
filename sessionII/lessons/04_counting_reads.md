@@ -1,7 +1,7 @@
 ---
 title: "Counting reads"
 author: "Meeta Mistry, Bob Freeman, Radhika Khetani"
-date: "Friday, February 12, 2016"
+date: "Tuesday, February 16, 2016"
 ---
 
 Approximate time: 
