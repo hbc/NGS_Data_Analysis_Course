@@ -32,7 +32,8 @@ Simply speaking, the genomic coordinates of where the read is mapped (BAM) are c
 ### Counting using featureCounts
 Today, we will be using the featureCounts tool to get the *gene* counts, since this tool is accurate and it is relatively easy to use. This tool only counts reads that are mapping to a single location and follows the scheme in the figure for assigning reads to a gene/exon.
 
-<img src="../img/union.png" width="500">
+<img src="../img/union.png" width="400">
+(figure adapted from http://www-huber.embl.de/users/anders/HTSeq/doc/count.html)
 
 	
 	$ featureCounts 
