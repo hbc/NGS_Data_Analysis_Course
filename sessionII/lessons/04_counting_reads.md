@@ -13,13 +13,14 @@ Approximate time:
 
 ## Counting reads as a measure of gene expression
 ![rnaseq_workflow](../img/rnaseq_workflow.png)
+<img src="../img/rnaseq_workflow.png" width="600">
 
 Once we have our reads aligned to the genome, the next step is to count how many reads have mapped to each gene. There are many tools that can use BAM files as input and output the number of reads (counts) associated with each feature of interest (genes, exons, transcripts, etc.). There are 2 commonly used counting tools, [featureCounts](http://bioinf.wehi.edu.au/featureCounts/) and [htseq-count](http://www-huber.embl.de/users/anders/HTSeq/doc/count.html). 
 
 **Input for counting**: BAM files + GTF file.
 Simply speaking, the genomic coordinates of where the read is mapped (BAM) are cross-referenced with the genomic coordinates of the known exons/genes (GTF).
 
-<img src="../img/count-fig1.png" width="500">
+<img src="../img/count-fig1.png" width="600">
 
 **Output for counting**: A count matrix, with genes as rows and samples are columns. These are considered the "raw" counts and will be used in statistical programs downstream for differential gene expression.
 
