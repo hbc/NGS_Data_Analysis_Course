@@ -16,46 +16,73 @@ Approximate time:
 
 Once we have our reads aligned to the genome, the next step is to count how many reads have mapped to each gene. There are many tools that can use BAM files as input and output the number of reads (counts) associated with each feature of interest (genes, exons, transcripts, etc.). There are 2 commonly used counting tools, [featureCounts](http://bioinf.wehi.edu.au/featureCounts/) and [htseq-count](http://www-huber.embl.de/users/anders/HTSeq/doc/count.html). 
 
-* The above tools only report the "raw" counts of reads that map to a single location (uniquely mapping) and are best at counting at the gene level. Essentially, total read count associated with a gene = the sum of reads associated with each of the exons that "belong" to that gene.
+* The above tools only report the "raw" counts of reads that map to a single location (uniquely mapping) and are best at counting at the gene level. Essentially, total read count associated with a gene (*attribute*) = the sum of reads associated with each of the exons (*feature*) that "belong" to that gene.
 
 * There are other tools available that are able to account for multiple transcripts for a given gene. In this case the counts are not whole numbers, but have fractions. In the simplest example case, if 1 read is associated with 2 transcripts, it can get counted as 0.5 and 0.5 and the resulting count for that transcript is not a whole number.
 
-**Input for counting**: BAM files + GTF file.
-Simply speaking, the genomic coordinates of where the read is mapped (BAM) are cross-referenced with the genomic coordinates of whichever feature you are interested in counting expression of (GTF), it can be exons, genes or transcripts.
+> **Input for counting**: BAM files + GTF file.
+> Simply speaking, the genomic coordinates of where the read is mapped (BAM) are cross-referenced with the genomic coordinates of whichever feature you are interested in counting expression of (GTF), it can be exons, genes or transcripts.
 
 <img src="../img/count-fig1.png" width="600">
 
-**Output of counting**: A count matrix, with genes as rows and samples are columns. These are considered the "raw" counts and will be used in statistical programs downstream for differential gene expression.
+> **Output of counting**: A count matrix, with genes as rows and samples are columns. 
+> These are the "raw" counts and will be used in statistical programs downstream for differential gene expression.
 
 <img src="../img/count-matrix.png" width="500">
 
 ### Counting using featureCounts
-Today, we will be using the featureCounts tool to get the *gene* counts, since this tool is accurate and it is relatively easy to use. This tool only counts reads that are mapping to a single location and follows the scheme in the figure for assigning reads to a gene/exon.
+Today, we will be using the featureCounts tool to get the *gene* counts, since this tool is accurate and it is relatively easy to use. This tool only counts reads that are mapping to a single location (uniquely mapping) and follows the scheme in the figure below for assigning reads to a gene/exon. 
 
 <img src="../img/union.png" width="400">
+
 (figure adapted from http://www-huber.embl.de/users/anders/HTSeq/doc/count.html)
 
+featureCounts can take into account whether your data are stranded or not. If strandedness is specified then, in addition to considering the genomic coordinates, it will also take the strand into account for counting.
+
+First things first, start an interactive session with 4 cores
 	
-	$ featureCounts 
+	$ bsub -Is -n 4 -q interactive bash
+
+Now, change directories to your rnaseq directory and start by creating 2 directories, (1) a directory for the output and (2) a directory for just the bam files we generated yesterday:
+
+	$ cd ~/ngs_course/rnaseq/
+	$ mkdir results/counts results/STAR/bam
+
+featureCounts is not available as a module on Orchestra, but we can add the path for it to our PATH variable. 
+
+	$ export PATH=/opt/bcbio/local/bin:$PATH
+
+> Remember that this export command is only valid for this interactive session. If you want to make sure that the tool is available to you all the time, add the above command to your `~/.bashrc` or your `~/.bash_profile` files.
+
+What options/parameters are available to us for this tool?
+
+	```$ featureCounts 
 
 	  Version 1.4.4
 
 	  Usage: featureCounts [options] -a <annotation_file> -o <output_file> input_file1 [input_file2] ... 
+	  Required arguments:
 
+	  -a <string>         Name of an annotation file. GTF format by default. See -F 
+	                      option for more formats.
 
+	  -o <string>         Name of the output file including read counts. A separate 
+	                      file including summary statistics of counting results is 
+	                      also included in the output (`<string>.summary')
 
-Let's start by creating a directory for the output:
+	  input_files         List of input files in BAM or SAM format. Users do not 
+	                      need to specify it is BAM or SAM.
+	  
+	  Optional arguments:
 
-	$ mkdir results/counts
+	  .
+	  .
+	  .
+	  .```
 
-	$ export PATH=/opt/bcbio/local/bin:$PATH
+Now
 
-
-In it's most basic form the htseq command requires only the BAM file and the GTF file. We will add in a few additional parameters including `--format` to indicate BAM file, and `--stranded reverse` to specify that we have a stranded library created via the dUTP method. By default htseq-count will _ignore any reads that map to multiple locations_ on the genome. This results in undercounting but also helps reduce false positives. While multi-mappers are a feature that cannot be modified, there is a parameter that allows the user to filter reads by specifying a minimum alignment quality. 
-
-You will notice at the end of the command we have added a redirection symbol. Since htseq-count outputs results to screen, we need to re-direct it to file.
-
-	featureCounts -T 6 -a ~/ngs_course/unix_lesson/reference_data/chr1-hg19_genes.gtf \
+	featureCounts -T 4 -a ~/ngs_course/unix_lesson/reference_data/chr1-hg19_genes.gtf \
 		-o ~/ngs_course/unix_lesson/rnaseq/results/counts/counts.txt \
 		-s 2 \
 		~/ngs_course/unix_lesson/rnaseq/results/STAR/*bam
