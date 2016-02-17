@@ -11,14 +11,10 @@ Approximate time:
 * learn about tools that generate read counts, a measure of gene expression
 * learn how to use the featureCounts tool to generate a count matrix for statistical analyses
 
-
-
-
-### Generating raw counts as a measure of gene expression
+## Counting reads as a measure of gene expression
 Once we have our reads aligned to the genome, the next step is to count how many reads have mapped to each gene. There are many tools that can use BAM files as input and output the number of reads (counts) associated with each feature of interest (genes, exons, transcripts, etc.). There are 2 commonly used counting tools, [featureCounts](http://bioinf.wehi.edu.au/featureCounts/) and [htseq-count](http://www-huber.embl.de/users/anders/HTSeq/doc/count.html). 
 
-![rnaseq_workflow](../img/counts-workflow.jpg)
-
+![rnaseq_workflow](../img/rnaseq_workflow.png)
 
 ### Counting using featureCounts
 In addition to BAM files, counting tools also require the GTF/GFF file as input; these will provide the list of features and their respective genomic coordinates. featureCounts works by taking the alignment coordinates for each read and cross-referencing that to the coordinates for features described in the GTF. Most commonly a feature is considered to be a gene ('gene_id' in a GTF), which is the union of all exons (which is a feature type) that map to that gene. 
