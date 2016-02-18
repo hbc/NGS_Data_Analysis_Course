@@ -37,7 +37,7 @@ For example, let's start by giving our plot a title and renaming the axes. We ca
 
 ```
 plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age", xlab="Age (days)", 
-ylab="Mean expression")
+	ylab="Mean expression")
 ```	
 	
 ![scatter-2](../img/scatter-plot2.png) 
@@ -47,7 +47,7 @@ We can also change the **shape of the data point using the `pch`** option and th
 
 ```
 plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age", xlab="Age (days)", 
-ylab="Mean expression", pch="*", cex=2.0)
+	ylab="Mean expression", pch="*", cex=2.0)
 ```
 
 ![scatter-3](../img/scatter-plot3.png)
@@ -59,12 +59,18 @@ We can also add color to **separate the data points by information** in our data
 
 ```
 plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age", xlab="Age (days)", 
-ylab="Mean expression", pch="*", cex=2.0, col=c("blue", "green")[celltype]])
+	ylab="Mean expression", pch="*", cex=2.0, col=c("blue", "green")[celltype]])
 ```
 
 ![scatter-4](../img/scatter-plot4.png)
 
+The last thing this plot needs is a legend describing the color schem. It would be great if it created on for you by default, but with R base functions it is not so easy. To draw a legend on the current plot, you need to run an entirely different function called `legend()` and specify arguments on what you want in there. The code to do so is provided below. Don't worry if it seems confusing, we plan on showing you a much more intuitive way of plotting your data.
 
+```
+legend("topleft", pch="*", col=c("blue", "green"), c("A", "B"), cex=0.8,
+ 	title="Celltype")
+```
+![scatter-5](../img/scatter-plot5.png)
 
 ***
 
