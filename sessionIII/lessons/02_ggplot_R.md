@@ -64,7 +64,7 @@ plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age
 
 ![scatter-4](../img/scatter-plot4.png)
 
-The last thing this plot needs is a legend describing the color schem. It would be great if it created on for you by default, but with R base functions it is not so easy. To draw a legend on the current plot, you need to run an entirely different function called `legend()` and specify arguments on what you want in there. The code to do so is provided below. Don't worry if it seems confusing, we plan on showing you a much more intuitive way of plotting your data.
+The last thing this plot needs is a legend describing the color scheme. It would be great if it created one for you by default, but with R base functions unfortunatley it is not that easy. To draw a legend on the current plot, you need to run a new function called `legend()` and specify the appropriate arguments. The code to do so is provided below. Don't worry if it seems confusing, we plan on showing you a much more intuitive way of plotting your data.
 
 ```
 legend("topleft", pch="*", col=c("blue", "green"), c("A", "B"), cex=0.8,
@@ -88,9 +88,9 @@ legend("topleft", pch="*", col=c("blue", "green"), c("A", "B"), cex=0.8,
 ## Advanced figures (`ggplot2`)
 
 
-More recently, R users have moved away from base graphic options and towards a plotting package called [`ggplot2`](http://docs.ggplot2.org/) that adds a lot of functionality to the basic plots seen in the previous lesson. The syntax takes some getting used to but it's extremely powerful and flexible. We can start by re-creating some of the above plots but using ggplot functions to get a feel for the syntax.
+More recently, R users have moved away from base graphic options and towards a plotting package called [`ggplot2`](http://docs.ggplot2.org/). This package adds a lot of functionality to the basic plots described above The syntax takes some getting used to but once you have it you will find it's extremely powerful and flexible. We can start by re-creating the scatterplot but using ggplot functions to get a feel for the syntax.
 
-`ggplot2` is best used on data in the `data.frame` form, so we will will work with `df` for the following figures. Let's start by loading the `ggplot2` library.
+`ggplot2` is best used on data in the `data.frame` form, so we will will work with `metadata` for the following figures. Let's start by loading the `ggplot2` library.
 
 ```{r}
 library(ggplot2)
@@ -98,72 +98,78 @@ library(ggplot2)
 
 The `ggplot()` function is used to **initialize the basic graph structure**, then we add to it. The basic idea is that you specify different parts of the plot, and add them together using the `+` operator.
 
-We will start with a blank plot and will find that you will get an error, because you need to **add layers**.
+We will start with a blank plot and may find that you will get an error. This is because you need to **add layers**.
 
 ```{r, eval=FALSE}
-ggplot(df) # note the error 
+ggplot(metadata) # what happens? 
 ```
 
-**Geometric objects** are the actual marks we put on a plot. Examples include:
+One type of layer is **geometric objects**. These are the actual marks we put on a plot. Examples include:
 
 * points (`geom_point`, for scatter plots, dot plots, etc)
 * lines (`geom_line`, for time series, trend lines, etc)
 * boxplot (`geom_boxplot`, for, well, boxplots!)
 
-A plot **must have at least one geom**; there is no upper limit. You can add a geom to a plot using the + operator
+For a more exhaustive list on all possible geometric objects and when to use them check out [Hadley Wickham's RPubs](http://rpubs.com/hadley/ggplot2-layers). 
+
+A plot **must have at least one geom**; there is no upper limit. You can add a geom to a plot using the `+` operator
 
 ```{r, eval=FALSE}
-ggplot(df) +
+ggplot(metadata) +
   geom_point() # note what happens here
 ```
 
-For a more exhaustive list on all possible geometric objects and when to use them check out [Hadley Wickham's RPubs](http://rpubs.com/hadley/ggplot2-layers). Each type of geom usually has a **required set of aesthetics** to be set, and usually accepts only a subset of all aesthetics --refer to the geom help pages to see what mappings each geom accepts. Aesthetic mappings are set with the aes() function. Examples include:
+You will find that even though we have added a layer by specifying `geom_point`, we still get an error. This is because each type of geom usually has a **required set of aesthetics** to be set. Aesthetic mappings are set with the aes() function and can be set inside `geom_point()` to be specifically applied to that layer. If we supplied aesthetics within `ggplot()`, they will be used as defaults for every layer. Examples of aesthetics include:
 
 * position (i.e., on the x and y axes)
 * color ("outside" color)
-* fill ("inside" color) shape (of points)
+* fill ("inside" color) 
+* shape (of points)
 * linetype
 * size
 
 To start, we will add position for the x- and y-axis since `geom_point` requires mappings for x and y, all others are optional.
 
 ```{r, fig.align='center'}
-ggplot(df) +
-     geom_point(aes(x = row.names(df), y= samplemeans))
+ggplot(metadata) +
+     geom_point(aes(x = age_in_days, y= samplemeans))
 ```
 
- ![ggscatter1](../img/gg-scatter-1.png) 
+ ![ggscatter1](../img/ggscatter-1.png) 
 
 
-Now that we have the required aesthetics, let's add some extras like color to the plot. We can `color` the points on the plot based on genotype, by specifying the column of information in our data frame:
-
-```{r, fig.align='center'}
-ggplot(df) +
-  geom_point(aes(x = row.names(df), y= samplemeans, color = genotype)) 
-```
-
- ![ggscatter1.1](../img/gg-scatter-1.1.png) 
-
-
-Alternatively, we could color based on celltype. If we wanted both celltype and genotype identified on the plot, the `shape` aesthetic would allow us to assign the shape of data point. Add in `shape = celltype` to your aesthetic and see how it changes your plot:
-
-```{r, fig.align='center'}
-ggplot(df) +
-  geom_point(aes(x = row.names(df), y= samplemeans, color = genotype, shape = celltype)) 
-```
-
- ![ggscatter1.2](../img/gg-scatter-1.2.png) 
-
-
-The size of the data points are quite small. We can adjust within the `geom_point()` but does not need to be included in `aes()` since we are specifying how large we want the data points, rather than mapping it to a variable.
+Now that we have the required aesthetics, let's add some extras like color to the plot. We can `color` the points on the plot based on genotype, by specifying the column header. You will notice that there are a default set of colors that will be used so we do not have to specify. Also, the legend has been conveniently plotted for us!
 
 
 ```{r, fig.align='center'}
-ggplot(df) +
-  geom_point(aes(x = row.names(df), y= samplemeans, color = genotype, shape = celltype), size = rel(3.0)) 
+ggplot(metadata) +
+  geom_point(aes(x = age_in_days, y= samplemeans, color = genotype)) 
 ```
 
- ![ggscatter1.3](../img/gg-scatter-1.3.png) 
+ ![ggscatter1.1](../img/ggscatter-2.png) 
+
+
+Alternatively, we could color based on celltype by changing it to `color =celltype`. Let's try something different and have both **celltype and genotype identified on the plot**. To do this we can assign the `shape` aesthetic the column header, so that each celltype is plotted with a different shaped data point. Add in `shape = celltype` to your aesthetic and see how it changes your plot:
+
+```{r, fig.align='center'}
+ggplot(metadata) +
+  geom_point(aes(x = age_in_days, y= samplemeans, color = genotype,
+  			shape=celltype)) 
+`````
+
+ ![ggscatter3](../img/ggscatter-3.png) 
+
+
+The size of the data points are quite small. We can adjust that within the `geom_point()` layer, but does not need to be included in `aes()` since we are specifying how large we want the data points, rather than mapping it to a variable. Add in the `size` argument by specifying the magnitude relative to the default (`rel(3.0)`):
+
+```{r, fig.align='center'}
+ggplot(metadata) +
+  geom_point(aes(x = age_in_days, y= samplemeans, color = genotype,
+  			shape=celltype), size=rel(3.0)) 
+`````
+
+ ![ggscatter4](../img/ggscatter-4.png)
+  
 
 The labels on the x-axis ticks are also quite hard to read. To do this we need to add an additional **theme layer**. The ggplot2 `theme` system handles non-data plot elements such as:
 
