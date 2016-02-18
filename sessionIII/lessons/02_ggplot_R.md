@@ -36,7 +36,8 @@ Each point represents a sample. The values on the y-axis correspond to the avera
 For example, let's start by giving our plot a title and renaming the axes. We can do that by simply adding the options `xlab`, `ylab` and `main` as arguments to the `plot()` function:
 
 ```
-plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age", xlab="Age (days)", ylab="Mean expression")
+plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age", xlab="Age (days)", 
+ylab="Mean expression")
 ```	
 	
 ![scatter-2](../img/scatter-plot2.png) 
@@ -45,7 +46,8 @@ plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age
 We can also change the **shape of the data point using the `pch`** option and the **size of the data points using `cex`** (specifying the amount to magnify relative to the default).
 
 ```
-plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age", xlab="Age (days)", ylab="Mean expression", pch="*", cex=2.0)
+plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age", xlab="Age (days)", 
+ylab="Mean expression", pch="*", cex=2.0)
 ```
 
 ![scatter-3](../img/scatter-plot3.png)
@@ -56,7 +58,8 @@ We can also add some **color to the data points** on the plot by adding `col="bl
 We can also add color to **separate the data points by information** in our data frame. For example, supppose we wanted to the data points colored by celltype. We would need to specify a vector of colours and provide the factor by which we are separating samples:
 
 ```
-plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age", xlab="Age (days)", ylab="Mean expression", pch="*", cex=2.0, col=c("blue", "red")[celltype]])
+plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age", xlab="Age (days)", 
+ylab="Mean expression", pch="*", cex=2.0, col=c("blue", "green")[celltype]])
 ```
 
 ![scatter-4](../img/scatter-plot4.png)
