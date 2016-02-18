@@ -93,7 +93,7 @@ Following the header is the **alignment section**. Each line that follows corres
 
 ![SAM1](../img/sam_bam.png)
 
-An example read mapping is displayed above. Let's go through the fields one at a time. You have the read name (`QNAME`), followed by a `FLAG` 
+An example read mapping is displayed above. *Note that the example above spans two lines, but in the file it is a single line.* Let's go through the fields one at a time. First, you have the read name (`QNAME`), followed by a `FLAG` 
 
 
 The `FLAG` value that is displayed can be translated into information about the mapping. 
