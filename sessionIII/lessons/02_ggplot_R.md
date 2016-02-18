@@ -16,15 +16,14 @@ Approximate time: 60 minutes
 
 ## Data Visualization
 
-When we are working with large sets of numbers it can be useful to display that information graphically to develop insight. Visualization deserves an entire course of its own (there is that much to know!). During this lesson we will get you started with the basics of plotting by exploring a few features of R's base plotting package and then compare those to some more of advanced features using the popular Bioconductor package `ggplot2`.
+When we are working with large sets of numbers it can be useful to display that information graphically to gain more insight. Visualization deserves an entire course of its own (there is that much to know!). During this lesson we will get you started with the basics of plotting by exploring a few features of R's base plotting package and then compare those to some more of advanced features using the popular Bioconductor package `ggplot2`.
 
 
 ## Basic plots in R
-R has a number of built-in tools for basic graph types such as hisotgrams, scatter plots, bar charts, boxplots and much [more](http://www.statmethods.net/graphs/). Rather than going through all of different types, we will focus on the scatterplot to give you an idea of the different parameters involved in adding different features to plots when using base R functions.
-
+R has a number of built-in tools for basic graph types such as hisotgrams, scatter plots, bar charts, boxplots and much [more](http://www.statmethods.net/graphs/). Rather than going through all of different types, we will focus on the scatterplot to give you an idea of the different parameters involved in changing features to R base plots.
 
 ### Scatterplot
-A scatter plot provides a graphical view of the relationship between two sets of continuous numeric data. From our metadata file we will the `samplemeans` information and plot it against `age_in_days`, to see how mean expression changes with age. The base R function to do this is `plot(y ~ x, data)`:
+A scatter plot provides a graphical view of the relationship between two sets of continuous numeric data. From our metadata file we will the `samplemeans` column and plot it against `age_in_days`, to see how mean expression changes with age. The base R function to do this is `plot(y ~ x, data)`:
 
 
 	plot(samplemeans ~ age_in_days, data=metadata)
@@ -34,27 +33,31 @@ A scatter plot provides a graphical view of the relationship between two sets of
 
 Each point represents a sample. The values on the y-axis correspond to the average expression for each sample which is dependent on the x-axis variable `age_in_days`. This plot is in it's simplest form. We can customize many features of the plot (fonts, colors, axes, titles) through [graphic options](http://www.statmethods.net/advgraphs/parameters.html).
 
-For example, lets's start by giving our plot a title and renaming the axes. We can do that by simply adding the options `xlab`, `ylab` and `main` as arguments to the `plot()` function:
+For example, let's start by giving our plot a title and renaming the axes. We can do that by simply adding the options `xlab`, `ylab` and `main` as arguments to the `plot()` function:
 
-	plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age", xlab="Age (days)", ylab="Mean expression")
+```
+plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age", xlab="Age (days)", ylab="Mean expression")
+```	
 	
 ![scatter-2](../img/scatter-plot2.png) 
 
 
-We can also change the shape of the data point using `pch` and the size of the point using `cex` (to give the amount to magnify relative to the default).
+We can also change the **shape of the data point using the `pch`** option and the **size of the data points using `cex`** (specifying the amount to magnify relative to the default).
 
-
-	plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age", xlab="Age (days)", ylab="Mean expression", pch="*", cex=2.0)
+```
+plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age", xlab="Age (days)", ylab="Mean expression", pch="*", cex=2.0)
+```
 
 ![scatter-3](../img/scatter-plot3.png)
 
 
-We can add some color to the data points on the plot by adding `col="blue"`. Alternatively, you can sub in any another color with any of the default colors or you can [experiment with other R packages](http://www.stat.ubc.ca/~jenny/STAT545A/block14_colors.html#basic-color-specification-and-the-default-palette) to fiddle with better palettes. 
+We can also add some **color to the data points** on the plot by adding `col="blue"`. Alternatively, you can sub in any another color with any of the default colors or you can [experiment with other R packages](http://www.stat.ubc.ca/~jenny/STAT545A/block14_colors.html#basic-color-specification-and-the-default-palette) to fiddle with better palettes. 
 
-We can also add color to separate the data points by information in our data frame. For example, supppose we wanted to the data points colored by celltype. We would need to specify a vector of colours and provide the factor by which we are separating samples:
+We can also add color to **separate the data points by information** in our data frame. For example, supppose we wanted to the data points colored by celltype. We would need to specify a vector of colours and provide the factor by which we are separating samples:
 
-	  	plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age", xlab="Age (days)", ylab="Mean expression", pch="*", cex=2.0, col=c("blue", "red")[celltype]])
-
+```
+plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age", xlab="Age (days)", ylab="Mean expression", pch="*", cex=2.0, col=c("blue", "red")[celltype]])
+```
 
 ![scatter-4](../img/scatter-plot4.png)
 
@@ -65,9 +68,9 @@ We can also add color to separate the data points by information in our data fra
 **Exercise** 
 
 
-1. Change the color scheme in the scatter plot, such that it reflects the genotype of samples rather than celltype.
+1. Change the color scheme in the scatterplot, such that it reflects the `genotype` of samples rather than `celltype`.
 
-2. Use R help to find out how to increase the size of the text on teh axis labels.
+2. Use R help to find out how to increase the size of the text on the axis labels.
 
 ***
 
