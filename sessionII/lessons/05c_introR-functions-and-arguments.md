@@ -232,6 +232,12 @@ Once you have the standard packages installed, you can install additional packag
 biocLite('ggplot2')
 ```
 
+Finally, R packages can also be installed from source. This is useful when you do not have an internet connection (and have the source files locally), since the other two methods are retrieving the source files from remote sites. 
+
+To install from source, we use the same `install.packages` function but we have additional arguments that provide *specifications* to *change from defaults*:
+
+	install.packages('ggplot2_1.0.1.tar.gz', type="source", repos=NULL)
+
 ### Loading libraries
 Once you have the package installed, you can load it into your R session for use. Any of the functions that are specific to that package will be available for you to use by simply calling the function as you would for any of the base functions. *Note that quotations are not required here.*
 
@@ -240,6 +246,12 @@ Once you have the package installed, you can load it into your R session for use
 library(ggplot2)
 ```
 
+You can also check what is loaded in your current environment by using `sessionInfo()` and you you should see your package listed as:
+
+```
+other attached packages:
+[1] ggplot2_2.0.0
+```
 
 
 ### More resources
