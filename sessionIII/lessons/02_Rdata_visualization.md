@@ -253,10 +253,10 @@ Now that we have all the required information for plotting with ggplot2 let's tr
 5. Change the size of your axes tick labels to 1.25x larger than the default.
 6. Change the size of your plot title in the same way that you change the size of the axes text but use `plot.title`.
 
-*BONUS:* Use the `fill` aesthetic to look at differences in sample means between celltypes within each genotype.
+*BONUS: Use the `fill` aesthetic to look at differences in sample means between celltypes within each genotype.*
 
 
-Our final figure should look something like that provided below.
+**Our final figure should look something like that provided below.**
 
  ![ggbox](../img/ggboxplot.png)
 
