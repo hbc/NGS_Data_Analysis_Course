@@ -231,6 +231,7 @@ Once you have the standard packages installed, you can install additional packag
 ```r
 biocLite('ggplot2')
 ```
+### Package installation from source
 
 Finally, R packages can also be installed from source. This is useful when you do not have an internet connection (and have the source files locally), since the other two methods are retrieving the source files from remote sites. 
 
