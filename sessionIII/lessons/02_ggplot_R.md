@@ -160,7 +160,7 @@ ggplot(metadata) +
  ![ggscatter3](../img/ggscatter-3.png) 
 
 
-The size of the data points are quite small. We can adjust that within the `geom_point()` layer, but does not need to be included in `aes()` since we are specifying how large we want the data points, rather than mapping it to a variable. Add in the `size` argument by specifying the magnitude relative to the default (`rel(3.0)`):
+The **size of the data points** are quite small. We can adjust that within the `geom_point()` layer, but does **not** need to be **included in `aes()`** since we are specifying how large we want the data points, rather than mapping it to a variable. Add in the `size` argument by specifying the magnitude relative to the default (`rel(3.0)`):
 
 ```{r, fig.align='center'}
 ggplot(metadata) +
@@ -171,41 +171,37 @@ ggplot(metadata) +
  ![ggscatter4](../img/ggscatter-4.png)
   
 
-The labels on the x-axis ticks are also quite hard to read. To do this we need to add an additional **theme layer**. The ggplot2 `theme` system handles non-data plot elements such as:
+The labels on the x- and y-axis are also quite small and hard to read. To change their size, we need to add an additional **theme layer**. The ggplot2 `theme` system handles non-data plot elements such as:
 
 * Axis label aesthetics
 * Plot background
 * Facet label backround
 * Legend appearance
 
-There are built-in themes we can use, or we can adjust specific elements. For our figure we will change the x-axis labels to be plotted on a 45 degree angle with a small horizontal shift to avoid overlap.
+There are built-in themes we can use (i.e. `theme_bw()`) that mostly change the background/foreground colours, by adding it as additional layer. Or we can adjust specific elements of the current default theme by adding the `theme()` layer and passing in arguments for the things we wish to change. Or we can use both.
 
- 
+Let's add a layer `theme_bw()`. Do the axis labels or the tick labels get any larger by changing themes? Not in this case. But we can add arguments using `theme()` to change it ourselves. Since we are adding this layer on top (i.e later in sequence), any features we change will override what is set in the `theme_bw()`. Here we'll increase the size of the axes labels and axes tick labels to be 1.5 times the default size.
+
 ```{r, fig.align='center'}
-ggplot(df) +
-  geom_point(aes(x = row.names(df), y= samplemeans, color = genotype, shape = celltype), size = rel(3.0)) +
-  theme(axis.text.x = element_text(angle=45, hjust=1))
-```
+ggplot(metadata) +
+  geom_point(aes(x = age_in_days, y= samplemeans, color = genotype,
+  			shape=celltype), size=rel(3.0)) +
+  theme_bw() +
+  theme(axis.text = element_text(size=rel(1.5)),
+  		axis.title = element_text(size=rel(1.5)))			
+`````
+ 
+ ![ggscatter5](../img/ggscatter-5.png)
+ 
 
- ![ggscatter2](../img/gg-scatter-2.png) 
+***
 
+**Exercise**
 
-You may have noticed that by default ggplot has re-ordered our samples based on the alphabetical order of the row names. However, we would like to preserve the original order of our metadata dataframe within our plot. To do so we need to specify the order, by adding an additional column to our data frame:
+1. The current axis label text defaults to what we gave as input to `geom_point` (i.e the column headers). We can change this by adding additional layers called `xlab()` and `ylab()` for the x- and y-axis, respectively. Add these layers to the current plot such that the x-axis is labeled "Age (days)" and the y-axis is labeled "Mean expression".
+2. Use the `ggtitle` layer to add a title to your plot.
 
-	df$ordering <- 1:12
-
-Now, when we plot the data we can reorder the dataframe based on the `ordering` column using the `reorder` function:
-
-```
- ggplot(df) +
-    geom_point(aes(x = reorder(row.names(df), ordering), y= samplemeans, color = genotype, shape = celltype), size = rel(3.0)) +
-    theme(axis.text.x = element_text(angle=45, hjust=1))
-
-```
-
- ![ggscatterordered](../img/gg-scatter-ordered.png) 
-
-
+***
 
 ### Exporting figures to file
 
@@ -230,15 +226,7 @@ dev.off()
 ```
 
 
-***
 
-**Exercise**
-
-1. The current axis labels default to what we gave as input to `geom_point`. We can change this by adding additional layers called `xlab()` and `ylab()` for the x- and y-axis, respectively. Add these layers to the current plot such that the x-axis is labeled "samples" and the y-axis is labeled "mean expression".
-2. Use the `ggtitle` layer to add a title to your plot.
-3. Export this image to a pdf file called "revised_scatterplot.pdf".
-
-***
 
 
 ## Histogram
