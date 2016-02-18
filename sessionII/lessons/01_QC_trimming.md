@@ -184,7 +184,7 @@ We now have a new fastq file with our trimmed and cleaned up data:
 
 
 
-### Run Trimmomatic on all the fastq files
+### Run Trimmomatic and FastQC on all the fastq files
 
 Now we know how to run *Trimmomatic*, but there is some good news and bad news.  
 One should always ask for the bad news first.  ***Trimmomatic* only operates on 
