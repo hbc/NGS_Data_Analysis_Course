@@ -152,6 +152,8 @@ Within `vim` we now add our shebang line, the Orchestra job submission commands,
 
 cd ~/ngs_course/rnaseq/data/untrimmed_fastq
 
+module load seq/Trimmomatic/0.33
+
 java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE \
 -threads 4 \
 -phred33 \
