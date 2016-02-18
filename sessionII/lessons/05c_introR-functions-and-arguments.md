@@ -96,54 +96,6 @@ it makes your code difficult to read. (It's however OK to not include the names 
 
 ***
 
-## Packages and Libraries
-
-**Packages** are collections of R functions, data, and compiled code in a well-defined format, created to perform specific tasks. 
-
-There are a set of **standard (or base) packages** which are considered part of the R source code and automatically available as part of your R installation. Base packages contain the **basic functions** that allow R to work, and enable standard statistical and graphical functions on datasets; for example, all of the functions that we have been using so far in our examples. 
-
-The directories in R where the packages are stored are called the **libraries**. The terms *package* and *library* are sometimes used synonomously and there has been [discussion](http://www.r-bloggers.com/packages-v-libraries-in-r/) amongst the community to resolve this. It is somewhat counter-intuitive to _load a package_ using the `library()` function and so you can see how confusion can arise.
-
-
-You can check what packages are loaded in your R session by typing into the console:
-
-	sessionInfo()
-
-
-In this workshop we will mostly be using functions from the standard base packages. However, the more you work with R you will come to realize that there is a cornucopia of R packages that offer a wide variety of functionality. To use additional packages will require installation. Many packages can be installed from the [CRAN](http://cran.r-project.org/) or [Bioconductor](https://www.bioconductor.org/) repositories.
-
-### Package installation from CRAN 
-Packages for R can be installed from the [CRAN](http://cran.r-project.org/) package repository using the `install.packages` function. An example is given below for the `ggplot2` package that will be required for some images we will create later on. Run this code to install `ggplot2`.
-
-
-```r
-install.packages('ggplot2')
-```
-### Package installation from Bioconductor
-Alternatively, packages can also be installed from [Bioconductor](https://www.bioconductor.org/), another repository of packages but mostly pertaining to genomic data analysis. There are many packages that are available in CRAN and Bioconductor, but there are also packages that are specific to one repository. Generally, you can find out this information with a Google search or by trial and error. To install from Bioconductor, you will first need to install Bioconductor and all the standard packages. *This only needs to be done once ever for your R installation.* 
-
-**If you were successful with the installation from CRAN, you do not need to run this**
-
-```r
-source("http://bioconductor.org/biocLite.R")
-biocLite()
-```
-
-Once you have the standard packages installed, you can install additional packages using the `biocLite.R` script. If it's a new R session you will also have to source the script again. Here we show that the same package `ggplot2` is available through Bioconductor:
-
-
-```r
-biocLite('ggplot2')
-```
-
-### Loading libraries
-Once you have the package installed, you can load it into your R session for use. Any of the functions that are specific to that package will be available for you to use by simply calling the function as you would for any of the base functions. *Note that quotations are not required here.*
-
-
-```r
-library(ggplot2)
-```
-
 ## Seeking help
 
 ### I know the name of the function I want to use, but I'm not sure how to use it
@@ -218,8 +170,6 @@ it with this command:
 		some_data <- load(file="~/Downloads/iris.RData")
 
 
-
-
 ### Where to ask for help?
 
 * Your friendly colleagues: if you know someone with more experience than you,
@@ -241,6 +191,56 @@ it with this command:
   to try to email the author of the package directly.
 * There are also some topic-specific mailing lists (GIS, phylogenetics, etc...),
   the complete list is [here](http://www.r-project.org/mail.html).
+
+## Packages and Libraries
+
+**Packages** are collections of R functions, data, and compiled code in a well-defined format, created to perform specific tasks. 
+
+There are a set of **standard (or base) packages** which are considered part of the R source code and automatically available as part of your R installation. Base packages contain the **basic functions** that allow R to work, and enable standard statistical and graphical functions on datasets; for example, all of the functions that we have been using so far in our examples. 
+
+The directories in R where the packages are stored are called the **libraries**. The terms *package* and *library* are sometimes used synonomously and there has been [discussion](http://www.r-bloggers.com/packages-v-libraries-in-r/) amongst the community to resolve this. It is somewhat counter-intuitive to _load a package_ using the `library()` function and so you can see how confusion can arise.
+
+
+You can check what packages are loaded in your R session by typing into the console:
+
+	sessionInfo()
+
+
+In this workshop we will mostly be using functions from the standard base packages. However, the more you work with R you will come to realize that there is a cornucopia of R packages that offer a wide variety of functionality. To use additional packages will require installation. Many packages can be installed from the [CRAN](http://cran.r-project.org/) or [Bioconductor](https://www.bioconductor.org/) repositories.
+
+### Package installation from CRAN 
+Packages for R can be installed from the [CRAN](http://cran.r-project.org/) package repository using the `install.packages` function. An example is given below for the `ggplot2` package that will be required for some images we will create later on. Run this code to install `ggplot2`.
+
+
+```r
+install.packages('ggplot2')
+```
+### Package installation from Bioconductor
+Alternatively, packages can also be installed from [Bioconductor](https://www.bioconductor.org/), another repository of packages but mostly pertaining to genomic data analysis. There are many packages that are available in CRAN and Bioconductor, but there are also packages that are specific to one repository. Generally, you can find out this information with a Google search or by trial and error. To install from Bioconductor, you will first need to install Bioconductor and all the standard packages. *This only needs to be done once ever for your R installation.* 
+
+**If you were successful with the installation from CRAN, you do not need to run this**
+
+```r
+source("http://bioconductor.org/biocLite.R")
+biocLite()
+```
+
+Once you have the standard packages installed, you can install additional packages using the `biocLite.R` script. If it's a new R session you will also have to source the script again. Here we show that the same package `ggplot2` is available through Bioconductor:
+
+
+```r
+biocLite('ggplot2')
+```
+
+### Loading libraries
+Once you have the package installed, you can load it into your R session for use. Any of the functions that are specific to that package will be available for you to use by simply calling the function as you would for any of the base functions. *Note that quotations are not required here.*
+
+
+```r
+library(ggplot2)
+```
+
+
 
 ### More resources
 * The [Posting Guide](http://www.r-project.org/posting-guide.html) for the R
