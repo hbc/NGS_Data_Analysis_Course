@@ -47,7 +47,8 @@ Now save the file as `de_script.R`. When finished your working directory should 
 
 Finally, we need to grab the files that we will be working with for the analysis. For each of the files below we have provided a link. Right click on the link, and "Save link as ...". The counts data will need to be put inside the `data` directory, and the metadata file in your `meta` directory.
 
-* 
+* [Full counts matrix](https://raw.githubusercontent.com/hbc/NGS_Data_Analysis_Course/master/sessionIII/data/Mov10_full_counts.txt)
+* [Full metadata table](https://raw.githubusercontent.com/hbc/NGS_Data_Analysis_Course/master/sessionIII/data/Mov10_full_meta.txt)
 
 
 ## DESeq2
