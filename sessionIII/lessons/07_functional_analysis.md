@@ -1,8 +1,10 @@
 Learning Objectives:
 -------------------
 
-*  understanding how functions are attributed to genes using Gene Ontology terms
-*  understanding theory of how functional enrichment tools yeild statistically enriched functions or interactions
+*  determine how functions are attributed to genes using Gene Ontology terms
+*  understand the theory of how functional enrichment tools yield statistically enriched functions or interactions
+*  explore functional analysis tools
+*  be able to discuss functional class scoring and co-expresssion clustering
 
 # Functional analysis using gene lists
 
@@ -12,9 +14,11 @@ The output of RNA-Seq differential expression analysis is a list of significant 
 - identifying genes of novel pathways or networks by grouping genes together based on similar trends
 - understanding global changes in gene expression by visualizing all genes being significantly up- or down-regulated.
 
-Generally for any differential expression analysis, it is useful to investigate functional enrichment and pathways associated with the DEGs using freely available web-based tools.  Popular tools frequently used for such analyses include gProfiler, Revigo, and GeneMANIA.
+Generally for any differential expression analysis, it is useful to investigate functional enrichment and pathways associated with the DEGs using freely available web-based tools.  While tools for functional analysis use a variety of techniques, there are three main types: over-representation analysis, functional class scoring, and pathway topology [[4](../../resources/pathway_tools.pdf)].
 
-## Functional enrichment tools
+![Pathway analysis tools](../img/pathway_analysis.png)
+
+## Over-representation analysis
 There are a plethora of functional enrichment tools available to choose from; however, many of these tools query databases with information about gene function and interactions. The ability of these tools to query databases for gene function is due to the use of a consistent vocabulary by independent databases to describe gene function. This vocabulary was established by the Gene Ontology project, and the words in the vocabulary are referred to as Gene Ontology (GO) terms. 
 
 ### Gene Ontology project
@@ -94,27 +98,114 @@ Take your ordered gene list and paste it in the `Query' box.
 
 #### gProfiler in R
 
-While the web interface for gProfiler is a bit more intuitive to understand, we don't actually need to leave R to 
+While the web interface for gProfiler is a bit more intuitive to understand, we don't actually need to leave R to run gProfiler:
+
+```
+### Functional analysis of MOV10 Knockdown using gProfileR (some of these are defaults; check help pages) 
 
 
+library(gProfileR)
 
-#### GeneMANIA
+gprofiler_results_kd <- gprofiler(query = sigKD, 
+                               organism = "hsapiens",
+                               ordered_query = T, 
+                               exclude_iea = F, 
+                               max_p_value = 0.05, 
+                               max_set_size = 0,
+                               correction_method = "fdr",
+                               hier_filtering = "none", 
+                               domain_size = "annotated",
+                               custom_bg = "")
+                               
+### Functional analysis of MOV10 Overexpression using gProfileR 
+
+gprofiler_results_oe <- gprofiler(query = sigOE, 
+                               organism = "hsapiens",
+                               ordered_query = T, 
+                               exclude_iea = F, 
+                               max_p_value = 0.05, 
+                               max_set_size = 0,
+                               correction_method = "fdr",
+                               hier_filtering = "none", 
+                               domain_size = "annotated",
+                               custom_bg = “")
+
+
+```
+
+Let's save the gProfiler results to file:
+
+```
+## Write results to file
+
+write.table(gprofiler_results_kd, 
+            file.path(resultsDir, 'gprofiler_MOV10_kd.txt'),          
+            sep="\t", quote=F, row.names=F)
+            
+write.table(gprofiler_results_oe, 
+            file.path(resultsDir, 'gprofiler_MOV10_oe.txt'),          
+            sep="\t", quote=F, row.names=F)
+```
+
+Now, extract only the lines in the gProfiler results with GO term accession numbers for downstream analyses:
+
+```
+## Extract GO IDs for downstream analysis
+
+allterms_kd <- gprofiler_results_kd$term.id
+
+GOs_kd <- allterms[grep('GO:', allterms_kd)]
+
+allterms_oe <- gprofiler_results_oe$term.id
+
+GOs_oe <- allterms[grep('GO:', allterms_oe)]
+```
+
+### REVIGO
+
+REVIGO is a web-based tools that can take our lists of GO terms, collapse redundant terms, and summarize them graphically. 
+
+
+![REVIGO_input](../img/revigo_input.png)
+
+Copy and paste the GO ids from GOs_oe into the search box, and submit.
+
+![REVIGO_output](../img/revigo_output.png)
+
+
+## Functional class scoring tools
+
+
+## Pathway topology tools
+Pathway topology-based methods utilize the number and type of interactions between gene product (our DE genes) and other gene products to identify pathways associated with the condition of interest.
+
+### GeneMANIA
 
 [GeneMANIA](http://genemania.org/) is another tool for predicting the function of your genes. Rather than looking for enrichment, the query gene set is evaluated in the context of curated functional association data and results are displayed in the form of a network. Association data include protein and genetic interactions, pathways, co-expression, co-localization and protein domain similarity. Genes are represented as the nodes of the network and edges are formed by known association evidence. The query gene set is highlighted and so you can find other genes that are related based on the toplogy in the network. This tool is more useful for smaller gene sets (< 400 genes), as you can see in the figure below our input results in a bit of a hairball that is hard to interpret.
 
 ![genemania](../img/genemania.png)
 
-> Use the significant gene list generated from the analysis we performed in class (~40 genes) as input to GeneMANIA. Using only pathway and coexpression data as evidence, take a look at the network that results. Can you predict anything functionally from this set of genes? 
+> Use the significant gene list generated from the analysis we performed in class as input to GeneMANIA. Using only pathway and coexpression data as evidence, take a look at the network that results. Can you predict anything functionally from this set of genes? 
 
+### Co-expression clustering
 
-### Resources for R
+Co-expression clustering is often used to identify genes of novel pathways or networks by grouping genes together based on similar trends. Co-clustering tools are useful in identifying genes in a pathway, when their participation in a pathway and/or the pathway itself is unknown. These tools cluster genes with similar expression patterns across conditions or in a time-course experiment, creating a "refined" gene list.
 
-* https://www.datacamp.com/courses/free-introduction-to-r
-* Software Carpentry materials: http://swcarpentry.github.io/r-novice-inflammation/
-* Data Carpentry materials: http://tracykteal.github.io/R-genomics/
-* Materials from IQSS at Harvard: http://tutorials.iq.harvard.edu/R/Rintro/Rintro.html
-* [swirl](http://swirlstats.com/): learn R interactively from within the R console
-* The free "try R" class from [Code School](http://tryr.codeschool.com)
-* HarvardX course ["Statistics and R for the Life Sciences"](https://courses.edx.org/courses/HarvardX/PH525.1x/1T2015/info)
+You can visualize co-expression clustering using heatmaps, which should be viewed as suggestive only; serious classification of genes needs better methods.  
 
+The way the tools perform clustering is by taking the entire expression matrix and computing pair-wise co-expression values. A network is then generated from which we explore the topology to make inferences on gene co-regulation.
+
+The [WGCNA](http://www.genetics.ucla.edu/labs/horvath/CoexpressionNetwork ) package (in R) provides a more sophisticated method for co-expression clustering.
+
+## Resources for functional analysis
+
+* g:Profiler - http://biit.cs.ut.ee/gprofiler/index.cgi 
+* DAVID - http://david.abcc.ncifcrf.gov/tools.jsp 
+* GeneMANIA - http://www.genemania.org/
+* GenePattern -  http://www.broadinstitute.org/cancer/software/genepattern/ (need to register)
+* WebGestalt - http://bioinfo.vanderbilt.edu/webgestalt/ (need to register)
+* AmiGO - http://amigo.geneontology.org/amigo
+* ReviGO (visualizing GO analysis, input is GO terms) - http://revigo.irb.hr/ 
+* WGCNA - http://www.genetics.ucla.edu/labs/horvath/CoexpressionNetwork
+* GSEA - http://software.broadinstitute.org/gsea/index.jsp
 
