@@ -85,6 +85,7 @@ class(meta)
 
 As a sanity check we should also make sure that we have sample names that match between the two files, and that the samples are in the right order.
 
+	### Check that sample names match in both files
 	all(names(data) %in% rownames(meta))
 	all(names(data) == rownames(meta))
 	
@@ -97,15 +98,38 @@ As a sanity check we should also make sure that we have sample names that match 
 *** 
 
 
-## DESeq2
+## `DESeq2DataSet`
 
-Amongst the methods that work on count data directly, a popular tool is [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html). The methodology of DESeq2 (as described in the lecture), has high sensitivity and precision, while controlling the false positive rate. DESeq2 is available as an R/Bioconductor package   
+Now that we have all the required files and libraries loaded we are ready to begin with the exploratory part of our analysis. 
+
+Amongst the methods that work on count data directly, a popular tool is [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html). The methodology of DESeq2 (as described in the lecture), has high sensitivity and precision, while controlling the false positive rate. 
+
+The first thing we need to do is create `DESeqDataSet` object. Bioconductor software packages often define and use a custom class for storing data that makes sure that all the needed 'data slots' are consistently provided and fulfill the requirements. These objects are similar to `lists` in that the `data slots` are analagous to components as they store a number of different types of data structures. These objects are **different from lists** in that the slots are designated for specific information and access to that information (i.e. selecting data from the object) is done using object-specific functions.
+
+Let's start by creating the `DESeqDataSet` object and then we can talk a bit more about what is stored inside it. To create the object we will need the **count matrix** and the **metadata** table as input. We will also need to specify a **design formula**. The design formula specifies the column(s) in the metadata table and hwo they should be used in the analysis. For our data set we only have one column we are interested in, that is `~sampletype`. This column has three factor levels, which tells DESeq2 that for each gene we want to evaluate gene expression change with respect to these different levels.
+
+
+	## Create DESeq2Dataset object
+	dds <- DESeqDataSetFromMatrix(countData = data, colData = meta, 
+					design = ~ sampletype)
+
+
+![deseq1](../img/deseq_obj1.png)
+
+
+You can use DESeq-specific functions to access the different slots and retrieve information if you wish. For example, suppose we wanted the original count matrix we would use `counts` (*Note: we nested it within the `View` function so that rather than getting printed in the console we can see it in the script editor*) :
+
+	View(counts())
+
+As we go through the workflow we will use the relevant functions to check what information gets stored inside our object.
+
+## Quality assessment and exploratory analysis
 
 
 
-
-
-
+	### Transform counts for data visualization
+	rld <- rlog(dds, blind=TRUE)
+	rld_mat <- assay(rld) 
 
 
 ---
