@@ -160,9 +160,12 @@ One way to visualize sample-to-sample distances is a principal components analys
 
 ***
 
-### Clustering
+### Hierarchical Clustering
 
-Another method for quality assessment of data is to perform an inter-correaltion analysis (ICA). This involves taking each sample as a vector of ~22k values and then making pair-wise comparisons between all samples by computing a Pearson correlation. Generally, we expect to see a fairly high correlation (> 0.95) between all samples for a good dataset. Additionaly, we expect to see samples clustered similar to the groupings observed in a PCA plot.
+Another method for quality assessment of data is to cluster samples based on sample-to-sample distance measures. In this lesson, we will be using the Pearson correlation to measure simialrity between samples. An alternative would be to compute distance measures (i.e Poisson distance). 
+
+
+ perform an inter-correlation analysis (ICA). This involves taking each sample as a vector of ~22k values and then making pair-wise comparisons between all samples by computing a Pearson correlation. Generally, we expect to see a fairly high correlation (> 0.95) between all samples for a good dataset. Additionaly, we expect to see samples clustered similar to the groupings observed in a PCA plot.
 
 Samples that show particularly low correlation values with all other samples (< 0.80) represent outliers. These samples are usually removed. Additionally, the heatmap is useful in identifying batch effects based on block structures that correspond to when the samples were run.
 
