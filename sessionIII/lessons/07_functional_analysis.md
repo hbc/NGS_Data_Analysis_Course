@@ -14,26 +14,52 @@ The output of RNA-Seq differential expression analysis is a list of significant 
 Generally for any differential expression analysis, it is useful to investigate functional enrichment and pathways associated with the DEGs using freely available web-based tools.  Popular tools frequently used for such analyses include gProfiler, Revigo, and GeneMANIA.
 
 ## Functional enrichment tools
-There are a plethora of functional enrichment tools available to choose from; however, many of these tools query databases with information about gene function and interactions. The ability of these tools to query databases for gene function is due to the use of a consistent vocabulary used by independent databases to describe gene function. This vocabulary was established by the Gene Ontology project, and the vocabulary terms are called Gene Ontology (GO) terms. 
+There are a plethora of functional enrichment tools available to choose from; however, many of these tools query databases with information about gene function and interactions. The ability of these tools to query databases for gene function is due to the use of a consistent vocabulary used by independent databases to describe gene function. This vocabulary was established by the Gene Ontology project, and the words in the vocabulary are referred to as Gene Ontology (GO) terms. 
 
-"The Gene Ontology project is a collaborative effort to address the need for consistent descriptions of gene products across databases" [1](geneontology.org/page/documentation). The Gene Ontology (GO) Consortium maintains a structured and controlled vocabulary, known as GO terms, to describe the roles of genes and gene products. These GO terms are incorporated into gene annotations in many of the popular repositiories for animal, plant, and microbial genomes ((List of collaborating databases)[http://geneontology.org/page/go-consortium-contributors-list]). Tools that investigate **enrichment of biological functions or interactions** can query these databases for GO terms associated with a list of genes to determine whether any GO terms associated with particular functions or interactions are enriched in the gene set. Therefore, to best use and interpret the results from these functional analysis tools, it is helpful to have a good understanding of the GO terms themselves.
+### Gene Ontology project
+
+"The Gene Ontology project is a collaborative effort to address the need for consistent descriptions of gene products across databases" [[1](geneontology.org/page/documentation)]. The Gene Ontology Consortium maintains the GO terms, and these GO terms are incorporated into gene annotations in many of the popular repositories for animal, plant, and microbial genomes ([collaborating databases](http://geneontology.org/page/go-consortium-contributors-list)). Tools that investigate **enrichment of biological functions or interactions** can query these databases for GO terms associated with a list of genes to determine whether any GO terms associated with particular functions or interactions are enriched in the gene set. Therefore, to best use and interpret the results from these functional analysis tools, it is helpful to have a good understanding of the GO terms themselves.
 
 ### GO terms
 
-#### GO term ontologies
+#### GO Ontologies
 
-To describe the roles of genes and gene products, GO terms are organized into three independent controlled vocabularies ()ontologies: **biological processes**, **molecular functions**, and **cellular components**. 
+To describe the roles of genes and gene products, GO terms are organized into three independent controlled vocabularies (ontologies) in a species-independent manner: 
 
-- *Biological process:* refers to the biological role involving the gene or gene product, and could include "transcription", "signal transduction", and "apoptosis". A biological process generally involves a chemical or physical change of the starting material or input.
-- *Molecular function:* represents the biochemical activity of the gene product, such activities could include "ligand", "GTPase", and "transporter". A biological process can include one or many molecular functions. 
-- *Cellular component:* refers to the location in the cell of the gene product. Cellular components could include "nucleus", "lysosome", and "plasma membrane".
+- **Biological process:** refers to the biological role involving the gene or gene product, and could include "transcription", "signal transduction", and "apoptosis". A biological process generally involves a chemical or physical change of the starting material or input.
+- **Molecular function:** represents the biochemical activity of the gene product, such activities could include "ligand", "GTPase", and "transporter". 
+- **Cellular component:** refers to the location in the cell of the gene product. Cellular components could include "nucleus", "lysosome", and "plasma membrane".
 
-#### GO term heirarchy
+"The relationships between a gene product to biological process, molecular function and cellular component are one-to-many, reflecting the biological reality that a particular protein may function in several processes, contain domains that carry out diverse molecular functions, and participate in multiple alternative interactions with other proteins, organelles or locations in the cell" [[2](go.pdf)]. Therefore, a single gene product can be associated with an unlimited number of GO terms. 
 
-Since some gene products are well-researched, with large quantities of data available regarding their biologic
+#### GO term hierarchy
+
+Some gene products are well-researched, with vast quantities of data available regarding their biological processes and functions. However, other gene products have very little data available about their roles in the cell. 
+
+For example, the protein, "p53", would contain a wealth of information on it's roles in the cell, whereas another protein might only be known as a "membrane-bound protein" with no other information available. 
+
+The GO ontologies were developed to describe and query biological knowledge with differing levels of information available. To do this, GO ontologies are loosely hierarchical, ranging from general, 'parent', terms to more specific, 'child' terms. The GO ontologies are "loosely" hierarchical since 'child' terms can have multiple 'parent' terms.
+
+Some genes with less information may only be associated with general 'parent' terms or no terms at all, while other genes with a lot of information have many terms.
 
 ![Nature Reviews Cancer 7, 23-34 (January 2007)](../img/go_heirarchy.jpg)
 
+- Every GO term has:
+
+	- a term name (e.g. DNA repair)
+	- a unique term accession number (e.g. GO:0005125)
+	
+- In a set of genes, the frequency of a certain GO term can be determined
+- Comparison of frequencies between a gene list & a “background” set will inform us about the over- or under- representation of the GO terms
+
+![go_frequencies](../img/go_freq.png)
+
+[Tips for working with GO terms](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003343)
+
+#### Fancy word to talk about comparisons - comparing ratios to determine whether ratios different:
+
+- total genes: 85 in pathway out of 13,000 (honeybee)
+- genes in list: 50 in pathway out of 1,000
 
 
 #### gProfiler
