@@ -19,7 +19,7 @@ Generally for any differential expression analysis, it is useful to investigate 
 ![Pathway analysis tools](../img/pathway_analysis.png)
 
 ## Over-representation analysis
-There are a plethora of functional enrichment tools available to choose from; however, many of these tools query databases with information about gene function and interactions. The ability of these tools to query databases for gene function is due to the use of a consistent vocabulary by independent databases to describe gene function. This vocabulary was established by the Gene Ontology project, and the words in the vocabulary are referred to as Gene Ontology (GO) terms. 
+There are a plethora of functional enrichment tools that perform some type of over-representation analysis. These tools query databases with information about gene function and interactions to do so. Querying these databases for gene function requires the use of a consistent vocabulary to describe gene function. One of the most widely-used vocabularies is the Gene Ontology (GO). This vocabulary was established by the Gene Ontology project, and the words in the vocabulary are referred to as GO terms. 
 
 ### Gene Ontology project
 
@@ -163,7 +163,7 @@ GOs_oe <- allterms[grep('GO:', allterms_oe)]
 
 ### REVIGO
 
-[REVIGO](http://revigo.irb.hr/) is a web-based tool that can take our list of GO terms, collapse redundant terms by emantic similarity, and summarize them graphically. 
+[REVIGO](http://revigo.irb.hr/) is a web-based tool that can take our list of GO terms, collapse redundant terms by semantic similarity, and summarize them graphically. 
 
 
 ![REVIGO_input](../img/revigo_input.png)
@@ -174,14 +174,15 @@ Copy and paste the GO ids from GOs_oe into the search box, and submit.
 
 
 ## Functional class scoring tools
-Functional class scoring tools, such as [GSEA](http://software.broadinstitute.org/gsea/index.jsp), use the gene-level statistics from the differential expression results for pathway analysis. These gene-level statistics for all genes in a given pathway are used to generate a single pathway-level statistic. The statistical significance of the pathway statistic is determined either by only considering genes in the given pathway or by comparing genes in a given pathway to genes not in the pathway.
+Functional class scoring (FCS) tools, such as [GSEA](http://software.broadinstitute.org/gsea/index.jsp), use the gene-level statistics from the differential expression results to determine pathway-level expression changes. The hypothesis of FCS methods is that although large changes in individual genes can have significant effects on pathways (and will be detected via ORA methods), weaker but coordinated changes in sets of functionally related genes (i.e., pathways) can also have significant effects.  Thus, rather than setting an arbitrary threshold to identify 'significant genes', **all genes are considered** in the analysis. The gene-level statistics from the dataset are aggregated to generate a single pathway-level statistic and statistical significance of each pathway is reported.
+ 
 
 ## Pathway topology tools
-Pathway topology-based methods utilize the number and type of interactions between gene product (our DE genes) and other gene products to identify pathways associated with the condition of interest.
+Pathway topology-based methods utilize the number and type of interactions between gene product (our DE genes) and other gene products to infer gene function or pathway association. 
 
 ### GeneMANIA
 
-[GeneMANIA](http://genemania.org/) is another tool for predicting the function of your genes. Rather than looking for enrichment, the query gene set is evaluated in the context of curated functional association data and results are displayed in the form of a network. Association data include protein and genetic interactions, pathways, co-expression, co-localization and protein domain similarity. Genes are represented as the nodes of the network and edges are formed by known association evidence. The query gene set is highlighted and so you can find other genes that are related based on the toplogy in the network. This tool is more useful for smaller gene sets (< 400 genes), as you can see in the figure below our input results in a bit of a hairball that is hard to interpret.
+[GeneMANIA](http://genemania.org/) is a tool for predicting the function of your genes. Rather than looking for enrichment, the query gene set is evaluated in the context of curated functional association data and results are displayed in the form of a network. Association data include protein and genetic interactions, pathways, co-expression, co-localization and protein domain similarity. Genes are represented as the nodes of the network and edges are formed by known association evidence. The query gene set is highlighted and so you can find other genes that are related based on the toplogy in the network. This tool is more useful for smaller gene sets (< 400 genes), as you can see in the figure below our input results in a bit of a hairball that is hard to interpret.
 
 ![genemania](../img/genemania.png)
 
@@ -189,13 +190,11 @@ Pathway topology-based methods utilize the number and type of interactions betwe
 
 ### Co-expression clustering
 
-Co-expression clustering is often used to identify genes of novel pathways or networks by grouping genes together based on similar trends. Co-clustering tools are useful in identifying genes in a pathway, when their participation in a pathway and/or the pathway itself is unknown. These tools cluster genes with similar expression patterns across conditions or in a time-course experiment, creating a "refined" gene list.
+Co-expression clustering is often used to identify genes of novel pathways or networks by grouping genes together based on similar trends in expression. These tools are useful in identifying genes in a pathway, when their participation in a pathway and/or the pathway itself is unknown. These tools cluster genes with similar expression patterns to create 'modules' of co-exressed genes which often reflect functionally similar groups of genes. These 'modules' can then be compared    across conditions or in a time-course experiment to identify any biologically relevant dysfunction.
 
 You can visualize co-expression clustering using heatmaps, which should be viewed as suggestive only; serious classification of genes needs better methods.  
 
-The way the tools perform clustering is by taking the entire expression matrix and computing pair-wise co-expression values. A network is then generated from which we explore the topology to make inferences on gene co-regulation.
-
-The [WGCNA](http://www.genetics.ucla.edu/labs/horvath/CoexpressionNetwork ) package (in R) provides a more sophisticated method for co-expression clustering.
+The way the tools perform clustering is by taking the entire expression matrix and computing pair-wise co-expression values. A network is then generated from which we explore the topology to make inferences on gene co-regulation. The [WGCNA](http://www.genetics.ucla.edu/labs/horvath/CoexpressionNetwork ) package (in R) is one example of a more sophisticated method for co-expression clustering.
 
 ## Resources for functional analysis
 
