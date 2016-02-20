@@ -102,7 +102,7 @@ As a sanity check we should also make sure that we have sample names that match 
 
 Now that we have all the required files and libraries loaded we are ready to begin with the exploratory part of our analysis. 
 
-Amongst the methods that work on count data directly, a popular tool is [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html). The methodology of DESeq2 (as described in the lecture), has high sensitivity and precision, while controlling the false positive rate. 
+Amongst the DE tools that work on count data directly, a popular one is [DESeq2](https://bioconductor.org/packages/release/bioc/html/DESeq2.html). The methodology of DESeq2 (as described in the lecture), has high sensitivity and precision, while controlling the false positive rate. It also has various functions for QC assessment conveniently built-in.
 
 The first thing we need to do is create `DESeqDataSet` object. Bioconductor software packages often define and use a custom class for storing data that makes sure that all the needed 'data slots' are consistently provided and fulfill the requirements. These objects are similar to `lists` in that the `data slots` are analagous to components as they store a number of different types of data structures. These objects are **different from lists** in that the slots are designated for specific information and access to that information (i.e. selecting data from the object) is done using object-specific functions.
 
@@ -125,11 +125,47 @@ As we go through the workflow we will use the relevant functions to check what i
 
 ## Quality assessment and exploratory analysis
 
+Many common statistical methods for exploratory analysis of multidimensional data, for example clustering and principal components analysis (PCA), work best for data that generally has the same range of variance at different ranges of the mean values. For RNA-seq raw counts, however, the variance grows with the mean. So the results of a PCA will be largely driven by genes many counts.
+
+A simple and commonly used strategy to avoid this is to take the logarithm of the normalized count values plus a small pseudocount; however, now the genes with the very lowest counts will tend to dominate the results.
+
+The DESeq2 solution to this is the **regularized log transform** ([Love, Huber, and Anders 2014])[http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4302049/pdf/13059_2014_Article_550.pdf]. For genes with high counts, the `rlog` transformation will give similar result to the ordinary log2 transformation of normalized counts. For genes with lower counts, however, the values are shrunken towards the genes’ averages across all samples.
 
 
 	### Transform counts for data visualization
 	rld <- rlog(dds, blind=TRUE)
+	
+	
+After you run the `rlog` function, you will notice that the `rld` variable is storing another type of object. The reason you don't just get a matrix of transformed values is because all of the parameters (i.e. size factors) that went in to computing the rlog transform are stored in that object. We can use this object to plot figures for quality assessment.
+
+
+### Principal components analysis (PCA)
+
+One way to visualize sample-to-sample distances is a principal components analysis (PCA). DESeq2 has a built-in function for plotting PCA plots, that uses `ggplot2` under the hood. This is great because it saves us having to type out lines of code and fiddling with different layers. The function `plotPCA()` requires two arguments as input: an `rlog` object and the `intgroup` (the column in our metadata that we are interested in). 
+
+	### Plot PCA 
+	plotPCA(rld, intgroup=c("sampletype"))
+
+![pca](../img/pca_500.png)
+
+By default the function uses the **top 500 most variable genes**. You can change this by adding the `ntop` argument and specifying how many genes you want to use.
+
+***
+
+**Exercise**
+
+1. Plot the PCA using *all of the genes* in your original count matrix. *Hint: you can use `nrow()` to help get the total number of genes*
+
+***
+
+### Clustering
+
+We can use specific functions to extra the information we need. To get the transformed 	
+	
+	### Extract the rlog matrix from the object
 	rld_mat <- assay(rld) 
+
+
 
 
 ---
