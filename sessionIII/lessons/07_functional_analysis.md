@@ -174,7 +174,7 @@ Copy and paste the GO ids from GOs_oe into the search box, and submit.
 
 
 ## Functional class scoring tools
-
+Functional class scoring tools, such as [GSEA](http://software.broadinstitute.org/gsea/index.jsp), use the gene-level statistics from the differential expression results for pathway analysis. These gene-level statistics for all genes in a given pathway are used to generate a single pathway-level statistic. The statistical significance of the pathway statistic is determined either by only considering genes in the given pathway or by comparing genes in a given pathway to genes not in the pathway.
 
 ## Pathway topology tools
 Pathway topology-based methods utilize the number and type of interactions between gene product (our DE genes) and other gene products to identify pathways associated with the condition of interest.
