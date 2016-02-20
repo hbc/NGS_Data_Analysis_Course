@@ -14,7 +14,7 @@ The output of RNA-Seq differential expression analysis is a list of significant 
 - identifying genes of novel pathways or networks by grouping genes together based on similar trends
 - understanding global changes in gene expression by visualizing all genes being significantly up- or down-regulated.
 
-Generally for any differential expression analysis, it is useful to investigate functional enrichment and pathways associated with the DEGs using freely available web-based tools.  While tools for functional analysis use a variety of techniques, there are three main types: over-representation analysis, functional class scoring, and pathway topology [[4](../../resources/pathway_tools.pdf)].
+Generally for any differential expression analysis, it is useful to investigate functional enrichment and pathways associated with the DEGs using freely available web-based tools.  While tools for functional analysis use a variety of techniques, there are three main types: over-representation analysis, functional class scoring, and pathway topology [[1](../../resources/pathway_tools.pdf)].
 
 ![Pathway analysis tools](../img/pathway_analysis.png)
 
@@ -23,7 +23,7 @@ There are a plethora of functional enrichment tools available to choose from; ho
 
 ### Gene Ontology project
 
-"The Gene Ontology project is a collaborative effort to address the need for consistent descriptions of gene products across databases" [[1](geneontology.org/page/documentation)]. The [Gene Ontology Consortium](http://geneontology.org/page/go-consortium-contributors-list) maintains the GO terms, and these GO terms are incorporated into gene annotations in many of the popular repositories for animal, plant, and microbial genomes. Tools that investigate **enrichment of biological functions or interactions** can query these databases for GO terms associated with a list of genes to determine whether any GO terms associated with particular functions or interactions are enriched in the gene set. Therefore, to best use and interpret the results from these functional analysis tools, it is helpful to have a good understanding of the GO terms themselves.
+"The Gene Ontology project is a collaborative effort to address the need for consistent descriptions of gene products across databases" [[2](geneontology.org/page/documentation)]. The [Gene Ontology Consortium](http://geneontology.org/page/go-consortium-contributors-list) maintains the GO terms, and these GO terms are incorporated into gene annotations in many of the popular repositories for animal, plant, and microbial genomes. Tools that investigate **enrichment of biological functions or interactions** can query these databases for GO terms associated with a list of genes to determine whether any GO terms associated with particular functions or interactions are enriched in the gene set. Therefore, to best use and interpret the results from these functional analysis tools, it is helpful to have a good understanding of the GO terms themselves.
 
 ### GO terms
 
@@ -35,7 +35,7 @@ To describe the roles of genes and gene products, GO terms are organized into th
 - **Molecular function:** represents the biochemical activity of the gene product, such activities could include "ligand", "GTPase", and "transporter". 
 - **Cellular component:** refers to the location in the cell of the gene product. Cellular components could include "nucleus", "lysosome", and "plasma membrane".
 
-"The relationships between a gene product to biological process, molecular function and cellular component are one-to-many, reflecting the biological reality that a particular protein may function in several processes, contain domains that carry out diverse molecular functions, and participate in multiple alternative interactions with other proteins, organelles or locations in the cell" [[2](go.pdf)]. Therefore, a single gene product can be associated with many GO terms. Each GO term has a term name (e.g. DNA repair) and a unique term accession number (GO:0005125).
+"The relationships between a gene product to biological process, molecular function and cellular component are one-to-many, reflecting the biological reality that a particular protein may function in several processes, contain domains that carry out diverse molecular functions, and participate in multiple alternative interactions with other proteins, organelles or locations in the cell" [[3](go.pdf)]. Therefore, a single gene product can be associated with many GO terms. Each GO term has a term name (e.g. DNA repair) and a unique term accession number (GO:0005125).
 
 #### GO term hierarchy
 
