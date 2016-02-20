@@ -8,7 +8,9 @@ Approximate time:
 
 ## Learning Objectives 
 
-* 
+* Getting setup in R (project setup, loading data, loading libraries)
+* Becoming familiar with the `DESeqDataSet` object 
+* Evaluating quality of samples using data visualization tools
 
 
 ## Differential expression analysis
@@ -22,7 +24,7 @@ There are a number of software packages that have been developed for differentia
 ![deg1](../img/deg_methods2.png) 
 
 
-In the next few lessons, we will walk you through an end-to-end gene-level RNA-seq differential expression workflow using various R packages. We will start with a count matrix and perform exploratory data analysis for quality assessment and to explore the relationship between samples, perform differential expression analysis, and visually explore the results.
+In the next few lessons, we will walk you through an **end-to-end gene-level RNA-seq differential expression workflow** using various R packages. We will start with a count matrix and perform exploratory data analysis for quality assessment and to explore the relationship between samples, perform differential expression analysis, and visually explore the results.
 
 ## Setting up
 
@@ -129,7 +131,7 @@ Many common statistical methods for exploratory analysis of multidimensional dat
 
 A simple and commonly used strategy to avoid this is to take the logarithm of the normalized count values plus a small pseudocount; however, now the genes with the very lowest counts will tend to dominate the results.
 
-The DESeq2 solution to this is the **regularized log transform** ([Love, Huber, and Anders 2014])[http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4302049/pdf/13059_2014_Article_550.pdf]. For genes with high counts, the `rlog` transformation will give similar result to the ordinary log2 transformation of normalized counts. For genes with lower counts, however, the values are shrunken towards the genes’ averages across all samples.
+The DESeq2 solution to this is the **regularized log transform** [[Love, Huber, and Anders 2014](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC4302049/pdf/13059_2014_Article_550.pdf)]. For genes with high counts, the `rlog` transformation will give similar result to the ordinary log2 transformation of normalized counts. For genes with lower counts, however, the values are shrunken towards the genes’ averages across all samples.
 
 
 	### Transform counts for data visualization
