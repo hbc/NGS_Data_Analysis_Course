@@ -163,7 +163,7 @@ GOs_oe <- allterms[grep('GO:', allterms_oe)]
 
 ### REVIGO
 
-REVIGO is a web-based tools that can take our lists of GO terms, collapse redundant terms, and summarize them graphically. 
+[REVIGO](http://revigo.irb.hr/) is a web-based tools that can take our lists of GO terms, collapse redundant terms, and summarize them graphically. 
 
 
 ![REVIGO_input](../img/revigo_input.png)
