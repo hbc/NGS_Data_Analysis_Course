@@ -45,10 +45,56 @@ Now save the file as `de_script.R`. When finished your working directory should 
 
 ![setup](../img/settingup.png)
 
-Finally, we need to grab the files that we will be working with for the analysis. For each of the files below we have provided a link. Right click on the link, and "Save link as ...". The counts data will need to be put inside the `data` directory, and the metadata file in your `meta` directory.
+Finally, we need to grab the files that we will be working with for the analysis. For each of the files below we have provided a link. Right click on the link, and "Save link as ...". The counts matrix will need to be put inside the `data` directory, and the metadata table in your `meta` directory.
 
 * [Full counts matrix](https://raw.githubusercontent.com/hbc/NGS_Data_Analysis_Course/master/sessionIII/data/Mov10_full_counts.txt)
 * [Full metadata table](https://raw.githubusercontent.com/hbc/NGS_Data_Analysis_Course/master/sessionIII/data/Mov10_full_meta.txt)
+
+## Loading libraries
+
+For this analysis we will be using several R packages, some which have been installed from CRAN and others from Bioconductor. To use these packages (and the functions contained within them), we need to **load the libraries.** Add the following to your script and don't forget to comment liberally!
+
+```
+## Setup
+### Bioconductor and CRAN libraries used
+library(ggplot2)
+library(RColorBrewer)
+library(DESeq2)
+library(pheatmap)
+```
+
+## Loading data
+
+To load the data into our current environment, we will be using the `read.table` function. We need to provide the path to each file and also specify arguments to let R know that we have a header (`header = T`) and the first column is our row names (`row.names =1`). By default the function expects tab-delimited files, which is what we have.
+
+```
+## Load in data
+data <- read.table(file.path(dataDir, 'Mov10_full_counts.txt'), header=T, 
+row.names=1, as.is=T) 
+meta <- read.table(file.path(metaDir, 'Mov10_full_meta.txt'), header=T, 
+row.names=1)
+```
+
+Use `class()` to inspect our data and make sure we are working with data frames:
+
+```
+### Check classes of the data we just brought in
+class(data)
+class(meta)
+```
+
+As a sanity check we should also make sure that we have sample names that match between the two files, and that the samples are in the right order.
+
+	all(names(data) %in% rownames(meta))
+	all(names(data) == rownames(meta))
+	
+***
+
+**Exercise**	
+
+1. Suppose we had sample names matching in the counta matrix and metadata file, but they were out of order. Write the line(s) of code required to create a new matrix with columns ordered such that they were identical to the row names of the metadata.
+
+*** 
 
 
 ## DESeq2
