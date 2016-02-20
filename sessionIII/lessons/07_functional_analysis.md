@@ -1,20 +1,20 @@
 Learning Objectives:
 -------------------
 
-*  determine how functions are attributed to genes using Gene Ontology terms
-*  understand the theory of how functional enrichment tools yield statistically enriched functions or interactions
-*  explore functional analysis tools
-*  be able to discuss functional class scoring and co-expresssion clustering
+*  Determine how functions are attributed to genes using Gene Ontology terms
+*  Understand the theory of how functional enrichment tools yield statistically enriched functions or interactions
+*  Explore functional analysis tools
+*  Discuss functional class scoring and co-expresssion clustering
 
-# Functional analysis using gene lists
+# Functional analysis 
 
-The output of RNA-Seq differential expression analysis is a list of significant differentially expressed genes (DEGs). These DEGs can be explored in greater detail to learn more about the roles these genes may be playing in the condition of interest, by performing any of the following analyses:
+The output of RNA-Seq differential expression analysis is a list of significant differentially expressed genes (DEGs). To gain greater biological insight on the DEGs there are various analyses that can be done:
 
-- determining whether there is enrichment of known biological functions or interactions, pathways, or networks
-- identifying genes of novel pathways or networks by grouping genes together based on similar trends
-- understanding global changes in gene expression by visualizing all genes being significantly up- or down-regulated.
+- determine whether there is enrichment of known biological functions, interactions, or pathways
+- identify genes' involvement in novel pathways or networks by grouping genes together based on similar trends
+- use global changes in gene expression by visualizing all genes being significantly up- or down-regulated in the context of external interaction data
 
-Generally for any differential expression analysis, it is useful to investigate functional enrichment and pathways associated with the DEGs using freely available web-based tools.  While tools for functional analysis use a variety of techniques, there are three main types: over-representation analysis, functional class scoring, and pathway topology [[1](../../resources/pathway_tools.pdf)].
+Generally for any differential expression analysis, it is useful to interpret the resulting gene lists using freely available web-based tools.  While tools for functional analysis span a wide variety of techniques, they can loosely be categorized into three main types: over-representation analysis, functional class scoring, and pathway topology. [[1](../../resources/pathway_tools.pdf)]. WHile we will discuss the latter two briefly, our main focus will be on tools in the over-representation analysis category.
 
 ![Pathway analysis tools](../img/pathway_analysis.png)
 
