@@ -148,7 +148,7 @@ One way to visualize sample-to-sample distances is a principal components analys
 
 ![pca](../img/pca_500.png)
 
-By default the function uses the **top 500 most variable genes**. You can change this by adding the `ntop` argument and specifying how many genes you want to use.
+**What does this plot tell you about the similarity of samples? Does it fit the expectation from the experimental design?** By default the function uses the *top 500 most variable genes*. You can change this by adding the `ntop` argument and specifying how many genes you want to use.
 
 ***
 
@@ -159,6 +159,12 @@ By default the function uses the **top 500 most variable genes**. You can change
 ***
 
 ### Clustering
+
+Another method for quality assessment of data is to perform an inter-correaltion analysis (ICA). This involves taking each sample as a vector of ~22k values and then making pair-wise comparisons between all samples by computing a Pearson correlation. Generally, we expect to see a fairly high correlation (> 0.95) between all samples for a good dataset. Additionaly, we expect to see samples clustered similar to the groupings observed in a PCA plot.
+
+Samples that show particularly low correlation values with all other samples (< 0.80) represent outliers. These samples are usually removed. Additionally, the heatmap is useful in identifying batch effects based on block structures that correspond to when the samples were run.
+
+
 
 We can use specific functions to extra the information we need. To get the transformed 	
 	
