@@ -30,7 +30,7 @@ To describe the roles of genes and gene products, GO terms are organized into th
 - **Molecular function:** represents the biochemical activity of the gene product, such activities could include "ligand", "GTPase", and "transporter". 
 - **Cellular component:** refers to the location in the cell of the gene product. Cellular components could include "nucleus", "lysosome", and "plasma membrane".
 
-"The relationships between a gene product to biological process, molecular function and cellular component are one-to-many, reflecting the biological reality that a particular protein may function in several processes, contain domains that carry out diverse molecular functions, and participate in multiple alternative interactions with other proteins, organelles or locations in the cell" [[2](go.pdf)]. Therefore, a single gene product can be associated with an unlimited number of GO terms. 
+"The relationships between a gene product to biological process, molecular function and cellular component are one-to-many, reflecting the biological reality that a particular protein may function in several processes, contain domains that carry out diverse molecular functions, and participate in multiple alternative interactions with other proteins, organelles or locations in the cell" [[2](go.pdf)]. Therefore, a single gene product can be associated with an unlimited number of GO terms. Each GO term has a term name (e.g. DNA repair) and a unique term accession number (GO:0005125).
 
 #### GO term hierarchy
 
@@ -44,19 +44,16 @@ Some genes with less information may only be associated with general 'parent' te
 
 ![Nature Reviews Cancer 7, 23-34 (January 2007)](../img/go_heirarchy.jpg)
 
-- Every GO term has:
+[Tips for working with GO terms](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003343)
 
-	- a term name (e.g. DNA repair)
-	- a unique term accession number (e.g. GO:0005125)
+#### Hypergeometric testing
 	
 - In a set of genes, the frequency of a certain GO term can be determined
 - Comparison of frequencies between a gene list & a “background” set will inform us about the over- or under- representation of the GO terms
 
 ![go_frequencies](../img/go_freq.png)
 
-[Tips for working with GO terms](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003343)
-
-#### Fancy word to talk about comparisons - comparing ratios to determine whether ratios different:
+Fancy word to talk about comparisons - comparing ratios to determine whether ratios different:
 
 - total genes: 85 in pathway out of 13,000 (honeybee)
 - genes in list: 50 in pathway out of 1,000
