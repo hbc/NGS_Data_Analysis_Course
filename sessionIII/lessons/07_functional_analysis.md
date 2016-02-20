@@ -15,11 +15,11 @@ The output of RNA-Seq differential expression analysis is a list of significant 
 Generally for any differential expression analysis, it is useful to investigate functional enrichment and pathways associated with the DEGs using freely available web-based tools.  Popular tools frequently used for such analyses include gProfiler, Revigo, and GeneMANIA.
 
 ## Functional enrichment tools
-There are a plethora of functional enrichment tools available to choose from; however, many of these tools query databases with information about gene function and interactions. The ability of these tools to query databases for gene function is due to the use of a consistent vocabulary used by independent databases to describe gene function. This vocabulary was established by the Gene Ontology project, and the words in the vocabulary are referred to as Gene Ontology (GO) terms. 
+There are a plethora of functional enrichment tools available to choose from; however, many of these tools query databases with information about gene function and interactions. The ability of these tools to query databases for gene function is due to the use of a consistent vocabulary by independent databases to describe gene function. This vocabulary was established by the Gene Ontology project, and the words in the vocabulary are referred to as Gene Ontology (GO) terms. 
 
 ### Gene Ontology project
 
-"The Gene Ontology project is a collaborative effort to address the need for consistent descriptions of gene products across databases" [[1](geneontology.org/page/documentation)]. The Gene Ontology Consortium maintains the GO terms, and these GO terms are incorporated into gene annotations in many of the popular repositories for animal, plant, and microbial genomes ([collaborating databases](http://geneontology.org/page/go-consortium-contributors-list)). Tools that investigate **enrichment of biological functions or interactions** can query these databases for GO terms associated with a list of genes to determine whether any GO terms associated with particular functions or interactions are enriched in the gene set. Therefore, to best use and interpret the results from these functional analysis tools, it is helpful to have a good understanding of the GO terms themselves.
+"The Gene Ontology project is a collaborative effort to address the need for consistent descriptions of gene products across databases" [[1](geneontology.org/page/documentation)]. The [Gene Ontology Consortium](http://geneontology.org/page/go-consortium-contributors-list) maintains the GO terms, and these GO terms are incorporated into gene annotations in many of the popular repositories for animal, plant, and microbial genomes. Tools that investigate **enrichment of biological functions or interactions** can query these databases for GO terms associated with a list of genes to determine whether any GO terms associated with particular functions or interactions are enriched in the gene set. Therefore, to best use and interpret the results from these functional analysis tools, it is helpful to have a good understanding of the GO terms themselves.
 
 ### GO terms
 
@@ -47,34 +47,55 @@ Some genes with less information may only be associated with general 'parent' te
 
 [Tips for working with GO terms](http://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1003343)
 
-#### Hypergeometric testing
-	
-- In a set of genes, the frequency of a certain GO term can be determined
-- Comparison of frequencies between a gene list & a “background” set will inform us about the over- or under- representation of the GO terms
+### Hypergeometric testing
+
+In a set of genes, the frequency of GO terms can be determined, and the comparison of frequencies between a gene list & a “background” set will inform us about the over- or under- representation of the GO terms. This type of testing can inform us about over- or under-representation of other entities such as particular motifs or pathways too.
 
 ![go_frequencies](../img/go_freq.png)
 
-Fancy word to talk about comparisons - comparing ratios to determine whether ratios different:
+To determine whether GO terms (or motifs and pathways) are over- or under-represented, you can determine the probability of having a certain number of genes associated with specific GO terms for the size of the gene list based on the background set. The background dataset can be all genes in genome for your organism or you can select your own background to use.
 
-- total genes: 85 in pathway out of 13,000 (honeybee)
-- genes in list: 50 in pathway out of 1,000
+For example, let's suppose there are 13,000 total genes in the honeybee genome and 85 genes are associated with the GO term "DNA repair". In your gene list, there are 50 genes associated with "DNA repair" out of 1,000 genes in gene list. 
+
+By comparing the ratios, 85/13,000 in "background" dataset and 50/1,000 in your gene list, it's evident that the GO term "DNA repair" is over-represented in your dataset.
+
+To determine whether a GO term or pathway is significantly over- or under-represented, tools often perform **hypergeometric testing**. "The hypergeometric distribution is a discrete probability distribution that describes the probability of k successes in n draws, without replacement, from a finite population of size N that contains exactly K successes, wherein each draw is either a success or a failure" [[3](https://en.wikipedia.org/wiki/Hypergeometric_distribution)]. 
+
+Therefore, using our example, the hypergeometric distribution describes the probability of 50 genes (k) being associated with "DNA repair", for all genes in our gene list (n=1,000), from a population of all of the genes in entire genome (N=13,000) which contains 85 genes (K) associated with "DNA repair".
+
+The calculation of probability of k successes follows the formula:
+
+![hypergeo](../img/hypergeo.png) 
 
 
-#### gProfiler
+### gProfiler
 
-[gProfileR](http://biit.cs.ut.ee/gprofiler/index.cgi) is a web-based tool for the interpretation of large gene lists. The core tool takes a gene list as input and performs statistical enrichment analysis to provide interpretation to user-provided gene lists. Multiple sources of functional evidence are considered, including Gene Ontology terms, biological pathways, regulatory motifs of transcription factors and microRNAs, human disease annotations and protein-protein interactions. The user selects the organism and the sources of evidence to test. There are also additional parameters to change various thresholds and tweak the stringency to the desired level. 
+[gProfileR](http://biit.cs.ut.ee/gprofiler/index.cgi) is a web-based tool for the interpretation of large gene lists. The core tool takes a gene list as input and performs statistical enrichment analysis using hypergeometric testing to provide interpretation to user-provided gene lists. Multiple sources of functional evidence are considered, including Gene Ontology terms, biological pathways, regulatory motifs of transcription factors and microRNAs, human disease annotations and protein-protein interactions. The user selects the organism and the sources of evidence to test. There are also additional parameters to change various thresholds and tweak the stringency to the desired level. 
 
 ![gprofiler](../img/gProfiler.png)
 
-Take your gene list and paste it in the `Query' box. 
+You can use gProfiler for a wide selection of organisms, and the tool accepts your gene list as input. If your gene list is ordered (e.g. by padj. values), then gProfiler will take the order of the genes into account when outputting enriched terms or pathways.
 
-* Under **Options**: keep all defaults checked but for _Hierarchical Filtering_ use the pulldown to select _Best per parent_
-* Choose **Show advanced options** and change the _Significance threshold_ to _Benjamini-Hochberg_
-* From the functional evidence selections choose the following: Gene Ontology (biological process, molecular function), KEGG, Reactome
+In addition, a large number (70%) of the functional annotations of GO terms are determined using in silico methods to infer function from electronic annotation (IEA). While these annotations can offer valuable information, the information is of lower confidence than experimental and computational studies, and these functional annotations can be easily filtered out. 
+
+The color codes in the gProfiler output represent the quality of the evidence for the functional annotation. For example, weaker evidence is depicted in blue, while strong evidence generated by direct experiment is shown with red or orange. Similar coloring is used for pathway information, with well-researched pathway information shown in black, opposed to lighter colors. Grey coloring suggests an unknown gene product or annotation [gProfiler_paper](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1933153/).
+
+Also, due to the hierarchical structure of GO terms, you may return many terms that seem redundant since they are child and parent terms. gProfiler allows for hierarchical filtering, returning only the best term per parent term.
+
+
+Take your ordered gene list and paste it in the `Query' box. 
+
+* Under **Options**: keep all defaults checked but check _ordered_query_ and for _Hierarchical Filtering_ use the pulldown to select _Best per parent_
+* From the functional evidence selections choose the following: Gene Ontology (biological process, molecular function), [KEGG](http://nar.oxfordjournals.org/content/44/D1/D457.full.pdf), and [Reactome](http://www.reactome.org).
 * Press **g:Profile!** 
 
 
 > Take a look at the list of terms that appear. Do you see anything relevant, given what you know about this dataset? Run the analysis again but this time change the appropriate parameter to export your results to file. 
+
+#### gProfiler in R
+
+While the web interface for gProfiler is a bit more intuitive to understand, we don't actually need to leave R to 
+
 
 
 #### GeneMANIA
