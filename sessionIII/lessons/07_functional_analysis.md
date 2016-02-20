@@ -1,7 +1,8 @@
 Learning Objectives:
 -------------------
 
-*  with various functional analysis tools
+*  understanding how functions are attributed to genes using Gene Ontology terms
+*  understanding theory of how functional enrichment tools yeild statistically enriched functions or interactions
 
 # Functional analysis using gene lists
 
