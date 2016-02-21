@@ -4,7 +4,7 @@ author: "Meeta Mistry"
 date: "Friday February 19, 2016"
 ---
 
-Approximate time: 
+Approximate time: 75 minutes
 
 ## Learning Objectives 
 
@@ -195,7 +195,7 @@ Overall, we observe pretty high corelations across the board ( > 0.999) suggesti
 > ```
 > heat.colors <- brewer.pal(6, "Blues")
 > pheatmap(cor(rld_cor), color = heat.colors, border_color=NA, fontsize = 10, 
->	fontsize_row = 10, height=20)
+>			fontsize_row = 10, height=20)
 > ```              
 
 
