@@ -98,7 +98,7 @@ library(ggplot2)
 
 The `ggplot()` function is used to **initialize the basic graph structure**, then we add to it. The basic idea is that you specify different parts of the plot, and add them together using the `+` operator.
 
-Let's start with a blank plot. 
+Let's start: 
 
 ```{r, eval=FALSE}
 ggplot(metadata) # what happens? 
