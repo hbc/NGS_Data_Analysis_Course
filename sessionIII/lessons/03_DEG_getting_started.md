@@ -162,19 +162,43 @@ One way to visualize sample-to-sample distances is a principal components analys
 
 ### Hierarchical Clustering
 
-Another method for quality assessment of data is to cluster samples based on sample-to-sample distance measures. In this lesson, we will be using the Pearson correlation to measure simialrity between samples. An alternative would be to compute distance measures (i.e Poisson distance). 
+Another method for quality assessment of data is to cluster samples based on how dis/similar they are to one another. In this lesson, we will be using the Pearson correlation to measure similarity between samples. Alternatively, it is also common to compute distance-based measures (i.e Poisson distance) as input to clustering. 
 
 
- perform an inter-correlation analysis (ICA). This involves taking each sample as a vector of ~22k values and then making pair-wise comparisons between all samples by computing a Pearson correlation. Generally, we expect to see a fairly high correlation (> 0.95) between all samples for a good dataset. Additionaly, we expect to see samples clustered similar to the groupings observed in a PCA plot.
+Using correlation values is referred to as and inter-correlation analysis (ICA). This involves taking each sample as a vector of ~22k values and then making pair-wise comparisons between all samples by computing a Pearson correlation. Generally, we expect to see a fairly high correlation (> 0.95) between all samples for a good dataset. Additionaly, we expect to see samples clustered similar to the groupings observed in a PCA plot.
 
 Samples that show particularly low correlation values with all other samples (< 0.80) represent outliers. These samples are usually removed. Additionally, the heatmap is useful in identifying batch effects based on block structures that correspond to when the samples were run.
 
-
-
-We can use specific functions to extra the information we need. To get the transformed 	
+Since there is no built-in function for heatmaps in DESeq2 we will be using `pheatmap()`. This function requires a matrix/dataframe of numeric values as input, and so the first thing we need to is retrieve that information from the `rld` object:
 	
 	### Extract the rlog matrix from the object
 	rld_mat <- assay(rld) 
+
+Then we need to compute the pairwise correlation values for samples. We can do this using the `cor()` function:
+
+	### Compute pairwise corrrelation values
+	rld_cor <- cor(rld_mat)
+
+
+And now to plot the correlation values as a heatmap:
+
+	### Plot heatmap
+	pheatmap(rld_cor)
+
+![heatmap1](../img/pheatmap-1.png)
+
+Overall, we observe pretty high corelations across the board ( > 0.999) suggesting no outliers sample(s). Also, similar to the PCA plot you see the samples clustering together by sampletype. Together, these plots suggest to us that the data are of good quality and we have the green light to proceed to differential expression analysis.
+
+
+> NOTE: The `pheatmap` function has a number of different arguments that we an alter from default values to enhance the aesthetics of the plot. If you are curious and want to explore more, try running the code below. *How does your plot change?* Take a look through the help pages (`?pheatmap`) and identify what each of the added arguments is contributing to the plot.
+>
+> ```
+> pheatmap(cor(rld_mat), color = brewer.pal(6, "Blues"), cluster_rows = T, 
+                 border_color=NA, fontsize = 10, fontsize_row = 10, height=20)
+> ```              
+
+
+
 
 
 
