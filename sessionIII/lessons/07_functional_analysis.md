@@ -19,7 +19,7 @@ Generally for any differential expression analysis, it is useful to interpret th
 ![Pathway analysis tools](../img/pathway_analysis.png)
 
 ## Over-representation analysis
-There are a plethora of functional enrichment tools that perform some type of over-representation analysis. These tools query databases with information about gene function and interactions to do so. Querying these databases for gene function requires the use of a consistent vocabulary to describe gene function. One of the most widely-used vocabularies is the Gene Ontology (GO). This vocabulary was established by the Gene Ontology project, and the words in the vocabulary are referred to as GO terms. 
+There are a plethora of functional enrichment tools that perform some type of over-representation analysis by querying databases containing information about gene function and interactions. Querying these databases for gene function requires the use of a consistent vocabulary to describe gene function. One of the most widely-used vocabularies is the Gene Ontology (GO). This vocabulary was established by the Gene Ontology project, and the words in the vocabulary are referred to as GO terms. 
 
 ### Gene Ontology project
 
@@ -190,7 +190,7 @@ Pathway topology-based methods utilize the number and type of interactions betwe
 
 ### Co-expression clustering
 
-Co-expression clustering is often used to identify genes of novel pathways or networks by grouping genes together based on similar trends in expression. These tools are useful in identifying genes in a pathway, when their participation in a pathway and/or the pathway itself is unknown. These tools cluster genes with similar expression patterns to create 'modules' of co-exressed genes which often reflect functionally similar groups of genes. These 'modules' can then be compared    across conditions or in a time-course experiment to identify any biologically relevant dysfunction.
+Co-expression clustering is often used to identify genes of novel pathways or networks by grouping genes together based on similar trends in expression. These tools are useful in identifying genes in a pathway, when their participation in a pathway and/or the pathway itself is unknown. These tools cluster genes with similar expression patterns to create 'modules' of co-expressed genes which often reflect functionally similar groups of genes. These 'modules' can then be compared across conditions or in a time-course experiment to identify any biologically relevant pathway or network information.
 
 You can visualize co-expression clustering using heatmaps, which should be viewed as suggestive only; serious classification of genes needs better methods.  
 
