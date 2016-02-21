@@ -66,7 +66,7 @@ When you ran the `rlog()` function the normalization was performed. And so if we
 
 > *NOTE:* The two objects require different ways in which we can access the information stored inside. When in doubt, use `class()` to find out what type of data structure you are working with. Knowing this information is key to finding ways of extracting infomration from the object.
 
-### Results using a Wald test
+### Extracting results using a Wald test
 
 To build a results table, we use the `results()` function on the `DESeqDataSet` object. By default, it will return to us the log2 fold changes and p-values for a Wald-test comparison of the last level over the first level. 
 
@@ -104,7 +104,7 @@ Let's go through some of the columns in the results table to get a better idea o
 
 #### Contrasts
 
-Conveniently, the default settings returned to us the Mov10_overexpression comparison to control, but it is usually best practice to specify which comparisons we are interested in looking at. This is especially useful when working with more than two factor levels. 
+Conveniently, the default settings returned to us the Mov10_overexpression comparison to control, but it is usually best practice to specify **which comparisons we are interested in** looking at. This is especially useful when working with more than two factor levels or more complex designs.
 
 The comparisons are provided in the form of **contrasts**, in one of three different ways. In this lesson we will demonstrate the method that is most intuitive. By providing contrasts we are telling DESeq2 which coefficients to use for the hypothesis testing procedure. Let's take a look at the coefficients table (using `coef()`) to get an idea of what we have to choose from:
 
@@ -125,13 +125,58 @@ To specify the specific coeficients we are interested in, we need to provide the
 **Exercise**
 
 1. Create a contrasts vector for the Mov10_overexpression comparison to control.
-2. Create a contrasts vector for the MOv10_overexpression comparison to *all other samples*.
+2. Create a contrasts vector for the Mov10_overexpression comparison to *all other samples*.
 
 *** 
 
 
 
-### Exploring the results table
+### Summarizing the results table
+
+To summarize the results table, a handy function in DESeq2 is `summary()`. Confusingly it has the same name as the function used to inspect data frames. This function when called with a DESeq results table as input, will summarize the results at a given FDR threshold. 
+
+	summary(res_tableOE)
+	
+
+```  
+out of 19748 with nonzero total read count
+adjusted p-value < 0.1
+LFC > 0 (up)     : 3657, 19% 
+LFC < 0 (down)   : 3897, 20% 
+outliers [1]     : 0, 0% 
+low counts [2]   : 3912, 20% 
+(mean count < 4)
+[1] see 'cooksCutoff' argument of ?results
+[2] see 'independentFiltering' argument of ?results
+```
+
+In addition to the number of genes up- and down-regulated at and FDR < 0.1, the function also reports the number of genes that were tested (genes with non-zero total read count), and the number of genes not included in multiple test correction due to a low mean count (which in our case is < 4).
+
+The default FDR threshold is set to `alpha = 0.1`, which is quite liberal. Let's try changing that to `0.05` -- *how many genes are we left with*?
+
+The FDR threshold on it's own doesn't appear to be reducing the number of significant genes. With large significant gene lists it can be hard to extract meaningfulbiological relevance. To help increase stringency, one can also add a fold change threshold. The `summary()` function doesn't have an argument for fold change threshold, but instead we can use the base R function `subset()`.
+
+Let's first create variables that contain our threshold criteria:
+
+	padj.cutoff <- 0.05
+	lfc.cutoff <- 0.58
+
+The `lfc.cutoff` is set to 0.58; remember that we are working with log2 fold changes so this translates to an actual fold change of ~1.5 which is pretty reasonable. Now let's setup our **`subset()` function nested within the `summary()` function**. Start building from the inside out:
+
+	subset(res_tableOE)
+
+We need to add our selection criteria. The first is our FDR threshold:
+
+	subset(res_tableOE, padj < padj.cutoff)
+
+Now let's add in the log2 fold change criteria. Because we want both up- and down-regulated genes we will use the absolute value of the fold change using the `abs(log2FoldChange)` function:
+
+	subset(res_tableOE, padj < padj.cutoff & abs(log2FoldChange) > lfc.cutoff)
+
+Now, finally we will put all of that inside the `summary()` function. This is a fast way of getting overall statistics and deciding whether our threshold is still too liberal or perhaps overly stringent.
+
+	summary(subset(res_tableOE, padj < padj.cutoff & abs(log2FoldChange) > 0.58))
+
 
 ---
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
