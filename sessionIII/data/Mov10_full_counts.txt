@@ -1,4 +1,4 @@
-GeneSymbol	Mov10_kd_2	Mov10_kd_3	Mov10_oe_1	Mov10_oe_2	Mov10_oe_3	Irrel_kd_1	Irrel_kd_2	Irre_kd_3
+GeneSymbol	Mov10_kd_2	Mov10_kd_3	Mov10_oe_1	Mov10_oe_2	Mov10_oe_3	Irrel_kd_1	Irrel_kd_2	Irrel_kd_3
 1/2-SBSRNA4	57	41	64	55	38	45	31	39
 A1BG	71	40	100	81	41	77	58	40
 A1BG-AS1	256	177	220	189	107	213	172	126
