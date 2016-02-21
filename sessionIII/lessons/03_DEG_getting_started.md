@@ -47,10 +47,16 @@ Now save the file as `de_script.R`. When finished your working directory should 
 
 ![setup](../img/settingup.png)
 
-Finally, we need to grab the files that we will be working with for the analysis. For each of the files below we have provided a link. Right click on the link, and "Save link as ...". The counts matrix will need to be put inside the `data` directory, and the metadata table in your `meta` directory.
+Finally, we need to grab the files that we will be working with for the analysis. 
 
-* [Full counts matrix](https://raw.githubusercontent.com/hbc/NGS_Data_Analysis_Course/master/sessionIII/data/Mov10_full_counts.txt)
-* [Full metadata table](https://raw.githubusercontent.com/hbc/NGS_Data_Analysis_Course/master/sessionIII/data/Mov10_full_meta.txt)
+***Note:*** *We are going to switch to using counts data for the* ***full dataset*** *from this point onwards, to get more meaningful results from the differential expression analysis. We are also obtaining the metadata file afresh for the DEanalysis project.*
+
+Right click on the links below, and choose the "Save link as ..." option to download:
+
+* Save the [Full counts matrix](https://raw.githubusercontent.com/hbc/NGS_Data_Analysis_Course/master/sessionIII/data/Mov10_full_counts.txt) file in the `data` directory.
+* Save the [Full metadata table](https://raw.githubusercontent.com/hbc/NGS_Data_Analysis_Course/master/sessionIII/data/Mov10_full_meta.txt) file in the `meta` directory.
+
+
 
 ## Loading libraries
 
@@ -71,9 +77,9 @@ To load the data into our current environment, we will be using the `read.table`
 
 ```
 ## Load in data
-data <- read.table(file.path(dataDir, 'Mov10_full_counts.txt'), header=T, 
+data <- read.table("data/Mov10_full_counts.txt", header=T, 
 row.names=1, as.is=T) 
-meta <- read.table(file.path(metaDir, 'Mov10_full_meta.txt'), header=T, 
+meta <- read.table("meta/Mov10_full_meta.txt", header=T, 
 row.names=1)
 ```
 
@@ -95,7 +101,7 @@ As a sanity check we should also make sure that we have sample names that match 
 
 **Exercise**	
 
-Suppose we had sample names matching in the counta matrix and metadata file, but they were out of order. Write the line(s) of code required to create a new matrix with columns ordered such that they were identical to the row names of the metadata.
+Suppose we had sample names matching in the counts matrix and metadata file, but they were out of order. Write the line(s) of code required to create a new matrix with columns ordered such that they were identical to the row names of the metadata.
 
 *** 
 
@@ -112,8 +118,7 @@ Let's start by creating the `DESeqDataSet` object and then we can talk a bit mor
 
 
 	## Create DESeq2Dataset object
-	dds <- DESeqDataSetFromMatrix(countData = data, colData = meta, 
-					design = ~ sampletype)
+	dds <- DESeqDataSetFromMatrix(countData = data, colData = meta, design = ~ sampletype)
 
 
 ![deseq1](../img/deseq_obj1.png)
@@ -121,7 +126,7 @@ Let's start by creating the `DESeqDataSet` object and then we can talk a bit mor
 
 You can use DESeq-specific functions to access the different slots and retrieve information, if you wish. For example, suppose we wanted the original count matrix we would use `counts` (*Note: we nested it within the `View` function so that rather than getting printed in the console we can see it in the script editor*) :
 
-	View(counts())
+	View(counts(dds))
 
 As we go through the workflow we will use the relevant functions to check what information gets stored inside our object.
 
@@ -201,7 +206,9 @@ Overall, we observe pretty high corelations across the board ( > 0.999) suggesti
 > ```              
 
 
+## Saving the Project
 
+Now we are set up to run the comparisons between the 3 groups and get lists of differentially expressed genes. **Make sure you save the project as you quit RStudio, so you don't lose all your work from this setting up module!**
 
 
 ---
