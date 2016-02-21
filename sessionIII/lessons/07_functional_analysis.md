@@ -3,8 +3,8 @@ Learning Objectives:
 
 *  Determine how functions are attributed to genes using Gene Ontology terms
 *  Understand the theory of how functional enrichment tools yield statistically enriched functions or interactions
-*  Explore functional analysis tools
 *  Discuss functional class scoring and co-expresssion clustering
+*  Explore functional analysis tools
 
 # Functional analysis 
 
