@@ -193,8 +193,8 @@ Overall, we observe pretty high corelations across the board ( > 0.999) suggesti
 > NOTE: The `pheatmap` function has a number of different arguments that we an alter from default values to enhance the aesthetics of the plot. If you are curious and want to explore more, try running the code below. *How does your plot change?* Take a look through the help pages (`?pheatmap`) and identify what each of the added arguments is contributing to the plot.
 >
 > ```
-> pheatmap(cor(rld_mat), color = brewer.pal(6, "Blues"), cluster_rows = T, 
-                 border_color=NA, fontsize = 10, fontsize_row = 10, height=20)
+> heat.colors <- brewer.pal(6, "Blues")
+> pheatmap(cor(rld_mat), color = heat.colors, border_color=NA, fontsize = 10, fontsize_row = 10, height=20)
 > ```              
 
 
