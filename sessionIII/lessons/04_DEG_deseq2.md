@@ -157,7 +157,7 @@ In addition to the number of genes up- and down-regulated at and FDR < 0.1, the 
 
 The default FDR threshold is set to `alpha = 0.1`, which is quite liberal. Let's try changing that to `0.05` -- *how many genes are we left with*?
 
-The FDR threshold on it's own doesn't appear to be reducing the number of significant genes. With large significant gene lists it can be hard to extract meaningfulbiological relevance. To help increase stringency, one can also add a fold change threshold. The `summary()` function doesn't have an argument for fold change threshold, but instead we can use the base R function `subset()`.
+The FDR threshold on it's own doesn't appear to be reducing the number of significant genes. With large significant gene lists it can be hard to extract meaningful biological relevance. To help increase stringency, one can also add a fold change threshold. The `summary()` function doesn't have an argument for fold change threshold, but instead we can use the base R function `subset()`.
 
 Let's first create variables that contain our threshold criteria:
 
@@ -179,8 +179,7 @@ Now let's add in the log2 fold change criteria. Because we want both up- and dow
 
 Now, finally we will put all of that inside the `summary()` function. This is a fast way of getting overall statistics and deciding whether our threshold is still too liberal or perhaps overly stringent.
 
-	summary(subset(res_tableOE, padj < padj.cutoff & 
-						abs(log2FoldChange) > lfc.cutoff))
+	summary(subset(res_tableOE, padj < padj.cutoff & abs(log2FoldChange) > lfc.cutoff))
 
 
 Does this reduce our results? How many genes are up-regulated and down-regulated at this new threshold?
@@ -192,7 +191,7 @@ We should have a total of 86 genes that are significantly differentially express
 
 Now we can easily check how many genes are significant by using the `which()` function:
 
-	length(which(res_tabeOE$threshold))
+	length(which(res_tableOE$threshold))
 
 ***
 
@@ -205,12 +204,45 @@ Now we can easily check how many genes are significant by using the `which()` fu
 *** 
 
 
-### Visualizing the results
+## Visualizing the results
 
 
 
-### Exporting significant genes lists
 
+
+## Exporting significant gene lists
+
+The next step in our workflow is interpretation of gene lists using various tools for functional analysis. Depending on the tool you choose to use downstream, you will require different information from the results table as input. To be safe it is wise to keep atleast one copy of the full results table with relevant information. 
+
+
+First, let's sort the results file by adjusted p-value:
+	
+	### Sort the results tables
+	res_tableOE_sorted <- res_tableOE[order(res_tableOE$padj), ]
+	res_tableKD_sorted <- res_tableKD[order(res_tableKD$padj), ]
+	
+Now we can use the `write.table()` function to write them to file:
+
+	### Write sorted results to file
+	write.table(res_tableOE_sorted, file="results/results_OE_sortedPval.txt", sep="\t", quote=F, col.names=NA)
+	
+	write.table(res_tableKD_sorted, file="results/results_KD_sortedPval.txt", sep="\t", quote=F, col.names=NA)
+
+One of the tools we will be using for functional analysis will require only the gene names of the significant genes, but ordered by adjusted p-value. We can easily create this here since our results files are already sorted.
+
+	### Get significant genes
+	sigOE <- row.names(res_tableOE_sorted)[which(res_tableOE_sorted$threshold)]
+	sigKD <- row.names(res_tableKD_sorted)[which(res_tableKD_sorted$threshold)]
+	
+To write these lists to file we will use the `write()` function which will write the contents to file on single line, or if `ncol` is specified, into a certain number of columns:
+
+	### Write genes to file
+	write(sigOE, file="results/Mov10_oe_logFC_1_pVal_0.05.txt", ncol=1)
+	write(sigKD, file="results/Mov10_kd_logFC_1_pVal_0.05.txt", ncol=1)
+	
+## Saving the project
+
+Now we are set up for functional analysis of our gene lists. Make sure you save your R session as you quit RStudio to your DEanalysis project, so you don't lose all your work from this DE analysis module!
 
 ---
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
