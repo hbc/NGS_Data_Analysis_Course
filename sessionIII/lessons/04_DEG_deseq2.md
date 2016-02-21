@@ -72,6 +72,7 @@ To build a results table, we use the `results()` function on the `DESeqDataSet` 
 
 So in our case this would be control versus Mov1_0overexpression, and you can see that printed at the top of the output:
 
+	## Extract results
 	res_tableOE <- results(dds)
 	head(res_tableOE)
 
@@ -114,6 +115,7 @@ In total, we have four coefficients including the intercept. Each **coefficient*
 
 To specify the specific coeficients we are interested in, we need to provide the column names from the coefficents table as a list of 2 character vectors:
 
+	## Define contrasts
 	contrast_kd <- list( "sampletypeMOV10_knockdown", "sampletypescontrol" )
 
 **The order of the names, determines the direction of fold change that is reported.** The name provided in the second element is the level that is used to baseline. So for example, if we observe a fold change of -2 this would mean the gene expression is lower in Mov10_kd relative to the control. Pass the contrast as an argument to the `results()` function and take a look at the table that is returned:
@@ -135,6 +137,7 @@ To specify the specific coeficients we are interested in, we need to provide the
 
 To summarize the results table, a handy function in DESeq2 is `summary()`. Confusingly it has the same name as the function used to inspect data frames. This function when called with a DESeq results table as input, will summarize the results at a given FDR threshold. 
 
+	## Suammrize results
 	summary(res_tableOE)
 	
 
@@ -158,10 +161,11 @@ The FDR threshold on it's own doesn't appear to be reducing the number of signif
 
 Let's first create variables that contain our threshold criteria:
 
+	### Set thresholds
 	padj.cutoff <- 0.05
-	lfc.cutoff <- 0.58
+	lfc.cutoff <- 1
 
-The `lfc.cutoff` is set to 0.58; remember that we are working with log2 fold changes so this translates to an actual fold change of ~1.5 which is pretty reasonable. Now let's setup our **`subset()` function nested within the `summary()` function**. Start building from the inside out:
+The `lfc.cutoff` is set to 1; remember that we are working with log2 fold changes so this translates to an actual fold change of 2 which is pretty reasonable. Now let's setup our **`subset()` function nested within the `summary()` function**. Start building from the inside out:
 
 	subset(res_tableOE)
 
@@ -175,7 +179,37 @@ Now let's add in the log2 fold change criteria. Because we want both up- and dow
 
 Now, finally we will put all of that inside the `summary()` function. This is a fast way of getting overall statistics and deciding whether our threshold is still too liberal or perhaps overly stringent.
 
-	summary(subset(res_tableOE, padj < padj.cutoff & abs(log2FoldChange) > 0.58))
+	summary(subset(res_tableOE, padj < padj.cutoff & 
+						abs(log2FoldChange) > lfc.cutoff))
+
+
+Does this reduce our results? How many genes are up-regulated and down-regulated at this new threshold?
+
+We should have a total of 86 genes that are significantly differentially expressed. To denote these genes as significant we can add a column in our results table. The vector will be a logical vector, where `TRUE` means the gene passes our threshold and `FALSE` means it fails.
+
+	res_tableOE$threshold <- as.logical(res_tableOE$padj < padj.cutoff & 
+                   abs(res_tableOE$log2FoldChange) > lfc.cutoff)
+
+Now we can easily check how many genes are significant by using the `which()` function:
+
+	length(which(res_tabeOE$threshold))
+
+***
+
+**Exercise**
+
+1. Explore the results table for the Mov10_knockdown comparison to control. How many genes are differntially expressed using the default thresholds?
+2. Using the same thresholds set above (`padj.cutoff <- 0.05` and `lfc.cutoff <- 1`), report he number of genes that are up- and down-regulated in Mov10_knockdown compared to control.
+3. Add a new column called `threshold` to the `res_tableKD` which contains a logical vector denoting genes as being differentially expressed or not
+
+*** 
+
+
+### Visualizing the results
+
+
+
+### Exporting significant genes lists
 
 
 ---
