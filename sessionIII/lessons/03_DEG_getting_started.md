@@ -207,7 +207,7 @@ Overall, we observe pretty high corelations across the board ( > 0.999) suggesti
 
 ## Saving the Project
 
-Now we are set up to run the comparisons between the 3 groups and get lists of differentially expressed genes. **Make sure you save the project as you quit RStudio, so you don't lose all your work from this setting up module!**
+Now we are set up to run the comparisons between the 3 groups and get lists of differentially expressed genes. **Make sure you save your R session as you quit RStudio, so you don't lose all your work from this setting up module!**
 
 
 ---
