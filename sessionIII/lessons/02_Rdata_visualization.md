@@ -289,9 +289,9 @@ Finally, close the "device", or file, using the `dev.off()` function. There are 
 dev.off()
 ```
 
-***Note 1:** You will not be able to open and look at your file using standard methods (Adobe Acrobat or Preview etc.) until you execute the `dev.off()` function.*
+***Note 1:*** *You will not be able to open and look at your file using standard methods (Adobe Acrobat or Preview etc.) until you execute the `dev.off()` function.*
 
-***Note 2:** If you had made any additional plots before closing the device, they will all be stored in the same file you specified. Each plot usually gets its own page, unless you specify otherwise.*
+***Note 2:*** *If you had made any additional plots before closing the device, they will all be stored in the same file you specified. Each plot usually gets its own page, unless you specify otherwise.*
 
 
 
