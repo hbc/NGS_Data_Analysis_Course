@@ -23,7 +23,7 @@ When we are working with large sets of numbers it can be useful to display that 
 R has a number of built-in tools for basic graph types such as hisotgrams, scatter plots, bar charts, boxplots and much [more](http://www.statmethods.net/graphs/). Rather than going through all of different types, we will focus on the scatterplot to give you an idea of the different parameters involved in changing features to R base plots.
 
 ### Scatterplot
-A scatter plot provides a graphical view of the relationship between two sets of continuous numeric data. From our metadata file we will the `samplemeans` column and plot it against `age_in_days`, to see how mean expression changes with age. The base R function to do this is `plot(y ~ x, data)`:
+A scatter plot provides a graphical view of the relationship between two sets of continuous numeric data. From our metadata file we will take the `samplemeans` column and plot it against `age_in_days`, to see how mean expression changes with age. The base R function to do this is `plot(y ~ x, data)`:
 
 
 	plot(samplemeans ~ age_in_days, data=metadata)
@@ -31,7 +31,7 @@ A scatter plot provides a graphical view of the relationship between two sets of
 
  ![scatter-1](../img/scatter-plot1.png) 
 
-Each point represents a sample. The values on the y-axis correspond to the average expression for each sample which is dependent on the x-axis variable `age_in_days`. This plot is in it's simplest form. We can customize many features of the plot (fonts, colors, axes, titles) through [graphic options](http://www.statmethods.net/advgraphs/parameters.html).
+Each point represents a sample. The values on the y-axis correspond to the average expression for each sample which is dependent on the x-axis variable `age_in_days`. This plot is in its simplest form, we can customize many features of the plot (fonts, colors, axes, titles) through [graphic options](http://www.statmethods.net/advgraphs/parameters.html).
 
 For example, let's start by giving our plot a title and renaming the axes. We can do that by simply adding the options `xlab`, `ylab` and `main` as arguments to the `plot()` function:
 
@@ -53,7 +53,7 @@ plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age
 ![scatter-3](../img/scatter-plot3.png)
 
 
-We can also add some **color to the data points** on the plot by adding `col="blue"`. Alternatively, you can sub in any another color with any of the default colors or you can [experiment with other R packages](http://www.stat.ubc.ca/~jenny/STAT545A/block14_colors.html#basic-color-specification-and-the-default-palette) to fiddle with better palettes. 
+We can also add some **color to the data points** on the plot by adding `col="blue"`. Alternatively, you can sub in any of the default colors or you can [experiment with other R packages](http://www.stat.ubc.ca/~jenny/STAT545A/block14_colors.html#basic-color-specification-and-the-default-palette) to fiddle with better palettes. 
 
 We can also add color to **separate the data points by information** in our data frame. For example, supppose we wanted to the data points colored by celltype. We would need to specify a vector of colours and provide the factor by which we are separating samples:
 
@@ -88,7 +88,7 @@ legend("topleft", pch="*", col=c("blue", "green"), c("A", "B"), cex=0.8,
 ## Advanced figures (`ggplot2`)
 
 
-More recently, R users have moved away from base graphic options and towards a plotting package called [`ggplot2`](http://docs.ggplot2.org/). This package adds a lot of functionality to the basic plots described above The syntax takes some getting used to but once you have it you will find it's extremely powerful and flexible. We can start by re-creating the scatterplot but using ggplot functions to get a feel for the syntax.
+More recently, R users have moved away from base graphic options and towards a plotting package called [`ggplot2`](http://docs.ggplot2.org/). This package adds a lot of functionality to the basic plots described above. The syntax takes some getting used to, but once you have it you will find it's extremely powerful and flexible. We can start by re-creating the scatterplot but using ggplot functions to get a feel for the syntax.
 
 `ggplot2` is best used on data in the `data.frame` form, so we will will work with `metadata` for the following figures. Let's start by loading the `ggplot2` library.
 
@@ -98,11 +98,12 @@ library(ggplot2)
 
 The `ggplot()` function is used to **initialize the basic graph structure**, then we add to it. The basic idea is that you specify different parts of the plot, and add them together using the `+` operator.
 
-We will start with a blank plot and may find that you will get an error. This is because you need to **add layers**.
+Let's start with a blank plot. 
 
 ```{r, eval=FALSE}
 ggplot(metadata) # what happens? 
 ```
+You get an blank plot, because you need to **specify layers** using the `+` operator.
 
 One type of layer is **geometric objects**. These are the actual marks we put on a plot. Examples include:
 
@@ -119,7 +120,7 @@ ggplot(metadata) +
   geom_point() # note what happens here
 ```
 
-You will find that even though we have added a layer by specifying `geom_point`, we still get an error. This is because each type of geom usually has a **required set of aesthetics** to be set. Aesthetic mappings are set with the aes() function and can be set inside `geom_point()` to be specifically applied to that layer. If we supplied aesthetics within `ggplot()`, they will be used as defaults for every layer. Examples of aesthetics include:
+You will find that even though we have added a layer by specifying `geom_point`, we get an error. This is because each type of geom usually has a **required set of aesthetics** to be set. Aesthetic mappings are set with the aes() function and can be set inside `geom_point()` to be specifically applied to that layer. If we supplied aesthetics within `ggplot()`, they will be used as defaults for every layer. Examples of aesthetics include:
 
 * position (i.e., on the x and y axes)
 * color ("outside" color)
@@ -128,7 +129,7 @@ You will find that even though we have added a layer by specifying `geom_point`,
 * linetype
 * size
 
-To start, we will add position for the x- and y-axis since `geom_point` requires mappings for x and y, all others are optional.
+To start, we will add position for the x- and y-axis since `geom_point` requires the most basic information about a scatterplot, i.e. what you want to plot on the x and y axes. All of the others mentioned above are optional.
 
 ```{r, fig.align='center'}
 ggplot(metadata) +
@@ -235,7 +236,7 @@ ggplot(metadata) +
 
 **Exercise**
 
-1. Use what you learned previously about the `theme()` layer to make the x- and y-axis text larger (not the tick labels).
+1. Use what you learned previously about the `theme()` layer to make the text larger for x- and y-axis (not the tick labels).
 2. Also, add an appropriate title to this plot.
 
 ***
@@ -266,7 +267,7 @@ Now that we have all the required information for plotting with ggplot2 let's tr
 There are two ways in which figures and plots can be output to a file (rather than simply displaying on screen). The first (and easiest) is to export directly from the RStudio 'Plots' panel, by clicking on `Export` when the image is plotted. This will give you the option of `png` or `pdf` and selecting the directory to which you wish to save it to. 
 
 
-The second option is to use R functions in the console, allowing you the flexibility to specify parameters to dictate the size and resolution of the output image.  In R’s terminology, output is directed to a particular output device and that dictates the output format that will be produced.  A device must be created or “opened” in order to receive graphical output and, for devices that create a file
+The second option is to use R functions in the console, allowing you the flexibility to specify parameters to dictate the size and resolution of the output image, and allowing you to save multiple plots at once.  In R’s terminology, output is directed to a particular output device and that dictates the output format that will be produced.  A device must be created or “opened” in order to receive graphical output and, for devices that create a file
 on disk, the device must also be closed in order to complete the output.
 
 Let's print our scatterplot to a pdf file format. First you need to initialize a plot using a function which specifies the graphical format you intend on creating i.e.`pdf()`, `png()`, `tiff()` etc. Within the function you will need to specify a name for your image, and the with and height (optional). This will open up the device that you wish to write to:
@@ -282,11 +283,16 @@ ggplot(metadata) +
   			shape=celltype), size=rel(3.0)) 
 ```
 
-Finally, close the file using the `dev.off()` function. There are also `bmp`, `tiff`, and `jpeg` functions, though the jpeg function has proven less stable than the others.
+Finally, close the "device", or file, using the `dev.off()` function. There are also `bmp`, `tiff`, and `jpeg` functions, though the jpeg function has proven less stable than the others. 
   			
 ```    
 dev.off()
 ```
+
+*Note 1: You will not be able to open and look at your file using standard methods (Adobe Acrobat or Preview etc.) until you execute the `dev.off()` function.*
+
+*Note 2: If you had made any additional plots before closing the device, they will all be stored in the same file you specified. Each plot usually gets its own page, unless you specify otherwise.*
+
 
 
 ---
