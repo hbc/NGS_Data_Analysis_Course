@@ -49,7 +49,7 @@ Now save the file as `de_script.R`. When finished your working directory should 
 
 Finally, we need to grab the files that we will be working with for the analysis. 
 
-***Note:*** *We are going to switch to using counts data for the* ***full dataset*** *from this point onwards, to get more meaningful results from the differential expression analysis. We are also obtaining the metadata file afresh for the DEanalysis project.*
+***Note:*** *We are going to switch to using count data for the* ***full dataset*** *from this point onwards, to get more meaningful results from the differential expression analysis. We are also obtaining the metadata file afresh for the DEanalysis project.*
 
 Right click on the links below, and choose the "Save link as ..." option to download:
 
