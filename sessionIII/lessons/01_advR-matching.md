@@ -257,8 +257,52 @@ Your collaborators sent you a new dataset containing additional metadata informa
 1. Read in the `metadata2` tab-delimited file and save it as a dataframe called `metadata2`.
 2. Check to make sure you have the same samples in both datasets.
 3. To ensure you are adding the correct metadata to each sample, you need to make sure that the samples are in the same order before you combine them. Reorder one of the datasets using the `match()` function. **Try to use nested functions.**
-4. Combine the two datasets, and save the large dataset as `metadata_combined`.
-4. Write the `metadata_combined` to file using `write.table()`, and save as a tab-delimited file called `metadata_combined.txt`. 
+4. Combine the two datasets, and save the large dataset as `metadata_combined`. 
+
+## Calculating simple statistics
+
+Let's take a closer look at our data. Each column represents a sample in our experiment, and each sample has ~38K values corresponding to the expression of different transcripts. Suppose we wanted to compute the average value for a samplet, the R base package provides many built-in functions such as `mean`, `median`, `min`, `max`, and `range`, just to name a few. Try computing the mean for "sample1" (_Hint: apply what you have learned previously using indexes_)  
+
+	mean(rpkm_ordered[,'sample1'])
+
+> ### Missing values
+> By default, all **R functions operating on vectors that contains missing data will return NA**. It's a way to make sure that users know they have missing data, and make a conscious decision on how to deal with it. When dealing with simple statistics like the mean, the easiest way to ignore `NA` (the missing data) is to use `na.rm=TRUE` (`rm` stands for remove). 
+> In some cases, it might be useful to remove the missing data from the vector. For this purpose, R comes with the function `na.omit` to generate a vector that has NA's removed. For some applications, it's useful to keep all observations, for others, it might be best to remove all observations that contain missing data. The function
+`complete.cases()` returns a logical vector indicating which rows have no missing values. 
+
+## The `apply` Function
+To obtain mean values for all samples we can use `mean` on each column individually, but there is also an easier way to go about it. The `apply` family of functions keep you from having to write loops (R is bad at looping) to perform some sort of operation on every row or column of a data matrix or a data frame. The family includes several functions, each differing slightly on the inputs or outputs.
+
+
+```r
+base::apply             Apply Functions Over Array Margins
+base::by                Apply a Function to a Data Frame Split by Factors
+base::eapply            Apply a Function Over Values in an Environment
+base::lapply            Apply a Function over a List or Vector (returns list)
+base::sapply            Apply a Function over a List or Vector (returns vector)
+base::mapply            Apply a Function to Multiple List or Vector Arguments
+base::rapply            Recursively Apply a Function to a List
+base::tapply            Apply a Function Over a Ragged Array
+```
+
+We will be using `apply` in our examples today, but do take a moment on your own to explore the many options that are available. The `apply` function returns a vector or array or list of values obtained by applying a function to margins of an array or matrix. We know about vectors/arrays and functions, but what are these “margins”? Margins are referring to either the rows (denoted by 1), the columns (denoted by 2) or both (1:2). By “both”, we mean  apply the function to each individual value. 
+
+Let's try this to obtain mean expression values for each sample in our RPKM matrix:
+
+	samplemeans <- apply(rpkm_ordered, 2, mean) 
+
+Now, add `samplemeans` to the end of the `rpkm_ordered` dataframe:
+	
+	new_metadata <- cbind(rpkm_ordered, samplemeans)
+	
+Our metadata table is almost complete, we just need to add one additional column of data for `age_in_days`:
+
+	age_in_days <- c(40, 32, 38, 35, 41, 32, 34, 26, 28, 28, 30, 32)
+	
+	new_metadata <- cbind(new_metadata, age_in_days)`
+
+Now our metadata is complete, and we are ready for our differential gene expression analysis.
+
 
 ---
 *The materials used in this lesson is adapted from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
