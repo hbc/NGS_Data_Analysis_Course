@@ -77,19 +77,18 @@ To load the data into our current environment, we will be using the `read.table`
 
 ```
 ## Load in data
-data <- read.table("data/Mov10_full_counts.txt", header=T, 
-row.names=1, as.is=T) 
-meta <- read.table("meta/Mov10_full_meta.txt", header=T, 
-row.names=1)
+data <- read.table("data/Mov10_full_counts.txt", header=T, row.names=1, as.is=T) 
+
+meta <- read.table("meta/Mov10_full_meta.txt", header=T, row.names=1)
 ```
 
 Use `class()` to inspect our data and make sure we are working with data frames:
 
-```
-### Check classes of the data we just brought in
-class(data)
-class(meta)
-```
+
+	### Check classes of the data we just brought in
+	class(data)
+	class(meta)
+
 
 As a sanity check we should also make sure that we have sample names that match between the two files, and that the samples are in the right order.
 
