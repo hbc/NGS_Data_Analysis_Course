@@ -15,12 +15,12 @@ Approximate time:
 
 ### Getting setup
 
-Let's get started by opening of RStudio and opening up the project that we created yesterday. 
+Let's get started by opening RStudio and opening up the project that we created yesterday. 
 
 1. Go to the File menu and select 'Open project ...'
 2. Navigate to `~/Desktop/DEanalysis/` and double click on the `DEanalysis.Rproj` file
 
-You should see your environment now populated with all of the variables created last lesson. The only thing that we will need to do is re-load the required libraries:
+You should see your environment become populated with all of the variables created last lesson. The only thing that we will need to do is reload the required libraries:
 
 ```
 library(ggplot2)
@@ -32,7 +32,7 @@ library(pheatmap)
 
 ### Running DESeq2
 
-To run the differential expression pipeline on the raw counts in DESeq2 we can do this with a **single call to the function `DESeq()`**. The required input is the `DESeqDataSet` object that we created in the last lesson. By re-assigning the results of the function back to the same variable name, we can continue to fill in the `slots` in our `DESeqDataSet` object.
+To run the differential expression pipeline on the raw counts in DESeq2, we use a **single call to the function `DESeq()`**. The required input is the `DESeqDataSet` object that we created in the last lesson. By re-assigning the results of the function back to the same variable name, we can continue to fill in the `slots` in our `DESeqDataSet` object.
 
 	##Run analysis
 	dds <- DESeq(dds)
