@@ -18,7 +18,7 @@ Approximate time:
 
 ### Getting setup
 
-Let's get started by opening RStudio and opening up the project that we created yesterday. 
+Let's get started by opening RStudio and opening up the project that we created last lessson. 
 
 1. Go to the File menu and select 'Open project ...'
 2. Navigate to `~/Desktop/DEanalysis/` and double click on the `DEanalysis.Rproj` file
@@ -35,12 +35,12 @@ library(pheatmap)
 
 ### Running DESeq2
 
-To run the differential expression pipeline on the raw counts in DESeq2, we use a **single call to the function `DESeq()`**. The required input is the `DESeqDataSet` object that we created in the last lesson. By re-assigning the results of the function back to the same variable name, we can continue to fill in the `slots` in our `DESeqDataSet` object.
+To run the differential expression pipeline on the raw counts in DESeq2, we use a **single call to the function `DESeq()`**. The required input is the `DESeqDataSet` object that we created in the last lesson. By re-assigning the results of the function back to the same variable name, we can continue to fill in the `slots` of our `DESeqDataSet` object.
 
 	##Run analysis
 	dds <- DESeq(dds)
  
-This function will print out a message for the various steps it performs. 
+This function will print out a message for the various steps it performs: 
 
 ```
 estimating size factors
@@ -73,7 +73,7 @@ When you ran the `rlog()` function the normalization was performed. And so if we
 
 To build a results table, we use the `results()` function on the `DESeqDataSet` object. By default, it will return to us the log2 fold changes and p-values for a Wald-test comparison of the last level over the first level. 
 
-So in our case this would be control versus Mov1_0overexpression, and you can see that printed at the top of the output:
+So in our case this would be control versus Mov10_overexpression, and you can see that printed at the top of the output:
 
 	## Extract results
 	res_tableOE <- results(dds)
