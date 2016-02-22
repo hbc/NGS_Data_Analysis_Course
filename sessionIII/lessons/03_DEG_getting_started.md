@@ -8,10 +8,28 @@ Approximate time: 75 minutes
 
 ## Learning Objectives 
 
+* Understand the dataset
 * Getting setup in R (project setup, loading data, loading libraries)
 * Becoming familiar with the `DESeqDataSet` object 
 * Evaluating quality of samples using data visualization tools
+ 
+## Overview of dataset
+We have been working with 8 files from the Mov10 dataset so far and they are replicates belonging to 3 conditions as shown below:
 
+<img src="../img/dataset.png" width="400">
+
+What does Mov10 do? What is the purpose of these datasets?
+**MOV10**, is a putative RNA helicase that is also associated with **FMRP** in the context of the microRNA pathway. FMRP and MOV10 associate and regulate the translation of a subset of RNAs
+
+<img src="../img/mov10-model.png" width="400">
+
+FMRP is “most commonly found in the brain, is essential for normal cognitive development and female reproductive function. Mutations of this gene can lead to fragile X syndrome, mental retardation, premature ovarian failure, autism, Parkinson's disease, developmental delays and other cognitive deficits.” - from [wikipedia](https://en.wikipedia.org/wiki/FMR1)
+
+Our questions:
+* What patterns of expression can we identify with the loss or gain of MOV10? 
+* Are there any genes shared between the two conditions?
+
+These data are from a paper ([Kenny, P.J. *et al*, Cell Reports, 11 December 2014](http://www.sciencedirect.com/science/article/pii/S2211124714009231)) entitled "*MOV10 and FMRP regulate AGO2 association with microRNA recognition elements.*"
 
 ## Differential expression analysis
 Thus far, we have described different strategies for RNA-Seq data (i.e. de novo transcriptome assembly, transcript discovery) but arguably the most common use for transcriptome data is to to search for differentially expressed genes. Finding genes that are differentially expressed between conditions is an integral part of understanding the molecular basis of phenotypic variation.
