@@ -282,9 +282,9 @@ Let's try this to obtain mean expression values for each sample in our RPKM matr
 
 	samplemeans <- apply(rpkm_ordered, 2, mean) 
 
-Now, add `samplemeans` to the end of the `rpkm_ordered` dataframe:
+Now, add `samplemeans` to the end of the `metadata` dataframe:
 	
-	new_metadata <- cbind(rpkm_ordered, samplemeans)
+	new_metadata <- cbind(metadata, samplemeans)
 	
 Our metadata table is almost complete, we just need to add one additional column of data for `age_in_days`:
 
