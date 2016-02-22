@@ -98,11 +98,16 @@ Take your ordered gene list and paste it in the `Query' box.
 
 #### gProfiler in R
 
-While the web interface for gProfiler is a bit more intuitive to understand, we don't actually need to leave R to run gProfiler:
+While the web interface for gProfiler is a bit more intuitive to understand, we don't actually need to leave R to run gProfiler. 
+
+Let's get started by opening RStudio and opening up the our differential expression project.
+
+Go to the File menu and select 'Open project ...'
+
+Navigate to `~/Desktop/DEanalysis/` and double click on the `DEanalysis.Rproj` file.
 
 ```
 ### Functional analysis of MOV10 Knockdown using gProfileR (some of these are defaults; check help pages) 
-
 
 library(gProfileR)
 
