@@ -248,16 +248,7 @@ Check and see what happened by using `head`. You can also verify that column nam
 	head(rpkm_ordered)
 	all(row.names(metadata) == colnames(rpkm_ordered))
 
-***
-**Exercise** 
 
-
-Your collaborators sent you a new dataset containing additional metadata information for all of the samples in your current metadata file. You would like to combine the two files. To do so, perform the following steps: 
-
-1. Read in the `metadata2` tab-delimited file and save it as a dataframe called `metadata2`.
-2. Check to make sure you have the same samples in both datasets.
-3. To ensure you are adding the correct metadata to each sample, you need to make sure that the samples are in the same order before you combine them. Reorder one of the datasets using the `match()` function. **Try to use nested functions.**
-4. Combine the two datasets, and save the large dataset as `metadata_combined`. 
 
 ## Calculating simple statistics
 
