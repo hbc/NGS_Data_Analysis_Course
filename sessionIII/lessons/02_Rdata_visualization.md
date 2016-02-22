@@ -23,10 +23,10 @@ When we are working with large sets of numbers it can be useful to display that 
 R has a number of built-in tools for basic graph types such as hisotgrams, scatter plots, bar charts, boxplots and much [more](http://www.statmethods.net/graphs/). Rather than going through all of different types, we will focus on the scatterplot to give you an idea of the different parameters involved in changing features to R base plots.
 
 ### Scatterplot
-A scatter plot provides a graphical view of the relationship between two sets of continuous numeric data. From our metadata file we will take the `samplemeans` column and plot it against `age_in_days`, to see how mean expression changes with age. The base R function to do this is `plot(y ~ x, data)`:
+A scatter plot provides a graphical view of the relationship between two sets of continuous numeric data. From our new_metadata file we will take the `samplemeans` column and plot it against `age_in_days`, to see how mean expression changes with age. The base R function to do this is `plot(y ~ x, data)`:
 
 
-	plot(samplemeans ~ age_in_days, data=metadata)
+	plot(samplemeans ~ age_in_days, data=new_metadata)
 
 
  ![scatter-1](../img/scatter-plot1.png) 
@@ -36,7 +36,7 @@ Each point represents a sample. The values on the y-axis correspond to the avera
 For example, let's start by giving our plot a title and renaming the axes. We can do that by simply adding the options `xlab`, `ylab` and `main` as arguments to the `plot()` function:
 
 ```
-plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age", xlab="Age (days)", 
+plot(samplemeans ~ age_in_days, data=new_metadata, main="Expression changes with age", xlab="Age (days)", 
 	ylab="Mean expression")
 ```	
 	
@@ -46,7 +46,7 @@ plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age
 We can also change the **shape of the data point using the `pch`** option and the **size of the data points using `cex`** (specifying the amount to magnify relative to the default).
 
 ```
-plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age", xlab="Age (days)", 
+plot(samplemeans ~ age_in_days, data=new_metadata, main="Expression changes with age", xlab="Age (days)", 
 	ylab="Mean expression", pch="*", cex=2.0)
 ```
 
@@ -58,7 +58,7 @@ We can also add some **color to the data points** on the plot by adding `col="bl
 We can also add color to **separate the data points by information** in our data frame. For example, supppose we wanted to the data points colored by celltype. We would need to specify a vector of colours and provide the factor by which we are separating samples:
 
 ```
-plot(samplemeans ~ age_in_days, data=metadata, main="Expression changes with age", xlab="Age (days)", 
+plot(samplemeans ~ age_in_days, data=new_metadata, main="Expression changes with age", xlab="Age (days)", 
 	ylab="Mean expression", pch="*", cex=2.0, col=c("blue", "green")[celltype]])
 ```
 
@@ -101,7 +101,7 @@ The `ggplot()` function is used to **initialize the basic graph structure**, the
 Let's start: 
 
 ```{r, eval=FALSE}
-ggplot(metadata) # what happens? 
+ggplot(new_metadata) # what happens? 
 ```
 You get an blank plot, because you need to **specify layers** using the `+` operator.
 
@@ -116,7 +116,7 @@ For a more exhaustive list on all possible geometric objects and when to use the
 A plot **must have at least one geom**; there is no upper limit. You can add a geom to a plot using the `+` operator
 
 ```{r, eval=FALSE}
-ggplot(metadata) +
+ggplot(new_metadata) +
   geom_point() # note what happens here
 ```
 
@@ -132,7 +132,7 @@ You will find that even though we have added a layer by specifying `geom_point`,
 To start, we will add position for the x- and y-axis since `geom_point` requires the most basic information about a scatterplot, i.e. what you want to plot on the x and y axes. All of the others mentioned above are optional.
 
 ```{r, fig.align='center'}
-ggplot(metadata) +
+ggplot(new_metadata) +
      geom_point(aes(x = age_in_days, y= samplemeans))
 ```
 
@@ -143,7 +143,7 @@ Now that we have the required aesthetics, let's add some extras like color to th
 
 
 ```{r, fig.align='center'}
-ggplot(metadata) +
+ggplot(new_metadata) +
   geom_point(aes(x = age_in_days, y= samplemeans, color = genotype)) 
 ```
 
@@ -153,7 +153,7 @@ ggplot(metadata) +
 Alternatively, we could color based on celltype by changing it to `color =celltype`. Let's try something different and have both **celltype and genotype identified on the plot**. To do this we can assign the `shape` aesthetic the column header, so that each celltype is plotted with a different shaped data point. Add in `shape = celltype` to your aesthetic and see how it changes your plot:
 
 ```{r, fig.align='center'}
-ggplot(metadata) +
+ggplot(new_metadata) +
   geom_point(aes(x = age_in_days, y= samplemeans, color = genotype,
   			shape=celltype)) 
 `````
@@ -164,7 +164,7 @@ ggplot(metadata) +
 The **size of the data points** are quite small. We can adjust that within the `geom_point()` layer, but does **not** need to be **included in `aes()`** since we are specifying how large we want the data points, rather than mapping it to a variable. Add in the `size` argument by specifying the magnitude relative to the default (`rel(3.0)`):
 
 ```{r, fig.align='center'}
-ggplot(metadata) +
+ggplot(new_metadata) +
   geom_point(aes(x = age_in_days, y= samplemeans, color = genotype,
   			shape=celltype), size=rel(3.0)) 
 `````
@@ -184,7 +184,7 @@ There are built-in themes we can use (i.e. `theme_bw()`) that mostly change the 
 Let's add a layer `theme_bw()`. Do the axis labels or the tick labels get any larger by changing themes? Not in this case. But we can add arguments using `theme()` to change it ourselves. Since we are adding this layer on top (i.e later in sequence), any features we change will override what is set in the `theme_bw()`. Here we'll increase the size of the axes labels and axes tick labels to be 1.5 times the default size.
 
 ```{r, fig.align='center'}
-ggplot(metadata) +
+ggplot(new_metadata) +
   geom_point(aes(x = age_in_days, y= samplemeans, color = genotype,
   			shape=celltype), size=rel(3.0)) +
   theme_bw() +
@@ -213,7 +213,7 @@ To plot a histogram we require another type of geometric object called `geom_his
 Let's plot a histogram of sample mean expression in our data:
 
 ```
-ggplot(metadata) +
+ggplot(new_metadata) +
   geom_histogram(aes(x = samplemeans))
 ```
 
@@ -226,7 +226,7 @@ You will notice that even though the histogram is plotted, R gives a warning mes
 Let's change the binwidth values. How does the plot differ?
 
 ```{r, fig.align='center'}
-ggplot(metadata) +
+ggplot(new_metadata) +
   geom_histogram(aes(x = samplemeans), stat = "bin", binwidth=0.8)
 ```
 
