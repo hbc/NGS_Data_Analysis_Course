@@ -19,11 +19,12 @@ We have been working with 8 files from the Mov10 dataset so far and they are rep
 <img src="../img/dataset.png" width="400">
 
 What does Mov10 do? What is the purpose of these datasets?
+
 **MOV10**, is a putative RNA helicase that is also associated with **FMRP** in the context of the microRNA pathway. FMRP and MOV10 associate and regulate the translation of a subset of RNAs
 
 <img src="../img/mov10-model.png" width="400">
 
-FMRP is “most commonly found in the brain, is essential for normal cognitive development and female reproductive function. Mutations of this gene can lead to fragile X syndrome, mental retardation, premature ovarian failure, autism, Parkinson's disease, developmental delays and other cognitive deficits.” - from [wikipedia](https://en.wikipedia.org/wiki/FMR1)
+**FMRP** is “most commonly found in the brain, is essential for normal cognitive development and female reproductive function. Mutations of this gene can lead to fragile X syndrome, mental retardation, premature ovarian failure, autism, Parkinson's disease, developmental delays and other cognitive deficits.” - from [wikipedia](https://en.wikipedia.org/wiki/FMR1)
 
 Our questions:
 * What patterns of expression can we identify with the loss or gain of MOV10? 
