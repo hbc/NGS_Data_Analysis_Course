@@ -10,51 +10,31 @@ date: "Wednesday, October 7, 2015"
 * Modify and submit the workflow script to the cluster
 
 
-### From Sequence reads to Count matrix
+### Automating the workflow with a shell script
 
-That's a lot of work, and you still have five more FASTQ files to go...
+The easiest way to repeat the process of getting from fastqc to getting a count matrix is to capture the steps that
+we've performed in a bash script. We already have 2 separate scripts for parts of this workflow, one that takes us from fastqc through trimming and a post-trimming fastqc run and a second one that we used to run the STAR command. In this module we are going to make a new script that combines all the steps including featureCounts.
 
-- You could try running this workflow on each FASTQ file and then try and combine it all in the end. What would you have to do change in order to get this workflow to work?
-- Remembering what commands *and* what parameters to type can be pretty daunting. What can
-you do to help yourself out in this regard?
-- How do you make sure that you are running every single file with the exact same parametrs, software versions?
-- How do you keep track of all the versions and methods? (lab notebook)
-- If you were to automate this process, what additional bits of information might you need?
+- Create a script file called `rnaseq_analysis_on_inputfile.sh`. 
 
+We already have a good understanding of positional parameters, vectors within shell scripts, and commenting liberally for the sake of your future selves (and others reading your script. Today we will be learning about 2 additional commands for putting our workflow together: 
+* `set`
+This debugging tool (`set -x`) will display the command being executed, before the results of the command. In case of an issue with the commands in the shell script, this type of debugging lets you quickly pinpoint the step that is throwing an error. Often, tools will display the error that caused the program to stop running, so keep this in mind for times when you are running into issues where this is not availble.
 
-#### Automating this Workflow with a Bash Script
-
-The easiest way for you to be able to repeat this process (from running STAR through to getting counts) is to capture the steps that
-you've performed in a bash script. And you've already learned how to do this in previous
-lessons. So here's a challenge...
-
-- Using the nano text editor, create a script file called `rnaseq_analysis_on_file.sh` that will repeat these commands
-for you. [Note: You can use your command history to retrieve the commands for each step, and don't forget the "shebang line".] 
-- Delete your results directories, and run your script. Do you get all the proper output files?
-
-One additional command we can put at the top of the script to allow you to see what is going on is the `set -x` bash command. This debugging tool will display the command being executed, before the results of the command. In case of an issue with the commands in the shell script, this type of debugging lets you quickly pinpoint the step that is throwing an error. Often, tools will display the error that caused the program to stop running, so keep this in mind for times when you are running into issues where this is not availble.
-
-> In order run the workflow in this script on another fastq file, you'll need to make changes. _What would have to modify to get this workflow to work with a different file?_
+* `basename`
+This command will remove the full path of the file and just leave behind the filename, thus making our script more versatile and we  will no longer have to change directories at the top of the script. In addition, this command can make file names shorter. 
 
 
-#### Granting our Workflow More Flexibility
+### Granting our Workflow even More Flexibility
 
-A couple of changes need to be made to make this script more friendly to both changes in files and changes in the workflow. Let's copy over the `rnaseq_analysis_on_file.sh` to a new file called `rnaseq_analysis_on_input_file.sh`, and open it using nano to start making some changes:
+Several of changes need to be made to make this script more friendly to both changes in files and changes in the workflow. Let's copy over the `rnaseq_analysis_on_file.sh` to a new file called `rnaseq_analysis_on_input_file.sh`, and open it using nano to start making some changes:
 
 	$ cp rnaseq_analysis_on_file.sh rnaseq_analysis_on_input_file.sh
 	$ nano rnaseq_analysis_on_input_file.sh
 
-##### More variables
+###
 
-**The first major change is allowing flexibility in the input fastq file.** Thus at the start of 
-the script let's capture an input parameter that must be supplied on the command line, when running the script.
-This input parameter will be the name of the file we want to work on:
-
-    fq=$1
-
-> "*The command-line arguments $1, $2, $3,...$9 are positional parameters, with $0 pointing to the actual command, program or shell script, and $1, $2, $3, ...$9 as the arguments to the command.*" This basically means that "Script Name" == $0, "First Parameter" == $1, "Second Parameter" == $2 and so on...
->
-> [This is an example of a simple script that used the concept of positional parameters and the associated variables.](http://steve-parker.org/sh/eg/var3.sh.txt)
+> The command-line arguments $1, $2, $3,...$9 are positional parameters, with $0 pointing to the actual command, program or shell script, and $1, $2, $3, ...$9 as the arguments to the command." This basically means that "Script Name" == $0, "First Parameter" == $1, "Second Parameter" == $2 and so on...
 
 
 Next, we'll initialize variables that contain the paths to where the common files are stored and then use the variable names (with a `$`) in the actual commands later in the script. This is a shortcut for when you want to use this script for a dataset that used a different genome, e.g. mouse; you'll just have to change the contents of these variable at the beginning of the script.
@@ -126,73 +106,7 @@ $ chmod u+rwx rnaseq_analysis_on_input_file.sh      # make it executable, this i
 $ sh rnaseq_analysis_on_input_file.sh <name of fastq>
 ```
 
-It is always nice to have comments at the top of a more complex script to make sure that when your future self, or a co-worker, uses it they know exactly how to run it and what the script will do. So for our script, we can have the following lines of comments right at the top after `#!/bin/bash/`:
-> 
-> ```
-> # This script takes a trimmed fastq file of RNA-Seq data and outputs a counts file for it.
-> # USAGE: sh rnaseq_analysis_on_allfiles.sh <name of fastq file>
-> ```
-
-#### Running our script iteratively as a job submission to the LSF scheduler
-
-**The above script will run in an interactive session for one file at a time. If we wanted to run this script as a job submission to LSF, and with only one command have LSF run through the analysis for all your input fastq files?**
-
-To run the above script iteratively for all of the files on a worker node via the job scheduler, we need to create a **new submission script** that will need 2 important components:
-
-1. our **LSF directives** at the **beginning** of the script. This is so that the scheduler knows what resources we need in order to run our job on the compute node(s).
-2.  a for loop that iterates through and runs the above script for all the fastq files.
-
-Let's create a new file with nano and call it `rnaseq_analysis_on_allfiles.lsf`:
-
-	$ nano rnaseq_analysis_on_allfiles.lsf
-
-> Please note that the extension on this script is `lsf`, but it can be anything you want. The reason it's a good idea to have submission scripts on orchestra have this extension is, once more, for your future self to know right away what is possible in this script, i.e. a set of commands preceded by LSF directives.
-
-The top of the file should look like with the LSF directives:
-
-    #!/bin/bash
-
-    #BSUB -q priority		# Partition to submit to (comma separated)
-    #BSUB -n 6                  # Number of cores, since we are running the STAR command with 6 threads
-    #BSUB -W 1:30               # Runtime in D-HH:MM (or use minutes)
-    #BSUB -R "rusage[mem=4000]"    # Memory in MB
-    #BSUB -J rnaseq_mov10         # Job name
-    #BSUB -o %J.out       # File to which standard out will be written
-    #BSUB -e %J.err       # File to which standard err will be written
-
-	# this for loop, will take our trimmed fastq files as input and run the script for all of them one after the other. 
-
-    for fq in ~/unix_oct2015/rnaseq_project/data/trimmed_fastq/*.fq
-    do
-      rnaseq_analysis_on_input_file.sh $fq
-    done
-
-Before you run this script, let's add a few more commands after the for loop for creating a count matrix. These commands will be executed after all the files have been processed *serially* through the `rnaseq_analysis_on_input_file.sh` script:
-
-    # define a variable that has the name of the file and path to the final count matrix
-    countmatrix=results/counts/Mov10_rnaseq_counts.txt
-
-    # Concatenate all count files into a single count matrix using paste, awk and grep along with the awesomeness of pipes!
-    paste results/counts/Mov10_oe_1.counts results/counts/Mov10_oe_2.counts results/counts/Mov10_oe_3.counts results/counts/Irrel_kd_1.counts results/counts/Irrel_kd_2.counts results/counts/Irrel_kd_3.counts | awk '{print$1"\t"$2"\t"$4"\t"$6"\t"$8"\t"$10"\t"$12}' | grep -v "^__" > $countmatrix
-
-
-Our submission script is now complete and ready for submission; save and exit out of nano and submit away (note the `<` between the command and the script name):
-```
-$ bsub < rnaseq_analysis_on_allfiles.lsf
-```
-
-Now we have a count matrix for our dataset, the only thing we are missing is a header to indicate which columns correspond to which sample. We can add that in by creating a file with the header information in it:
-
-	$ nano header.txt
-
- Type in the following with tab separators "ID OE.1 OE.2 OE.3 IR.1 IR.2 IR.3"
-
-Now join the header to the file using `cat` with the `header.txt` file as the first argument:
-	
-	$ cat header.txt Mov10_rnaseq_counts.txt > Mov10_rnaseq_counts_complete.txt
-
-
-#### Parallelizing workflow for efficiency
+### Parallelizing workflow for efficiency
 
 **The above script will run through the analysis for all your input fastq files, but it will do so in serial. We can set it up so that the pipeline is working on all the trimmed data in parallel (at the same time). This will save us a lot of time when we have realistic datasets.**
 
