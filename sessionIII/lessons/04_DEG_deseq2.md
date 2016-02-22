@@ -66,7 +66,7 @@ When you ran the `rlog()` function the normalization was performed. And so if we
 
 > *NOTE:* The two objects require different ways in which we can access the information stored inside. When in doubt, use `class()` to find out what type of data structure you are working with. Knowing this information is key to finding ways of extracting infomration from the object.
 
-### Extracting results using a Wald test
+## Hypothesis testing: Wald test
 
 To build a results table, we use the `results()` function on the `DESeqDataSet` object. By default, it will return to us the log2 fold changes and p-values for a Wald-test comparison of the last level over the first level. 
 
@@ -103,7 +103,7 @@ Let's go through some of the columns in the results table to get a better idea o
  
 
 
-#### Contrasts
+### Contrasts
 
 Conveniently, the default settings returned to us the Mov10_overexpression comparison to control, but it is usually best practice to specify **which comparisons we are interested in** looking at. This is especially useful when working with more than two factor levels or more complex designs.
 
@@ -132,12 +132,11 @@ To specify the specific coeficients we are interested in, we need to provide the
 *** 
 
 
-
-### Summarizing the results table
+### Summarizing results and identifying DEGs
 
 To summarize the results table, a handy function in DESeq2 is `summary()`. Confusingly it has the same name as the function used to inspect data frames. This function when called with a DESeq results table as input, will summarize the results at a given FDR threshold. 
 
-	## Suammrize results
+	## Summarize results
 	summary(res_tableOE)
 	
 
@@ -163,9 +162,9 @@ Let's first create variables that contain our threshold criteria:
 
 	### Set thresholds
 	padj.cutoff <- 0.05
-	lfc.cutoff <- 1
+	lfc.cutoff <- 0.58
 
-The `lfc.cutoff` is set to 1; remember that we are working with log2 fold changes so this translates to an actual fold change of 2 which is pretty reasonable. Now let's setup our **`subset()` function nested within the `summary()` function**. Start building from the inside out:
+The `lfc.cutoff` is set to 0.58; remember that we are working with log2 fold changes so this translates to an actual fold change of ~1.5 which is pretty reasonable. Now let's setup our **`subset()` function nested within the `summary()` function**. Start building from the inside out:
 
 	subset(res_tableOE)
 
@@ -197,11 +196,46 @@ Now we can easily check how many genes are significant by using the `which()` fu
 
 **Exercise**
 
-1. Explore the results table for the Mov10_knockdown comparison to control. How many genes are differntially expressed using the default thresholds?
-2. Using the same thresholds set above (`padj.cutoff <- 0.05` and `lfc.cutoff <- 1`), report he number of genes that are up- and down-regulated in Mov10_knockdown compared to control.
-3. Add a new column called `threshold` to the `res_tableKD` which contains a logical vector denoting genes as being differentially expressed or not
+1. Explore the results table for the **Mov10_knockdown comparison to control**. How many genes are differntially expressed using the default thresholds?
+2. Using the same thresholds as above (`padj.cutoff < 0.05` and `lfc.cutoff > 0.58`), report the number of genes that are up- and down-regulated in Mov10_knockdown compared to control.
+3. Add a new column called `threshold` to the `res_tableKD` which contains a logical vector denoting genes as being differentially expressed or not.
 
 *** 
+
+> **NOTE: on p-values set to NA**
+> > 
+> 1. If within a row, all samples have zero counts, the baseMean column will be zero, and the log2 fold change estimates, p-value and adjusted p-value will all be set to NA.
+> 2. If a row contains a sample with an extreme count outlier then the p-value and adjusted p-value will be set to NA. These outlier counts are detected by Cook’s distance. 
+> 3. If a row is filtered by automatic independent filtering, for having a low mean normalized count, then only the adjusted p-value will be set to NA. 
+>
+
+
+
+
+## Hypothesis testing: Likelihood ratio test (LRT)
+
+An alternative to pair-wise comparisons is to **analyze all levels of a factor at once**. By default the Wald test is used to generate the results table, but DESeq2 also offers the LRT which is used to identify any genes that show change in expression across the three levels. This type of test can be especially useful in analyzing time course experiments. 
+
+To use the LRT, we use the `DESeq()` function but this time adding two arguments: 1) to specify that we want to use the LRT `test` and 2) the `reduced` model:
+
+	
+	### Likelihood ratio test
+	dds <- DESeq(dds, test="LRT", reduced = ~ 1)
+
+Since our model only has one factor (`sampletype`), the reduced model is just the intercept. The LRT is comparing the full model to the reduced model to identify significant genes. The p-values are determined solely by the difference in deviance between the full and reduced model formula (not fold changes). Generally, this test will result in a larger number of genes than the individual pair-wise comparisons. While the LRT is a test of significance for differences of any level of the factor, one should not expect it to be exactly equal to the union of sets of genes using Wald tests (alhtough there will be substantial overlap).
+
+Let's take a look at the results table:
+
+	res_LRT <- results(dds, test="LRT")
+	
+You will find that similar columns are reported for the LRT test. One thing to note is, even though there are fold changes present they are not directly associated with the actual hypothesis test. Thus, when filtering significant genes from the LRT we use only the FDR as our threshold. How many genes are significant at `padj < 0.05`?
+
+	length(which(res_LRT$padj < padj.cutoff))
+	
+Similar to our other result tables, let's add in a column to denote which genes are significant:
+
+	res_LRT$threshold <- as.logical(res_LRT$padj < padj.cutoff)
+
 
 
 ## Visualizing the results
