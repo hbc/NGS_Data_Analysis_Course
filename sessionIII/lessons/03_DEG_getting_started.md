@@ -31,7 +31,7 @@ We have been working with 8 files from the Mov10 dataset so far and they are rep
 * What patterns of expression can we identify with the loss or gain of MOV10? 
 * Are there any genes shared between the two conditions?
 
-These data are from a paper ([Kenny, P.J. *et al*, Cell Reports, 11 December 2014](http://www.sciencedirect.com/science/article/pii/S2211124714009231)) entitled "*MOV10 and FMRP regulate AGO2 association with microRNA recognition elements.*"
+These data are from a paper entitled "*MOV10 and FMRP regulate AGO2 association with microRNA recognition elements*" ([Kenny, P.J. *et al*, Cell Reports, 11 December 2014](http://www.sciencedirect.com/science/article/pii/S2211124714009231)).
 
 ## Differential expression analysis
 Thus far, we have described different strategies for RNA-Seq data (i.e. de novo transcriptome assembly, transcript discovery) but arguably the most common use for transcriptome data is to to search for differentially expressed genes. Finding genes that are differentially expressed between conditions is an integral part of understanding the molecular basis of phenotypic variation.
