@@ -18,7 +18,8 @@ We have been working with 8 files from the Mov10 dataset so far and they are rep
 
 <img src="../img/dataset.png" width="400">
 
-What does Mov10 do? What is the purpose of these datasets?
+
+***What does Mov10 do? What is the purpose of these datasets?***
 
 **MOV10**, is a putative RNA helicase that is also associated with **FMRP** in the context of the microRNA pathway. FMRP and MOV10 associate and regulate the translation of a subset of RNAs
 
