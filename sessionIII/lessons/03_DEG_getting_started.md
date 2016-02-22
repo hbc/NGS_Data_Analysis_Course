@@ -27,7 +27,7 @@ We have been working with 8 files from the Mov10 dataset so far and they are rep
 
 **FMRP** is “most commonly found in the brain, is essential for normal cognitive development and female reproductive function. Mutations of this gene can lead to fragile X syndrome, mental retardation, premature ovarian failure, autism, Parkinson's disease, developmental delays and other cognitive deficits.” - from [wikipedia](https://en.wikipedia.org/wiki/FMR1)
 
-Our questions:
+**Our questions:**
 * What patterns of expression can we identify with the loss or gain of MOV10? 
 * Are there any genes shared between the two conditions?
 
