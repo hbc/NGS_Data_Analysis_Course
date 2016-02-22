@@ -122,6 +122,12 @@ To specify the specific coeficients we are interested in, we need to provide the
 
 	res_tableKD <- results(dds, contrast=contrast_kd)
 
+We can confirm the direction of expression change by looking at the fold change of a gene we are expecting to change, for example Mov10:
+
+	res_tableKD['MOV10',]
+
+You should observe a negative number for `log2FoldChange` indicating expresssion is lower than the control sample.
+
 ***
 
 **Exercise**
@@ -234,13 +240,39 @@ You will find that similar columns are reported for the LRT test. One thing to n
 	
 Similar to our other result tables, let's add in a column to denote which genes are significant:
 
-	res_LRT$threshold <- as.logical(res_LRT$padj < padj.cutoff)
+	res_LRT$threshold <- as.logical(res_LRTs$padj < padj.cutoff)
 
 
 
 ## Visualizing the results
 
+One way to visualize results would be to simply plot the expression data for a handful of our top genes. We could do that by picking out specific genes of interest, for example Mov10:
 
+	topgene <- "MOV10"
+	plotCounts(dds, gene=topgene, intgroup="sampletype")
+	
+![topgene](../img/topgen_plot.png)
+
+This would be great to validate a few genes, but for more of a global there are other plots we can draw. A commonly used one is a volcano plot; in which you have the log transformed adjusted p-values plotted on the y-axis and log2 fold change values on the x-axis. There is no built-in function for the volcano plot in DESeq2, but we can easily draw it using `ggplot2`. First, we will need to create a `data.frame` object from the results, which is currently stored in a DESeq2 specific object:
+
+	df <- data.frame(res_tableOE)
+
+Now we can start plotting. The `geom_point` object is most applicable, as this is essentially a scatter plot:
+
+```
+	ggplot(df) +
+  		geom_point(aes(x=log2FoldChange, y=-log10(padj), colour=threshold)) +
+  		xlim(c(-2,2)) +
+  		ggtitle('Mov10 overexpression') +
+  		xlab("log2 fold change") + 
+ 		ylab("-log10 adjusted p-value") +
+  		theme(legend.position = "none",
+        	plot.title = element_text(size = rel(1.5)),
+        	axis.title = element_text(size = rel(1.5)),
+        	axis.text = element_text(size = rel(1.25)))  
+```
+
+![volcano](../img/volcanoplot-1.png)
 
 
 
