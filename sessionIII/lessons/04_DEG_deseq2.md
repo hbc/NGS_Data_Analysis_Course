@@ -8,7 +8,10 @@ Approximate time:
 
 ## Learning Objectives 
 
-* 
+* Understanding the different components of differential expression analysis in the context of DESeq2
+* Exploring different objects in DESeq2 
+* Summarizing and filtering results to find significant DEGs
+* Using data visualization to look at results
 
 
 ## DESeq2: Differential expression analysis
