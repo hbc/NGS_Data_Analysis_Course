@@ -90,7 +90,7 @@ Also, due to the hierarchical structure of GO terms, you may return many terms t
 Take your ordered gene list and paste it in the `Query' box. 
 
 * Under **Options**: keep all defaults checked but check _ordered_query_ and for _Hierarchical Filtering_ use the pulldown to select _Best per parent_
-* From the functional evidence selections choose the following: Gene Ontology (biological process, molecular function), [KEGG](http://www.genome.jp/kegg/)([KEGG paper](http://nar.oxfordjournals.org/content/44/D1/D457.full.pdf)), and [Reactome](http://www.reactome.org).
+* From the functional evidence selections choose the following: Gene Ontology (biological process, molecular function), [KEGG](http://www.genome.jp/kegg/) ([KEGG paper](http://nar.oxfordjournals.org/content/44/D1/D457.full.pdf)), and [Reactome](http://www.reactome.org).
 * Press **g:Profile!** 
 
 
