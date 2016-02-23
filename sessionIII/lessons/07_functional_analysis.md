@@ -153,7 +153,7 @@ write.table(GOs_oe, "results/GOs_oe.txt", sep="\t", quote=F, row.names=F, col.na
 
 ![REVIGO_input](../img/revigo_input.png)
 
-Copy and paste the GO ids from `GOs_oe` into the search box, and submit.
+Open `GOs_oe.txt` and copy and paste the GO ids into the REVIGO search box, and submit.
 
 ![REVIGO_output](../img/revigo_output.png)
 
