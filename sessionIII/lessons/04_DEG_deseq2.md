@@ -201,7 +201,7 @@ Now we can easily check how many genes are significant by using the `which()` fu
 
 **Exercise**
 
-1. Explore the results table for the **Mov10_knockdown comparison to control**. How many genes are differntially expressed using the default thresholds?
+1. Explore the results table for the **Mov10_knockdown comparison to control**. How many genes are differentially expressed using the default thresholds?
 2. Using the same thresholds as above (`padj.cutoff < 0.05` and `lfc.cutoff > 0.58`), report the number of genes that are up- and down-regulated in Mov10_knockdown compared to control.
 3. Add a new column called `threshold` to the `res_tableKD` which contains a logical vector denoting genes as being differentially expressed or not.
 
