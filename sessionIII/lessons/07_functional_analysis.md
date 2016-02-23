@@ -86,6 +86,8 @@ The color codes in the gProfiler output represent the quality of the evidence fo
 
 Also, due to the hierarchical structure of GO terms, you may return many terms that seem redundant since they are child and parent terms. gProfiler allows for hierarchical filtering, returning only the best term per parent term.
 
+#### Running gProfiler
+
 Go to RStudio and click on the File menu and select 'Open project ...'
 
 Navigate to `~/Desktop/DEanalysis/` and double click on the `DEanalysis.Rproj` file.
