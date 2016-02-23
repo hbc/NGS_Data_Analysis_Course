@@ -91,7 +91,7 @@ A2M           5.8600841    -0.27850841 0.18051805 -1.5428286 0.1228724 0.2148906
 
 Let's go through some of the columns in the results table to get a better idea of what we are looking at. To extract information regarding the meaning of each column we can use `mcols()`:
 
-	mcols(results_wald, use.names=T)
+	mcols(res_tableOE, use.names=T)
 
 * `baseMean`: mean of normalized counts for all samples
 * `log2FoldChange`: log2 fold change
