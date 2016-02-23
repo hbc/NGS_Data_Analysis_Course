@@ -149,9 +149,29 @@ You can use DESeq-specific functions to access the different slots and retrieve 
 
 As we go through the workflow we will use the relevant functions to check what information gets stored inside our object.
 
-## Quality assessment and exploratory analysis
 
-Many common statistical methods for exploratory analysis of multidimensional data, e.g. clustering and principal components analysis (PCA), work best for data that generally have the same range of variance at different ranges of the mean values. For RNA-seq raw counts, however, the variance grows with the mean. So the results of a PCA will be largely driven by genes with many counts.
+## Normalization of counts
+
+The next step is to normalize the count data in order to be able to make fair gene comparisons both within and between samples.
+
+
+<img src="../img/slide5_DGE.png" width="400">
+
+Remember, that there are other factors that are proportional to the read counts in addition to the gene expression that we are interested in. In DESeq2, `sizeFactors` are computed based on the median of ratios method. This method accounts for gene length and sequencing depth. To generate these size factors we can use the `estimateSizeFactors()` function:
+
+	dds <- estimateSizeFactors(dds)
+
+By assiging the results back to the `dds` object we are filling in the slots of the `DESeqDataSet` object with the appropriate information. Now, to retrieve the normalized counts matrix from `dds`, we use the `counts()` function and add the argument `normalized=TRUE`.
+
+	normalized_counts <- counts(dds, normalized=TRUE)
+  
+We can save this normalized data matrix to file for later use:
+
+	write.table(normalized_counts, file="data/normalized_counts.txt", sep="\t", quote=F, col.names=NA)
+
+### Transformation of counts
+
+Many common statistical methods for exploratory analysis of multidimensional data, e.g. clustering and principal components analysis (PCA), work best for data that generally have the **same range of variance at different ranges of the mean values**. For RNA-seq raw counts, however, the variance grows with the mean. So the results of a PCA will be largely driven by genes with many counts.
 
 A simple and commonly used strategy to avoid this is to take the logarithm of the normalized count values plus a small pseudocount (for 0 counts); however, now the genes with the very lowest counts will tend to dominate the results.
 
@@ -160,10 +180,13 @@ The DESeq2 solution to this is the **regularized log transform** [[Love, Huber, 
 
 	### Transform counts for data visualization
 	rld <- rlog(dds, blind=TRUE)
-	
-	
-After you run the `rlog` function, you will notice that the `rld` variable is storing another type of object. The reason you don't just get a matrix of transformed values is because all of the parameters (i.e. size factors) that went in to computing the rlog transform are stored in that object. We can use this object to plot figures for quality assessment.
 
+The `rlog` function returns a `DESeqTransform`, another type of DESeq-specific object. The reason you don't just get a matrix of transformed values is because all of the parameters (i.e. size factors) that went in to computing the rlog transform are stored in that object. We can use this object to plot figures for quality assessment.
+
+
+
+## Quality assessment and exploratory analysis	
+<img src="../img/slide12_DGE.png" width="400">
 
 ### Principal components analysis (PCA)
 
