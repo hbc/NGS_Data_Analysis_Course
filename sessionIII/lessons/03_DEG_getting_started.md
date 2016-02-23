@@ -169,7 +169,7 @@ We can save this normalized data matrix to file for later use:
 
 	write.table(normalized_counts, file="data/normalized_counts.txt", sep="\t", quote=F, col.names=NA)
 
-### Transformation of counts
+## Transformation of counts
 
 Many common statistical methods for exploratory analysis of multidimensional data, e.g. clustering and principal components analysis (PCA), work best for data that generally have the **same range of variance at different ranges of the mean values**. For RNA-seq raw counts, however, the variance grows with the mean. So the results of a PCA will be largely driven by genes with many counts.
 
