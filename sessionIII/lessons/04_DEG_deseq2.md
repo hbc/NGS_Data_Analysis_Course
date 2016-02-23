@@ -59,7 +59,7 @@ Everything from normalization to linear modeling was carried out by the use of a
 ![deseq1](../img/deseq_obj2.png)
 
 
-> *NOTE:* There are individual functions available in DESeq2 that would allow us to carry out each step in the workflow in a step-wise manner, rather than a single call. We demonstrated one example when generating size factors to create a normalized matrix. By calling `DESeq()`, the previously stored size factors were overwritten (with a new identical set). 
+> *NOTE:* There are individual functions available in DESeq2 that would allow us to carry out each step in the workflow in a step-wise manner, rather than a single call. We demonstrated one example when generating size factors to create a normalized matrix. By calling `DESeq()`, the individual functions for each step are run for you.
 >  
 
 ## Hypothesis testing: Wald test
@@ -233,7 +233,7 @@ Let's take a look at the results table:
 
 	res_LRT <- results(dds, test="LRT")
 	
-You will find that similar columns are reported for the LRT test. One thing to note is, even though there are fold changes present they are not directly associated with the actual hypothesis test. Thus, when filtering significant genes from the LRT we use only the FDR as our threshold. How many genes are significant at `padj < 0.05`?
+You will find that similar columns are reported for the LRT test. One thing to note is, even though there are fold changes present they are not directly associated with the actual hypothesis test. Thus, when filtering significant genes from the LRT we use only the FDR as our threshold. *How many genes are significant at `padj < 0.05`?*
 
 	length(which(res_LRT$padj < padj.cutoff))
 	
@@ -242,6 +242,25 @@ Similar to our other result tables, let's add in a column to denote which genes 
 	res_LRT$threshold <- as.logical(res_LRTs$padj < padj.cutoff)
 
 
+Having this colum will allow us to make some quick comparisons as to whether we see an overlap with our pair-wise Wald test results.
+
+	LRTgenes <- row.names(res_LRT)[which(res_LRT$threshold)]
+	OEgenes <- row.names(res_tableOE)[which(res_tableOE$threshold)]
+	KDgenes <- row.names(res_tableKD)[which(res_tableKD$threshold)]
+
+How many genes from the Mov10 overexpression Wald test are contained in the LRT gene set? And for the Mov10 knockdown? 
+
+The number of significant genes observed from the LRT is quite high. We are unable to set a fold change criteria here since the statistic is not generated from any one pairwise comparison. This list includes genes that can be changing in any number of combinations across the three factor levels. It is advisable to instead increase the stringency on our criteria and lower the FDR threshold.
+
+***
+
+**Exercise**
+
+1. Using a more stringent cutoff of `padj < 0.001`, count how many genes are significant using the LRT method.
+2. Set the variables `OEgenes` and `KDgenes`to contain the genes that meet the  threshold `padj < 0.001`.
+3. Find the overlapping number of genes between these gene sets and the genes from LRT at `padj < 0.0001`.
+
+***
 
 ## Visualizing the results
 
@@ -252,7 +271,7 @@ One way to visualize results would be to simply plot the expression data for a h
 	
 ![topgene](../img/topgen_plot.png)
 
-This would be great to validate a few genes, but for more of a global there are other plots we can draw. A commonly used one is a volcano plot; in which you have the log transformed adjusted p-values plotted on the y-axis and log2 fold change values on the x-axis. There is no built-in function for the volcano plot in DESeq2, but we can easily draw it using `ggplot2`. First, we will need to create a `data.frame` object from the results, which is currently stored in a DESeq2 specific object:
+This would be great to validate a few genes, but for more of a global there are other plots we can draw. A commonly used one is a volcano plot; in which you have the log transformed adjusted p-values plotted on the y-axis and log2 fold change values on the x-axis. There is no built-in function for the volcano plot in DESeq2, but we can easily draw it using `ggplot2`. First, we will need to create a `data.frame` object from the results, which is currently stored in a `DESeqResults`  object:
 
 	df <- data.frame(res_tableOE)
 
