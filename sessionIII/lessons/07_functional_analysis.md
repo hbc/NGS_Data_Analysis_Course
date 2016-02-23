@@ -130,7 +130,7 @@ Let's save the gProfiler results to file:
 ## Write results to file
 
 write.table(gprofiler_results_oe, 
-            file.path(resultsDir, 'gprofiler_MOV10_oe.txt'),          
+            'results/gprofiler_MOV10_oe.txt'),          
             sep="\t", quote=F, row.names=F)
 ```
 
