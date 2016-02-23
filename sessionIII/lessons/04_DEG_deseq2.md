@@ -312,7 +312,7 @@ Now we can use the `write.table()` function to write them to file:
 	
 	write.table(res_tableKD_sorted, file="results/results_KD_sortedPval.txt", sep="\t", quote=F, col.names=NA)
 
-One of the tools we will be using for functional analysis will require only the gene names of the significant genes, but ordered by adjusted p-value. We can easily create this here since our results files are already sorted.
+One of the tools we will be using for functional analysis will require only the **gene names of the significant genes, but ordered by adjusted p-value**. We can easily create this here since our results files are already sorted.
 
 	### Get significant genes
 	sigOE <- row.names(res_tableOE_sorted)[which(res_tableOE_sorted$threshold)]
