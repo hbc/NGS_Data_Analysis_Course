@@ -18,7 +18,7 @@ Approximate time: 2.5 hours
 
 ### Getting setup
 
-Let's get started by opening RStudio and opening up the project that we created last lessson. 
+Let's get started by opening RStudio and opening up the project that we created last lesson. 
 
 1. Go to the File menu and select 'Open project ...'
 2. Navigate to `~/Desktop/DEanalysis/` and double click on the `DEanalysis.Rproj` file
@@ -112,7 +112,7 @@ The comparisons are provided in the form of **contrasts**, in one of three diffe
 
 In total, we have four coefficients including the intercept. Each **coefficient** corresponds to a different factor level, **indicating the overall expression strength** of the gene. 
 
-To specify the specific coeficients we are interested in, we need to provide the column names from the coefficents table as a list of 2 character vectors:
+To specify the specific coefficients we are interested in, we need to provide the column names from the coefficients table as a list of 2 character vectors:
 
 	## Define contrasts
 	contrast_kd <- list( "sampletypeMOV10_knockdown", "sampletypescontrol" )
@@ -125,7 +125,7 @@ We can confirm the direction of expression change by looking at the fold change 
 
 	res_tableKD['MOV10',]
 
-You should observe a negative number for `log2FoldChange` indicating expresssion is lower than the control sample.
+You should observe a negative number for `log2FoldChange` indicating expression is lower than the control sample.
 
 ***
 
@@ -227,7 +227,7 @@ To use the LRT, we use the `DESeq()` function but this time adding two arguments
 	### Likelihood ratio test
 	dds <- DESeq(dds, test="LRT", reduced = ~ 1)
 
-Since our model only has one factor (`sampletype`), the reduced model is just the intercept. The LRT is comparing the full model to the reduced model to identify significant genes. The p-values are determined solely by the difference in deviance between the full and reduced model formula (not fold changes). Generally, this test will result in a larger number of genes than the individual pair-wise comparisons. While the LRT is a test of significance for differences of any level of the factor, one should not expect it to be exactly equal to the union of sets of genes using Wald tests (alhtough there will be substantial overlap).
+Since our model only has one factor (`sampletype`), the reduced model is just the intercept. The LRT is comparing the full model to the reduced model to identify significant genes. The p-values are determined solely by the difference in deviance between the full and reduced model formula (not fold changes). Generally, this test will result in a larger number of genes than the individual pair-wise comparisons. While the LRT is a test of significance for differences of any level of the factor, one should not expect it to be exactly equal to the union of sets of genes using Wald tests (although there will be substantial overlap).
 
 Let's take a look at the results table:
 
@@ -296,7 +296,7 @@ Now we can start plotting. The `geom_point` object is most applicable, as this i
 
 ## Exporting significant gene lists
 
-The next step in our workflow is interpretation of gene lists using various tools for functional analysis. Depending on the tool you choose to use downstream, you will require different information from the results table as input. To be safe it is wise to keep atleast one copy of the full results table with relevant information. 
+The next step in our workflow is interpretation of gene lists using various tools for functional analysis. Depending on the tool you choose to use downstream, you will require different information from the results table as input. To be safe it is wise to keep at least one copy of the full results table with relevant information. 
 
 
 First, let's sort the results file by adjusted p-value:
@@ -339,4 +339,4 @@ Now we are set up for functional analysis of our gene lists. Make sure you save 
 ---
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
 
-* *Materials and hands-on activites were adapted from [RNA-seq workflow](http://www.bioconductor.org/help/workflows/rnaseqGene/#de) on the Bioconductor website*
+* *Materials and hands-on activities were adapted from [RNA-seq workflow](http://www.bioconductor.org/help/workflows/rnaseqGene/#de) on the Bioconductor website*
