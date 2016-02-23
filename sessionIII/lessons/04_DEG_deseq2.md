@@ -312,10 +312,10 @@ Now let's get the gene names for those significant genes:
 	sigOE <- row.names(res_tableOE_sorted)[which(res_tableOE_sorted$threshold)]
 	sigKD <- row.names(res_tableKD_sorted)[which(res_tableKD_sorted$threshold)]
 	
-We can then use those genes to select the corresponding rows from the transformed data matrix. *Remember these values are best to use for data visualization.*
+We can then use those genes to select the corresponding rows from the normalized data matrix:
 
-	### Extract rlog expression for significant genes
-	rld_OEsig <- rld_mat[sigOE,]
+	### Extract normalized expression for significant genes
+	norm_OEsig <- normalized_counts[sigOE,]
 
 Now let's draw the heatmap using `pheatmap`:
 
@@ -327,7 +327,7 @@ Now let's draw the heatmap using `pheatmap`:
 	heat.colors <- brewer.pal(6, "YlOrRd")
 	
 	### Run pheatmap
-	pheatmap(rld_OEsig, color = heat.colors, cluster_rows = T, show_rownames=F,
+	pheatmap(norm_OEsig, color = heat.colors, cluster_rows = T, show_rownames=F,
 	annotation= annotation, border_color=NA, fontsize = 10, scale="row",
          fontsize_row = 10, height=20)
          
