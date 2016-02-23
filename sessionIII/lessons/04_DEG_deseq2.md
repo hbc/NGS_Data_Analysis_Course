@@ -4,7 +4,7 @@ author: "Meeta Mistry"
 date: "Friday February 19, 2016"
 ---
 
-Approximate time: 
+Approximate time: 2.5 hours
 
 ## Learning Objectives 
 
@@ -51,27 +51,20 @@ final dispersion estimates
 fitting model and testing
 ``` 
 
-What just happened? Remember our workflow:
-
-![workflow](../img/deseq_workflow1.png)
+<img src="../img/slide16+33_DGE.png" width="400">
 
 
 Everything from normalization to linear modeling was carried out by the use of a single function! The results of each step were inserted into the object that you initialized.
 
 ![deseq1](../img/deseq_obj2.png)
 
-But wait, you may be asking yourself shouldn't the QC assessment have been performed post-normalization? The answer is, yes it was.
 
-When you ran the `rlog()` function the normalization was performed. And so if we compare the `sizeFactors` value in both objects you will find that the values are identical.
-
-	sizeFactors(dds)
-	rld$sizeFactors
-
-> *NOTE:* The two objects require different ways in which we can access the information stored inside. When in doubt, use `class()` to find out what type of data structure you are working with. Knowing this information is key to finding ways of extracting infomration from the object.
+> *NOTE:* There are individual functions available in DESeq2 that would allow us to carry out each step in the workflow in a step-wise manner, rather than a single call. We demonstrated one example when generating size factors to create a normalized matrix. By calling `DESeq()`, the previously stored size factors were overwritten (with a new identical set). 
+>  
 
 ## Hypothesis testing: Wald test
 
-To build a results table, we use the `results()` function on the `DESeqDataSet` object. By default, it will return to us the log2 fold changes and p-values for a Wald-test comparison of the last level over the first level. 
+To build a results table, we use the `results()` function on the `dds`. By default, it will return to us the log2 fold changes and p-values for a Wald-test comparison of the last level over the first level. 
 
 So in our case this would be control versus Mov10_overexpression, and you can see that printed at the top of the output:
 
@@ -92,6 +85,9 @@ A1CF          0.2376919     0.02237286 0.04577046  0.4888056 0.6249793         N
 A2LD1        89.6179845     0.34598540 0.15901426  2.1758136 0.0295692 0.06725157
 A2M           5.8600841    -0.27850841 0.18051805 -1.5428286 0.1228724 0.21489067
 ```
+> *NOTE:* The results table looks very much like a data frame and in many ways it can be treated like one (i.e when accessing/subsetting data). However, it is important to recognize that it is actually stored in a `DESeqResults` object. When we start visualizing our data, this information will be helpful. 
+> 
+
 
 Let's go through some of the columns in the results table to get a better idea of what we are looking at. To extract information regarding the meaning of each column we can use `mcols()`:
 
