@@ -239,7 +239,7 @@ You will find that similar columns are reported for the LRT test. One thing to n
 	
 Similar to our other result tables, let's add in a column to denote which genes are significant:
 
-	res_LRT$threshold <- as.logical(res_LRTs$padj < padj.cutoff)
+	res_LRT$threshold <- as.logical(res_LRT$padj < padj.cutoff)
 
 
 Having this colum will allow us to make some quick comparisons as to whether we see an overlap with our pair-wise Wald test results.
