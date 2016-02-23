@@ -115,7 +115,7 @@ In total, we have four coefficients including the intercept. Each **coefficient*
 To specify the specific coeficients we are interested in, we need to provide the column names from the coefficents table as a list of 2 character vectors:
 
 	## Define contrasts
-	contrast_kd <- list( "sampletypeMOV10_knockdown", "sampletypescontrol" )
+	contrast_kd <- list( "sampletypeMOV10_knockdown", "sampletypecontrol" )
 
 **The order of the names, determines the direction of fold change that is reported.** The name provided in the second element is the level that is used to baseline. So for example, if we observe a fold change of -2 this would mean the gene expression is lower in Mov10_kd relative to the control. Pass the contrast as an argument to the `results()` function and take a look at the table that is returned:
 
