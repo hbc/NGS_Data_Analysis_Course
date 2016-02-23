@@ -107,22 +107,9 @@ Go to the File menu and select 'Open project ...'
 Navigate to `~/Desktop/DEanalysis/` and double click on the `DEanalysis.Rproj` file.
 
 ```
-### Functional analysis of MOV10 Knockdown using gProfileR (some of these are defaults; check help pages) 
+### Functional analysis of MOV10 Overexpression using gProfileR (some of these are defaults; check help pages) 
 
 library(gProfileR)
-
-gprofiler_results_kd <- gprofiler(query = sigKD, 
-                               organism = "hsapiens",
-                               ordered_query = T, 
-                               exclude_iea = F, 
-                               max_p_value = 0.05, 
-                               max_set_size = 0,
-                               correction_method = "fdr",
-                               hier_filtering = "none", 
-                               domain_size = "annotated",
-                               custom_bg = "")
-                               
-### Functional analysis of MOV10 Overexpression using gProfileR 
 
 gprofiler_results_oe <- gprofiler(query = sigOE, 
                                organism = "hsapiens",
@@ -143,10 +130,6 @@ Let's save the gProfiler results to file:
 ```
 ## Write results to file
 
-write.table(gprofiler_results_kd, 
-            file.path(resultsDir, 'gprofiler_MOV10_kd.txt'),          
-            sep="\t", quote=F, row.names=F)
-            
 write.table(gprofiler_results_oe, 
             file.path(resultsDir, 'gprofiler_MOV10_oe.txt'),          
             sep="\t", quote=F, row.names=F)
@@ -156,10 +139,6 @@ Now, extract only the lines in the gProfiler results with GO term accession numb
 
 ```
 ## Extract GO IDs for downstream analysis
-
-allterms_kd <- gprofiler_results_kd$term.id
-
-GOs_kd <- allterms[grep('GO:', allterms_kd)]
 
 allterms_oe <- gprofiler_results_oe$term.id
 
