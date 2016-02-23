@@ -243,7 +243,7 @@ Overall, we observe pretty high corelations across the board ( > 0.999) suggesti
 >
 > ```
 > heat.colors <- brewer.pal(6, "Blues")
-> pheatmap(cor(rld_cor), color = heat.colors, border_color=NA, fontsize = 10, 
+> pheatmap(rld_cor), color = heat.colors, border_color=NA, fontsize = 10, 
 >			fontsize_row = 10, height=20)
 > ```              
 
