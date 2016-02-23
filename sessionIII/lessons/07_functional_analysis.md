@@ -141,7 +141,7 @@ Now, extract only the lines in the gProfiler results with GO term accession numb
 
 allterms_oe <- gprofiler_results_oe$term.id
 
-GOs_oe <- allterms[grep('GO:', allterms_oe)]
+GOs_oe <- allterms_oe[grep('GO:', allterms_oe)]
 
 write.table(GOs_oe, "results/GOs_oe.txt", sep="\t", quote=F, row.names=F, col.names=F)
 ```
