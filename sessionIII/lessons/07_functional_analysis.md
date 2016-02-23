@@ -173,7 +173,7 @@ GOs_oe <- allterms[grep('GO:', allterms_oe)]
 
 ![REVIGO_input](../img/revigo_input.png)
 
-Copy and paste the GO ids from GOs_oe into the search box, and submit.
+Copy and paste the GO ids from `GOs_oe` into the search box, and submit.
 
 ![REVIGO_output](../img/revigo_output.png)
 
