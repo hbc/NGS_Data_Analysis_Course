@@ -88,11 +88,7 @@ Also, due to the hierarchical structure of GO terms, you may return many terms t
 
 #### Running gProfiler
 
-1. Go to RStudio and click on the File menu and select 'Open project ...'
-
-2. Navigate to `~/Desktop/DEanalysis/` and double click on the `DEanalysis.Rproj` file.
-
-3. Take your ordered gene list `sigOE` and paste it in the `Query' box. 
+Copy and paste the genes in `results_OE_sortedPval.txt`in the `DEanalysis/results` directory and paste it in the `Query' box. 
 
 * Under **Options**: keep all defaults checked but check _ordered_query_ and for _Hierarchical Filtering_ use the pulldown to select _Best per parent_
 * From the functional evidence selections choose the following: Gene Ontology (biological process, molecular function), [KEGG](http://www.genome.jp/kegg/) ([KEGG paper](http://nar.oxfordjournals.org/content/44/D1/D457.full.pdf)), and [Reactome](http://www.reactome.org).
@@ -104,6 +100,10 @@ Also, due to the hierarchical structure of GO terms, you may return many terms t
 #### gProfiler in R
 
 While the web interface for gProfiler is a bit more intuitive to understand, we don't actually need to leave R to run gProfiler. 
+
+Go to RStudio and click on the File menu and select 'Open project ...'
+
+Navigate to `~/Desktop/DEanalysis/` and double click on the `DEanalysis.Rproj` file.
 
 ```
 ### Functional analysis of MOV10 Overexpression using gProfileR (some of these are defaults; check help pages) 
