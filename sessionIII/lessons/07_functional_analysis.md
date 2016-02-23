@@ -88,7 +88,7 @@ Also, due to the hierarchical structure of GO terms, you may return many terms t
 
 #### Running gProfiler
 
-Copy and paste the genes in `results_OE_sortedPval.txt`in the `DEanalysis/results` directory and paste it in the `Query' box. 
+Copy and paste the genes in `Mov10_oe_logFC_1_pVal_0.05.txt`in the `DEanalysis/results` directory and paste it in the `Query' box. 
 
 * Under **Options**: keep all defaults checked but check _ordered_query_ and for _Hierarchical Filtering_ use the pulldown to select _Best per parent_
 * From the functional evidence selections choose the following: Gene Ontology (biological process, molecular function), [KEGG](http://www.genome.jp/kegg/) ([KEGG paper](http://nar.oxfordjournals.org/content/44/D1/D457.full.pdf)), and [Reactome](http://www.reactome.org).
