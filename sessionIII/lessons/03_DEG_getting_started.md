@@ -236,7 +236,7 @@ And now to plot the correlation values as a heatmap:
 
 ![heatmap1](../img/pheatmap-1.png)
 
-Overall, we observe pretty high corelations across the board ( > 0.999) suggesting no outliers sample(s). Also, similar to the PCA plot you see the samples clustering together by sampletype. Together, these plots suggest to us that the data are of good quality and we have the green light to proceed to differential expression analysis.
+Overall, we observe pretty high corelations across the board ( > 0.999) suggesting no outlying sample(s). Also, similar to the PCA plot you see the samples clustering together by sampletype. Together, these plots suggest to us that the data are of good quality and we have the green light to proceed to differential expression analysis.
 
 
 > NOTE: The `pheatmap` function has a number of different arguments that we can alter from default values to enhance the aesthetics of the plot. If you are curious and want to explore more, try running the code below. *How does your plot change?* Take a look through the help pages (`?pheatmap`) and identify what each of the added arguments is contributing to the plot.
