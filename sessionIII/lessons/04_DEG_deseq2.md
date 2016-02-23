@@ -324,6 +324,14 @@ To write these lists to file we will use the `write()` function which will write
 	write(sigOE, file="results/Mov10_oe_logFC_1_pVal_0.05.txt", ncol=1)
 	write(sigKD, file="results/Mov10_kd_logFC_1_pVal_0.05.txt", ncol=1)
 	
+***
+
+**Exercise**
+
+Generate two figures for the KD-control comparison: a volcano plot and a heatmap. Save both images to file.
+
+***
+	
 ## Saving the project
 
 Now we are set up for functional analysis of our gene lists. Make sure you save your R session as you quit RStudio to your DEanalysis project, so you don't lose all your work from this DE analysis module!
