@@ -271,6 +271,8 @@ One way to visualize results would be to simply plot the expression data for a h
 	
 ![topgene](../img/topgen_plot.png)
 
+### Volcano plot
+
 This would be great to validate a few genes, but for more of a global there are other plots we can draw. A commonly used one is a volcano plot; in which you have the log transformed adjusted p-values plotted on the y-axis and log2 fold change values on the x-axis. There is no built-in function for the volcano plot in DESeq2, but we can easily draw it using `ggplot2`. First, we will need to create a `data.frame` object from the results, which is currently stored in a `DESeqResults`  object:
 
 	df <- data.frame(res_tableOE)
@@ -293,6 +295,8 @@ Now we can start plotting. The `geom_point` object is most applicable, as this i
 ![volcano](../img/volcanoplot-1.png)
 
 
+### Heatmap
+
 Alternatively, we could extract only the genes that are identifed as significant and the plot the expression of those genes using a heatmap.
 
 
@@ -309,6 +313,26 @@ Now let's get the gene names for those significant genes:
 	sigKD <- row.names(res_tableKD_sorted)[which(res_tableKD_sorted$threshold)]
 	
 We can then use those genes to select the corresponding rows from the transformed data matrix. *Remember these values are best to use for data visualization.*
+
+	### Extract rlog expression for significant genes
+	rld_OEsig <- rld_mat[sigOE,]
+
+Now let's draw the heatmap using `pheatmap`:
+
+	### Annotate our heatmap (optional)
+	annotation <- data.frame(sampletype=meta[,'sampletype'], 
+                         row.names=row.names(meta))
+
+	### Set a color palette
+	heat.colors <- brewer.pal(6, "YlOrRd")
+	
+	### Run pheatmap
+	pheatmap(rld_OEsig, color = heat.colors, cluster_rows = T, show_rownames=F,
+	annotation= annotation, border_color=NA, fontsize = 10, scale="row",
+         fontsize_row = 10, height=20)
+         
+![sigOE_heatmap](../img/sigOE_heatmap.png)       
+
 
 ***
 
