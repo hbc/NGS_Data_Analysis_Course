@@ -13,17 +13,9 @@ Approximate time: 3 hours
 * learn the pros/cons of different biological databases
 * learn how to use features of biological databases to access information and data during an NGS analysis
 
-## Intro to biological databases - 15-20 min.
-
-This section should be covered in a lecture-based format. It will include:
-
-- primary versus derivative databases
-- discussion of features of primary databases, such as how often updated, etc.
-- no hands-on exercises
-- no discussion of Ensembl/NCBI/UCSC interfaces or features
 
 
-## Intro to specific databases (NCBI) - 50 min. each
+## Intro to specific databases (Ensembl/Biomart) - 50 min. each
 
 ### Overview of features and interface without activities (can follow along if desired) - 10 min.
 - basic or useful features of the database
