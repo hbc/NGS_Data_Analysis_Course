@@ -1,8 +1,7 @@
-
 ---
 title: "NGS pipelines: bcbio-nextgen"
 author: "Meeta Mistry"
-date: "Wednesday, October 7, 2015"
+date: "Thursday, February 25, 2015"
 ---
 
 Approximate time: 
