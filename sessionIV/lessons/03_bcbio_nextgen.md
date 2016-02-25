@@ -11,7 +11,7 @@ Approximate time:
 
 As you can see from our RNA-seq lessons so far, the analysis workflow is a multi-step process. We learned what is involved in running each individual step, and the details on inputs and outputs. Finally, we demonstrated how to combine the different steps into a single script for automation of the entire workflow from start to finish.
 
-An alternative to creating your own pipeline for the analysis of your next-generation sequencing data, it to use an existing one. There are a number of pipelines available both commerical and academic, with some that are specific to a particular NGS experiment (i.e [RNA-seq only](http://www.biomedcentral.com/content/pdf/1471-2164-16-S6-S3.pdf), [viral NGS analysis](http://viral-ngs.readthedocs.org/en/latest/)).
+An alternative to creating your own pipeline for the analysis of your next-generation sequencing data, it to use an existing one. There are a number of pipelines available both commerical and academic, with some that are specific to a particular NGS experiment (i.e [variant calling](https://www.broadinstitute.org/gatk/), [RNA-seq](http://www.biomedcentral.com/content/pdf/1471-2164-16-S6-S3.pdf), [viral NGS analysis](http://viral-ngs.readthedocs.org/en/latest/)).
 
 The pipeline we will be presenting here is [bcbio-nextgen](https://bcbio-nextgen.readthedocs.org/en/latest/).
 
@@ -69,15 +69,10 @@ There are three things required as input for your `bcbio` run:
 
 ![bcbio-input](../img/bcbio-input.png) 
 
-The files we will use as input are the **raw untrimmed FASTQ files**. Rather than than moving them and having two copies unneccesarily we can create a *symbolic link* to them. Symbolic links refer to a symbolic path indicating the abstract location of another file. The syntax is as follows:
+The files we will use as input are the **raw untrimmed FASTQ files**. We will need to copy them over from the `untrimmed_fastq` directory and into our current directory:
 
-	ln -s {/path/to/file-name} {link-name}
+	cp ~/ngs_course/rnaseq/data/untrimmed_fastq/*.fq .
 
-In our situation we would use:
-
-	ln -s ~/ngs_course/rnaseq/data/untrimmed_fastq/ raw-data
-
-This would allow us to access the data directly from another directory without having to provide paths.
 
 In addition to the data files, `bcbio` requires a **comma separated value file containing sample metadata**. The first column must contain the header `samplename` which corresponds to the FASTQ filenames you are running the analysis on. You can add a `description` column to change the sample name originally supplied by the file name, to this value (i.e. a short name). And finally, any columns that follow can contain additional information on each sample.
 
@@ -130,11 +125,9 @@ We can now apply this template to all samples in our dataset. To do this we use 
 	
 Upon completion of the command you should see the following output:
 
-```
-Template configuration file created at: /home/mm573/ngs_course/rnaseq/bcbio-rnaseq/mov10_project/config/mov10_project-template.yaml
-```
+`Configuration file created at: /home/mm573/ngs_course/rnaseq/bcbio-rnaseq/mov10_project/config/mov10_project.yaml`
 
-If you take a look in your current directory, you will also find that a new directory has been created by the same name as your csv file `mov10_project`. Inside that directory you will find the following directory structure:
+If you take a look in your current directory, you will also find that a **new directory** has been created by the same name as your csv file `mov10_project`. Inside that directory you will find the following directory structure:
 
 ```
 mov10_project/
@@ -142,9 +135,38 @@ mov10_project/
 └── work
 ```
 
-## `bcbio`: workflow
+
+## `bcbio`: Workflow
+
+Before we actually run the analysis, let's talk a bit about the tools that will be run and some of the `algorithm` details we specified for these tools. 
+
+![bcbio-workflow](../img/bcbio-workflow.png)
+ 
+The RNA-seq pipeline includes steps for quality control, adapter trimming, alignment, variant calling, transcriptome reconstruction and post-alignment quantitation at the level of the gene and isoform. 
+
+For quality control, the FASTQC tool is used
+ 
+ 
+ 
+```
+    algorithm:
+      aligner: star
+      quality_format: standard
+      trim_reads: read_through
+      adapters: [truseq, polya]
+      strandedness: firststrand 
+```
 
 
+
+## `bcbio`: Output
+
+
+There are three logging files in the log directory within your working folder:
+
+1. `bcbio-nextgen.log`: High level logging information about the analysis. This provides an overview of major processing steps and useful checkpoints for assessing run times.
+2. `bcbio-nextgen-debug.log`: Detailed information about processes including stdout/stderr from third party software and error traces for failures. Look here to identify the status of running pipelines or to debug errors. It labels each line with the hostname of the machine it ran on to ease debugging in distributed cluster environments.
+3. `bcbio-nextgen-commands.log`: Full command lines for all third party software tools run.
 
 
 ***
