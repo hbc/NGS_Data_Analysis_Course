@@ -1,5 +1,6 @@
+
 ---
-title: "NGS pipelines: bcbio-nextgen
+title: "NGS pipelines: bcbio-nextgen"
 author: "Meeta Mistry"
 date: "Wednesday, October 7, 2015"
 ---
