@@ -32,13 +32,13 @@ bcbcio-nextgen provides *best-practice* piplelines with the goal of being:
 * Reproducible: Tracks configuration, versions, provenance and command lines
 * Analyzable: Results feed into downstream tools to make it easy to query and visualize
 
-It is availble for installation on most Linux systems (compute clusters), and instructions for setup on the Cloud. It is currently installed on on the Orchestra cluster, and so we will demonstrate `bcbio-nextgen` for RNA-seq data using our Mov10 dataset as input.
+It is availble for installation on most Linux systems (compute clusters), and also has instructions for setup on the Cloud. It is currently installed on on the Orchestra cluster, and so we will demonstrate `bcbio-nextgen` for RNA-seq data using our Mov10 dataset as input.
 
 The figure below describes the input (yellow), workflow (green) and output (purple) components of `bcbio`:
 
 ![bcbio](../img/bcbio-pipeline.png) 
 
-As we work through this lesson we will introduce each component in more detail .
+As we work through this lesson we will introduce each component in more detail.
 
 
 ## Setting up
@@ -67,13 +67,9 @@ Close and save the file. Finally, let's set up the project structure. Change dir
 
 There are three things required as input for your `bcbio` run:
 
-1. FASTQ/BAM files
-2. Metadata file (.csv)
-3. Configuration file
-
 ![bcbio-input](../img/bcbio-input.png) 
 
-The first of this list, we already have. The files we will use as input are the **raw untrimmed FASTQ files**. Rather than than moving them and having two copies unneccesarily we can create a *symbolic link* to them. Symbolic links refer to a symbolic path indicating the abstract location of another file. The syntax is as follows:
+The files we will use as input are the **raw untrimmed FASTQ files**. Rather than than moving them and having two copies unneccesarily we can create a *symbolic link* to them. Symbolic links refer to a symbolic path indicating the abstract location of another file. The syntax is as follows:
 
 	ln -s {/path/to/file-name} {link-name}
 
@@ -89,15 +85,64 @@ We have created this file for you, you will need to copy it over to your current
 
 	cp /groups/hbctraining/ngs-data-analysis2016/rnaseq/bcbio-rnaseq/mov10_project.csv .
 	
+Each line in the file corresponds to a sample, and each column has information about the samples.
 
-The final requirement is a **configuration file**, which will contain details about the set of samples to process, including input files and analysis options. The conifguration file is provided in **YAML file format**, which stands for YAML Ain't Markup Language. YAML is a human friendly data serialization standard for all programming languages. It takes concepts from languages such as C, Perl, and Python and ideas from XML. The data structure hierarchy is maintained by outline indentation.
+```
+samplename,description,condition
+Irrel_kd_1.subset.fq,Irrel_kd_1,control
+Irrel_kd_2.subset.fq,Irrel_kd_2,control
+Irrel_kd_3.subset.fq,Irrel_kd_3,control
+Mov10_oe_1.subset.fq,Mov10_oe_1,overexpression
+Mov10_oe_2.subset.fq,Mov10_oe_2,overexpression
+Mov10_oe_3.subset.fq,Mov10_oe_3,overexpression
+```
 
+The final requirement is a **configuration template**, which will contain details on the analysis options. The template file is used in combination with the metadata file, and the FASTQ files to create a **config file** which is ultimately the input for `bcbio`.
 
-To create this configuration file, bcbio-nextgen provides a utility to create configuration files for multiple sample inputs using a base template. Start with one of the best-practice templates, or define your own (mov10_template.yaml).
+You can start with one of the provided [best-practice templates](https://github.com/chapmanb/bcbio-nextgen/tree/master/config/templates) and modify it as required, or you can create your own. We have created a template for you based on the experimental details. Copy it over and then use `less` to take a look at what is inside.
 
-
+	cp /groups/hbctraining/ngs-data-analysis2016/rnaseq/bcbio-rnaseq/mov10-template.yaml
+	less mov10-template.yaml
 	
+```
+# Template for human RNA-seq using Illumina prepared samples
+---
+details:
+  - analysis: RNA-seq
+    genome_build: hg19
+    algorithm:
+      aligner: star
+      quality_format: standard
+      trim_reads: read_through
+      adapters: [truseq, polya]
+      strandedness: firststrand 
+upload:
+  dir: ../final
+```
 
+You should observe indentation which is characteristic of the **YAML file format** (YAML Ain't Markup Language). YAML is a human friendly data serialization standard for all programming languages. It takes concepts from languages such as C, Perl, and Python and ideas from XML. The data structure hierarchy is maintained by **outline indentation**.
+
+The configuration template defines `details` of each sample to process, including : `analysis` (i.e. RNA-seq, chipseq, variant), `genome_build`, and `algorithm` specifics for each tool that is being used in the workflow. Other details include `metadata`, which will be added via the `.csv` when creating the final config file. At the end of the template we define `upload` which is for the final ouput from `bcbio`. To find out more on the details that can be added to your YAML, check out the [readthedocs](https://bcbio-nextgen.readthedocs.org/en/latest/contents/configuration.html#sample-information). 	
+	 
+We can now apply this template to all samples in our dataset. To do this we use the	template workflow command, which takes in the template, the metadata and the samples:  
+
+	bcbio_nextgen.py -w template mov10-template.yaml mov10_project.csv raw_fastq/*.fq
+	
+Upon completion of the command you should see the following output:
+
+```
+Template configuration file created at: /home/mm573/ngs_course/rnaseq/bcbio-rnaseq/mov10_project/config/mov10_project-template.yaml
+```
+
+If you take a look in your current directory, you will also find that a new directory has been created by the same name as your csv file `mov10_project`. Inside that directory you will find the following directory structure:
+
+```
+mov10_project/
+├── config
+└── work
+```
+
+## `bcbio`: workflow
 
 
 
