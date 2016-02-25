@@ -108,7 +108,7 @@ details:
     algorithm:
       aligner: star
       quality_format: standard
-      trim_reads: read_through
+      trim_reads: False
       adapters: [truseq, polya]
       strandedness: firststrand 
 upload:
@@ -138,29 +138,18 @@ mov10_project/
 
 ## `bcbio`: Workflow
 
-Before we actually run the analysis, let's talk a bit about the tools that will be run and some of the `algorithm` details we specified for these tools. 
+Before we actually run the analysis, let's talk a bit about the tools that will be run and some of the `algorithm` details we specified for these tools. The RNA-seq pipeline includes steps for quality control, adapter trimming, alignment, variant calling, transcriptome reconstruction and post-alignment quantitation at the level of the gene and isoform.
 
 ![bcbio-workflow](../img/bcbio-workflow.png)
  
-The RNA-seq pipeline includes steps for quality control, adapter trimming, alignment, variant calling, transcriptome reconstruction and post-alignment quantitation at the level of the gene and isoform. 
+For quality control, the FASTQC tool is used and we selected `standard` to indicate the stadard fastqsanger quality encoding. Trimming is not required unless you are using the Tophat2 aligner. Adapter trimming is very slow, and aligners that soft clip the ends of reads such as STAR and hisat2, or algorithms using pseudoalignments like Sailfish handle contaminant sequences at the ends properly. This makes trimming unnecessary, and since we have chosen `star` as our aligner we have also set `trim_reads: False`. *Tophat2 does not perform soft clipping so if that is the aligner that is chosen, trimming must still be done.*
 
-For quality control, the FASTQC tool is used
- 
- 
- 
-```
-    algorithm:
-      aligner: star
-      quality_format: standard
-      trim_reads: read_through
-      adapters: [truseq, polya]
-      strandedness: firststrand 
-```
-
+Counting of reads is done using featureCounts and does not need to be specfied in the config file. Also, Sailfish, which is an extremely fast alignment-free method of quantitation, is run for all experiments.
 
 
 ## `bcbio`: Output
 
+![bcbio-ouput](../img/bcbio-output.png)
 
 There are three logging files in the log directory within your working folder:
 
