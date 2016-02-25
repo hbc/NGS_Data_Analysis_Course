@@ -1,5 +1,26 @@
+---
+title: "Alignment-free expression estimation using Sailfish"
+author: "Radhika Khetani"
+date: ""
+---
 
-  ```mkdir ~/ngs_course/rnaseq/sailfish
+Contributors: Radhika Khetani, Meeta Mistry
+
+Approximate time: 3 hours
+
+## Learning Objectives
+
+* 
+* 
+
+
+## What is Sailfish
+
+## Analysis steps for Sailfish
+
+## Getting the abundance estimates
+
+  mkdir ~/ngs_course/rnaseq/sailfish
   cd ~/ngs_course/rnaseq/sailfish
   
   # sailfish index sailfish index -p <num of cores> -k <kmer size> -t <fasta of gene sequences> -o <folder name>
@@ -8,6 +29,12 @@
   
   sailfish quant -i /groups/hbctraining/sailfish-run/sailfish.ensembl2.idx/ -l SR -r ngs_course/rnaseq/data/untrimmed_fastq/Mov10_oe_1.subset.fq --useVBOpt -o Mov10_oe_1.subset.sailfish
   
-  less Mov10_oe_1.subset.sailfish/quant.sf```
+  less Mov10_oe_1.subset.sailfish/quant.sf
+  
+## Converting to psuedo-counts
+
+## Using DESeq2 for DGE analysis  
   
   
+***
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
