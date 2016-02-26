@@ -3,9 +3,7 @@ title: "Alignment-free expression estimation using Sailfish"
 author: "Radhika Khetani"
 date: ""
 ---
-
 Contributors: Radhika Khetani, Meeta Mistry
-
 Approximate time: 3 hours
 
 ## Learning Objectives
@@ -20,7 +18,7 @@ Approximate time: 3 hours
 
 **a.** they first evaluate the sequences for all possible unique sequences of lenght k (kmer) in the transcriptome (genes/transcripts).
 
-**b.** then they count the number of times those kmers appear in the sequenced data, i.e. the fastq. This count information is then used to eestimate the abundance of each gene or transcript. 
+**b.** then they count the number of times those kmers appear in the sequenced data, i.e. the fastq. This count information is then used to estimate the abundance of each gene or transcript. 
 
 <img src="../img/nbt.2862-F1.jpg" width="400">
 
