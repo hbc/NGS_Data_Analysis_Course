@@ -148,13 +148,16 @@ Click the checkmark in the upper right-hand corner of the page when finished wit
 
 While Ensembl contains extensive genomic information, we often want to mine the data to export a custom dataset or we would like to use our own data. Ensembl offers a selection of tools to process your own data and to access and mine Ensembl data.
 
-1. Click on `Tools` in the top menu bar.
+8. Click on `Tools` in the top menu bar.
+	
 	Tools are available for analyzing your own variant data, searching the Ensembl genomes your DNA or protein sequence, and converting your data's coordinates or Ensembl IDs to a current version. 
+	
 	BioMart is an extremely useful tool used for data-mining Ensembl's database to return your own custom datasets. Let's explore this tool in more depth.
 	
 ### BioMart
 
-
+You can access BioMart from any page in the menu bar.
+[biomart](../img/ensembl_biomart.png)
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
