@@ -166,11 +166,12 @@ To run `bcbio` we call the same python script that we used for creating the conf
 * `--timeout 380`: numbers of minutes to wait for a cluster to start up before timing out
 * `-rW=72:00`: specifies resource options to pass along to the underlying queue scheduler
 
+`bcbio` pipeline runs in parallel using the IPython parallel framework. This allows scaling beyond the cores available on a single machine, and requires multiple machines with a shared filesystem like standard cluster environments. 
+Although, we will only ask for a single core in our job submission script `bcbio` will use the parameters provided in the command to spin up the appropriate number of cores required at each stage of the pipeline.
 
-Since `bcbio` will spawn a number of intermediate files as it goes through the pipeline of tools, you will need to make sure there is enough disk space to hold all of those files. **Your home directory on Orchestra will not be able to handle this amount of data.** Instead we recommend talking to the folks at HMS RC to set up a directory in the `/groups` folder for your lab. For this lesson, since we are using a small subset of the original data running in your home directory should not be problematic.
+> **NOTE:** Since `bcbio` will spawn a number of intermediate files as it goes through the pipeline of tools, you will need to make sure there is enough disk space to hold all of those files. **Your home directory on Orchestra will not be able to handle this amount of data.** Instead we recommend talking to the folks at HMS RC to set up a directory in the `/groups` folder for your lab. For this lesson, since we are using a small subset of the original data running in your home directory *should not be problematic*.
 
- The job can take on the range of hours to days depending on the size of your dataset, and so rather than running interactively we will create a job submission script.
-
+The job can take on the range of hours to days depending on the size of your dataset, and so rather than running interactively we will create a job submission script. 
 
 
 ```
