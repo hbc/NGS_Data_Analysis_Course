@@ -3,7 +3,9 @@ title: "Alignment-free expression estimation using Sailfish"
 author: "Radhika Khetani"
 date: ""
 ---
+
 Contributors: Radhika Khetani, Meeta Mistry
+
 Approximate time: 3 hours
 
 ## Learning Objectives
@@ -46,6 +48,8 @@ b. Get the abundance using the quantification step as follows:
     less Mov10_oe_1.subset.sailfish/quant.sf
   
 ## Converting to psuedo-counts
+
+The counts 
 
 
 ## Using DESeq2 for DGE analysis  
