@@ -10,11 +10,13 @@ Approximate time: 3 hours
 
 ## Learning Objectives
 
-* 
-* 
-
+* Understand the concept of "Pseudocounts"
+* Understand how to use Sailfish to generate Psuedocounts
+* Learn how to perform differential gene expression on Psuedocounts
 
 ## What is Sailfish
+
+
 
 ## Analysis steps for Sailfish
 
