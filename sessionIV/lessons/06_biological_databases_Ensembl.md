@@ -191,25 +191,69 @@ _**NOTE:** if we wanted to use an older version of BioMart, we could click on th
 #### biomaRt R package
 When you are performing an NGS analysis, you often find a need to access BioMart, for example, to find genomic locations, convert gene IDs, or filter sequences from your data. Luckily for us, there is an R package for BioMart, called `biomaRt`, which allows us to perform BioMart queries from R.
 
-Let's explore BioMart functionality in R using our Featurecounts output from our previous homework, `name`. The counts data has Ensembl IDs as row names, and we would like to convert the Ensembl IDs to HGNC symbols. We can use `biomaRt` package to perform this conversion easily within R.
+Let's explore BioMart functionality in R using a counts dataset with Ensembl IDs as row names. We would like to convert the Ensembl IDs to HGNC symbols. We can use `biomaRt` package to perform this conversion easily within R.
 
-Let's create a new R project named `biomart` on our Desktop. Ensure you are in the correct working directory, then create three folders: `data`, `meta`, and `results`.
+Let's open RStudio and create a new R project named `biomart` on our Desktop. Ensure you are in the correct working directory, then create three folders: `data`, `meta`, and `results`. Finally, create a new script and save as `biomart.R`.
 
+Click on the link to the counts file and save it to your `data` folder.
 
+Read in the counts file:
 
 ```
-library(biomaRt)
+# Read in counts file
+full_counts <- read.table("data/counts.txt")
+counts <- head(full_counts, n=50)
+```
 
-mart<- useDataset("hsapiens_gene_ensembl", 
-useMart('ENSEMBL_MART_ENSEMBL', 
-host =  'www.ensembl.org'))
+Install the `biomaRt` package. The package is from Bioconductor, so we can use the following code to install:
 
-counts <- read.table()
+```
+source("http://bioconductor.org/biocLite.R")
+biocLite("biomaRt")
+```
+Now load the library:
+
+```
+# Load library
+library("biomaRt")
+```
+
+```
+# To connect to a BioMart database - useMart()
+listMarts(host =  'www.ensembl.org')
+
+ensembl <- useMart('ENSEMBL_MART_ENSEMBL', 
+                host =  'www.ensembl.org')
+
+# To query the chosen BioMart database for a specific species - useDataset()
+datasets <- listDatasets(ensembl)
+View(datasets)
+
+mart<- useDataset("mmusculus_gene_ensembl", 
+                  useMart('ENSEMBL_MART_ENSEMBL', 
+                          host =  'www.ensembl.org'))
+
+# To build a query - getBM(filters, attributes, values)
+
+## "Attributes" is a vector of attributes for the output we want to generate
+attributes <- listAttributes(mart)
+View(attributes)
+
+## "Filters" is a vector for the input to the query
+filters <- listFilters(mart)
+View(filters)
+
+## "Values" is a vector of values for the filter
+
+# Use BioMart to return gene names for a list of Ensembl IDs
+mart<- useDataset("mmusculus_gene_ensembl", 
+                  useMart('ENSEMBL_MART_ENSEMBL', 
+                          host =  'www.ensembl.org'))
 
 gene.names <- getBM(filters= "ensembl_gene_id", 
-  attributes= c("ensembl_gene_id", "external_gene_name"),
-  values= row.names(counts),
-  mart= mart)
+                    attributes= c("ensembl_gene_id", "external_gene_name"),
+                    values= row.names(counts),
+                    mart= mart)
 
 ens.id <- row.names(counts)
 GeneName <- gene.names[match(ens.id,gene.names$ensembl_gene_id),"external_gene_name"]
