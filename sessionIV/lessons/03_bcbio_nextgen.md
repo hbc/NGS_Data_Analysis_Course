@@ -108,8 +108,7 @@ details:
     algorithm:
       aligner: star
       quality_format: standard
-      trim_reads: read_through
-      adapters: [truseq, polya]
+      trim_reads: False
       strandedness: firststrand 
 upload:
   dir: ../final
@@ -121,7 +120,7 @@ The configuration template defines `details` of each sample to process, includin
 	 
 We can now apply this template to all samples in our dataset. To do this we use the	template workflow command, which takes in the template, the metadata and the samples:  
 
-	bcbio_nextgen.py -w template mov10-template.yaml mov10_project.csv raw_fastq/*.fq
+	bcbio_nextgen.py -w template mov10-template.yaml mov10_project.csv *.fq
 	
 Upon completion of the command you should see the following output:
 
@@ -138,28 +137,65 @@ mov10_project/
 
 ## `bcbio`: Workflow
 
-Before we actually run the analysis, let's talk a bit about the tools that will be run and some of the `algorithm` details we specified for these tools. 
+Before we actually run the analysis, let's talk a bit about the tools that will be run and some of the `algorithm` details we specified for these tools. The RNA-seq pipeline includes steps for quality control, adapter trimming, alignment, variant calling, transcriptome reconstruction and post-alignment quantitation at the level of the gene and isoform.
 
 ![bcbio-workflow](../img/bcbio-workflow.png)
  
-The RNA-seq pipeline includes steps for quality control, adapter trimming, alignment, variant calling, transcriptome reconstruction and post-alignment quantitation at the level of the gene and isoform. 
+For quality control, the FASTQC tool is used and we selected `standard` to indicate the stadard fastqsanger quality encoding. [qualimap](http://qualimap.bioinfo.cipf.es/) is another tool used to report QC according to the features of the mapped reads and provides an overall view of the data that helps to the detect biases in the sequencing and/or mapping of the data. 
 
-For quality control, the FASTQC tool is used
- 
- 
- 
+Trimming is not required unless you are using the Tophat2 aligner. Adapter trimming is very slow, and aligners that soft clip the ends of reads such as STAR and hisat2, or algorithms using pseudoalignments like Sailfish handle contaminant sequences at the ends properly. This makes trimming unnecessary, and since we have chosen `star` as our aligner we have also set `trim_reads: False`. *Tophat2 does not perform soft clipping so if that is the aligner that is chosen, trimming must still be done.*
+
+Counting of reads is done using featureCounts and does not need to be specfied in the config file. Also, Sailfish, which is an extremely fast alignment-free method of quantitation, is run for all experiments. There is also an option for Cufflinks to be run if you wanted to look at isoform level expression differences using the Tuxedo suite of tools. The outputs generated are per-sample GTF files and an FPKM matrix.
+
+### Creating a job script to run `bcbio`
+
+Upon creation of the config file, you will have noticed two directories were created. The `work` directory is created becasue that is where `bcbio` expects you to run the job.
+
+Let's move into this directory:
+	
+	cd mov10_project/work
+
+To run `bcbio` we call the same python script that we used for creating the config file `bcbio_nextgen.py` but we add different parameters:
+
+* `../config/mov10_project.yaml`: specify path to config file relative to the `work` directory
+* `-n 64`: total number of cores to use on the cluster during processing. The framework will select the appropriate number of cores and type of cluster (single core versus multi-core) to use based on the pipeline stage.
+* `-t ipython`: use python for parallel execution
+* `-s lsf`: type of scheduler
+* `-q priority`: queue to submit jobs to
+* `--retries 3`: number of times to retry a job on failure
+* `--timeout 380`: numbers of minutes to wait for a cluster to start up before timing out
+* `-rW=72:00`: specifies resource options to pass along to the underlying queue scheduler
+
+`bcbio` pipeline runs in parallel using the IPython parallel framework. This allows scaling beyond the cores available on a single machine, and requires multiple machines with a shared filesystem like standard cluster environments. 
+Although, we will only ask for a single core in our job submission script `bcbio` will use the parameters provided in the command to spin up the appropriate number of cores required at each stage of the pipeline.
+
+> **NOTE:** Since `bcbio` will spawn a number of intermediate files as it goes through the pipeline of tools, you will need to make sure there is enough disk space to hold all of those files. **Your home directory on Orchestra will not be able to handle this amount of data.** Instead we recommend talking to the folks at HMS RC to set up a directory in the `/groups` folder for your lab. For this lesson, since we are using a small subset of the original data running in your home directory *should not be problematic*.
+
+The job can take on the range of hours to days depending on the size of your dataset, and so rather than running interactively we will create a job submission script. 
+
+
 ```
-    algorithm:
-      aligner: star
-      quality_format: standard
-      trim_reads: read_through
-      adapters: [truseq, polya]
-      strandedness: firststrand 
+#!/bin/sh
+
+#BSUB -q priority
+#BSUB -J bcbio_mov10
+#BSUB -n 1
+#BSUB -W 100:0
+#BUSB -R “rusage[mem=10000]”
+#BSUB -e mov10_project.err
+
+bcbio_nextgen.py ../config/mov10_project.yaml -n 64 -t ipython -s lsf -q priority '-rW=72:00' --retries 3 \
+--timeout 380
 ```
 
 
 
 ## `bcbio`: Output
+
+![bcbio-ouput](../img/bcbio-output.png)
+
+
+
 
 
 There are three logging files in the log directory within your working folder:
