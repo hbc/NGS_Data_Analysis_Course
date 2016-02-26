@@ -21,7 +21,7 @@ Approximate time: 3 hours
 
 The [Ensembl](http://useast.ensembl.org/index.html) genome annotation system, developed jointly by the EBI and the Wellcome Trust Sanger Institute, has been used for the annotation, analysis and display of vertebrate genomes since 2000. All data are open source, i.e. freely available to the scientific community and are updated every 2-3 months.
 
-Since 2009, the Ensembl site has been complemented by the creation of five new sites within [Ensembl genomes](http://ensemblgenomes.org), for [bacteria](http://ensemblgenomes.org/info/genomes?division=1), [protists](http://ensemblgenomes.org/info/genomes?division=5), [fungi](http://ensemblgenomes.org/info/genomes?division=3), [plants](http://ensemblgenomes.org/info/genomes?division=4) and [invertebrate metazoa](http://ensemblgenomes.org/info/genomes?division=2), enabling users to use a single collection of (interactive and programatic) interfaces for accessing and comparing genome-scale data from species of scientific interest from across the taxonomy. _**NOTE:** no annotations available through Ensembl for viral genomes._
+Since 2009, the Ensembl site has been complemented by the [Ensembl genomes](http://ensemblgenomes.org) sites for [bacteria](http://ensemblgenomes.org/info/genomes?division=1), [protists](http://ensemblgenomes.org/info/genomes?division=5), [fungi](http://ensemblgenomes.org/info/genomes?division=3), [plants](http://ensemblgenomes.org/info/genomes?division=4) and [invertebrate metazoa](http://ensemblgenomes.org/info/genomes?division=2), enabling users to use a single collection of interfaces for accessing and comparing genome-scale data from species across the taxonomy. _**NOTE:** no annotations available through Ensembl for viral genomes._
 
 ### Ensembl species and annotations
 In the current release of Ensembl (83), over 80 vertebrate species are supported, with over half of these species being mammals. The dataset also includes the invertebrates yeast, *C. elegans*, and fruitfly to aid in more accurate generation of phylogenetic gene trees. *(Current species statistics for the  non-vertebrate databases are also [available](http://nar.oxfordjournals.org/content/44/D1/D574.full)).*
@@ -44,7 +44,7 @@ A **selected set of genomes** includes additional data focused on *variation, co
 ### Ensembl genome browser
 
 #### Overview
-Ensembl provides a genome browser that acts as a **single point of access to annotated genomes** for mainly vertebrate species. 
+Ensembl provides a genome browser that acts as a **single point of access to annotated genomes** for vertebrate species. 
 
 The browser can be used to easily access information at the genome, gene and protein level, such as gene sequence, splice variants, protein domains, genetic variation, homology, and regulatory elements. Ensembl imports genome sequences from consortia, which keeps the information consistent with many other bioinformatics projects. 
 
