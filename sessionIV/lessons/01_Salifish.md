@@ -17,6 +17,7 @@ Approximate time: 3 hours
 ## What is Sailfish
 
 [Sailfish]() and it's more recent "upgrade" [Salmon](), are based on the philosophy of lightweight algorithms. They use the sequence of genes or transcripts as input, and do not align the whole read. Instead it's a 2-step process:
+
 1. they first evaluate the sequences for all possible unique sequences of lenght k (kmer) in the transcriptome (genes/transcripts). 
 2. then they count the number of times those kmers appear in the sequenced data, i.e. the fastq. This count information is then used to eestimate the abundance of each gene or transcript. 
 
