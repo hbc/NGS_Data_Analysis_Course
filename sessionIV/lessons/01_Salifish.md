@@ -18,9 +18,9 @@ Approximate time: 3 hours
 
 [Sailfish](http://www.cs.cmu.edu/~ckingsf/software/sailfish/index.html) and it's more recent "upgrade" [Salmon](https://combine-lab.github.io/salmon/), are based on the philosophy of lightweight algorithms. They use the sequence of genes or transcripts as input, and do not align the whole read. Instead it's a 2-step process:
 
-a. they first evaluate the sequences for all possible unique sequences of lenght k (kmer) in the transcriptome (genes/transcripts).
+**a.** they first evaluate the sequences for all possible unique sequences of lenght k (kmer) in the transcriptome (genes/transcripts).
 
-b. then they count the number of times those kmers appear in the sequenced data, i.e. the fastq. This count information is then used to eestimate the abundance of each gene or transcript. 
+**b.** then they count the number of times those kmers appear in the sequenced data, i.e. the fastq. This count information is then used to eestimate the abundance of each gene or transcript. 
 
 <img src="../img/nbt.2862-F1.jpg" width="400">
 
