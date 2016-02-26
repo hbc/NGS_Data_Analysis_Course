@@ -16,19 +16,26 @@ Approximate time: 3 hours
 
 ## What is Sailfish
 
+[Sailfish]() and it's more recent "upgrade" [Salmon](), are based on the philosophy of lightweight algorithms. They use the sequence of genes or transcripts as input, and do not align the whole read. Instead it's a 2-step process:
+1. they first evaluate the sequences for all possible unique sequences of lenght k (kmer) in the transcriptome (genes/transcripts). 
+2. then they count the number of times those kmers appear in the sequenced data, i.e. the fastq. This count information is then used to eestimate the abundance of each gene or transcript. 
 
+<img src="../img/nbt.2862-F1.jpg" width="300">
 
 ## Analysis steps for Sailfish
 
-## Getting the abundance estimates
-
     mkdir ~/ngs_course/rnaseq/sailfish
     cd ~/ngs_course/rnaseq/sailfish
-    
-    # sailfish index sailfish index -p <num of cores> -k <kmer size> -t <fasta of gene sequences> -o <folder name>
-    
     export PATH=/groups/bcbio/bcbio/anaconda/bin:/opt/bcbio/local/bin:$PATH
     
+As you can imagine from the above schematic, there are 2 steps in the analysis too:
+1. "Index" the transcriptome (transcripts or genes) as follows:
+    
+    # sailfish index sailfish index -p <num of cores> -k <kmer size> -t <fasta of gene sequences> -o <folder name>
+> We are not going to run this in class, but it only takes a few minutes.
+
+2. Get the abundance using the quantification step as follows:
+
     sailfish quant -i /groups/hbctraining/sailfish-run/sailfish.ensembl2.idx/ \
     -l SR \
     -r ngs_course/rnaseq/data/untrimmed_fastq/Mov10_oe_1.subset.fq \
@@ -38,6 +45,7 @@ Approximate time: 3 hours
     less Mov10_oe_1.subset.sailfish/quant.sf
   
 ## Converting to psuedo-counts
+
 
 ## Using DESeq2 for DGE analysis  
   
