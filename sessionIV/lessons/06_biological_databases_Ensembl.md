@@ -99,7 +99,7 @@ Each species in Ensembl has its own home page, where you can find out who provid
 	- The top of the page has a **gene overview**, giving a gene description, synonyms, location, and number of transcripts. In addition, there are links to comparative analysis data and associated protein families and phenotypes.	
 	- The overview is followed by the **transcript table**. All transcripts identified using any evidence are provided in the table. The transcripts are color-coded based on whether the transcript is protein-coding or non-coding, as well as, by the quality of evidence:
 	
-		- **Gold:** protein-coding transcripts that are Ensembl/Havana merges - essentially reviewed annotations with highest confidence
+		- **Gold:** protein-coding transcripts are Ensembl/Havana merges - essentially reviewed annotations with highest confidence
 		- **Red:** protein-coding transcripts are less confidence
 		- **Blue:** non-coding transcripts
 		
