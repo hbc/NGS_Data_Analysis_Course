@@ -159,6 +159,7 @@ You can access BioMart from any page using the link in the menu bar.
 
 	
 ### BioMart
+#### Web interface
 
 The BioMart tool for data mining the Ensembl database is easy to use and requires three steps:
 
@@ -171,7 +172,7 @@ The BioMart tool for data mining the Ensembl database is easy to use and require
 1. Let's use BioMart to information on genomic location and transcript count for the gene list we created in our previous homework, [sigOE_hw.txt](). Download this dataset by clicking on the link if you do not already have it on your computer.
 2. Click on `Dataset` and choose the database `Ensembl Genes 83` and `Homo sapiens genes(GRCh38.p5)`. 
 _**NOTE:** if we wanted to use an older version of BioMart, we could click on the lower right-hand link to `View in archive site`._
-3. Click on `Filters`. Expand `Gene` and click on the box next to `Input external references ID list`. Choose `HGNC symbol(s)` from the drop-down menu.
+3. Click on `Filters`. Expand `GENE` and click on the box next to `Input external references ID list`. Choose `HGNC symbol(s)` from the drop-down menu.
 4. Either choose the file `sigOE_hw.txt` or copy and paste the gene names in the file into the text box.
 5. Now click on `Attributes`. Keep `Features` selected.
 6. Expand `GENE` and choose the following:
@@ -186,6 +187,44 @@ _**NOTE:** if we wanted to use an older version of BioMart, we could click on th
 7. Collapse `GENE` and expand `EXTERNAL`. Choose `HGNC Symbol`.
 8. Click on `Results` button in the upper left-hand corner. Save output to a comma-separated value (CSV) file.
 9. In the HTML table, click on the link for `MOV10` to take you to the Ensembl gene page.
+
+#### biomaRt R package
+When you are performing an NGS analysis, you often find a need to access BioMart, for example, to find genomic locations, convert gene IDs, or filter sequences from your data. Luckily for us, there is an R package for BioMart, called `biomaRt`, which allows us to perform BioMart queries from R.
+
+Let's explore BioMart functionality in R using our Featurecounts output from our previous homework, `name`. The counts data has Ensembl IDs as row names, and we would like to convert the Ensembl IDs to HGNC symbols. We can use `biomaRt` package to perform this conversion easily within R.
+
+Let's create a new R project named `biomart` on our Desktop. Ensure you are in the correct working directory, then create three folders: `data`, `meta`, and `results`.
+
+
+
+```
+library(biomaRt)
+
+mart<- useDataset("hsapiens_gene_ensembl", 
+useMart('ENSEMBL_MART_ENSEMBL', 
+host =  'www.ensembl.org'))
+
+counts <- read.table()
+
+gene.names <- getBM(filters= "ensembl_gene_id", 
+  attributes= c("ensembl_gene_id", "external_gene_name"),
+  values= row.names(counts),
+  mart= mart)
+
+ens.id <- row.names(counts)
+GeneName <- gene.names[match(ens.id,gene.names$ensembl_gene_id),"external_gene_name"]
+new <- data.frame(counts,GeneName)
+write.table(new, "results/counts.txt", sep="\t")
+
+
+##### Grch37
+human = useMart(biomart = "ENSEMBL_MART_ENSEMBL",
+dataset="hsapiens_gene_ensembl",
+host = "grch37.ensembl.org")
+path="/biomart/martservice"
+conversions = getBM(attributes=c("ensembl_gene_id", "hgnc_symbol", "gene_biotype"),
+mart=human)
+```
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
