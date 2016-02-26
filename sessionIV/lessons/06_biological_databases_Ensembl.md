@@ -138,6 +138,7 @@ Each species in Ensembl has its own home page, where you can find out who provid
 	- The bottom image is a detailed, configurable view of the region. You can configure the tracks that appear using the cog on the window bar or you can click on "Configure this page" button on the side of the page.
 	
 Let's click on `Configure this page` and add some tracks:
+
 	- `dbSNP variants`
 	- `RNASeq models - all brain`
 
