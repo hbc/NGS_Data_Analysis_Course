@@ -139,8 +139,8 @@ Each species in Ensembl has its own home page, where you can find out who provid
 	
 Let's click on `Configure this page` and add some tracks:
 
-	- `dbSNP variants`
-	- `RNASeq models - all brain`
+- `dbSNP variants`
+- `RNASeq models - all brain`
 
 Click the checkmark in the upper right-hand corner of the page when finished with the selections.
 
