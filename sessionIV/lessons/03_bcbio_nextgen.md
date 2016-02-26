@@ -184,7 +184,8 @@ The job can take on the range of hours to days depending on the size of your dat
 #BUSB -R “rusage[mem=10000]”
 #BSUB -e mov10_project.err
 
-bcbio_nextgen.py ../config/mov10_project.yaml -n 64 -t ipython -s lsf -q priority '-rW=72:00' --retries 3 --timeout 380
+bcbio_nextgen.py ../config/mov10_project.yaml -n 64 -t ipython -s lsf -q priority '-rW=72:00' --retries 3 \
+--timeout 380
 ```
 
 
