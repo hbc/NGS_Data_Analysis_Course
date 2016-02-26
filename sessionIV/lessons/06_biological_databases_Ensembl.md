@@ -1,7 +1,7 @@
 ---
-title: "Biological Databases: NCBI"
+title: "Biological Databases: Ensembl/BioMart"
 author: "Mary Piper"
-date: "Wednesday, October 7, 2015"
+date: "Friday, February 26, 2016"
 ---
 
 Contributors: Mary Piper
@@ -10,8 +10,7 @@ Approximate time: 3 hours
 
 ## Learning Objectives
 
-* learn the pros/cons of different biological databases
-* learn how to use features of biological databases to access information and data during an NGS analysis
+* learn how to use features of the Ensembl biological database and genome browser to access information and data during an NGS analysis
 
 
 ## Intro to Ensembl/Biomart
