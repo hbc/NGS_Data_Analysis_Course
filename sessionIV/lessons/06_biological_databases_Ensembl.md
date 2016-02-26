@@ -148,16 +148,44 @@ Click the checkmark in the upper right-hand corner of the page when finished wit
 
 While Ensembl contains extensive genomic information, we often want to mine the data to export a custom dataset or we would like to use our own data. Ensembl offers a selection of tools to process your own data and to access and mine Ensembl data.
 
-8. Click on `Tools` in the top menu bar.
-	
-	Tools are available for analyzing your own variant data, searching the Ensembl genomes your DNA or protein sequence, and converting your data's coordinates or Ensembl IDs to a current version. 
+8. Click on `Tools` in the top menu bar. Tools are available for analyzing your own variant data, searching the Ensembl genomes your DNA or protein sequence, and converting your data's coordinates or Ensembl IDs to a current version. 
 	
 	BioMart is an extremely useful tool used for data-mining Ensembl's database to return your own custom datasets. Let's explore this tool in more depth.
+
+![tools](../img/ensembl_tools.png)
+
+You can access BioMart from any page using the link in the menu bar.
+![biomart](../img/ensembl_biomart.png)
+
 	
 ### BioMart
 
-You can access BioMart from any page in the menu bar.
-![biomart](../img/ensembl_biomart.png)
+The BioMart tool for data mining the Ensembl database is easy to use and requires three steps:
+
+- **Choose a dataset.** The dropdown menu allows you to choose from the Ensembl Gene, Ensembl Variation, Ensembl Regulation, and Vega databases. You will then be able to choose your species of interest.
+- **Select your filters or inputs.** You can restrict your query using various criteria, such as genomic region, specific genes, particular variants, etc.
+- **Choose the attributes to output.** You have a wide range of attributes that you can choose your query to output, such as features, structures, and sequence information.
+
+![biomart_homepage](../img/biomart_query.png)
+
+1. Let's use BioMart to information on genomic location and transcript count for the gene list we created in our previous homework, [sigOE_hw.txt](). Download this dataset by clicking on the link if you do not already have it on your computer.
+2. Click on `Dataset` and choose the database `Ensembl Genes 83` and `Homo sapiens genes(GRCh38.p5)`. 
+_**NOTE:** if we wanted to use an older version of BioMart, we could click on the lower right-hand link to `View in archive site`._
+3. Click on `Filters`. Expand `Gene` and click on the box next to `Input external references ID list`. Choose `HGNC symbol(s)` from the drop-down menu.
+4. Either choose the file `sigOE_hw.txt` or copy and paste the gene names in the file into the text box.
+5. Now click on `Attributes`. Keep `Features` selected.
+6. Expand `GENE` and choose the following:
+	
+	- Ensembl Gene ID
+	- Description
+	- Chromosome Name
+	- Gene Start (bp)
+	- Gene End (bp)
+	- Strand
+	- Transcript count
+7. Collapse `GENE` and expand `EXTERNAL`. Choose `HGNC Symbol`.
+8. Click on `Results` button in the upper left-hand corner. Save output to a comma-separated value (CSV) file.
+9. In the HTML table, click on the link for `MOV10` to take you to the Ensembl gene page.
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
