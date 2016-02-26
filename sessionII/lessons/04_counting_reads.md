@@ -98,7 +98,7 @@ Let's run this now:
 	**DO NOT RUN THIS** 
 	# note the last line of the command below
 	
-	$ featurecounts -T 4 -s 2 \ 
+	$ featureCounts -T 4 -s 2 \ 
 	  -a ~/ngs_course/rnaseq/data/reference_data/chr1-hg19_genes.gtf \
 	  -o ~/ngs_course/rnaseq/results/counts/Mov10_featurecounts.txt \
 	  ~/ngs_course/rnaseq/results/STAR/bams/*bam \
