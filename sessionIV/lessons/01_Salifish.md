@@ -34,7 +34,7 @@ As you can imagine from the above schematic, there are 2 steps in the analysis t
 
 a. "Index" the transcriptome (transcripts or genes) as follows:
     
-    # sailfish index sailfish index -p <num of cores> -k <kmer size> -t <fasta of gene sequences> -o <folder name>
+    sailfish index sailfish index -p <num of cores> -k <kmer size> -t <fasta of gene sequences> -o <folder name>
 > We are not going to run this in class, but it only takes a few minutes.
 
 b. Get the abundance using the quantification step as follows:
