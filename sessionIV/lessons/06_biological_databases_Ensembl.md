@@ -132,7 +132,7 @@ Each species in Ensembl has its own home page, where you can find out who provid
 
 	- If you click on `exons`, the sequence for each of the exons will be displayed below. If you click on `12 domains and features` the associated domains are output. If you click on `625 variations`, all variants for the transcript are listed with variation IDs, supporting evidence, and predicted effect on protein function. Additional detailed information on the transcript and protein is available on the side panel. 
 
-7. Let's now visualize our our transcripts for the gene using the "Location" tab. There are three separate parts to this window:
+7. Let's now visualize our our transcripts for the gene using the `Location` tab. There are three separate parts to this window:
 	- The chromosome with haplotypes and patches flagged within the image. Selecting a region of the chromosome can move you to a new location.
 	- The "Region in detail", which shows a 1Mb region around the selected location on the chromosome. Choosing a different location within this region is also an option.
 	- The bottom image is a detailed, configurable view of the region. You can configure the tracks that appear using the cog on the window bar or you can click on "Configure this page" button on the side of the page.
