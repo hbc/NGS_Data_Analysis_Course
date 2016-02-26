@@ -188,7 +188,7 @@ Now, finally we will put all of that inside the `summary()` function. This is a 
 
 Does this reduce our results? How many genes are up-regulated and down-regulated at this new threshold?
 
-We should have a total of 86 genes that are significantly differentially expressed. To denote these genes as significant we can add a column in our results table. The vector will be a logical vector, where `TRUE` means the gene passes our threshold and `FALSE` means it fails.
+We should have a total of 884 genes (682 up-regulated and 202 down-regulated) that are significantly differentially expressed. To denote these genes as significant we can add a column in our results table. The vector will be a logical vector, where `TRUE` means the gene passes our threshold and `FALSE` means it fails.
 
 	res_tableOE$threshold <- as.logical(res_tableOE$padj < padj.cutoff & 
                    abs(res_tableOE$log2FoldChange) > lfc.cutoff)
