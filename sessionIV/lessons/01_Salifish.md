@@ -31,12 +31,13 @@ Approximate time: 3 hours
     export PATH=/groups/bcbio/bcbio/anaconda/bin:/opt/bcbio/local/bin:$PATH
     
 As you can imagine from the above schematic, there are 2 steps in the analysis too:
-1. "Index" the transcriptome (transcripts or genes) as follows:
+
+a. "Index" the transcriptome (transcripts or genes) as follows:
     
     # sailfish index sailfish index -p <num of cores> -k <kmer size> -t <fasta of gene sequences> -o <folder name>
 > We are not going to run this in class, but it only takes a few minutes.
 
-2. Get the abundance using the quantification step as follows:
+b. Get the abundance using the quantification step as follows:
 
     sailfish quant -i /groups/hbctraining/sailfish-run/sailfish.ensembl2.idx/ \
     -l SR \
