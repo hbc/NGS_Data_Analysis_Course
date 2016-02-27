@@ -21,21 +21,21 @@ We already have a good understanding of positional parameters, vectors within sh
 * `basename`
 This command will remove the full path of the file and just leave behind the filename, thus making our script more versatile. In addition, this command can make file names shorter. Let's try this out:
 
-	$ basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq```
+	```$ basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq```
 	
 What if we only wanted it to return the name of the file, but without the extension .fq?
 
-	$ basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq .fq
+	```$ basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq .fq```
 	
 What if we only wanted it to return the name of the sample?
 
-	$ basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq .fq.qualtrim25.minlen35.fq	
+	```$ basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq .fq.qualtrim25.minlen35.fq```	
 	
 If you wanted to store the output of this command in a variable, you can write it as follows:
 
-	base=$(basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq .fq)
+	```base=$(basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq .fq)
 	
-	echo $base
+	echo $base```
 * `set`
 This debugging tool (`set -x`) will display the command being executed, before the results of the command. In case of an issue with the commands in the shell script, this type of debugging lets you quickly pinpoint the step that is throwing an error. This is useful in the case where the tool is not explicitly stated in the error message, or if the error message is unclear about which tool it was created by. 
 
