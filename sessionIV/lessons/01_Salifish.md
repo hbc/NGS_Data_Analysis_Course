@@ -53,6 +53,7 @@ You can run this command on all the datasets and then use the quant tables in R 
 * Open RStudio
 * Go to the files tab and find your way to the new folder you downloaded
 * Set that folder your working directory
+* Start a new R script
 
 ## Converting Sailfish output to pseudo-counts and performing DE analysis
 
