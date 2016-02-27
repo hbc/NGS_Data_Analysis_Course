@@ -14,7 +14,7 @@ Approximate time: 3 hours
 * Understand how to use Sailfish to generate Pseudocounts
 * Learn how to perform differential gene expression on Pseudocounts
 
-## What is Sailfish
+## What is Sailfish?
 
 [Sailfish](http://www.cs.cmu.edu/~ckingsf/software/sailfish/index.html) and it's more recent "upgrade" [Salmon](https://combine-lab.github.io/salmon/), are based on the philosophy of lightweight algorithms. They use the sequence of genes or transcripts as input, and do not align the whole read. Instead it's a 2-step process based on counting "kmers":
 
