@@ -24,10 +24,13 @@ Approximate time: 3 hours
 
 <img src="../img/nbt.2862-F1.jpg" width="400">
 
-## Running Sailfish
+## Running Sailfish on Orchestra
+
+    bsub -Is -q interactive bash
 
     mkdir ~/ngs_course/rnaseq/sailfish
     cd ~/ngs_course/rnaseq/sailfish
+    
     export PATH=/groups/bcbio/bcbio/anaconda/bin:/opt/bcbio/local/bin:$PATH
     
 As you can imagine from the above schematic, there are 2 steps in the analysis too:
@@ -48,7 +51,11 @@ b. Get the abundance using the quantification step as follows:
     
     less Mov10_oe_1.subset.sailfish/quant.sf
   
-You can run this command on all the datasets and then use the quant tables in R for the next few steps. We have already performed these runs for you and you can download the directory with all the necessary files [from here](). Once you download it, please do the following:
+You can run this command on all the datasets and trasnfer the quant tables to your laptop to perfrom the DE analysis using R. 
+
+## Switching over to R
+
+We have already performed these additional Sailfish runs for you and you can download the directory with all the necessary files [from here](https://dl.dropboxusercontent.com/u/74036176/sailfish.zip). Once you download it, please do the following:
 * Decompress the tar archive
 * Open RStudio
 * Go to the files tab and find your way to the new folder you downloaded
