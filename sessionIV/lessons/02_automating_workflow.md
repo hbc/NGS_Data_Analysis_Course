@@ -6,18 +6,19 @@ date: "Wednesday, October 7, 2015"
 
 ## Learning Objectives:
 
-* Automate a workflow by grouping a series of sequential commands into a script
-* Modify and submit the workflow script to the cluster
+* Automate the whole RNA-Seq workflow using a shell script
+* Learn commands that make it even more flexible
 
-
-### Automating the workflow with a shell script
+## Automating the full workflow!
 
 The easiest way to repeat the process of getting from fastqc to getting a count matrix is to capture the steps that
 we've performed in a bash script. We already have 2 separate scripts for parts of this workflow, one that takes us from fastqc through trimming and a post-trimming fastqc run, and a second one that for running STAR. In this module we are going to make a new script that combines all the steps including featureCounts.
 
+### Granting our workflow even more flexibility with a couple of new commands
+
 We already have a good understanding of positional parameters, vectors within shell scripts, and understand the value of commenting liberally for the sake of your future self (and others who might use your script). Today, we will be putting the workflow together using 2 new commands: 
 
-* `basename`
+**1.** `basename`
 
 This command will remove the full path of the file and just leave behind the filename, thus making our script more versatile. In addition, this command can make file names shorter. Let's try this out:
 
@@ -36,22 +37,27 @@ If you wanted to store the output of this command in a variable, you can write i
 	$ base=$(basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq .fq)
 	$ echo $base
 
-* `set`
+**2.** `set`
 
-This debugging tool (`set -x`) will display the command being executed, before the results of the command. In case of an issue with the commands in the shell script, this type of debugging lets you quickly pinpoint the step that is throwing an error. This is useful in the case where the tool is not explicitly stated in the error message, or if the error message is unclear about which tool it was created by. 
-
+This command is essentially a debugging tool (`set -x`) that will display the command before executing it. In case of an issue with the commands in the shell script, this type of debugging lets you quickly pinpoint the step that is throwing an error. This is useful in the case where the tool is not explicitly stated in the error message, or if the error message is unclear about which tool it was created by. 
 
 ### Granting our Workflow even More Flexibility
 
-Several of changes need to be made to make this script more friendly to both changes in files and changes in the workflow. Let's copy over the `rnaseq_analysis_on_input_file.sh`, and open it using vim to start making some changes:
+Several changes need to be made to the last script we made, `star_analysis_on_input_file.sh`. Let's copy it over to a new folder and rename it `rnaseq_analysis_on_input_file.sh`, and open it using vim to start making some changes:
 
-	$ cp rnaseq_analysis_on_file.sh rnaseq_analysis_on_input_file.sh
+	$ cd ~/ngs_course/rnaseq/
+
+	$ mkdir scripts
+	
+	$ cd scripts
+
+	$ cp data/trimmed_fastq/star_analysis_on_input_file.sh rnaseq_analysis_on_input_file.sh
+	
 	$ vi rnaseq_analysis_on_input_file.sh
 
 ###
 
-> The command-line arguments $1, $2, $3,...$9 are positional parameters, with $0 pointing to the actual command, program or shell script, and $1, $2, $3, ...$9 as the arguments to the command." This basically means that "Script Name" == $0, "First Parameter" == $1, "Second Parameter" == $2 and so on...
-
+> Reminder: The command-line arguments $1, $2, $3,...$9 are "positional parameters", with $0 pointing to the actual command, program or shell script, and $1, $2, $3, ...$9 as the arguments to the command." This basically means that "Script Name" == $0, "First Parameter" == $1, "Second Parameter" == $2 and so on...
 
 Next, we'll initialize variables that contain the paths to where the common files are stored and then use the variable names (with a `$`) in the actual commands later in the script. This is a shortcut for when you want to use this script for a dataset that used a different genome, e.g. mouse; you'll just have to change the contents of these variable at the beginning of the script.
 
