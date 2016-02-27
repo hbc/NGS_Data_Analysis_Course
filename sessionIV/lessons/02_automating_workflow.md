@@ -21,7 +21,7 @@ We already have a good understanding of positional parameters, vectors within sh
 * `basename`
 This command will remove the full path of the file and just leave behind the filename, thus making our script more versatile. In addition, this command can make file names shorter. Let's try this out:
 
-	$ basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq
+	```$ basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq```
 	
 What if we only wanted it to return the name of the file, but without the extension .fq?
 
