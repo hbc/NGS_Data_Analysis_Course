@@ -13,39 +13,40 @@ date: "Wednesday, October 7, 2015"
 ### Automating the workflow with a shell script
 
 The easiest way to repeat the process of getting from fastqc to getting a count matrix is to capture the steps that
-we've performed in a bash script. We already have 2 separate scripts for parts of this workflow, one that takes us from fastqc through trimming and a post-trimming fastqc run, and a second one that we used to run the STAR command. In this module we are going to make a new script that combines all the steps including featureCounts.
-
-- Create a script file called `rnaseq_analysis_on_inputfile.sh`. 
+we've performed in a bash script. We already have 2 separate scripts for parts of this workflow, one that takes us from fastqc through trimming and a post-trimming fastqc run, and a second one that for running STAR. In this module we are going to make a new script that combines all the steps including featureCounts.
 
 We already have a good understanding of positional parameters, vectors within shell scripts, and understand the value of commenting liberally for the sake of your future self (and others who might use your script). Today, we will be putting the workflow together using 2 new commands: 
+
 * `basename`
+
 This command will remove the full path of the file and just leave behind the filename, thus making our script more versatile. In addition, this command can make file names shorter. Let's try this out:
 
-```$ basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq```
+	$ basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq```
 	
 What if we only wanted it to return the name of the file, but without the extension .fq?
 
-```$ basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq .fq```
+	$ basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq .fq```
 	
 What if we only wanted it to return the name of the sample?
 
-```$ basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq .fq.qualtrim25.minlen35.fq```	
+	$ basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq .fq.qualtrim25.minlen35.fq```	
 	
 If you wanted to store the output of this command in a variable, you can write it as follows:
 
-```$ base=$(basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq .fq)```
-```$ echo $base```
+	$ base=$(basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq .fq)
+	$ echo $base
 
 * `set`
+
 This debugging tool (`set -x`) will display the command being executed, before the results of the command. In case of an issue with the commands in the shell script, this type of debugging lets you quickly pinpoint the step that is throwing an error. This is useful in the case where the tool is not explicitly stated in the error message, or if the error message is unclear about which tool it was created by. 
 
 
 ### Granting our Workflow even More Flexibility
 
-Several of changes need to be made to make this script more friendly to both changes in files and changes in the workflow. Let's copy over the `rnaseq_analysis_on_file.sh` to a new file called `rnaseq_analysis_on_input_file.sh`, and open it using nano to start making some changes:
+Several of changes need to be made to make this script more friendly to both changes in files and changes in the workflow. Let's copy over the `rnaseq_analysis_on_input_file.sh`, and open it using vim to start making some changes:
 
 	$ cp rnaseq_analysis_on_file.sh rnaseq_analysis_on_input_file.sh
-	$ nano rnaseq_analysis_on_input_file.sh
+	$ vi rnaseq_analysis_on_input_file.sh
 
 ###
 
