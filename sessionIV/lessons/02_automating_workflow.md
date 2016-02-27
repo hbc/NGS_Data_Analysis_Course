@@ -33,9 +33,8 @@ What if we only wanted it to return the name of the sample?
 	
 If you wanted to store the output of this command in a variable, you can write it as follows:
 
-```base=$(basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq .fq)
-
-echo $base```
+```$ base=$(basename ~/ngs_course/rnaseq/data/trimmed_fastq/Mov10_oe_1.subset.fq.qualtrim25.minlen35.fq .fq)```
+```$ echo $base```
 
 * `set`
 This debugging tool (`set -x`) will display the command being executed, before the results of the command. In case of an issue with the commands in the shell script, this type of debugging lets you quickly pinpoint the step that is throwing an error. This is useful in the case where the tool is not explicitly stated in the error message, or if the error message is unclear about which tool it was created by. 
