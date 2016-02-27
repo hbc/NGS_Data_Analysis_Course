@@ -65,7 +65,7 @@ The developers of DESeq2 are aware of the abovem-entioned issues, so they:
 
 The `tximport` package available on bioconductor is currently too new and will not work with our regular R installation. This only temporary and will change after April 2016. In the meantime, we have to grab an older version from github, and to download packages from github, we need a new package called `devtools`.
 
-Step1. Let's install all the packages we need
+**Step 1.** Install all the new packages required (you'll only need to do this once)
     
     install.packages("devtools")
 
@@ -80,7 +80,7 @@ Step1. Let's install all the packages we need
     source("http://bioconductor.org/biocLite.R")
     biocLite("biomaRt")             # tximport requires gene symbols as row names
     
-Step2. Let's load the libraries we need for this set up stage
+**Step 2.** Load the libraries required for setting up
 
     library(tximport)
     library(readr)
@@ -89,16 +89,16 @@ Step2. Let's load the libraries we need for this set up stage
     # Source the new custom function
     source("DESeqDataFromTx.R")
 
-Step3. Let's load the data from our working directory, which is the folder we downloaded earlier
+**Step 3.** Load the data from the working directory (which is the folder we downloaded earlier)
     
     dir <- getwd()
     samples <- scan(file.path(dir,"samples.txt"), what="character")
     files <- file.path(dir, samples, "quant.sf")
     names(files) <-  sapply(files, function(x){strsplit(x, "/")[[1]][5]}, USE.NAMES=F)
 
-Step4. Convert Ensembl Transcript IDs to Gene symbols with Biomart.
+**Step 4.** Convert Ensembl Transcript IDs to Gene symbols with Biomart
 
-NOTE a: **Do not run the next section of code**, this code is for future reference only. The `getBM()` function takes a long time to run, so we have already generated the information the `tx2gene` data frame needs to have.
+**NOTE a: Do not run the next section of code**, this code is for future reference only. The `getBM()` function takes a long time to run, so we have already generated the information the `tx2gene` data frame needs to have.
     
     # ids <- read.delim(files[1], sep="\t", header=T)
     # ids <- as.character(ids[,1])
@@ -111,7 +111,7 @@ NOTE a: **Do not run the next section of code**, this code is for future referen
     #    mart= mart)
     # tx2gene <- gene.names[,3:2]
     
-NOTE b: Run the following code in class, but remember that if you obtain the values from biomaRt directly, you won't have to run it.
+**NOTE b: Run the following code in class**, but remember that if you obtain the values from biomaRt directly, you won't have to run it.
 
     tx2gene <- read.table("tx2gene.txt", header=T)
     
