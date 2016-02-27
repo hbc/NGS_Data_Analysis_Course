@@ -104,6 +104,7 @@ Our Sailfish index was generated with transcript sequences, but tximport needs t
     head(read.delim(files[1], sep="\t", header=T))
     
     ids <- read.delim(files[1], sep="\t", header=T)
+    
     ids <- as.character(ids[,1])
    
 
@@ -124,6 +125,7 @@ Our Sailfish index was generated with transcript sequences, but tximport needs t
 **Step 5:** Run tximport to summarize gene-level information    
   
     txi <- tximport(files, type="sailfish", txIn = TRUE, txOut = FALSE, tx2gene=tx2gene, reader=read_tsv)
+    
     colnames(txi$counts) <- samples
   
 ### Using DESeq2 for DE analysis with pseudocounts
