@@ -43,15 +43,19 @@ This command is essentially a debugging tool (`set -x`) that will display the co
 
 ### Granting our Workflow even More Flexibility
 
-Several changes need to be made to the last script we made, `star_analysis_on_input_file.sh`, so let's start writing a new script. We'll save this script in a new directory. 
+Several changes need to be made to the last script we made, `star_analysis_on_input_file.sh`, so let's start writing a new script with excerpts from the older one. 
 
+	$ cat ~/ngs_course/rnaseq/data/trimmed_fastq/star_analysis_on_input_file.sh
+	
+
+	
+	
 	$ cd ~/ngs_course/rnaseq/
 
 	$ mkdir scripts
 	
 	$ cd scripts
 
-For now let's start writing it on our computers using Text Wrangler or Sublime Text or Notepad++.
 
 > Reminder: The command-line arguments $1, $2, $3,...$9 are "positional parameters", with $0 pointing to the actual command, program or shell script, and $1, $2, $3, ...$9 as the arguments to the command." This basically means that "Script Name" == $0, "First Parameter" == $1, "Second Parameter" == $2 and so on...
 
