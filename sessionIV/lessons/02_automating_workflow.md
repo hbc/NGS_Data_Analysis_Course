@@ -43,12 +43,12 @@ This command is essentially a debugging tool (`set -x`) that will display the co
 
 ### Granting our Workflow even More Flexibility
 
-Several changes need to be made to the last script we made, `star_analysis_on_input_file.sh`, so let's start writing a new script with excerpts from the older one. 
+Several changes need to be made to the last 2 scripts we made used for trimming and alignment respectively, so let's start by writing a new script with excerpts from the older ones. 
 
+	$ cat ~/ngs_course/rnaseq/data/trimmomatic_mov10.lsf
 	$ cat ~/ngs_course/rnaseq/data/trimmed_fastq/star_analysis_on_input_file.sh
 	
-
-	
+We want to save the new script in a new directory called scripts.
 	
 	$ cd ~/ngs_course/rnaseq/
 
@@ -56,8 +56,97 @@ Several changes need to be made to the last script we made, `star_analysis_on_in
 	
 	$ cd scripts
 
+I find it easier to write a longer script in a text editor on my computer, and I suggest you do the same for this session.
 
-> Reminder: The command-line arguments $1, $2, $3,...$9 are "positional parameters", with $0 pointing to the actual command, program or shell script, and $1, $2, $3, ...$9 as the arguments to the command." This basically means that "Script Name" == $0, "First Parameter" == $1, "Second Parameter" == $2 and so on...
+```
+#!bin/bash
+
+# USAGE: sh rnaseq_analysis_on_input_file.sh <fastq files> <trimming MINLEN> <trimming TRAILING quality threshold> <number of cores>
+# This script will take the location and name of a fastq file and perform the following steps on it. 
+	## starting with fastqc, 
+	## followed by trimming with Trimmomatic, 
+	## splice-aware alignment with STAR, 
+	## generation of counts associated with genes using featureCounts.
+
+# debugging with set -x [OPTIONAL]
+
+# set -x
+
+# assign the command line input to new variables
+fq=$1
+minlen=$2
+trailing=$3
+cores=$4
+
+# shorten the name of the file
+
+fname=$(basename $fq .fq)
+
+echo "****Running rnaseq analysis on $fname****"
+
+# Loading all the modules and adding featureCounts to the PATH
+
+module load seq/Trimmomatic/0.33
+module load seq/STAR/2.4.0j
+module load seq/fastqc/0.11.3
+
+export PATH=/opt/bcbio/local/bin:$PATH
+
+# make all of our output directories
+# The -p option means mkdir will create the whole path if it does not exist, and refrain from complaining if it does exist
+
+mkdir -p ~/ngs_course/rnaseq/new_analysis/
+
+mkdir -p ~/ngs_course/rnaseq/new_analysis/trimmed_fastq
+
+mkdir -p ~/ngs_course/rnaseq/new_analysis/STAR_alignment
+
+mkdir -p ~/ngs_course/rnaseq/new_analysis/counts
+
+
+# setup variables
+
+trim_out=~/ngs_course/rnaseq/new_analysis/trimmed_fastq/${fname}.qualtrim${trailing}.minlen${minlen}.fq
+
+genome=/groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data/reference_STAR 
+align_out=~/ngs_course/rnaseq/new_analysis/STAR_alignment/${fname}_
+
+gtf=~/ngs_course/rnaseq/data/reference_data/chr1-hg19_genes.gtf
+counts_input_bam=~/ngs_course/rnaseq/new_analysis/STAR_alignment/${fname}_Aligned.sortedByCoord.out.bam
+counts=~/ngs_course/rnaseq/new_analysis/counts/${fname}.counts
+
+#Trimmomatic run
+
+echo "****Trimming $fname with minimum length $minlen and trailing bases with quality threshold of $trailing****"
+
+java -jar /opt/Trimmomatic-0.33/trimmomatic-0.33.jar SE -threads $cores -phred33 $fq \
+$trim_out ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 TRAILING:$trailing MINLEN:$minlen
+
+# FastQC on trimmed file
+echo "****FastQC on trimmed fastq****"
+fastqc ~/ngs_course/rnaseq/new_analysis/trimmed_fastq/${fname}.qualtrim${trailing}.minlen${minlen}.fq
+
+# Alignment with STAR
+
+echo "****Running STAR alignment****"
+
+STAR --runThreadN $cores \
+--genomeDir $genome \
+--readFilesIn $trim_out \
+--outFileNamePrefix $align_out \
+--outFilterMultimapNmax 10 \
+--outReadsUnmapped Fastx \
+--outSAMtype BAM SortedByCoordinate \
+--outSAMunmapped Within \
+--outSAMattributes Standard 
+
+# Counting reads with featureCounts
+
+echo "****Running featureCounts****"
+
+featureCounts -T $cores -s 2 -a $gtf -o $counts $counts_input_bam
+awk '{print $1"\t"$7}' $counts > $counts.txt
+```
 
 Next, we'll initialize variables that contain the paths to where the common files are stored and then use the variable names (with a `$`) in the actual commands later in the script. This is a shortcut for when you want to use this script for a dataset that used a different genome, e.g. mouse; you'll just have to change the contents of these variable at the beginning of the script.
 
