@@ -170,7 +170,6 @@ bsub -q mcore -n 6 -W 1:30 -R "rusage[mem=4000]" -J rnaseq_mov10.$base -o %J.out
 sleep 1
 done
 ```
-**In the above for loop please note that after the bsub directives the `sh rnaseq_analysis_on_input_file.sh $fq` command is in quotes!**
 
 > NOTE: All job schedulers are similar, but not the same. Once you understand how one works, you can transition to another one without too much trouble. They all have their pros and cons that the system administrators for your setup have taken into consideration and picked one that fits the needs of the users best. 
 
