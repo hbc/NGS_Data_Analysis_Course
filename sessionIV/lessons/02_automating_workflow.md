@@ -3,6 +3,7 @@ title: "Automating an RNA-Seq workflow"
 author: "Radhika Khetani, Bob Freeman, Meeta Mistry"
 date: "Sunday, February 28, 2016"
 ---
+Approximate time: 2 hours
 
 ## Learning Objectives:
 
