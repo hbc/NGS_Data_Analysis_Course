@@ -43,7 +43,7 @@ This command is essentially a debugging tool (`set -x`) that will display the co
 
 ### Granting our Workflow even More Flexibility
 
-Several changes need to be made to the last script we made, `star_analysis_on_input_file.sh`. Let's copy it over to a new folder and rename it `rnaseq_analysis_on_input_file.sh`, and open it using vim to start making some changes:
+Several changes need to be made to the last script we made, `star_analysis_on_input_file.sh`, so let's start writing a new script. We'll save this script in a new directory. 
 
 	$ cd ~/ngs_course/rnaseq/
 
@@ -51,11 +51,7 @@ Several changes need to be made to the last script we made, `star_analysis_on_in
 	
 	$ cd scripts
 
-	$ cp data/trimmed_fastq/star_analysis_on_input_file.sh rnaseq_analysis_on_input_file.sh
-	
-	$ vi rnaseq_analysis_on_input_file.sh
-
-###
+For now let's start writing it on our computers using Text Wrangler or Sulblime Text or Notepad++.
 
 > Reminder: The command-line arguments $1, $2, $3,...$9 are "positional parameters", with $0 pointing to the actual command, program or shell script, and $1, $2, $3, ...$9 as the arguments to the command." This basically means that "Script Name" == $0, "First Parameter" == $1, "Second Parameter" == $2 and so on...
 
