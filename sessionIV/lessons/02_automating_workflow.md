@@ -188,8 +188,7 @@ Now that we have created the script on our text editor, let's copy it over to th
 
 	$ vim rnaseq_analysis_on_input_file.sh
 	
-Next, we want to create a submission script, that will loop through all the fastq files in a given directory. So once you have the first workflow script ready, you can just use this easily modifiable submission script to run the workflow on all the fastq files in parallel. You can see their progress by using the `bjobs` command (though there is a lag of
-about 60 seconds between what is happening and what is reported). Don't forget about the `bkill` command, should something go wrong and you need to cancel your jobs.
+Next, we want to create a submission script that has a `for` loop which will run the above script on all the fastq files in a given directory, *in parallel*. You can see the progress of the jobs submitted to LSF by using the `bjobs` command (note that there is a lag of about 60 seconds between what is happening and what is reported). Don't forget about the `bkill` command, should something go wrong and you need to cancel your jobs.
 	
 	$ vim submission_loop.sh
 
