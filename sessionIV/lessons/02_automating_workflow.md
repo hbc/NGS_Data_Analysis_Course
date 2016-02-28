@@ -51,7 +51,7 @@ Several changes need to be made to the last script we made, `star_analysis_on_in
 	
 	$ cd scripts
 
-For now let's start writing it on our computers using Text Wrangler or Sulblime Text or Notepad++.
+For now let's start writing it on our computers using Text Wrangler or Sublime Text or Notepad++.
 
 > Reminder: The command-line arguments $1, $2, $3,...$9 are "positional parameters", with $0 pointing to the actual command, program or shell script, and $1, $2, $3, ...$9 as the arguments to the command." This basically means that "Script Name" == $0, "First Parameter" == $1, "Second Parameter" == $2 and so on...
 
