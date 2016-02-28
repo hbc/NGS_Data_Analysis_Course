@@ -170,8 +170,25 @@ bsub -q mcore -n 6 -W 1:30 -R "rusage[mem=4000]" -J rnaseq_mov10.$base -o %J.out
 sleep 1
 done
 ```
+**In the above for loop please note that after the bsub directives the `sh rnaseq_analysis_on_input_file.sh $fq` command is in quotes!**
 
-	$ paste ../new_analysis/counts/*.txt | awk '{print $1"\t"$2"\t"$4"\t"$6"\t"$8"\t"$10"\t"$12"\t"$14"\t"$16}' > ../new_analysis/counts/all_counts.txt
+> NOTE: All job schedulers are similar, but not the same. Once you understand how one works, you can transition to another one without too much trouble. They all have their pros and cons that the system administrators for your setup have taken into consideration and picked one that fits the needs of the users best. 
+
+What you should see on the output of your screen would be the jobIDs that are returned
+from the scheduler for each of the jobs that your script submitted.
+
+You can see their progress by using the `bjobs` command (though there is a lag of
+about 60 seconds between what is happening and what is reported).
+
+Don't forget about the `bkill` command, should something go wrong and you need to
+cancel your jobs.
+
+Once all your jobs are completed, you can merge all the counts files using `paste` and `awk` together:
+
+	$ paste ../new_analysis/counts/*.txt | head
+	$ paste ../new_analysis/counts/*.txt | awk '{print $1"\t"$2"\t"$4"\t"$6"\t"$8"\t"$10"\t"$12"\t"$14"\t"$16}' | head
+	
+	$ paste ../new_analysis/counts/*.txt | awk '{print $1"\t"$2"\t"$4"\t"$6"\t"$8"\t"$10"\t"$12"\t"$14"\t"$16}'> ../new_analysis/counts/all_counts.txt
 
 ---
 *The materials used in this lesson was derived from work that is Copyright © Data Carpentry (http://datacarpentry.org/). 
