@@ -1,12 +1,12 @@
 ---
 title: "Alignment-free expression estimation using Sailfish"
 author: "Radhika Khetani"
-date: ""
+date: "Sunday, February 28, 2016"
 ---
 
-Contributors: Radhika Khetani, Meeta Mistry
+Contributors: Meeta Mistry
 
-Approximate time: 3 hours
+Approximate time: 2 hours
 
 ## Learning Objectives
 
