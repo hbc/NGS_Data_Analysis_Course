@@ -14,6 +14,8 @@ date: "Wednesday, October 7, 2015"
 The easiest way to repeat the process of getting from fastqc to getting a count matrix is to capture the steps that
 we've performed in a bash script. We already have 2 separate scripts for parts of this workflow, one that takes us from fastqc through trimming and a post-trimming fastqc run, and a second one that for running STAR. In this module we are going to make a new script that combines all the steps including featureCounts.
 
+***Before we get started, please log into Orchestra and start a new interactive session with 1 core, if you don't already have one going.***
+
 ### Granting our workflow even more flexibility with a couple of new commands
 
 We already have a good understanding of positional parameters, vectors within shell scripts, and understand the value of commenting liberally for the sake of your future self (and others who might use your script). Today, we will be putting the workflow together using 2 new commands: 
