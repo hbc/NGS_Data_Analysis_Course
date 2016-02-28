@@ -171,7 +171,7 @@ STAR --runThreadN $cores \
 --outSAMattributes Standard 
 ```
 
-Finally, run feature counts on the one alignment file that is generated.
+Finally, run feature counts on the one alignment file that is generated. The featureCounts output has only 2 columns were interested in, so we use the `awk` command to extract those 2 columns.
 
 ```
 # Counting reads with featureCounts
