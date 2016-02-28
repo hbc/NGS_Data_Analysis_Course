@@ -1,7 +1,7 @@
 ---
 title: "Automating an RNA-Seq workflow"
-author: "Bob Freeman, Meeta Mistry, Radhika Khetani"
-date: "Wednesday, October 7, 2015"
+author: "Radhika Khetani, Bob Freeman, Meeta Mistry"
+date: "Sunday, February 28, 2016"
 ---
 
 ## Learning Objectives:
