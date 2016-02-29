@@ -53,8 +53,7 @@ Open up your `.bashrc` using `vim` and add in the following:
 
 	# Environment variables for running bcbio
 	export PATH=/opt/bcbio/local/bin:$PATH
-	export LD_LIBRARY_PATH=/opt/bcbio/local/lib:$LD_LIBRARY_PATH
-	export PERL5LIB=/opt/bcbio/local/lib/perl5:${PERL5LIB}
+
  
 Close and save the file. Finally, let's set up the project structure. Change directories into `~/ngs_course/rnaseq` and make a directory called `bcbio-rnaseq`:
 
