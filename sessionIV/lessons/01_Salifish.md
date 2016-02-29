@@ -18,7 +18,12 @@ Approximate time: 2 hours
 
 [Sailfish](http://www.cs.cmu.edu/~ckingsf/software/sailfish/index.html) and it's more recent "upgrade" [Salmon](https://combine-lab.github.io/salmon/), are based on the philosophy of lightweight algorithms. They use the sequence of genes or transcripts as input, and do not align the whole read. Instead it's a 2-step process based on counting "kmers":
 
-**a.** they first evaluate the sequences for all possible unique sequences of length k (kmer) in the **transcriptome** (genes/transcripts) to create an index. 
+**a.** they first evaluate the sequences for all possible unique sequences of length k (kmer) in the **transcriptome** (genes/transcripts) to create an index. The Sailfish index has four components: 
+
+* (1) a perfect hash containing the number of unique k-mers per transcript 
+* (2) an array recording the number of times each k-mer occurs in the reference set
+* (3) an index mapping each transcript to the multiset of k-mers that it contains
+* (4) an index mapping each k-mer to the set of transcripts in which it appears.
 
 **b.** then they count the number of times those kmers appear in the **sequenced reads**, i.e. the fastq. This count information is used to figure out which transcript the read probably came from, and estimate the abundance of each gene or transcript. 
 
