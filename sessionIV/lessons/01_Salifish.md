@@ -20,7 +20,7 @@ Approximate time: 2 hours
 
 **a.** they first evaluate the sequences for all possible unique sequences of length k (kmer) in the **transcriptome** (genes/transcripts) to create an index. 
 
-**b.** then they count the number of times those kmers appear in the **sequenced data**, i.e. the fastq. This count information is then used to estimate the abundance of each gene or transcript. 
+**b.** then they count the number of times those kmers appear in the **sequenced reads**, i.e. the fastq. This count information is used to figure out which transcript the read probably came from, and estimate the abundance of each gene or transcript. 
 
 <img src="../img/nbt.2862-F1.jpg" width="400">
 
@@ -150,8 +150,6 @@ Our Sailfish index was generated with transcript sequences, but tximport needs t
 **Step 5:** Run tximport to summarize gene-level information    
   
     txi <- tximport(files, type="sailfish", txIn = TRUE, txOut = FALSE, tx2gene=tx2gene, reader=read_tsv)
-    
-    colnames(txi$counts) <- samples
   
 ### Using DESeq2 for DE analysis with pseudocounts
     
