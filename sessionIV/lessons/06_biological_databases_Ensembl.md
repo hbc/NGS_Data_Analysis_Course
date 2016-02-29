@@ -238,7 +238,7 @@ mart<- useDataset("mmusculus_gene_ensembl",
                           host =  'www.ensembl.org'))
 ```
 
-Build a query using attributes, filters, and values:
+Build a query using your specified attributes, filters, and values:
 ```
 # To build a query - getBM(filters, attributes, values)
 
