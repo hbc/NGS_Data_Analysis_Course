@@ -151,7 +151,7 @@ $trim_out ILLUMINACLIP:/opt/Trimmomatic-0.33/adapters/TruSeq3-SE.fa:2:30:10 TRAI
 
 # FastQC on trimmed file
 echo "****FastQC on trimmed fastq****"
-fastqc ~/ngs_course/rnaseq/new_analysis/trimmed_fastq/${fname}.qualtrim${trailing}.minlen${minlen}.fq
+fastqc $trim_out
 ```
 
 Next, set up to run STAR on the trimmed files. 
