@@ -134,14 +134,15 @@ The `tximport` package available on Bioconductor is currently too new and will n
     
 > **An alternative to this is having absolute paths instead of relative paths.** This would be useful so you can run this from anywhere in your filesystem.
 >
-```dir <- getwd()
+
+```
+dir <- getwd()
    files <- file.path(dir, samples, "quant.sf")
     
    ## Create your own function
    assignNames <- function(x){
   			strsplit(x, "/")[[1]][6]
 			}
-			
    sapply(files, assignNames, USE.NAMES=F)
 ```
 
