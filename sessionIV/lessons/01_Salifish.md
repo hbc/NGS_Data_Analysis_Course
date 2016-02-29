@@ -132,7 +132,7 @@ The `tximport` package available on Bioconductor is currently too new and will n
     names(files) <-  samples
  ```
     
-> **An alternative to this is having absolute paths instead of relative paths.** This would be useful so you can run this from anywhere in your filesystem.
+> **OPTION 2: An alternative to this is having absolute paths instead of relative paths.** This would be useful so you can run this from anywhere in your filesystem.
 >
 
 	dir <- getwd()
@@ -142,7 +142,9 @@ The `tximport` package available on Bioconductor is currently too new and will n
 	assignNames <- function(x){
 			strsplit(x, "/")[[1]][6]
 			}
-	sapply(files, assignNames, USE.NAMES=F)
+	names(files) <- sapply(files, assignNames, USE.NAMES=F)
+
+Either of these methods will work, or even a combination of the two. The main objective here is to add names to our quant files which will allow us easily discriminate between samples in the final output matrix. 
 
 **Step 4.** Create a data frame containing Ensembl Transcript IDs and Gene symbols
 
