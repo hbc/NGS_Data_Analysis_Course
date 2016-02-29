@@ -49,8 +49,9 @@ b. Get the abundance using the quantification step using the `quant` command and
 
 
    * `-l SR`: specify stranded single-end reads
-   * `-p 4`: multi-threading
-   * `--useVBOpt`: use variational Bayesian EM algorithm rather than the   ‘standard EM’ to optimize abundance estimates (more accurate) 
+   * `-r ngs_course/rnaseq/data/untrimmed_fastq/Mov10_oe_1.subset.fq `: list of files
+   * `--useVBOpt`: use variational Bayesian EM algorithm rather than the ‘standard EM’ to optimize abundance estimates (more accurate) 
+   * `-o`: output quantification file name
 
 Let's run the quantification step on the `Mov10_oe_1.subset` sample:
 
