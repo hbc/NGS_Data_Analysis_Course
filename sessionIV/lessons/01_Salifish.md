@@ -41,7 +41,8 @@ As you can imagine from the above [schematic](http://www.nature.com/nbt/journal/
 
 a. "Index" the transcriptome (transcripts or genes) using the `index` command:
     
-    #sailfish index sailfish index -p <num of cores> -k <kmer size> -t <fasta of gene sequences> -o <folder name>
+    #sailfish index sailfish index -p <num of cores> -k <kmer size> -t <fasta of gene sequences> 
+                         -o <folder name>
 
 **We are not going to run this in class, but it only takes a few minutes.** We will be using an index we have generated from transcript sequences (all known transcripts with multiples for some genes), but this can be generated from genic sequences too. 
 
