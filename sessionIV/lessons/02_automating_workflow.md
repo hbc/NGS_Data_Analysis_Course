@@ -131,7 +131,7 @@ trim_out=~/ngs_course/rnaseq/new_analysis/trimmed_fastq/${fname}.qualtrim${trail
 genome=/groups/hbctraining/ngs-data-analysis2016/rnaseq/reference_data/reference_STAR 
 gtf=~/ngs_course/rnaseq/data/reference_data/chr1-hg19_genes.gtf
 
-# output of trimming
+# output of alignment
 align_out=~/ngs_course/rnaseq/new_analysis/STAR_alignment/${fname}_
 
 # input and output of counts
