@@ -121,8 +121,8 @@ The `tximport` package available on Bioconductor is currently too new and will n
 
 **Step 3.** Load the data from the working directory (which is the folder we downloaded earlier)
 
-
-   ## Load in data    
+```
+    ## Load in data    
     samples <- scan("samples.txt", what="character")
     
     ## Obtain a vector of all filenames including the path
@@ -130,6 +130,7 @@ The `tximport` package available on Bioconductor is currently too new and will n
     
     ## Since all quant files have the same name it is useful to have names for each element
     names(files) <-  samples
+ ```
     
 > **An alternative to this is having absolute paths instead of relative paths.** This would be useful so you can run this from anywhere in your filesystem.
 >
@@ -140,6 +141,7 @@ The `tximport` package available on Bioconductor is currently too new and will n
 >    `assignNames <- function(x){
   			strsplit(x, "/")[[1]][6]
 			}`
+> 
 >    `sapply(files, assignNames, USE.NAMES=F)`
 >
 
