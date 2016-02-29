@@ -217,6 +217,30 @@ Once all your jobs are completed, you can merge all the counts files using `past
 	# the final command
 	$ paste ../new_analysis/counts/*.txt | awk '{print $1"\t"$2"\t"$4"\t"$6"\t"$8"\t"$10"\t"$12"\t"$14"\t"$16}' > ../new_analysis/counts/all_counts.txt 		
 
+## Using R on a Unix system
+
+R is available on Orchestra, and you can do all of the things we did on our laptops on the cluster instead.
+
+	$ module load stats/R/3.2.1
+	
+	$ R
+
+As you can see R is available on Orchestra, but not the nice RStudio interface. You can quit R and get back to the `$` command prompt by typing `q()` and not saving the workspace image.
+	
+You can also run R scripts from the command prompt in Unix. These scripts are just like shell scripts, but with R code in them; we created a few last session. For running a script from the Unix command prompt, it will have to take into account the absolute or relative location of the files and folders that will be used. Also, your local environment will need to have all the packages installed and available. 
+
+You can run an R script from the Unix command prompt in one of the following ways:
+	
+	# for a script called mean.R, you can do one of the following (**do not run this now**)
+	
+	$ R < mean.R
+	
+	$ R CMD BATCH mean.R
+	
+	$ Rscript mean.R
+
+With Orchestra, it is best to talk with the folks at HMS RC about the best way to install R packages locally or figuring out which R packages are pre-installed. 
+
 ***
 
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
