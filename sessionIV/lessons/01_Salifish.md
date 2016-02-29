@@ -42,7 +42,7 @@ Sailfish is not available as a module on Orchestra, but it is installed as part 
     
     export PATH=/groups/bcbio/bcbio/anaconda/bin:/opt/bcbio/local/bin:$PATH
     
-As you can imagine from the above [schematic](http://www.nature.com/nbt/journal/v32/n5/full/nbt.2862.html), there are 2 steps when running the analysis too:
+As you can imagine from the above schematic, taken from [Patro, Mount, and Kingsford, 2014](http://www.nature.com/nbt/journal/v32/n5/full/nbt.2862.html), there are 2 steps when running the analysis too:
 
 a. "Index" the transcriptome (transcripts or genes) using the `index` command:
     
