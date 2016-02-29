@@ -225,7 +225,7 @@ R is available on Orchestra, and you can do all of the things we did on our lapt
 	
 	$ R
 
-As you can see R is available on Orchestra, but not the nice RStudio interface. You can quit R and get back to the `$` command prompt by typing `q()` and not saving the workspace image.
+As you can see, various versions of R are available on Orchestra, but there is no RStudio-like GUI. You can quit R and get back to the `$` command prompt by typing `q()`, no need to save the workspace image.
 	
 You can also run R scripts from the command prompt in Unix. These scripts are just like shell scripts, but with R code in them; we created a few last session. For running a script from the Unix command prompt, it will have to take into account the absolute or relative location of the files and folders that will be used. Also, your local environment will need to have all the packages installed and available. 
 
