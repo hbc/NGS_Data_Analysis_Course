@@ -103,7 +103,7 @@ The `tximport` package available on Bioconductor is currently too new and will n
     install.packages("devtools")
     library(devtools)   # required for installing any packages from github
     
-    # Istall from GitHub
+    # Install from GitHub
     install_github("mikelove/tximport")  
 	
     # Install from CRAN
@@ -138,6 +138,7 @@ The `tximport` package available on Bioconductor is currently too new and will n
 >  `files <- file.path(dir, samples, "quant.sf")`
 >     
 >   `## Create your own function`
+> 
 >    `assignNames <- function(x){
   			strsplit(x, "/")[[1]][6]
 			}`
