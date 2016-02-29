@@ -99,8 +99,6 @@ The `tximport` package available on Bioconductor is currently too new and will n
     
     install_github("mikelove/tximport")         # installing from github
 
-    source("DESeqDataFromTx.R") # required for using tximport output as input for DESeq2
-
     install.packages("readr")       # required to generate the output from tximport
 
     source("http://bioconductor.org/biocLite.R")
@@ -158,7 +156,7 @@ Our Sailfish index was generated with transcript sequences, but tximport needs t
 ### Using DESeq2 for DE analysis with pseudocounts
     
     library(DESeq2)
-    source('DESeqDataFromTx.R')
+    source('DESeqDataFromTx.R') # required for using tximport output as input for DESeq2
     
     sampleTable <- data.frame(condition=factor(c(rep("Ctl",3), rep("KD", 2), rep("OE", 3))))
     
