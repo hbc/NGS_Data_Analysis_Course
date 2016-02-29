@@ -33,7 +33,7 @@ First start an interactive session and create a new directory for our Sailfish a
     mkdir ~/ngs_course/rnaseq/sailfish
     cd ~/ngs_course/rnaseq/sailfish
     
-Sailfish is not available as a module on Orchestra, but it is installed as part of the bcbio pipeline. As such if we include the appropriate paths t our $PATH variable we can use it:
+Sailfish is not available as a module on Orchestra, but it is installed as part of the bcbio pipeline. As such, if we include the appropriate paths in our $PATH variable we can use it:
     
     export PATH=/groups/bcbio/bcbio/anaconda/bin:/opt/bcbio/local/bin:$PATH
     
