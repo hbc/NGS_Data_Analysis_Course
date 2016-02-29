@@ -122,7 +122,7 @@ The `tximport` package available on Bioconductor is currently too new and will n
     
     files <- file.path(dir, samples, "quant.sf")
     
-    names(files) <-  sapply(files, function(x){strsplit(x, "/")[[1]][5]}, USE.NAMES=F)
+    names(files) <-  sapply(files, function(x){strsplit(x, "/")[[1]][6]}, USE.NAMES=F)
 
 **Step 4.** Create a data frame containing Ensembl Transcript IDs and Gene symbols
 
