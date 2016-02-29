@@ -261,13 +261,18 @@ new <- data.frame(counts,GeneName)
 write.table(new, "results/new_counts.txt", sep="\t")
 
 
-##### Grch37
-mart37 = dataset="mmusculus_gene_ensembl",
-		useMart(biomart = "ENSEMBL_MART_ENSEMBL",
-			host = "grch37.ensembl.org")
-				path="/biomart/martservice"
-conversions = getBM(attributes=c("ensembl_gene_id", "hgnc_symbol", "gene_biotype"),
-mart=human)
+# Using an older genome build
+
+mart_mm9 = useMart(biomart = "ENSEMBL_MART_ENSEMBL",
+                dataset="mmusculus_gene_ensembl",
+                host = "may2012.archive.ensembl.org")
+                        path="/biomart/martservice"
+gene.names_mm9 <- getBM(filters= "ensembl_gene_id", 
+                    attributes= c("ensembl_gene_id", "external_gene_name"),
+                    values= row.names(counts),
+                    mart= mart)
+
+# human archive for GRCH37 genome build has dedicated site: host = "grch37.ensembl.org"
 ```
 
 ***
