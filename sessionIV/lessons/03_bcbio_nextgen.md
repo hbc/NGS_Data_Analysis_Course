@@ -84,12 +84,12 @@ Each line in the file corresponds to a sample, and each column has information a
 
 ```
 samplename,description,condition
-Irrel_kd_1.subset.fq,Irrel_kd_1,control
-Irrel_kd_2.subset.fq,Irrel_kd_2,control
-Irrel_kd_3.subset.fq,Irrel_kd_3,control
-Mov10_oe_1.subset.fq,Mov10_oe_1,overexpression
-Mov10_oe_2.subset.fq,Mov10_oe_2,overexpression
-Mov10_oe_3.subset.fq,Mov10_oe_3,overexpression
+Irrel_kd_1.subset.fq,Irrel_kd1,control
+Irrel_kd_2.subset.fq,Irrel_kd2,control
+Irrel_kd_3.subset.fq,Irrel_kd3,control
+Mov10_oe_1.subset.fq,Mov10_oe1,overexpression
+Mov10_oe_2.subset.fq,Mov10_oe2,overexpression
+Mov10_oe_3.subset.fq,Mov10_oe3,overexpression
 ```
 
 The final requirement is a **configuration template**, which will contain details on the analysis options. The template file is used in combination with the metadata file, and the FASTQ files to create a **config file** which is ultimately the input for `bcbio`.
@@ -193,7 +193,7 @@ bcbio_nextgen.py ../config/mov10_project.yaml -n 64 -t ipython -s lsf -q priorit
 
 ![bcbio-ouput](../img/bcbio-output.png)
 
-### Results directory 
+### Run summary
 
 The results of the run will be summarized for you in a new directory called `final` as specified in our config file. The directory will be located in your project directory:
 
@@ -204,12 +204,15 @@ mov10_project/
 └── final
 ```
 
-Inside the `final` directory you will find individual directories for each sample in your dataset, in addition to a date-stamped folder. The date-stamped folder will contain a run summary in YAML format. This file `project-summary.yaml` will describe various quality metrics for each sample. 
+Inside the `final` directory you will find individual directories for each sample in your dataset, in addition to a date-stamped folder. The date-stamped folder will contain a run summary called `project-summary` in both csv and YAML formats. The content of these files are similar as they both describe various quality metrics for each sample post-alignment. There is also a directory called summary in which an R markdown (.Rmd) file is located. This file is the same summary but in a graphical representation which can be turned into a report format. 
+
+### Log files
 
 
-Now let's take a look at the `work` folder. Here, you will find that there are many new directories and files. For each step of pipeline, new BSUB scripts were generated as were various intermediate files and directories. Since the important files were collated and placed in the `final` directory, the only other important directory is the `logs`. 
+Now let's take a look at the `work` folder. Here, you will find that there are many new directories and files. For each step of pipeline, new job submission scripts were generated as were various intermediate files and directories. 
+Since the important files were collated and placed in the `final` directory, the only other important directory is the `logs` and `provenance`. 
  
-There are three logging files in the log directory within your `logs` folder:
+Inside the `provenance` directory you will find a file called `programs.txt`. Here, are the programs and the corresponding versions that were used. There are three logging files in the log directory within your `logs` folder (two of which are also in your `final` directory):
 
 1. `bcbio-nextgen.log`: High level logging information about the analysis. This provides an overview of major processing steps and useful checkpoints for assessing run times.
 2. `bcbio-nextgen-debug.log`: Detailed information about processes including stdout/stderr from third party software and error traces for failures. Look here to identify the status of running pipelines or to debug errors. It labels each line with the hostname of the machine it ran on to ease debugging in distributed cluster environments.
