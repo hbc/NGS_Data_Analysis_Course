@@ -258,14 +258,14 @@ gene.names <- getBM(filters= "ensembl_gene_id",
 ens.id <- row.names(counts)
 GeneName <- gene.names[match(ens.id,gene.names$ensembl_gene_id),"external_gene_name"]
 new <- data.frame(counts,GeneName)
-write.table(new, "results/counts.txt", sep="\t")
+write.table(new, "results/new_counts.txt", sep="\t")
 
 
 ##### Grch37
-human = useMart(biomart = "ENSEMBL_MART_ENSEMBL",
-dataset="hsapiens_gene_ensembl",
-host = "grch37.ensembl.org")
-path="/biomart/martservice"
+mart37 = dataset="mmusculus_gene_ensembl",
+		useMart(biomart = "ENSEMBL_MART_ENSEMBL",
+			host = "grch37.ensembl.org")
+				path="/biomart/martservice"
 conversions = getBM(attributes=c("ensembl_gene_id", "hgnc_symbol", "gene_biotype"),
 mart=human)
 ```
