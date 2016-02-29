@@ -64,7 +64,7 @@ Let's run the quantification step on the `Mov10_oe_1.subset` sample:
 ``` 
     sailfish quant -i /groups/hbctraining/sailfish-run/sailfish.ensembl2.idx/ \
     -l SR \
-    -r ngs_course/rnaseq/data/untrimmed_fastq/Mov10_oe_1.subset.fq \
+    -r ~/ngs_course/rnaseq/data/untrimmed_fastq/Mov10_oe_1.subset.fq \
     --useVBOpt \
     -o Mov10_oe_1.subset.sailfish
 ```
