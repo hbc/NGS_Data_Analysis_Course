@@ -184,8 +184,7 @@ The job can take on the range of hours to days depending on the size of your dat
 #BUSB -R “rusage[mem=10000]”
 #BSUB -e mov10_project.err
 
-bcbio_nextgen.py ../config/mov10_project.yaml -n 64 -t ipython -s lsf -q priority '-rW=72:00' --retries 3 \
---timeout 380
+bcbio_nextgen.py ../config/mov10_project.yaml -n 64 -t ipython -s lsf -q priority '-rW=72:00' --retries 3 --timeout 380
 ```
 
 
@@ -194,11 +193,23 @@ bcbio_nextgen.py ../config/mov10_project.yaml -n 64 -t ipython -s lsf -q priorit
 
 ![bcbio-ouput](../img/bcbio-output.png)
 
+### Results directory 
+
+The results of the run will be summarized for you in a new directory called `final` as specified in our config file. The directory will be located in your project directory:
+
+```
+mov10_project/
+├── config
+├── work
+└── final
+```
+
+Inside the `final` directory you will find individual directories for each sample in your dataset, in addition to a date-stamped folder. The date-stamped folder will contain a run summary in YAML format. This file `project-summary.yaml` will describe various quality metrics for each sample. 
 
 
-
-
-There are three logging files in the log directory within your working folder:
+Now let's take a look at the `work` folder. Here, you will find that there are many new directories and files. For each step of pipeline, new BSUB scripts were generated as were various intermediate files and directories. Since the important files were collated and placed in the `final` directory, the only other important directory is the `logs`. 
+ 
+There are three logging files in the log directory within your `logs` folder:
 
 1. `bcbio-nextgen.log`: High level logging information about the analysis. This provides an overview of major processing steps and useful checkpoints for assessing run times.
 2. `bcbio-nextgen-debug.log`: Detailed information about processes including stdout/stderr from third party software and error traces for failures. Look here to identify the status of running pipelines or to debug errors. It labels each line with the hostname of the machine it ran on to ease debugging in distributed cluster environments.
