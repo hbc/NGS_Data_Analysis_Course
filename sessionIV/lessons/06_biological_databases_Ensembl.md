@@ -218,13 +218,17 @@ Now load the library:
 library("biomaRt")
 ```
 
+Connect to a BioMart database:
 ```
 # To connect to a BioMart database - useMart()
 listMarts(host =  'www.ensembl.org')
 
 ensembl <- useMart('ENSEMBL_MART_ENSEMBL', 
                 host =  'www.ensembl.org')
+```
 
+Choose a dataset to query:
+```
 # To query the chosen BioMart database for a specific species - useDataset()
 datasets <- listDatasets(ensembl)
 View(datasets)
@@ -232,7 +236,10 @@ View(datasets)
 mart<- useDataset("mmusculus_gene_ensembl", 
                   useMart('ENSEMBL_MART_ENSEMBL', 
                           host =  'www.ensembl.org'))
+```
 
+Build a query using attributes, filters, and values:
+```
 # To build a query - getBM(filters, attributes, values)
 
 ## "Attributes" is a vector of attributes for the output we want to generate
@@ -244,7 +251,9 @@ filters <- listFilters(mart)
 View(filters)
 
 ## "Values" is a vector of values for the filter
-
+```
+Use BioMart to return gene names for a list of Ensembl IDs:
+```
 # Use BioMart to return gene names for a list of Ensembl IDs
 mart<- useDataset("mmusculus_gene_ensembl", 
                   useMart('ENSEMBL_MART_ENSEMBL', 
@@ -259,8 +268,11 @@ ens.id <- row.names(counts)
 GeneName <- gene.names[match(ens.id,gene.names$ensembl_gene_id),"external_gene_name"]
 new <- data.frame(counts,GeneName)
 write.table(new, "results/new_counts.txt", sep="\t")
+```
+What if you are using an older genome? 
 
-
+Check the archived BioMart sites to determine the archived database desired. For example, the previous genome builds:
+```
 # Using an older genome build
 
 mart_mm9 <- useDataset("mmusculus_gene_ensembl",
