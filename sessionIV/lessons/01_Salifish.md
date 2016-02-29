@@ -180,10 +180,11 @@ Our Sailfish index was generated with transcript sequences, but tximport needs t
     library(DESeq2)
     source('DESeqDataFromTx.R') # required for using tximport output as input for DESeq2
     
-    sampleTable <- data.frame(condition=factor(c(rep("Ctl",3), rep("KD", 2), rep("OE", 3))))
+    ## Create a sampletable/metadata
+    condition=factor(c(rep("Ctl",3), rep("KD", 2), rep("OE", 3)))
+    sampleTable <- data.frame(condition, row.names = colnames(txi$counts))
     
-    rownames(sampleTable) <- colnames(txi$counts)
-    
+    ## Create a DESeqDataSet object
     dds <- DESeqDataSetFromTximport(txi, sampleTable, ~ condition)
     
 Now you have created a DESeq object to proceed with DE analysis as we discussed in the last session!
