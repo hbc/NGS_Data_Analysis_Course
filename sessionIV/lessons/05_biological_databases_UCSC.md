@@ -1,29 +1,27 @@
 ---
 title: "Biological Databases: NCBI"
-author: "Mary Piper"
+author: "Radhika Khetani"
 date: "Wednesday, October 7, 2015"
 ---
-
-Contributors: Meeta Mistry
 
 Approximate time: 30 minutes
 
 ## Learning Objectives
 
-* learn how to use features of the NCBI database and genome browser to access information and data during an NGS analysis
+* learn how to use features of the UCSC database and genome browser to access information and data during an NGS analysis
 
-## Intro to NCBI
+## Intro to UCSC
 
 The [National Center for Biotechnology Information (NCBI)](http://www.ncbi.nlm.nih.gov/) is part of the United States National Library of Medicine (NLM), a branch of the National Institutes of Health. The NCBI is located in Bethesda, Maryland and was founded in 1988 through legislation sponsored by Senator Claude Pepper.
 
-<img src="../img/ncbi_screenshot.png" width="400">
+<img src="../img/UCSCintro.png" width="400">
 
 The website acts as a portal to a vast amount of biological information. There a number of databases and analysis available at your fingertips which allow you to explore your biological question. You can browse data, submit, download and even analyze data.
 
 NCBI is most popular for its PubMed resource for searching the biological literature and BLAST for sequence similarity searching (shown in the 'Popular Resources' panel on the right). However, the functionality of NCBI goes far beyond those tools. 
 
 
-### Searching NCBI
+### The UCSC Genome Browser
 
 Resources on the left panel and on the top bar
 How-to on the top bar (all the information on anything you need)
@@ -32,17 +30,7 @@ Search box with pull-down menu of available databases. Keep it on default of ‘
 Let’s look for human gene NRG1 Enter NRG1 into the search box and press ENTER
 
 
-### Building a search using filters
-Lots of hits!
-Narrow it down to genes -> click on Gene. 396 entries - still alot!
-Hint box: Did you mean Gene Symbol? YES! Click to activate filter. Now we are down to 127. 
-Filters on left Panel; activate ‘Annotated Genes’ as an example. Turn off
-Right panel more Filters for Organism. Choose Human
-Look at how search query was ‘built’ NCBI. Reconstruct it
-Introduce the components of Gene card (Display settings, TOC, Genomic regions: change assembly)
-
-
-### Downloading data from NCBI
+### The UCSC Table Browser (how to download data from UCSC)
 
 There are many ways to download data, depending on where you are in NCBI. On the main page, there is an icon which will direct you to the FTP site, and you can search the folders to find what is appropriate.
 
