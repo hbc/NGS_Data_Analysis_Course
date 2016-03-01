@@ -16,7 +16,7 @@ Approximate time: 30 minutes
 
 The [National Center for Biotechnology Information (NCBI)](http://www.ncbi.nlm.nih.gov/) is part of the United States National Library of Medicine (NLM), a branch of the National Institutes of Health. The NCBI is located in Bethesda, Maryland and was founded in 1988 through legislation sponsored by Senator Claude Pepper.
 
-<img src="../img/ncbi_screenshot.png" width="400">
+<img src="../img/ncbi_screenshot.png" width="800">
 
 The website acts as a portal to a vast amount of biological information. There a number of databases and analysis available at your fingertips which allow you to explore your biological question. You can browse data, submit, download and even analyze data.
 
@@ -25,7 +25,7 @@ NCBI is most popular for its PubMed resource for searching the biological litera
 
 ### Searching NCBI
 
-Resources on the left panel and on the top bar
+<SCREENSHOT> Resources on the left panel and on the top bar
 How-to on the top bar (all the information on anything you need)
 Popular resources on the right panel
 Search box with pull-down menu of available databases. Keep it on default of ‘All databases’
