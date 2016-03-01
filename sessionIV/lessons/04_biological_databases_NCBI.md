@@ -64,7 +64,9 @@ Take a look at the gene record for Mov10. There is a Table of Contents  on the l
  		
  <img src="../img/gene-card.png", width="500">		
  		
-There is also a Mapview of the gene embedded into the card, this is NCBI's genome browser. It is very complicated to interpret, but if you want to take a stab at it this [graphical view legend](http://www.ncbi.nlm.nih.gov/tools/sviewer/legends/) is very helpful. 		
+There is also a **Mapview** of the gene embedded into the card, this is NCBI's **genome browser**. It is very complicated to interpret, but if you want to take a stab at it this [graphical view legend](http://www.ncbi.nlm.nih.gov/tools/sviewer/legends/) is very helpful. 	
+
+<img src="../img/mapview.png", width="500">	
  		
  		
 ### Downloading data from NCBI		
