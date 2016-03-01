@@ -29,9 +29,6 @@ NCBI is most popular for its PubMed resource for searching the biological litera
 
 There are many ways of performing a search in NCBI. You can simply type in a gene/gene product or keyword into the search box and search all databases for a hit, and then drill down to a more specific result from there. Alternatively, you can narrow down your search from the start the start.
 
-
-### Building a search using filters
-
 Let's start with just a simple gene search using the search box and selecting all databases.
 
 > Type in Mov10 to the search box and press 'Enter`.
@@ -52,9 +49,16 @@ On the right hand-side you should see how your search was "built" in the 'search
 
 	Mov10[sym] AND (gene_nucleotide_pos[filter] AND alive[prop])
 
+
+### Building a search using filters
+
 Rather than using the graphical user interface to filter, we can also build a search from scratch:
 
 <img src="../img/search_builder.png" width="600">
+
+Some tips on how to construct your query:
+
+<img src="../img/query-tips.png" width="800">
 
 > Try building the same search using filters, or select it from your history.
 
