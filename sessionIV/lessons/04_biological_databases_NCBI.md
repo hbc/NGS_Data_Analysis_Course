@@ -46,13 +46,23 @@ There are still ~1000 genes returned. Take a look at the hint box at the top of 
 
 Since this applies to us, we can click on the link and reduce our results further.
 
-> Take a look at the two side panels and other filters that are available to you. Activate one or two and see how it changes your results.
+> Take a look at the left-hand panel and other filters that are available to you. Activate one or two and see how it changes your results. 
 
+On the right hand-side you should see how your search was "built" in the 'search details' box.
 
-Filters on left Panel; activate ‘Annotated Genes’ as an example. Turn off
-Right panel more Filters for Organism. Choose Human
-Look at how search query was ‘built’ NCBI. Reconstruct it
-Introduce the components of Gene card (Display settings, TOC, Genomic regions: change assembly)
+	Mov10[sym] AND (gene_nucleotide_pos[filter] AND alive[prop])
+
+Rather than using the graphical user interface to filter, we can also build a search from scratch:
+
+<img src="../img/search_builder.png" width="600">
+
+> Try building the same search using filters, or select it from your history.
+
+Take a look at the gene record for Mov10. There is a Table of Contents  on the left to help navigate through the wealth of information.
+
+<img src="../img/gene-card.png", width="500">
+
+There is also Mapview of the gene incorporated into the card, this is NCBI's genom browser. It is very complicated to interpret, but if you want to take a stab at it, this [graphical view legend](http://www.ncbi.nlm.nih.gov/tools/sviewer/legends/) is very helpful. 
 
 
 ### Downloading data from NCBI
