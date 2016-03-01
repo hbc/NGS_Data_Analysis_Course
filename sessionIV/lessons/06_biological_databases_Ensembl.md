@@ -271,7 +271,9 @@ write.table(new, "results/new_counts.txt", sep="\t")
 ```
 What if you are using an older genome? 
 
-Check the archived BioMart sites to determine the archived database desired. For example, the previous genome builds:
+Check the archived BioMart sites to determine the archived database desired. 
+
+If we want to use the archived databases in R, we need to change our query a bit:
 ```
 # Using an older genome build
 
