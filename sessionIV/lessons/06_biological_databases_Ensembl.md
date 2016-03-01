@@ -195,7 +195,7 @@ Let's explore BioMart functionality in R using a counts dataset with Ensembl IDs
 
 Let's open RStudio and create a new R project named `biomart` on our Desktop. Ensure you are in the correct working directory, then create three folders: `data`, `meta`, and `results`. Finally, create a new script and save as `biomart.R`.
 
-Click on the link to the [counts file]() and save it to your `data` folder.
+Click on the link to the [counts file](https://raw.githubusercontent.com/hbc/NGS_Data_Analysis_Course/master/sessionIV/results/counts.txt) and save it to your `data` folder.
 
 Read in the counts file:
 
