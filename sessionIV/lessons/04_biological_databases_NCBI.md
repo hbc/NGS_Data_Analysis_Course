@@ -16,18 +16,19 @@ Approximate time: 30 minutes
 
 The [National Center for Biotechnology Information (NCBI)](http://www.ncbi.nlm.nih.gov/) is part of the United States National Library of Medicine (NLM), a branch of the National Institutes of Health. The NCBI is located in Bethesda, Maryland and was founded in 1988.
 
+The website acts as a portal to a vast amount of biological information. There a number of databases and analysis available at your fingertips which allow you to explore your biological question. You can browse data, submit data, download data and even analyze data.
+
 <img src="../img/ncbi_screenshot.png" width="800">
 
-The website acts as a portal to a vast amount of biological information. There a number of databases and analysis available at your fingertips which allow you to explore your biological question. You can browse data, submit data, download data and even analyze data.
 
 NCBI is most popular for its PubMed resource for searching the biological literature and BLAST for sequence similarity searching (shown in the 'Popular Resources' panel on the right). However, the functionality of NCBI goes far beyond those tools. 
 
 
 ### Searching NCBI
 
-<img src="../img/ncbi_screenshot3.png" width="400">
+<img src="../img/ncbi_screenshot3.png" width="800">
 
-There are many ways of performing a search in NCBI. You can simply type in a gene/gene product or keyword into the search box and search all databases for a hit, and then drill down to a more specific result from there. Alternatively, you can narrow down your search from the start the start.
+There are many ways of performing a search in NCBI. You can simply type in a gene or keyword into the search box and search all databases for a hit, and then drill down to a more specific result from there. Alternatively, you can narrow down your search from the start.
 
 
 ### Building a search using filters
@@ -36,7 +37,7 @@ Let's start with just a simple gene search using the search box and selecting al
 
 > Type in Mov10 to the search box and press 'Enter`.
 
-You should find there are may hits returned. MOv10 appears in 27 different databases. We can narrow this search down if we were interested only in gene information.
+You should find that there are many hits returned. Mov10 appears in 27 different databases. We can narrow this search down if we were interested only in gene-level information.
 
 > Click on Gene within the Genes section of the results. How many entries are we now reduced to?
 
@@ -58,11 +59,11 @@ Rather than using the graphical user interface to filter, we can also build a se
 
 > Try building the same search using filters, or select it from your history.
 
-Take a look at the gene record for Mov10. There is a Table of Contents  on the left to help navigate through the wealth of information.
+Take a look at the gene record for Mov10. There is a Table of Contents on the left to help navigate through the wealth of information.
 
 <img src="../img/gene-card.png", width="500">
 
-There is also Mapview of the gene incorporated into the card, this is NCBI's genom browser. It is very complicated to interpret, but if you want to take a stab at it, this [graphical view legend](http://www.ncbi.nlm.nih.gov/tools/sviewer/legends/) is very helpful. 
+There is also a mini Mapviewer of the gene embedded into the card, this is NCBI's genome browser. It is very complicated to interpret, but if you want to take a stab at it, this [graphical view legend](http://www.ncbi.nlm.nih.gov/tools/sviewer/legends/) is very helpful. 
 
 
 ### Downloading data from NCBI
