@@ -53,6 +53,9 @@ Open up your `.bashrc` using `vim` and add in the following:
 
 	# Environment variables for running bcbio
 	export PATH=/opt/bcbio/centos/bin:$PATH
+	
+	unset PYTHONHOME
+	unset PYTHONPATH
 
  
 Close and save the file. Finally, let's set up the project structure. Change directories into `~/ngs_course/rnaseq` and make a directory called `bcbio-rnaseq`:
