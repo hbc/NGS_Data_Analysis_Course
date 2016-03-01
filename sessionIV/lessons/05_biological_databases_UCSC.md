@@ -3,7 +3,7 @@ title: "Biological Databases: NCBI"
 author: "Radhika Khetani"
 date: "Wednesday, October 7, 2015"
 ---
-
+Contributors: Mary Piper, Meeta Mistry
 Approximate time: 30 minutes
 
 ## Learning Objectives
@@ -12,41 +12,38 @@ Approximate time: 30 minutes
 
 ## Intro to UCSC
 
-The [National Center for Biotechnology Information (NCBI)](http://www.ncbi.nlm.nih.gov/) is part of the United States National Library of Medicine (NLM), a branch of the National Institutes of Health. The NCBI is located in Bethesda, Maryland and was founded in 1988 through legislation sponsored by Senator Claude Pepper.
+The [UCSC Genome Bioinformatics](https://genome.ucsc.edu/) site hosts a very popuar genome browser and wealth of information available for download. In addition, they have developed several tools and a few special formats for data representation, that have made analysis and visualization more flexible.
 
-<img src="../img/UCSCintro.png" width="400">
+<img src="../img/UCSCintro.png" width="700">
 
-The website acts as a portal to a vast amount of biological information. There a number of databases and analysis available at your fingertips which allow you to explore your biological question. You can browse data, submit, download and even analyze data.
+This website, like NCBI and Ensembl, acts as a portal to a vast amount of biological information. And similar to the others, there is a large amount of public data available for visualization and download. It also offers several tools for analysis.
 
-NCBI is most popular for its PubMed resource for searching the biological literature and BLAST for sequence similarity searching (shown in the 'Popular Resources' panel on the right). However, the functionality of NCBI goes far beyond those tools. 
-
+UCSC is most popular for its genome browser, but the functionality of UCSC goes far beyond those tools. Arguably, it is not the best visualization tool. However, the so-called "table browser" provides access to a lot of information, customizable information, at your fingertips.
 
 ### The UCSC Genome Browser
 
-Resources on the left panel and on the top bar
-How-to on the top bar (all the information on anything you need)
-Popular resources on the right panel
-Search box with pull-down menu of available databases. Keep it on default of ‘All databases’
-Let’s look for human gene NRG1 Enter NRG1 into the search box and press ENTER
+<img src="../img/UCSCbrowser.png" width="700">
 
+CFTR
+remove all
+add back common SNPs 144, conservation and repeats
+Click on gene, SNP on genome browser
 
 ### The UCSC Table Browser (how to download data from UCSC)
 
-There are many ways to download data, depending on where you are in NCBI. On the main page, there is an icon which will direct you to the FTP site, and you can search the folders to find what is appropriate.
+<img src="../img/UCSCtable.png" width="700">
 
-<img src="../img/ncbi_download.png" width="200">
+variation, Common SNPS 144, snp144Common, CFTR (lookup), bed
 
-Alternatively, on the left-hand panel of the main screen, there are resources listed by category. This allows you easily navigate to what is relevant. 
+Genes and Gene Predictions, refseq, refGene, CFTR (lookup), sequence, mrna
 
-1. Click on the "Resources List (A-Z)", and you should see resources listed alphabetically.
+Genes and Gene Predictions, refseq, refGene, CFTR (lookup), sequence, genome
 
-<img src="../img/az-ncbi.png" width="400">
+### Final words
 
-2. Scroll down to the "F" section and you will see a list of links to FTP sites for each of the different biological data types that are available for download. 
+The UCSC genome bioinformatics site has a limited number of species that it stores information for, as compared to NCBI and Ensembl. However, the information that it does store, including help for file formats and tools, is really in-depth and they make a great effort to make it accessible.
 
-<img src="../img/ftp_ncbi.png" width="200">
-
-The most common use for genomic data is the genome data, as you have already encountered in this course. But other data types can also be useful for studies that involve data integration. 
+> The Countway library routinely holds short courses for the UCSC genome browsers, if you are interested in learning more.
 
 
 ***
