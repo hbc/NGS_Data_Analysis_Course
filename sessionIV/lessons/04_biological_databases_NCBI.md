@@ -50,18 +50,19 @@ On the right handside you should see how your search was "built" in the 'search 
  		
 ### Building a search using filters			
 Rather than using the graphical user interface to filter, we can also build a search from scratch:		
+
+<img src="../img/search_builder.png" width="600">
+ 				
  		
-<img src="../img/search_builder.png" width="600">		
- 		
-Some tips on how to construct your query:		
- 		
-<img src="../img/querytips.png" width="800">		
+Some tips on how to construct your query:	
+<img src="../img/query-tips.png" width="800">	
+ 			
  		
 > Try building the same search using filters, or select it from your history.		
  		
- Take a look at the gene record for Mov10. There is a Table of Contents  on the left to help navigate through the wealth of information.		
+Take a look at the gene record for Mov10. There is a Table of Contents  on the left to help navigate through the wealth of information.		
  		
- <img src="../img/genecard.png", width="500">		
+ <img src="../img/gene-card.png", width="500">		
  		
 There is also a Mapview of the gene embedded into the card, this is NCBI's genome browser. It is very complicated to interpret, but if you want to take a stab at it this [graphical view legend](http://www.ncbi.nlm.nih.gov/tools/sviewer/legends/) is very helpful. 		
  		
@@ -76,7 +77,7 @@ Alternatively, on the lefthand panel of the main screen, there are resources lis
  		
  1. Click on the "Resources List (AZ)", and you should see resources listed alphabetically.		
  		
- <img src="../img/azncbi.png" width="400">		
+ <img src="../img/az-ncbi.png" width="400">		
  		
  2. Scroll down to the "F" section and you will see a list of links to FTP sites for each of the different biological data types that are available for download. 		
  		
