@@ -6,7 +6,7 @@ date: "Friday, February 26, 2016"
 
 Contributors: Mary Piper
 
-Approximate time: 3 hours
+Approximate time: 1.5 hours
 
 ## Learning Objectives
 
