@@ -1,64 +1,51 @@
 ---
 title: "Biological Databases: NCBI"
-author: "Mary Piper"
+author: "Radhika Khetani"
 date: "Wednesday, October 7, 2015"
 ---
-
-Contributors: Meeta Mistry
-
+Contributors: Mary Piper, Meeta Mistry
 Approximate time: 30 minutes
 
 ## Learning Objectives
 
-* learn how to use features of the NCBI database and genome browser to access information and data during an NGS analysis
+* learn how to use features of the UCSC database and genome browser to access information and data during an NGS analysis
 
-## Intro to NCBI
+## Intro to UCSC
 
-The [National Center for Biotechnology Information (NCBI)](http://www.ncbi.nlm.nih.gov/) is part of the United States National Library of Medicine (NLM), a branch of the National Institutes of Health. The NCBI is located in Bethesda, Maryland and was founded in 1988 through legislation sponsored by Senator Claude Pepper.
+The [UCSC Genome Bioinformatics](https://genome.ucsc.edu/) site hosts a very popuar genome browser and wealth of information available for download. In addition, they have developed several tools and a few special formats for data representation, that have made analysis and visualization more flexible.
 
-<img src="../img/ncbi_screenshot.png" width="400">
+<img src="../img/UCSCintro.png" width="900">
 
-The website acts as a portal to a vast amount of biological information. There a number of databases and analysis available at your fingertips which allow you to explore your biological question. You can browse data, submit, download and even analyze data.
+This website, like NCBI and Ensembl, acts as a portal to a vast amount of biological information. And similar to the others, there is a large amount of public data available for visualization and download. It also offers several tools for analysis.
 
-NCBI is most popular for its PubMed resource for searching the biological literature and BLAST for sequence similarity searching (shown in the 'Popular Resources' panel on the right). However, the functionality of NCBI goes far beyond those tools. 
+UCSC is most popular for its genome browser, but the functionality of UCSC goes far beyond those tools. Arguably, it is not the best visualization tool. However, the so-called "table browser" provides access to a lot of information, customizable information, at your fingertips.
 
+### The UCSC Genome Browser
 
-### Searching NCBI
+<img src="../img/UCSCbrowser.png" width="700">
 
-Resources on the left panel and on the top bar
-How-to on the top bar (all the information on anything you need)
-Popular resources on the right panel
-Search box with pull-down menu of available databases. Keep it on default of ‘All databases’
-Let’s look for human gene NRG1 Enter NRG1 into the search box and press ENTER
+#### Activity
+* Look for the gene "CFTR"
+* Remove all tracks except scale and RefSeq genes
+* Using the menu below the visualization, add back Common SNPs 144, Conservation and Repeatmasker tracks
+* Click on the gene, what do you see?
+* Come back to the browser and click on a SNP
 
+### The UCSC Table Browser (how to download data from UCSC)
 
-### Building a search using filters
-Lots of hits!
-Narrow it down to genes -> click on Gene. 396 entries - still alot!
-Hint box: Did you mean Gene Symbol? YES! Click to activate filter. Now we are down to 127. 
-Filters on left Panel; activate ‘Annotated Genes’ as an example. Turn off
-Right panel more Filters for Organism. Choose Human
-Look at how search query was ‘built’ NCBI. Reconstruct it
-Introduce the components of Gene card (Display settings, TOC, Genomic regions: change assembly)
+<img src="../img/UCSCtable.png" width="700">
 
+#### Activity
+* Look at a bed format representation of the SNPs we were just looking at in the genome browser
+* Download the bed file above
+* Download the sequence of the CFTR gene
+* Download the sequence of the genomic area in which the CFTR gene exists
 
-### Downloading data from NCBI
+### Final words
 
-There are many ways to download data, depending on where you are in NCBI. On the main page, there is an icon which will direct you to the FTP site, and you can search the folders to find what is appropriate.
+The UCSC genome bioinformatics site has a limited number of species that it stores information for, as compared to NCBI and Ensembl. However, the information that it does store, including help for file formats and tools, is really in-depth and they make a great effort to make it accessible.
 
-<img src="../img/ncbi_download.png" width="200">
-
-Alternatively, on the left-hand panel of the main screen, there are resources listed by category. This allows you easily navigate to what is relevant. 
-
-1. Click on the "Resources List (A-Z)", and you should see resources listed alphabetically.
-
-<img src="../img/az-ncbi.png" width="400">
-
-2. Scroll down to the "F" section and you will see a list of links to FTP sites for each of the different biological data types that are available for download. 
-
-<img src="../img/ftp_ncbi.png" width="200">
-
-The most common use for genomic data is the genome data, as you have already encountered in this course. But other data types can also be useful for studies that involve data integration. 
+> The Countway library routinely holds short courses for the UCSC genome browsers, if you are interested in learning more.
 
 
 ***

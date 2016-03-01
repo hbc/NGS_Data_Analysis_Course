@@ -6,7 +6,7 @@ date: "Friday, February 26, 2016"
 
 Contributors: Mary Piper
 
-Approximate time: 3 hours
+Approximate time: 1.5 hours
 
 ## Learning Objectives
 
@@ -18,17 +18,17 @@ Approximate time: 3 hours
 ### The Ensembl Project
 ![ensembl_logo](../img/e_bang.png)
 
-The [Ensembl](http://useast.ensembl.org/index.html) genome annotation system, developed jointly by the EBI and the Wellcome Trust Sanger Institute, has been used for the annotation, analysis and display of vertebrate genomes since 2000. All data are open source, i.e. freely available to the scientific community and are updated every 2-3 months.
+The Ensembl genome annotation system, developed jointly by the EBI and the Wellcome Trust Sanger Institute, has been used for the annotation, analysis and display of vertebrate genomes since 2000. All data are open source, i.e. freely available to the scientific community and are updated every 2-3 months.
 
-Since 2009, the Ensembl site has been complemented by the [Ensembl genomes](http://ensemblgenomes.org) sites for [bacteria](http://ensemblgenomes.org/info/genomes?division=1), [protists](http://ensemblgenomes.org/info/genomes?division=5), [fungi](http://ensemblgenomes.org/info/genomes?division=3), [plants](http://ensemblgenomes.org/info/genomes?division=4) and [invertebrate metazoa](http://ensemblgenomes.org/info/genomes?division=2), enabling users to use a single collection of interfaces for accessing and comparing genome-scale data from species across the taxonomy. _**NOTE:** no annotations available through Ensembl for viral genomes._
+Since 2009, the [Ensembl](http://useast.ensembl.org/index.html) site has been complemented by the [Ensembl genomes](http://ensemblgenomes.org) sites for [bacteria](http://ensemblgenomes.org/info/genomes?division=1), [protists](http://ensemblgenomes.org/info/genomes?division=5), [fungi](http://ensemblgenomes.org/info/genomes?division=3), [plants](http://ensemblgenomes.org/info/genomes?division=4) and [invertebrate metazoa](http://ensemblgenomes.org/info/genomes?division=2), enabling users to use a single collection of interfaces for accessing and comparing genome-scale data from species across the taxonomy. _**NOTE:** no annotations available through Ensembl for viral genomes._
 
 ### Ensembl species and annotations
-In the current release of Ensembl (83), over 80 vertebrate species are supported, with over half of these species being mammals [[1](http://nar.oxfordjournals.org/content/early/2015/12/19/nar.gkv1157.full.pdf)]. The dataset also includes the invertebrates yeast, *C. elegans*, and fruitfly to aid in more accurate generation of phylogenetic gene trees. *(Current species statistics for the  non-vertebrate databases are also [available](http://nar.oxfordjournals.org/content/44/D1/D574.full)).*
+In the current release of the main Ensembl site (83), over 80 vertebrate species are supported, with over half of these species being mammals [[1](http://nar.oxfordjournals.org/content/early/2015/12/19/nar.gkv1157.full.pdf)]. The dataset also includes the invertebrates yeast, *C. elegans*, and fruitfly to aid in more accurate generation of phylogenetic gene trees. *(Current species statistics for the  non-vertebrate databases are also [available](http://nar.oxfordjournals.org/content/44/D1/D574.full)).*
 
 **All supported species have comprehensive, evidence-based gene annotations.** The "Gencode gene set" is used to create the Ensembl annotations and is made up of:
 
 - Ensembl (automatically) annotated genes (using mRNA and protein sequences from UniProtKB and NCBI RefSeq) 
-- Havana (manually) annotated genes
+- Havana (manually) annotated genes (human, mouse, zebrafish, rat and pig)
 - Ensembl/Havana merges: transcripts that were identically annotated by both (reviewed annotations)
 
 Gencode is the default gene set used by ENCODE, 1000 genomes and other major projects. 
@@ -148,7 +148,7 @@ Click the checkmark in the upper right-hand corner of the page when finished wit
 
 While Ensembl contains extensive genomic information, we often want to mine the data to export a custom dataset or we would like to use our own data. Ensembl offers a selection of tools to process your own data and to access and mine Ensembl data.
 
-8. Click on `Tools` in the top menu bar. Tools are available for analyzing your own variant data, searching the Ensembl genomes your DNA or protein sequence, and converting your data's coordinates or Ensembl IDs to a current version. 
+8. Click on `Tools` in the top menu bar. Tools are available for analyzing your own variant data, searching the Ensembl genomes for your DNA or protein sequence, and converting your data's coordinates or Ensembl IDs to a current version. 
 	
 	BioMart is an extremely useful tool used for data-mining Ensembl's database to return your own custom datasets. Let's explore this tool in more depth.
 
@@ -169,7 +169,7 @@ The BioMart tool for data mining the Ensembl database is easy to use and require
 
 ![biomart_homepage](../img/biomart_query.png)
 
-1. Let's use BioMart to information on genomic location and transcript count for the gene list we created in our previous homework, [sigOE_hw.txt](). Download this dataset by clicking on the link if you do not already have it on your computer.
+1. Let's use BioMart to information on genomic location and transcript count for the gene list we created in our previous homework, [sigOE_hw.txt](https://raw.githubusercontent.com/hbc/NGS_Data_Analysis_Course/master/sessionIV/results/sigOE_hw.txt). Download this dataset by clicking on the link if you do not already have it on your computer.
 2. Click on `Dataset` and choose the database `Ensembl Genes 83` and `Homo sapiens genes(GRCh38.p5)`. 
 _**NOTE:** if we wanted to use an older version of BioMart, we could click on the lower right-hand link to `View in archive site`._
 3. Click on `Filters`. Expand `GENE` and click on the box next to `Input external references ID list`. Choose `HGNC symbol(s)` from the drop-down menu.
@@ -183,19 +183,19 @@ _**NOTE:** if we wanted to use an older version of BioMart, we could click on th
 	- Gene Start (bp)
 	- Gene End (bp)
 	- Strand
+	- Associated Gene Name
 	- Transcript count
-7. Collapse `GENE` and expand `EXTERNAL`. Choose `HGNC Symbol`.
-8. Click on `Results` button in the upper left-hand corner. Save output to a comma-separated value (CSV) file.
-9. In the HTML table, click on the link for `MOV10` to take you to the Ensembl gene page.
+7. Click on `Results` button in the upper left-hand corner. Save output to a comma-separated value (CSV) file.
+8. In the HTML table, click on the link for `MOV10` to take you to the Ensembl gene page.
 
 #### biomaRt R package
 When you are performing an NGS analysis, you often find a need to access BioMart, for example, to find genomic locations, convert gene IDs, or filter sequences from your data. Luckily for us, there is an R package for BioMart, called `biomaRt`, which allows us to perform BioMart queries from R.
 
-Let's explore BioMart functionality in R using a counts dataset with Ensembl IDs as row names. We would like to convert the Ensembl IDs to HGNC symbols. We can use `biomaRt` package to perform this conversion easily within R.
+Let's explore BioMart functionality in R using a counts dataset with Ensembl IDs as row names. We would like to convert the Ensembl IDs to gene names. We can use `biomaRt` package to perform this conversion easily within R.
 
 Let's open RStudio and create a new R project named `biomart` on our Desktop. Ensure you are in the correct working directory, then create three folders: `data`, `meta`, and `results`. Finally, create a new script and save as `biomart.R`.
 
-Click on the link to the counts file and save it to your `data` folder.
+Click on the link to the [counts file](https://raw.githubusercontent.com/hbc/NGS_Data_Analysis_Course/master/sessionIV/results/counts.txt) and save it to your `data` folder.
 
 Read in the counts file:
 
@@ -255,7 +255,7 @@ View(filters)
 Use BioMart to return gene names for a list of Ensembl IDs:
 ```
 # Use BioMart to return gene names for a list of Ensembl IDs
-mart<- useDataset("mmusculus_gene_ensembl", 
+mart <- useDataset("mmusculus_gene_ensembl", 
                   useMart('ENSEMBL_MART_ENSEMBL', 
                           host =  'www.ensembl.org'))
 
@@ -271,7 +271,9 @@ write.table(new, "results/new_counts.txt", sep="\t")
 ```
 What if you are using an older genome? 
 
-Check the archived BioMart sites to determine the archived database desired. For example, the previous genome builds:
+Check the archived BioMart sites to determine the archived database desired. 
+
+If we want to use the archived databases in R, we need to change our query a bit:
 ```
 # Using an older genome build
 
