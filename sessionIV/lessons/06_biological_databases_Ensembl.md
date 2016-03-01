@@ -28,7 +28,7 @@ In the current release of the main Ensembl site (83), over 80 vertebrate species
 **All supported species have comprehensive, evidence-based gene annotations.** The "Gencode gene set" is used to create the Ensembl annotations and is made up of:
 
 - Ensembl (automatically) annotated genes (using mRNA and protein sequences from UniProtKB and NCBI RefSeq) 
-- Havana (manually) annotated genes
+- Havana (manually) annotated genes (human, mouse, zebrafish, rat and pig)
 - Ensembl/Havana merges: transcripts that were identically annotated by both (reviewed annotations)
 
 Gencode is the default gene set used by ENCODE, 1000 genomes and other major projects. 
