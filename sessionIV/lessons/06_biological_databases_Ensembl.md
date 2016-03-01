@@ -255,7 +255,7 @@ View(filters)
 Use BioMart to return gene names for a list of Ensembl IDs:
 ```
 # Use BioMart to return gene names for a list of Ensembl IDs
-mart<- useDataset("mmusculus_gene_ensembl", 
+mart <- useDataset("mmusculus_gene_ensembl", 
                   useMart('ENSEMBL_MART_ENSEMBL', 
                           host =  'www.ensembl.org'))
 
