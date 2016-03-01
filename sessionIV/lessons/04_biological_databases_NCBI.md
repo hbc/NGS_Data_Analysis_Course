@@ -46,7 +46,16 @@ Since this applies to us, we can click on the link and reduce our results furthe
 On the right handside you should see how your search was "built" in the 'search details' box.		
  		
  	Mov10[sym] AND (gene_nucleotide_pos[filter] AND alive[prop])		
+ 
+### Gene level information
+
+Take a look at the gene record for Mov10. There is a Table of Contents  on the left to help navigate through the wealth of information.		
  		
+ <img src="../img/gene-card.png", width="500">		
+ 		
+There is also a **Mapview** of the gene embedded into the card, this is NCBI's **genome browser**. It is very complicated to interpret, but if you want to take a stab at it this [graphical view legend](http://www.ncbi.nlm.nih.gov/tools/sviewer/legends/) is very helpful. 	
+
+<img src="../img/mapview.png", width="500">	 		
  		
 ### Building a search using filters			
 Rather than using the graphical user interface to filter, we can also build a search from scratch:		
@@ -58,15 +67,11 @@ Some tips on how to construct your query:
 <img src="../img/query-tips.png" width="800">	
  			
  		
-> Try building the same search using filters, or select it from your history.		
- 		
-Take a look at the gene record for Mov10. There is a Table of Contents  on the left to help navigate through the wealth of information.		
- 		
- <img src="../img/gene-card.png", width="500">		
- 		
-There is also a **Mapview** of the gene embedded into the card, this is NCBI's **genome browser**. It is very complicated to interpret, but if you want to take a stab at it this [graphical view legend](http://www.ncbi.nlm.nih.gov/tools/sviewer/legends/) is very helpful. 	
-
-<img src="../img/mapview.png", width="500">	
+> Navigate to the Gene database in NCBI. Use the Advanced search option to construct the following query:
+> 
+> `"Fragile X"[Text Word] AND FMRP[Gene Name] OR MOV10[Gene Name]) AND "homo sapiens"[Organism]`
+>  	
+	
  		
  		
 ### Downloading data from NCBI		
