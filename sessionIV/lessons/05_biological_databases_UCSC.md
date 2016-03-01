@@ -14,7 +14,7 @@ Approximate time: 30 minutes
 
 The [UCSC Genome Bioinformatics](https://genome.ucsc.edu/) site hosts a very popuar genome browser and wealth of information available for download. In addition, they have developed several tools and a few special formats for data representation, that have made analysis and visualization more flexible.
 
-<img src="../img/UCSCintro.png" width="700">
+<img src="../img/UCSCintro.png" width="900">
 
 This website, like NCBI and Ensembl, acts as a portal to a vast amount of biological information. And similar to the others, there is a large amount of public data available for visualization and download. It also offers several tools for analysis.
 
@@ -24,20 +24,22 @@ UCSC is most popular for its genome browser, but the functionality of UCSC goes 
 
 <img src="../img/UCSCbrowser.png" width="700">
 
-CFTR
-remove all
-add back common SNPs 144, conservation and repeats
-Click on gene, SNP on genome browser
+#### Activity
+* Look for the gene "CFTR"
+* Remove all tracks except scale and RefSeq genes
+* Using the menu below the visualization, add back Common SNPs 144, Conservation and Repeatmasker tracks
+* Click on the gene, what do you see?
+* Come back to the browser and click on a SNP
 
 ### The UCSC Table Browser (how to download data from UCSC)
 
 <img src="../img/UCSCtable.png" width="700">
 
-variation, Common SNPS 144, snp144Common, CFTR (lookup), bed
-
-Genes and Gene Predictions, refseq, refGene, CFTR (lookup), sequence, mrna
-
-Genes and Gene Predictions, refseq, refGene, CFTR (lookup), sequence, genome
+#### Activity
+* Look at a bed format representation of the SNPs we were just looking at in the genome browser
+* Download the bed file above
+* Download the sequence of the CFTR gene
+* Download the sequence of the genomic area in which the CFTR gene exists
 
 ### Final words
 
