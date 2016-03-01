@@ -183,10 +183,10 @@ _**NOTE:** if we wanted to use an older version of BioMart, we could click on th
 	- Gene Start (bp)
 	- Gene End (bp)
 	- Strand
+	- Associated Gene Name
 	- Transcript count
-7. Collapse `GENE` and expand `EXTERNAL`. Choose `HGNC Symbol`.
-8. Click on `Results` button in the upper left-hand corner. Save output to a comma-separated value (CSV) file.
-9. In the HTML table, click on the link for `MOV10` to take you to the Ensembl gene page.
+7. Click on `Results` button in the upper left-hand corner. Save output to a comma-separated value (CSV) file.
+8. In the HTML table, click on the link for `MOV10` to take you to the Ensembl gene page.
 
 #### biomaRt R package
 When you are performing an NGS analysis, you often find a need to access BioMart, for example, to find genomic locations, convert gene IDs, or filter sequences from your data. Luckily for us, there is an R package for BioMart, called `biomaRt`, which allows us to perform BioMart queries from R.
