@@ -25,17 +25,30 @@ NCBI is most popular for its PubMed resource for searching the biological litera
 
 ### Searching NCBI
 
-<SCREENSHOT> Resources on the left panel and on the top bar
-How-to on the top bar (all the information on anything you need)
-Popular resources on the right panel
-Search box with pull-down menu of available databases. Keep it on default of ‘All databases’
-Let’s look for human gene NRG1 Enter NRG1 into the search box and press ENTER
+<img src="../img/ncbi_screenshot3.png" width="400">
+
+There are many ways of performing a search in NCBI. You can simply type in a gene/gene product or keyword into the search box and search all databases for a hit, and then drill down to a more specific result from there. Alternatively, you can narrow down your search from the start the start.
 
 
 ### Building a search using filters
-Lots of hits!
-Narrow it down to genes -> click on Gene. 396 entries - still alot!
-Hint box: Did you mean Gene Symbol? YES! Click to activate filter. Now we are down to 127. 
+
+Let's start with just a simple gene search using the search box and selecting all databases.
+
+> Type in Mov10 to the search box and press 'Enter`.
+
+You should find there are may hits returned. MOv10 appears in 27 different databases. We can narrow this search down if we were interested only in gene information.
+
+> Click on Gene within the Genes section of the results. How many entries are we now reduced to?
+
+There are still ~1000 genes returned. Take a look at the hint box at the top of our results:
+
+<img src="../img/hint-box1.png" width="600">
+
+Since this applies to us, we can click on the link and reduce our results further.
+
+> Take a look at the two side panels and other filters that are available to you. Activate one or two and see how it changes your results.
+
+
 Filters on left Panel; activate ‘Annotated Genes’ as an example. Turn off
 Right panel more Filters for Organism. Choose Human
 Look at how search query was ‘built’ NCBI. Reconstruct it
