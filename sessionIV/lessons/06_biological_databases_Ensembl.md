@@ -63,10 +63,9 @@ The browser can be used to easily access information at the genome, gene and pro
 - **Browse a Genome**: Choose your species of interest in this section. The drop down menu under 'All genomes' allows you to select from the full list. The *Ensembl Pre!* site contains new genomes (either new species to Ensembl, or updates in the reference assembly) that do not yet have an Ensembl gene set.  BLAST/BLAT is available for organisms in all Ensembl sites, including Pre!
 
 - **Help**: There is a wealth of help and documentation in Ensembl if you are new to the browser. Video tutorials are provided, and printable pdfs with exercises. Custom data may be uploaded to Ensembl, or displayed directly by attaching a file by URL. 
+	- **FTP site**: If you are looking to download the sequence for the reference genome or the gene annotation file for your organism of interest, the link is accessiable for the `Help and Documentation` tab. If you want files for an older genome, then navigate to the archived sites and go to the `Help and Documentation` tab on these sites. The current release has files available at the following location: http://useast.ensembl.org/info/data/ftp/index.html.
 
 - **News**: To find out what release you are working with, have a look at the news section of the homepage. If the current release is not the one you need, access archive sites to access previous versions, or releases, of Ensembl using the link on the lower right side.
-
-- **FTP site**: If you are looking to download the sequence for the reference genome or the gene annotation file for your organism of interest, the link is not accessible from this page, but you can find it at: http://useast.ensembl.org/info/data/ftp/index.html.
  
 #### Demo
 Each species in Ensembl has its own home page, where you can find out who provided the genome sequence and which version of the genome assembly is represented.  
