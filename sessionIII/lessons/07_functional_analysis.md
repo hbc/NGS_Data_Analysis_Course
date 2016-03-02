@@ -119,7 +119,7 @@ gprofiler_results_oe <- gprofiler(query = sigOE,
                                correction_method = "fdr",
                                hier_filtering = "none", 
                                domain_size = "annotated",
-                               custom_bg = “")
+                               custom_bg = "")
 
 
 ```
