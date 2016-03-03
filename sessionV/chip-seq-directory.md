@@ -1,4 +1,4 @@
-This is the basic directory structure we would like all students to have:
+This is the basic directory structure we would like all students to have for chip-seq:
 
 ```
 ~/
