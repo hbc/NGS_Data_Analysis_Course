@@ -6,7 +6,7 @@ date: "Thursday, March 3rd, 2016"
 
 Contributors: Mary Piper, Radhika Khetani
 
-Approximate time: 1.5 hours
+Approximate time: 30 minutes
 
 ## Learning Objectives
 
