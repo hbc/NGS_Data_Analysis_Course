@@ -80,10 +80,55 @@ Let's see how much trimming improved our reads by running FastQC again:
 
 ## Alignment
 
+Now that we have removed the poor quality sequences from our data, we are ready to align the reads to the reference genome. [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml) is a fast and accurate alignment tool that indexes the genome with an FM Index based on the Burrows-Wheeler Transform to keep memory requirements low for the alignment process. Bowtie2 supports gapped, local and paired-end alignment modes. The tool works best for reads that are at least 50 bp (shorter read lengths should use Bowtie1), and it can perform soft-clipping to remove poor quality bases [[1](http://genomebiology.biomedcentral.com/articles/10.1186/gb-2009-10-3-r25)].
+
+To perform peak calling for ChIP-Seq analysis, we need our alignment files to contain only uniquely mapping reads (no multi-mappers or unmapped reads). Normally you would need to generate a genome index using the reference genome using the following code:
+
+```
+DO NOT RUN
+
+bowtie2-build <path_to_reference_genome.fa> <prefix_to_name_indexes>
+
+```
+
+However, we previously generated the genome indices for you in `reference_data` directory.
+
+To get started with read alignment, change directories to the `trimmed_fastq` folder and create an output directory for our alignment files:
+
+```bash
+
+$ cd ~/ngs_course/chipseq/data/trimmed_fastq/
+
+```
+
+We are only going to work on one sample, `H1hesc_Input_Rep1_chr12.qualtrim20.minlen36.fq`. Details on Bowtie2 and its functionality can be found in the [user manual](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml); we encourage you to peruse through to get familiar with all available options.
+
+The basic options for aligning reads to the genome using Bowtie2 are:
+
+* `-p`: number of threads / cores
+* `-q`: 
+* `-x`: /path/to/genome_indices_directory
+* `-U`: /path/to/FASTQ_file
+* `-S`: /path/to/output/SAM_file
 
 
+cd ~/ngs_course/chipseq/results/bowtie2
 
+bowtie2 -p 6 -q \
+-x ~/ngs_course/chipseq/data/reference_data/chr12 \
+-U ~/ngs_course/chipseq/data/trimmed_fastq/H1hesc_Input_Rep1_chr12.qualtrim20.minlen36.fq \
+-S ~/ngs_course/chipseq/results/bowtie2/H1hesc_Input_Rep1_chr12_aln_unsorted.sam
 
+samtools view -h -S \
+-b H1hesc_Input_Rep1_chr12_aln_unsorted.sam \
+-o H1hesc_Input_Rep1_chr12_aln_unsorted.bam
+
+sambamba sort -t 6 \
+-o H1hesc_Input_Rep1_chr12_aln_sorted.bam \
+H1hesc_Input_Rep1_chr12_aln_unsorted.bam 
+
+sambamba view -h --nthreads 1 -f bam \
+-F "[XS] == null and not unmapped " H1hesc_Input_Rep1_chr12_aln_sorted.bam > H1hesc_Input_Rep1_chr12_aln.bam
 
 
 
