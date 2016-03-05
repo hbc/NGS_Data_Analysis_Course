@@ -17,7 +17,7 @@ Approximate time: 1 hour
 
 Now that we have our files and directory structure, we are ready to begin our ChIP-Seq analysis. 
 
-![workflow_QC](../img/chipseq_workflow_QC.png)
+![workflow_QC](../img/chipseq_workflow_QC_partial.png)
 
 ## Quality Control
 For any NGS analysis method, our first step is ensuring our reads are of good quality prior to aligning them to the reference genome. We will use FastQC to get a good idea of the overall quality of our data, to identify whether any samples appear to be outliers, to examine our data for contamination, and to determine a trimming strategy.
@@ -71,6 +71,8 @@ Let's see how much trimming improved our reads by running FastQC again:
 ![trimmed_fastqc](../img/chipseq_trimmed_fastqc.png)
 
 ## Alignment
+
+![workflow_align](../img/chipseq_workflow_align_partial.png)
 
 Now that we have removed the poor quality sequences from our data, we are ready to align the reads to the reference genome. [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml) is a fast and accurate alignment tool that indexes the genome with an FM Index based on the Burrows-Wheeler Transform to keep memory requirements low for the alignment process. 
 
