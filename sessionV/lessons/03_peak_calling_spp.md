@@ -88,7 +88,7 @@ Save and exit vim. We can now run this script from the command line by using the
 
 Let's try running it on Nanog-rep1:
 
-	`$ Rscript get_peaks.R bowtie2/H1hesc_Input_Rep1_chr12_aln.bam bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam`
+	$ Rscript get_peaks.R bowtie2/H1hesc_Input_Rep1_chr12_aln.bam bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam
 
 Before we look at the output, we'll first take some time to discuss whats inside our R script. 
 
@@ -216,7 +216,44 @@ writewig(smoothed.density,paste(path, prefix, ".density.wig", sep=""),paste("Smo
 
 ```
 
-## File formats for Peak Calling
+## Running SPP on all files
+
+To generate peaks for the remaining samples we need to run the Rscript three more times, each time changing the input to the appropriate files:
+
+`$ Rscript get_peaks.R bowtie2/H1hesc_Input_Rep2_chr12_aln.bam bowtie2/H1hesc_Nanog_Rep2_chr12_aln.bam`
+
+`$ Rscript get_peaks.R bowtie2/H1hesc_Input_Rep1_chr12_aln.bam bowtie2/H1hesc_Pou5f1_Rep1_chr12_aln.bam`
+
+`$ Rscript get_peaks.R bowtie2/H1hesc_Input_Rep2_chr12_aln.bam bowtie2/H1hesc_Pou5f1_Rep2_chr12_aln.bam`
+
+## Evaluating SPP output
+
+### File formats
+Before we start exploring the output of SPP, we'll briefly talk about some new file formats that we haven't yet encountered in this course.
+
+**BED:**
+The BED format consists of one line per feature, each containing 3-12 columns of data (whitespace-delimited or tab-delimited), plus optional track definition lines. This is a zero-based format.
+
+The number of columns per line must be consistent throughout any single set of data in an annotation track. The first lines of of the file can consist of header lines. Header lines start with a hash (#) character, the word "browser," or the word "track."
+
+The first three **required BED fields** are:
+
+1. chrom - The name of the chromosome (e.g. chr3) or scaffold (e.g. scaffold10671)
+2. chromStart - The starting position of the feature in the chromosome or scaffold. The first base in a chromosome is numbered 0.
+3. chromEnd - The ending position of the feature in the chromosome or scaffold. 
+
+[Nine additional fields](http://useast.ensembl.org/info/website/upload/bed.html?redirect=no#optional) are optional.
+
+
+**narrowPeak:**
+
+A narrowPeak (.narrowPeak) file is used by the ENCODE project to provide called peaks of signal enrichement based on pooled, normalized (interpreted) data. It is a BED 6+4 format, which means the first 6 columns of a BED file with 4 additional fields.
+
+
+**WIG format:**
+
+Wiggle format (WIG) allows the display of continuous-valued data in a track format. Wiggle format is line-oriented. It is composed of declaration lines and data lines, and require a separate wiggle track definition line. There are two options for formatting wiggle data: variableStep and fixedStep. These formats were developed to allow the file to be written as compactly as possible.
+
 
 
 
