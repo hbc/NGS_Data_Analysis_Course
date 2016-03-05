@@ -21,12 +21,12 @@ Peak calling, the next step in our workflow, is a computational method used to i
 <div style="text-align:center"><img src="../img/workflow-peakcalling.png" width="400"></div>
 
 
-From the alignment files (BAM), you typically observe reads to be identified on each side of the binding site for the protein of interest. The 5' ends of the selected fragments will form groups on the positive- and negative-strand. The distributions of these groups are then assessed using statistical measures and compared against background (input or mock IP samples) to determine if the binding site is significant.
+From the alignment files (BAM), you typically observe reads/tags to be identified on each side of the binding site for the protein of interest. The 5' ends of the selected fragments will form groups on the positive- and negative-strand. The distributions of these groups are then assessed using statistical measures and compared against background (input or mock IP samples) to determine if the binding site is significant.
 
 
 <div style="text-align:center"><img src="../img/chip-fragments.png" width="200" align="middle"></div>
 
-There are various tools that are available for peak calling. Two of the popular one we will demonstrate in this session are SPP and MACS2.
+There are various tools that are available for peak calling. Two of the popular one we will demonstrate in this session are SPP and MACS2. *Note that for this lesson the term tag and sequence read are interchangeable.*
 
 ## SPP
 
@@ -112,7 +112,7 @@ prefix <- paste(s[[1]][2], "_", s[[1]][3], sep="")
 
 The next chunk of code **uses the cross-correlation profile to calculate binding peak separation distance**.  The separation distance will be printed out and the **cross-correlation plot** will be saved to file. The `srange` argument gives the possible range for the size of the protected region; it should be higher than tag length but note that making the upper boundary too high will increase calculation time. The `bin` argument is telling SPP to bin tags within the specified number of basepairs to speed up calculation. Increasing the bin size decreases the accuracy of the determined parameters. The numbers we have selected here are defaults suggested in the tutorial.
 
-At this point SPP also assesses whether the inclusion of reads with non-perfect alignment quality improves the cross-correlation peak. If you would like to accept all aligned tags, specify `accept.all.tags=T` argument to save time.
+At this point SPP also assesses whether the inclusion of **reads with non-perfect alignment quality** improves the cross-correlation peak, and flags them accordingly. If you would like to accept all aligned tags, specify `accept.all.tags=T` argument to save time.
 
 
 ```
@@ -128,6 +128,24 @@ par(mar = c(3.5,3.5,1.0,0.5), mgp = c(2,0.65,0), cex = 0.8)
 plot(binding.characteristics$cross.correlation,type='l',xlab="strand shift",ylab="cross-correlation")
 abline(v=binding.characteristics$peak$x,lty=2,col=2)
 dev.off()
+```
+
+### Assemble informative tags
+
+The next function will select tags with acceptable alignment quality, based on flags assigned above. Moving forward with only informative tags, the chip and input data is now a simple list of tag coordinate vectors (read start position:read end position). 
+
+The next function will scan along the chromosomes calculating local density of regions (can be specified using window.size parameter, default is 200bp), removing or restricting singular positions with extremely high tag count relative to the neighborhood.
+
+<div style="text-align:center"><img src="../img/read-density.png"></div>
+
+```
+# select informative tags based on the binding characteristics
+chip.data <- select.informative.tags(chip.data, binding.characteristics)
+input.data <- select.informative.tags(input.data, binding.characteristics)
+
+# restrict or remove singular positions with very high tag counts
+chip.data <- remove.local.tag.anomalies(chip.data)
+input.data <- remove.local.tag.anomalies(input.data)
 ```
 
 
