@@ -136,7 +136,7 @@ The next function will select tags with acceptable alignment quality, based on f
 
 The next function will scan along the chromosomes calculating local density of regions (can be specified using window.size parameter, default is 200bp), removing or restricting singular positions with extremely high tag count relative to the neighborhood.
 
-<div style="text-align:center"><img src="../img/read-density.png"></div>
+<div style="text-align:center"><img src="../img/read-density2.png" width="300"></div>
 
 ```
 # select informative tags based on the binding characteristics
