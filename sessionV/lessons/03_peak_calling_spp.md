@@ -14,6 +14,19 @@ Approximate time: 90 minutes
 * Understanding different components of the SPP algorithm
 * Interpretation of results from a peaks including cross-correlation plots and narrowPeak files 
 
+## Peak calling
+
+Peak calling, the next step in our workflow, is a computational method used to identify areas in the genome that have been enriched with aligned reads as a consequence of performing a ChIP-sequencing experiment. 
+
+<img src="../img/workflow-peakcalling.png" width="400">
+
+
+From the alignment files (BAM), you typically observe reads to be identified on each side of the binding site for the protein of interest. The 5' ends of the selected fragments will form groups on the positive- and negative-strand. The distributions of these groups are then assessed using statistical measures and compared against background (input or mock IP samples) to determine if the binding site is significant.
+
+
+<img src="../img/chip-fragments.png" width="300">
+
+
 ## SPP
 
 SPP is a data processing pipeline optimized for detection of localized protein binding positions from unpaired sequence reads. The [publication](http://www.nature.com.ezp-prod1.hul.harvard.edu/nbt/journal/v26/n12/full/nbt.1508.html) describes the algorithm in great detail, from which we have listed some of the main features here.
@@ -27,15 +40,12 @@ The main steps of the ChIP-seq processing pipline are described in the illustrat
 <img src="../img/spp-fig1.png" width="800">
 
 
-
-## Calling peaks with SPP
-
 SPP is an R package which can be installed in one of two ways. There is [source code](https://github.com/hms-dbmi/spp/archive/1.13.tar.gz) avaiable for download, or alternatively it can be installed using `devtools` as it is now [available on GitHub](https://github.com/hms-dbmi/spp).
 
 For more information on SPP the [home page](http://compbio.med.harvard.edu/Supplements/ChIP-seq/) is quite useful, as they provide a brief tutorial showing the use of the main methods.
 
 
-### Setting up
+## Setting up
 
 Exit your current session on Orchestra if you are currently in an interactive session, and restart one using default settings. Since we are working with such a small dataset we will just use a single core, for parallel processing options with SPP see note below.
 
@@ -51,10 +61,9 @@ The last thing we need to before getting started is load the appropriate	softwar
 
 > ### Parallel processing with SPP
 > 	
-> When working with large datasets it can be beneficial to use multiple cores during some of the more computationally intensive processes. In order to do so, you will need to install the `snow` packagein R. Using snow you can initialize a cluster of nodes for parallel processing (in the example below we have a cluster of 8 nodes). *See "snow" package manual for details.* This cluster variabel can then be used as input to functions that allow for parallel processing.
+> When working with large datasets it can be beneficial to use multiple cores during some of the more computationally intensive processes. In order to do so, you will need to install the `snow` packagein R. Using snow you can initialize a cluster of nodes for parallel processing (in the example below we have a cluster of 8 nodes). *See `snow` package manual for details.* This cluster variable can then be used as input to functions that allow for parallel processing.
 > 
 > 	`library(snow)`
 > 	
 > 	`cluster <- makeCluster(8)`
-
 
