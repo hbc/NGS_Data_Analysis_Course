@@ -10,7 +10,7 @@ Approximate time: 30 minutes
 
 ## Learning Objectives
 
-* learning about and understanding the experimental setup and design for ChIP-Seq experiments
+* understanding the experimental setup and design for ChIP-Seq experiments
 
 ## Introduction to ChIP-Seq
 Chromatin immunoprecipitation (ChIP) experiments isolate the chromatin from a cell and immunoprecipitate (IP) DNA fragments bound to a protein of interest. In ChIP-Seq, the DNA fragments are sequenced, enriched regions of DNA or peaks are determined, and over-represented sequence motifs and functional annotations can be identified. 
@@ -23,7 +23,7 @@ During this session we will be performing a complete workflow for ChIP-Seq analy
 
 ## Experimental design and library preparation
 
-Several steps are involved for the library preparation of protein-bound DNA fragments for sequencing. 
+Several steps are involved in the library preparation of protein-bound DNA fragments for sequencing: 
 
 ![exp_workflow](../img/chipseq_experimental_workflow.png)
 
@@ -56,7 +56,7 @@ The same starting material should be divided to be used for both the protein-spe
 
 ## Experimental Design
 
-We will ultimately be comparing the binding profiles of  [Nanog](www.nature.com/stemcells/2009/0909/090910/full/stemcells.2009.118.html) and [Pou5f1](www.nature.com/cr/journal/v12/n5/full/7290134a.html) (Oct4) from the [HAIB TFBS ENCODE collection](http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/) that have been ChIP-sequenced with Illumina in H1 human embryonic stem cell lines (h1-ESC) cells. **Nanog and Pou5f1 are both TFs that are involved in stem cell pluripotency.**
+We will ultimately be comparing the binding profiles of [Nanog](www.nature.com/stemcells/2009/0909/090910/full/stemcells.2009.118.html) and [Pou5f1](www.nature.com/cr/journal/v12/n5/full/7290134a.html) (Oct4) from the [HAIB TFBS ENCODE collection](http://hgdownload.cse.ucsc.edu/goldenpath/hg19/encodeDCC/wgEncodeHaibTfbs/) that have been ChIP-sequenced with Illumina in H1 human embryonic stem cell line (h1-ESC) cells. **Nanog and Pou5f1 are both TFs that are involved in stem cell pluripotency.**
 
 The experimental design used two replicates, with each replicate divided into three samples:
 
@@ -80,8 +80,7 @@ Based on the tools for performing those steps:
 
 ![workflow](../img/chipseq_analysis_workflow_tools.png)
 
-EDIT THIS:
-{{In the interest of time, we will not be using all samples in every step:
+In the interest of time, we will not be using all samples in every step:
 
 ![workflow](../img/chipseq_analysis_workflow_samples.png)}}
 
