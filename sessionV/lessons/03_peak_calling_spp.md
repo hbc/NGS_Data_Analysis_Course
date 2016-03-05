@@ -82,6 +82,8 @@ Open it up using `vim`, as there is a modification we need to make in order for 
 
 Save and exit vim to avoid making any other changes. You can open up the script again using `less` as we describe the code or just read it in the markdown.
 
+### Setup the environment
+
 The first few lines are setting up the environment which involves **loading the library and reading in the data**. The input and treatment BAM files need to be given as arguments to this script when running it. The final few lines in this chunk of code include defining a path for the resulting output files and a prefix for output file names.
 
 ```
@@ -106,7 +108,11 @@ s <- strsplit(file.data,split="_")
 prefix <- paste(s[[1]][2], "_", s[[1]][3], sep="")
 ``` 
 
-The next chunk of code 
+### Remove anomalous features
+
+The next chunk of code **uses the cross-correlation profile to calculate binding peak separation distance**.  The separation distance will be printed out and the **cross-correlation plot** will be saved to file. The `srange` argument gives the possible range for the size of the protected region; it should be higher than tag length but note that making the upper boundary too high will increase calculation time. The `bin` argument is telling SPP to bin tags within the specified number of basepairs to speed up calculation. Increasing the bin size decreases the accuracy of the determined parameters. The numbers we have selected here are defaults suggested in the tutorial.
+
+At this point SPP also assesses whether the inclusion of reads with non-perfect alignment quality improves the cross-correlation peak. If you would like to accept all aligned tags, specify `accept.all.tags=T` argument to save time.
 
 
 ```
@@ -123,5 +129,6 @@ plot(binding.characteristics$cross.correlation,type='l',xlab="strand shift",ylab
 abline(v=binding.characteristics$peak$x,lty=2,col=2)
 dev.off()
 ```
+
 
 
