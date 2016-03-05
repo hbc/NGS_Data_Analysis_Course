@@ -12,9 +12,9 @@ Approximate time: 90 minutes
 
 * Learning how to use SPP for peak calling
 * Understanding different components of the SPP algorithm
-* Interpretation of results from a peaks including cross-correlation plots and narrowPeak files 
+* Interpretation of results from a peaks including cross-correlation plots and various file formats 
 
-## Peak calling
+## Peak Calling
 
 Peak calling, the next step in our workflow, is a computational method used to identify areas in the genome that have been enriched with aligned reads as a consequence of performing a ChIP-sequencing experiment. 
 
@@ -27,6 +27,7 @@ From the alignment files (BAM), you typically observe reads/tags to be identifie
 <div style="text-align:center"><img src="../img/chip-fragments.png" width="200" align="middle"></div>
 
 There are various tools that are available for peak calling. Two of the popular one we will demonstrate in this session are SPP and MACS2. *Note that for this lesson the term tag and sequence read are interchangeable.*
+
 
 ## SPP
 
@@ -80,7 +81,16 @@ Open it up using `vim`, as there is a modification we need to make in order for 
 
 	/home/user_name/ngs_course/chipseq/results/spp
 
-Save and exit vim to avoid making any other changes. You can open up the script again using `less` as we describe the code or just read it in the markdown.
+Save and exit vim. We can now run this script from the command line by using the `Rscript` command followed by the name of our script and need to pass in two arguments:
+
+1. Input BAM file
+2. Treatment/IP BAM file
+
+Let's try running it on Nanog-rep1:
+
+	`$ Rscript get_peaks.R bowtie2/H1hesc_Input_Rep1_chr12_aln.bam bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam`
+
+Before we look at the output, we'll first take some time to discuss whats inside our R script. 
 
 ### Setup the environment
 
@@ -134,8 +144,6 @@ dev.off()
 
 The next function will select tags with acceptable alignment quality, based on flags assigned above. Moving forward with only informative tags, the chip and input data is now a simple list of tag coordinate vectors (read start position:read end position). 
 
-The next function will scan along the chromosomes calculating local density of regions (can be specified using window.size parameter, default is 200bp), removing or restricting singular positions with extremely high tag count relative to the neighborhood.
-
 <div style="text-align:center"><img src="../img/read-density2.png" width="300"></div>
 
 ```
@@ -143,10 +151,78 @@ The next function will scan along the chromosomes calculating local density of r
 chip.data <- select.informative.tags(chip.data, binding.characteristics)
 input.data <- select.informative.tags(input.data, binding.characteristics)
 
+```
+
+### Subtract background
+
+The statistical significance of a 'peak' observed for a putative protein binding position depends on the expected background pattern. 
+
+The input tag density identifies three major types of background anomalies: 
+
+1. Singular peaks of tag density at a single chromosome position many orders of magnitude higher than the surrounding density. Such peaks commonly occur at the same position on both chromosome strands. 
+2. Larger, nonuniform regions of increased background tag density on either one or both strands 
+3.  Background tag density patterns resembling true protein-binding positions (typically shows smaller separation between strand peaks)
+
+<div style="text-align:center"><img src="../img/background-subtract.png" width="500"></div>
+
+The next function we use correct for background anomalies described in 1) above. `remove.local.tag.anomalies()` will scan along the chromosomes calculating local density of regions (can be specified using window.size parameter, default is 200bp), removing or restricting singular positions with extremely high tag count relative to the neighborhood. 
+
+```
 # restrict or remove singular positions with very high tag counts
 chip.data <- remove.local.tag.anomalies(chip.data)
 input.data <- remove.local.tag.anomalies(input.data)
 ```
+
+### Determine binding positions
+
+To identify peaks, background subtraction methods are applied to correct for anomalies outlined in 2) and 3) above. The corrections have little effect on the top binding positions, but help with lower ranked peaks reducing false-positive peaks arising from uneven background.
+
+We will use the WTD method to call binding positions, using FDR of 1% and a window size estimated by the binding.characteristics:
+
+```
+# binding detection parameters
+# desired FDR (1%). Alternatively, an E-value can be supplied to the method calls below instead of the fdr parameter
+fdr <- 1e-2
+
+# the binding.characteristics contains the optimized half-size for binding detection window
+detection.window.halfsize <- binding.characteristics$whs
+
+# determine binding positions using wtd method
+bp <- find.binding.positions(signal.data=chip.data,control.data=input.data,fdr=fdr,whs=detection.window.halfsize)
+
+print(paste("detected",sum(unlist(lapply(bp$npl,function(d) length(d$x)))),"peaks"))
+
+```
+
+### Output to file
+
+Finally, we will write the results to file. Three files will be generated in your `spp` directory:
+
+1. Detected binding positions
+2. narrowPeak file
+3. WIG file of smoothed tag density
+
+```
+# output detected binding positions
+output.binding.results(bp,paste(path, prefix,".binding.positions.txt", sep=""))
+write.narrowpeak.binding(bp,paste(path, prefix,".narrowPeak", sep=""))
+
+# output smoothed tag density (subtracting re-scaled input) into a WIG file
+# note that the tags are shifted by half of the peak separation distance
+tag.shift <- round(binding.characteristics$peak$x/2)
+smoothed.density <- get.smoothed.tag.density(chip.data,control.tags=input.data,bandwidth=200,step=100,tag.shift=tag.shift)
+writewig(smoothed.density,paste(path, prefix, ".density.wig", sep=""),paste("Smoothed, background-subtracted tag density for ", prefix, sep=""))
+
+
+```
+
+## File formats for Peak Calling
+
+
+
+
+
+
 
 
 
