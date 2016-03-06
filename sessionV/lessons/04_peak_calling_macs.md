@@ -124,7 +124,11 @@ We can also take a look at the plots, but first we will have to generate it. We 
 	
 Now you should see a pdf file in your current directory by the same name. Create the plots for each of the samples and move them over to your laptop using `Filezilla`. 
 
-Open up the pdf file for Nanog-rep1. 
+Open up the pdf file for Nanog-rep1. The first plot illustrates the distance between the modes from which the shift size was determined. The second plot is the cross-correlation plot, which looks different from the one generated using SPP (lower magnitude of correlation, larger shift size). This is likely due to the differences in bin size and also ranges of size shift that were evaulated.
+
+<img src="../img/model-macs.png" width="400">
+
+
 
 
 ***
