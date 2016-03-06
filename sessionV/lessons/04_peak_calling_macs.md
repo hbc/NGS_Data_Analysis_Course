@@ -59,7 +59,7 @@ There are seven [major functions](https://github.com/taoliu/MACS#usage-of-macs2)
 
 **Input file options**
 
-* `-t`: This is the only REQUIRED parameter for MACS. If you have more than one alignment files, you can specify them as `-t A B C`. MACS will pool up all these files together
+* `-t`: This is the only REQUIRED parameter for MACS
 * `-c`: The control or mock data file
 * `-f`: format of input file; Default is "AUTO" which will allow MACS to decide the format automatically.
 * `-g`: mappable genome size which is defined as the genome size which can be sequenced; some precompiled parameters provided.
@@ -85,18 +85,20 @@ There are seven [major functions](https://github.com/taoliu/MACS#usage-of-macs2)
 
 Now that we have a feel for the different ways we can tweak our command, lets' set up the command for our run on Nanog-rep1:
 
-	$ macs2 callpeak -t bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam -c bowtie2/H1hesc_Input_Rep1_chr12_aln.bam  -f BAM -g 1.3e+8 --bdg --outdir macs -n Nanog-rep1
+	$ macs2 callpeak -t bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam -c bowtie2/H1hesc_Input_Rep1_chr12_aln.bam  -f BAM -g 1.3e+8 --bdg --outdir macs2 -n Nanog-rep1
 
 The tool is quite verbose so you should see lines of text being printed to the terminal, describing each step that is being carried out.
 
 ## MACS2 Output files
 
-There should be a total of 5 files output to the results directory:
+There should be a total of 6 files output to the results directory:
 
-*`peaks.narrowPeak`:
-*`peaks.xls`:
-*`summits.bed`:
-*`model.R`: 
+* `peaks.narrowPeak`:
+* `peaks.xls`:
+* `summits.bed`:
+* `model.R`: 
+* `control_lambda.bdg`:
+* `treat_pileup.bdg`:
 
 
 
