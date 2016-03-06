@@ -39,7 +39,7 @@ SPP is a data processing pipeline optimized for detection of localized protein b
 
 The main steps of the ChIP-seq processing pipline are described in the illustration below. As we walk through the SPP pipeline in this lesson, we will describe each step in more detail.
 
-<div style="text-align:center"><img src="../img/spp-fig1.png"></div>
+<div style="text-align:center"><img src="../img/spp-fig2.png"></div>
 
 
 SPP is an R package which can be installed in one of two ways. There is [source code](https://github.com/hms-dbmi/spp/archive/1.13.tar.gz) avaiable for download, or alternatively it can be installed using `devtools` as it is now [available on GitHub](https://github.com/hms-dbmi/spp).
