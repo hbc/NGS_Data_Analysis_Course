@@ -1,10 +1,10 @@
 ---
 title: "Peak calling with MACS2"
 author: "Meeta Mistry"
-date: "Thursday, March 3rd, 2016"
+date: "Sunday, March 6th, 2016"
 ---
 
-Contributors: Meeta Mistry
+Contributors: Meeta Mistry, Radhika Khetani
 
 Approximate time: 90 minutes
 
