@@ -10,7 +10,7 @@ Approximate time: 90 minutes
 
 ## Learning Objectives
 
-* Learning how to use MACS2for peak calling
+* Learning how to use MACS2 for peak calling
 * Understanding different components of the MACS2 algorithm
 * Interpretation of results from the MACS2 peak caller
 
@@ -99,12 +99,12 @@ The tool is quite verbose so you should see lines of text being printed to the t
 
 There should be a total of 6 files output to the results directory:
 
-* `peaks.narrowPeak`:
-* `peaks.xls`:
-* `summits.bed`:
-* `model.R`: 
-* `control_lambda.bdg`:
-* `treat_pileup.bdg`:
+* `peaks.narrowPeak`:BED6+4 format file which contains the peak locations together with peak summit, pvalue and qvalue
+* `peaks.xls`: a tabular file which contains information about called peaks. Additional information includes pileup and fold enrichment
+* `summits.bed`: peak summits locations for every peak. To find the motifs at the binding sites, this file is recommended
+* `model.R`: an R script which you can use to produce a PDF image about the model based on your data
+* `control_lambda.bdg`: bedGraph format for input sample
+* `treat_pileup.bdg`: bedGraph format for treatment sample
 
 
 
