@@ -200,19 +200,19 @@ Finally, we will write the results to file. Three files will be generated in you
 
 1. Detected binding positions
 2. narrowPeak file
-3. WIG file of smoothed tag density
+3. WIG file of enrichment estimates
+
+To generate enrichment estimates SPP scans ChIP and signal tag density to estimate lower bounds of tag enrichment (and upper bound of tag depletion if it is significant) along the genome. The resulting profile gives conservative statistical estimates of log2 fold-enrichment ratios along the genome. The example below uses a window of 500bp (and background windows of 1, 5, 25 and 50 times that size) and a confidence interval corresponding to 1%.
+
 
 ```
 # output detected binding positions
 output.binding.results(bp,paste(path, prefix,".binding.positions.txt", sep=""))
 write.narrowpeak.binding(bp,paste(path, prefix,".narrowPeak", sep=""))
 
-# output smoothed tag density (subtracting re-scaled input) into a WIG file
-# note that the tags are shifted by half of the peak separation distance
-tag.shift <- round(binding.characteristics$peak$x/2)
-smoothed.density <- get.smoothed.tag.density(chip.data,control.tags=input.data,bandwidth=200,step=100,tag.shift=tag.shift)
-writewig(smoothed.density,paste(path, prefix, ".density.wig", sep=""),paste("Smoothed, background-subtracted tag density for ", prefix, sep=""))
-
+# output wig file
+enrichment.estimates <- get.conservative.fold.enrichment.profile(chip.data,input.data,fws=500,step=100,alpha=0.01)
+writewig(enrichment.estimates,paste(path, prefix, ".enrichment.estimates.wig", sep=""), paste(prefix, "_Conservative fold-enrichment/depletion estimates shown on log2 scale", sep=""))
 
 ```
 
@@ -284,7 +284,7 @@ Use `Filezilla` to move one of these over to your laptop. We have Nanog-rep1 dis
 
 From the plot it appears, that the highest correlation (of 0.13) is observed at about 105 strand shift. *Take a look at the Nanog-rep2 plot, how does this compare considering there were zero peaks identified?*
 
-Finally, there is also a WIG file output which will be useful for visualization with IGV. Let's first take a look at how to call peaks using MACS2 and then we can visualize peaks to compare the two methods.
+Finally, there is also a WIG file output which will be useful for visualization with IGV. Let's first take a look at how to call peaks using MACS2 and then we can visualize peaks to compare output from the two methods.
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*

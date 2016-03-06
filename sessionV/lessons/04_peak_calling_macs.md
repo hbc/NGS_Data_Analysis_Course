@@ -98,9 +98,9 @@ The tool is quite verbose so you should see lines of text being printed to the t
 
 There should be a total of 6 files output to the results directory:
 
-* `peaks.narrowPeak`:
-* `peaks.xls`:
-* `summits.bed`:
+* `peaks.narrowPeak`: BED6+4 format file which contains the peak locations together with peak summit, pvalue and qvalue.
+* `peaks.xls`: a tabular file which contains information about called peaks inclusing pileup and fold enrichment
+* `summits.bed`: 
 * `model.R`: 
 * `control_lambda.bdg`:
 * `treat_pileup.bdg`:
