@@ -42,7 +42,7 @@ The main steps of the ChIP-seq processing pipline are described in the illustrat
 <div style="text-align:center"><img src="../img/spp-fig2.png" width="150"></div>
 
 
-SPP is an R package which can be installed in one of two ways. There is [source code](https://github.com/hms-dbmi/spp/archive/1.13.tar.gz) avaiable for download, or alternatively it can be installed using `devtools` as it is now [available on GitHub](https://github.com/hms-dbmi/spp).
+SPP is an R package which can be installed in one of two ways: There is [source code](https://github.com/hms-dbmi/spp/archive/1.13.tar.gz) avaiable for download, or alternatively it can be installed using `devtools` as it is now [available on GitHub](https://github.com/hms-dbmi/spp).
 
 
 
@@ -62,7 +62,7 @@ The last thing we need to before getting started is load the appropriate	softwar
 
 > ### Parallel processing with SPP
 > 	
-> When working with large datasets it can be beneficial to use multiple cores during some of the more computationally intensive processes. In order to do so, you will need to install the `snow` packagein R. Using snow you can initialize a cluster of nodes for parallel processing (in the example below we have a cluster of 8 nodes). *See `snow` package manual for details.* This cluster variable can then be used as input to functions that allow for parallel processing.
+> When working with large datasets it can be beneficial to use multiple cores during some of the more computationally intensive processes. In order to do so, you will need to install the `snow` package in R. Using snow you can initialize a cluster of nodes for parallel processing (in the example below we have a cluster of 8 nodes). *See `snow` package manual for details.* This cluster variable can then be used as input to functions that allow for parallel processing.
 > 
 > 	`library(snow)`
 > 	
@@ -142,7 +142,7 @@ dev.off()
 
 ### Assemble informative tags
 
-The next function will select tags with acceptable alignment quality, based on flags assigned above. Moving forward with only informative tags, the chip and input data is now a simple list of tag coordinate vectors (read start position:read end position). 
+The next function will select tags with acceptable alignment quality, based on flags assigned above. Moving forward with only informative tags, the ChIP and input data has been converted into a simple list of tag coordinate vectors (read start position:read end position). 
 
 <div style="text-align:center"><img src="../img/read-density2.png" width="300"></div>
 
@@ -161,11 +161,11 @@ The input tag density identifies three major types of background anomalies:
 
 1. Singular peaks of tag density at a single chromosome position many orders of magnitude higher than the surrounding density. Such peaks commonly occur at the same position on both chromosome strands. 
 2. Larger, nonuniform regions of increased background tag density on either one or both strands 
-3.  Background tag density patterns resembling true protein-binding positions (typically shows smaller separation between strand peaks)
+3. Background tag density patterns resembling true protein-binding positions (typically shows smaller separation between strand peaks)
 
 <div style="text-align:center"><img src="../img/background-subtract.png" width="500"></div>
 
-The next function we use correct for background anomalies described in 1) above. `remove.local.tag.anomalies()` will scan along the chromosomes calculating local density of regions (can be specified using window.size parameter, default is 200bp), removing or restricting singular positions with extremely high tag count relative to the neighborhood. 
+The next function we use correct for background anomalies described in point 1 above. `remove.local.tag.anomalies()` will scan along the chromosomes calculating local density of regions (can be specified using window.size parameter, default is 200bp), removing or restricting singular positions with extremely high tag count relative to the neighborhood. 
 
 ```
 # restrict or remove singular positions with very high tag counts
@@ -272,17 +272,17 @@ We can summarize the number of peaks for each sample by counting the lines:
 
 	wc -l spp/*.narrowPeak
 
-There is a also a pdf file which contains the **cross-correlation plot**. This is a graphical representation of the Pearson correlation of positive- and negative-strand tag densities, shifting the strands relative to each other by increasing distance. 
+There is a also a pdf file which contains the **cross-correlation plot**. This is a graphical representation of the Pearson correlation of positive- and negative- strand tag densities, shifting the strands relative to each other by increasing distance. 
 
-The the peak reflects the strand shift value at which we observe the highest correlation between the positive and negative strands genome-wide. In an ideal case, when all of the sequenced tags participate in such binding patterns, the correlation magnitude reaches a maximum value. Conversely, the magnitude decreases as tag positions are randomized.
+The peak reflects the strand shift value at which we observe the highest correlation between the positive and negative strands genome-wide. In an ideal case, when all of the sequenced tags participate in such binding patterns, the correlation magnitude reaches a maximum value. Conversely, the magnitude decreases as tag positions are randomized.
 
 <div style="text-align:center"><img src="../img/cross-correlation-legend.png" width="400"></div>
 
-Use `Filezilla` to move one of these over to your laptop. We have Nanog-rep1 displayed below:
+Use *FileZilla* to move one of these over to your laptop. We have Nanog-rep1 displayed below:
 
 <div style="text-align:center"><img src="../img/cross-correlation.png" width="300"></div>
 
-From the plot it appears, that the highest correlation (of 0.13) is observed at about 105 strand shift. *Take a look at the Nanog-rep2 plot, how does this compare considering there were zero peaks identified?*
+From the plot, it appears that the highest correlation (of 0.13) is observed at about 105 strand shift. *Take a look at the Nanog-rep2 plot, how does this compare considering there were zero peaks identified?*
 
 Finally, there is also a WIG file output which will be useful for visualization with IGV. Let's first take a look at how to call peaks using MACS2 and then we can visualize peaks to compare the two methods.
 
