@@ -93,7 +93,13 @@ $ macs2 callpeak -t bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam \
 -n Nanog-rep1
 ```
 
-The tool is quite verbose so you should see lines of text being printed to the terminal, describing each step that is being carried out.
+The tool is quite verbose so you should see lines of text being printed to the terminal, describing each step that is being carried out. If that runs successfully, go ahead and **run the same command on the remaining samples**:
+
+ `$ macs2 callpeak -t bowtie2/H1hesc_Nanog_Rep2_chr12_aln.bam -c bowtie2/H1hesc_Input_Rep2_chr12_aln.bam -f BAM -g 1.3e+8 --bdg --outdir macs2 -n Nanog-rep2`
+
+ `$ macs2 callpeak -t bowtie2/H1hesc_Pou5f1_Rep1_chr12_aln.bam -c bowtie2/H1hesc_Input_Rep1_chr12_aln.bam -f BAM -g 1.3e+8 --bdg --outdir macs2 -n Pou5f1-rep1`
+ 
+  `$ macs2 callpeak -t bowtie2/H1hesc_Pou5f1_Rep2_chr12_aln.bam -c bowtie2/H1hesc_Input_Rep2_chr12_aln.bam -f BAM -g 1.3e+8 --bdg --outdir macs2 -n Pou5f1-rep2`
 
 ## MACS2 Output files
 
@@ -106,6 +112,7 @@ There should be a total of 6 files output to the results directory:
 * `control_lambda.bdg`: bedGraph format for input sample
 * `treat_pileup.bdg`: bedGraph format for treatment sample
 
+Let's first find out 
 
 
 ***
