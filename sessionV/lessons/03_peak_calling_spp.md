@@ -254,11 +254,42 @@ A narrowPeak (.narrowPeak) file is used by the ENCODE project to provide called 
 
 Wiggle format (WIG) allows the display of continuous-valued data in a track format. Wiggle format is line-oriented. It is composed of declaration lines and data lines, and require a separate wiggle track definition line. There are two options for formatting wiggle data: variableStep and fixedStep. These formats were developed to allow the file to be written as compactly as possible.
 
+### SPP output
 
+Take a look at the files output from SPP. For each file you should see **4 files**, one of which is the **narrowPeak** files described above. 
 
+There is also a **binding positions** file, which to the narrowPeak file in that each line correspond to a peak, but it contains differ in fields of information. The file contains a table with each row corresponding to a detected position, with the following columns: 
 
+1. chromosome 
+2. position of detected binding site on the chromosome
+3. score reflecting magnitude of the binding 
+4. E-value corresponding to the peak magnitude
+5. FDR corresponding to the peak magnitude
+6. lower bound of the fold-enrichment ratio
+7. maximum likelihood estimate of the fold-enrichment ratio
 
+We can summarize the number of peaks for each sample by counting the lines:
 
+	wc -l spp/*.narrowPeak
+
+There is a also a pdf file which contains the **cross-correlation plot**. This is a graphical representation of the Pearson correlation of positive- and negative-strand tag densities, shifting the strands relative to each other by increasing distance. 
+
+The the peak reflects the strand shift value at which we observe the highest correlation between the positive and negative strands genome-wide. In an ideal case, when all of the sequenced tags participate in such binding patterns, the correlation magnitude reaches a maximum value. Conversely, the magnitude decreases as tag positions are randomized.
+
+<div style="text-align:center"><img src="../img/cross-correlation-legend.png" width="400"></div>
+
+Use `Filezilla` to move one of these over to your laptop. We have Nanog-rep1 displayed below:
+
+<div style="text-align:center"><img src="../img/cross-correlation.png" width="300"></div>
+
+From the plot it appears, that the highest correlation (of 0.13) is observed at about 105 strand shift. *Take a look at the Nanog-rep2 plot, how does this compare considering there were zero peaks identified?*
+
+Finally, there is also a WIG file output which will be useful for visualization with IGV. Let's first take a look at how to call peaks using MACS2 and then we can visualize peaks to compare the two methods.
+
+***
+*This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
+
+* *Material in this lesson is in part adapted from the SPP tutorial: http://compbio.med.harvard.edu/Supplements/ChIP-seq/tutorial.html*
 
 
 
