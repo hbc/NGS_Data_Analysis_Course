@@ -26,12 +26,12 @@ From the alignment files (BAM), you typically observe reads/tags to be identifie
 
 <div style="text-align:center"><img src="../img/chip-fragments.png" width="200" align="middle"></div>
 
-There are various tools that are available for peak calling. Two of the popular one we will demonstrate in this session are SPP and MACS2. *Note that for this lesson the term tag and sequence read are interchangeable.*
+There are various tools that are available for peak calling. Two of the popular ones we will demonstrate in this session are SPP and MACS2. *Note that for this lesson the term 'tag' and sequence 'read' are interchangeable.*
 
 
 ## SPP
 
-SPP is a data processing pipeline optimized for detection of localized protein binding positions from unpaired sequence reads. The [publication](http://www.nature.com.ezp-prod1.hul.harvard.edu/nbt/journal/v26/n12/full/nbt.1508.html) describes the algorithm in great detail, from which we have listed some of the main features here.
+SPP is a data processing pipeline optimized for the detection of localized protein binding positions from unpaired sequence reads. The [publication](http://www.nature.com.ezp-prod1.hul.harvard.edu/nbt/journal/v26/n12/full/nbt.1508.html) describes the algorithm in great detail, from which we have listed some of the main features here.
 
 * Discarding or restricting positions with abnormally high number of tags
 * Provides smoothed tag density in WIG files for viewing in other browsers
@@ -56,13 +56,13 @@ Now let's setup the directory structure. Navigate to `~/ngs_course/chipseq/` if 
 
 	$ mkdir results/spp
 	
-The last thing we need to before getting started is load the appropriate	software. As mentioned, SPP is an R package. On Orchestra it comes installed by default when you load the most recent R module:
+The last thing we need to before getting started is to load the appropriate software. As mentioned, SPP is an R package. On Orchestra the package comes installed by default when you load the most recent R module:
 
 	$ module load stats/R/3.2.1
 
 > ### Parallel processing with SPP
 > 	
-> When working with large datasets it can be beneficial to use multiple cores during some of the more computationally intensive processes. In order to do so, you will need to install the `snow` package in R. Using snow you can initialize a cluster of nodes for parallel processing (in the example below we have a cluster of 8 nodes). *See `snow` package manual for details.* This cluster variable can then be used as input to functions that allow for parallel processing.
+> When working with large datasets it can be beneficial to use multiple cores during some of the more computationally intensive processes of peak calling. In order to do so, you will need to install the `snow` package in R. Using snow you can initialize a cluster of nodes for parallel processing (in the example below we have a cluster of 8 nodes). *See `snow` package manual for details.* This cluster variable can then be used as input to functions that allow for parallel processing.
 > 
 > 	`library(snow)`
 > 	
@@ -155,7 +155,7 @@ input.data <- select.informative.tags(input.data, binding.characteristics)
 
 ### Subtract background
 
-The statistical significance of a 'peak' observed for a putative protein binding position depends on the expected background pattern. 
+The statistical significance of a peak observed for a putative protein binding position depends on the expected background pattern. 
 
 The input tag density identifies three major types of background anomalies: 
 
@@ -165,7 +165,7 @@ The input tag density identifies three major types of background anomalies:
 
 <div style="text-align:center"><img src="../img/background-subtract.png" width="500"></div>
 
-The next function we use correct for background anomalies described in point 1 above. `remove.local.tag.anomalies()` will scan along the chromosomes calculating local density of regions (can be specified using window.size parameter, default is 200bp), removing or restricting singular positions with extremely high tag count relative to the neighborhood. 
+The next function is used to correct for background anomalies described in point 1 above. `remove.local.tag.anomalies()` will scan along the chromosomes calculating local density of regions (can be specified using window.size parameter, default is 200bp), removing or restricting singular positions with extremely high tag count relative to the neighborhood. 
 
 ```
 # restrict or remove singular positions with very high tag counts
@@ -247,7 +247,13 @@ The first three **required BED fields** are:
 
 **narrowPeak:**
 
-A narrowPeak (.narrowPeak) file is used by the ENCODE project to provide called peaks of signal enrichement based on pooled, normalized (interpreted) data. It is a BED 6+4 format, which means the first 6 columns of a BED file with 4 additional fields.
+A narrowPeak (.narrowPeak) file is used by the ENCODE project to provide called peaks of signal enrichement based on pooled, normalized (interpreted) data. It is a BED 6+4 format, which means the first 6 columns of a BED file with 4 additional fields:
+
+
+7. signalValue - Measurement of overall enrichment for the region
+8. pValue - Statistical significance (-log10)
+9. qValue - Statistical significance using false discovery rate (-log10)
+10. peak - Point-source called for this peak; 0-based offset from chromStart
 
 
 **WIG format:**
