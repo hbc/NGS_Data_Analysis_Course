@@ -85,7 +85,8 @@ There are seven [major functions](https://github.com/taoliu/MACS#usage-of-macs2)
 
 Now that we have a feel for the different ways we can tweak our command, lets' set up the command for our run on Nanog-rep1:
 
-```$ macs2 callpeak -t bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam \
+```
+$ macs2 callpeak -t bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam \
 -c bowtie2/H1hesc_Input_Rep1_chr12_aln.bam \
  -f BAM -g 1.3e+8 \
 --bdg --outdir macs2 \
@@ -98,9 +99,9 @@ The tool is quite verbose so you should see lines of text being printed to the t
 
 There should be a total of 6 files output to the results directory:
 
-* `peaks.narrowPeak`: BED6+4 format file which contains the peak locations together with peak summit, pvalue and qvalue.
-* `peaks.xls`: a tabular file which contains information about called peaks inclusing pileup and fold enrichment
-* `summits.bed`: 
+* `peaks.narrowPeak`:
+* `peaks.xls`:
+* `summits.bed`:
 * `model.R`: 
 * `control_lambda.bdg`:
 * `treat_pileup.bdg`:
