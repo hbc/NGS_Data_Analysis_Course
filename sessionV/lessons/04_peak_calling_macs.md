@@ -38,13 +38,39 @@ To model the background noise, MACS uses a dynamic local Poisson distribution in
 
 We will be using the newest version of this tool, MACS2. The underlying algorithm for peak calling remains the same, but it comes with some enhancements in functionality. One major difference on the computational end, is that for MACS the FDR for peaks were empirically determined whereas with MACS2 the FDR is computed using the Benjamini-Hochberg method. 
 
+
+### Setting up
+
 To run MACS2, we will first need to load the moule:
 
 	$ module load seq/macs/2.1.0
 	
 
-There are seven [major functions](https://github.com/taoliu/MACS#usage-of-macs2) available in MACS serving as sub-commands. We will only cover `callpeak` in this lesson, but if interested you can use `macs2 COMMAND -h`  to find out more.
+We will also need to create a directory for the output generated from MACS2:
 
+	$ mkdir results/macs2
+	
+
+### MACS2 parameters
+
+There are seven [major functions](https://github.com/taoliu/MACS#usage-of-macs2) available in MACS2 serving as sub-commands. We will only cover `callpeak` in this lesson, but if interested you can use `macs2 COMMAND -h`  to find out more.
+
+`callpeak` is the main function in MACS2 and can be invoked by typing `macs2 callpeak`. If you type this command without parameters, you will see a full description of commandline options. Here we only list commonly used ones. 
+
+* `-t`: This is the only REQUIRED parameter for MACS. If you have more than one alignment files, you can specify them as `-t A B C`. MACS will pool up all these files together
+* `-c`: The control or mock data file
+* `-n`: The prefix string for output files
+* `--outdir`: MACS2 will save all output files into speficied folder for this option
+* `-f`: format of input file; Default is "AUTO" which will allow MACS to decide the format automatically.
+* `-g`: mappable genome size which is defined as the genome size which can be sequenced; some precompiled parameters provided.
+* `-q`: q-value (minimum FDR) cutoff
+* `-p`: p-value cutoff (instead of q-value cutoff)
+* `-B/--bdg`: store the fragment pileup, control lambda, -log10pvalue and -log10qvalue scores in bedGraph files
+* `-s`: size of sequencing tags. Default, MACS will use the first 10 sequences from your input treatment file to determine it
+* `--bw`: The bandwidth which is used to scan the genome ONLY for model building. Can be set to the expected sonication fragment size.
+* `-m`: upper and lower limit for model building
+* `--nolambda`: do not consider the local bias/lambda at peak candidate regions
+* `--broad`: broad peak calling
 
 
 ***
