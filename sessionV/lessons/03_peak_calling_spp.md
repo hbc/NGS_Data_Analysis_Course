@@ -177,7 +177,7 @@ input.data <- remove.local.tag.anomalies(input.data)
 
 To identify peaks, background subtraction methods are applied to correct for anomalies outlined in 2) and 3) above. The corrections have little effect on the top binding positions, but help with lower ranked peaks reducing false-positive peaks arising from uneven background.
 
-We will use the WTD method to call binding positions, using FDR of 1% and a window size estimated by the binding.characteristics:
+We will use the WTD method to call binding positions, which uses a sliding window and calculates the geometric average on positive and negative strand. Additionally, we will specify an FDR of 1% and a window size estimated by the binding.characteristics:
 
 ```
 # binding detection parameters
