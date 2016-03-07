@@ -59,6 +59,12 @@ Now let's setup the directory structure. Navigate to `~/ngs_course/chipseq/` if 
 The last thing we need to before getting started is to load the appropriate software. As mentioned, SPP is an R package. On Orchestra the package comes installed by default when you load the most recent R module:
 
 	$ module load stats/R/3.2.1
+	
+Copy over additional data files to the `results/bowtie2` directory:
+
+```
+cp /groups/hbctraining/ngs-data-analysis2016/chipseq/bowtie2/* results/bowtie2/
+```
 
 > ### Parallel processing with SPP
 > 	
