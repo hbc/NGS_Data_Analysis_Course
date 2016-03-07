@@ -10,7 +10,7 @@ Approximate time: 1 hour
 
 ## Learning Objectives
 
-* to explore web-based tools for motif discovery and functional analysis of the peak calls
+* to explore web-based tools for motif discovery and functional enrichment analysis of the peak calls
 
 # Motif disovery and functional analysis
 
@@ -18,7 +18,7 @@ Approximate time: 1 hour
 
 We have identified regions of the genome where the number of reads aligning to these areas differ significantly between our Nanog IP samples and the input controls. These enriched regions represent the likely locations of where Nanog binds to the genome. 
 
-After identifying likely binding sites, generally downstream analyses will often include: 
+After identifying likely binding sites, downstream analyses will often include: 
 
 1. determining the binding motifs for the protein of interest
 2. identifying which genes are associated with the binding sites
@@ -29,6 +29,14 @@ Since the motif and functional enrichment analyses are unlikely to give reliable
 
 ## Set-up
 
+Start an interactive session:
+
+```
+bsub -Is -q interactive bash
+
+```
+
+
 Copy over the ENCODE peak calls for Nanog, which contains the peak calls for the whole genome:
 
 ```
@@ -36,7 +44,75 @@ $ cd ~/ngs_course/chipseq/results
 
 $ mkdir functional_analysis
 
+$ cd functional_analysis
+
 $ cp -r /groups/hbctraining/ngs-data-analysis2016/chipseq/other/ENCODE_peak_calls .
 
-$ cd ENCODE_peak_calls 
 ```
+
+## Motif discovery
+
+![MEME_suite](../img/meme_suite.png)
+
+To identify over-represented motifs, we will use DREME from the MEME suite of sequence analysis tools. [DREME](http://meme-suite.org/tools/dreme) is a motif discovery algorithm designed to find short, core DNA-binding motifs of eukaryotic transcription factors and is optimized to handle large ChIP-seq data sets.
+
+DREME is tailored to eukaryotic data by focusing on short motifs (4 to 8 nucleotides) encompassing the DNA-binding region of most eukaryotic monomeric transcription factors. Therefore it may miss wider motifs due to binding by large transcription factor complexes.
+
+To discover DNA-binding motifs, DREME requires the nucleotide sequences corresponding to the peak call coordinates defined in the `NarrowPeak` files. To extract the sequences corresponding to the peak coordinates, we will use the [BEDtools](http://bedtools.readthedocs.org/en/latest/content/bedtools-suite.html) suite of tools.  *BEDtools* contains many tools for performing operations on genomic intervals within BED files. The `getfasta` command extracts sequences from a the reference fasta file for each of the coordinates defined in a BED/GFF/VCF file.
+
+```
+module load seq/BEDtools/2.23.0
+```
+
+We will be using the `getfasta` command with the following parameters:
+
+* `-fi`: path/to/input_file
+* `-bed`: path/to/peak_calls_narrowpeak
+* `-fo`: path/to/output_file
+
+
+```
+bedtools getfasta \
+-fi ~/ngs_course/chipseq/data/reference_data/chr12.fa \
+-bed ENCODE_peak_calls/Encode-hesc-Nanog.narrowPeak \
+-fo Encode-hesc-Nanog.fasta
+```
+
+Use **FileZilla** to transfer `Encode-hesc-Nanog.fasta` to your local computer.
+
+### DREME
+
+Visit the [DREME website](http://meme-suite.org/tools/dreme) and perform the following steps:
+
+1. Select the downloaded `Encode-hesc-Nanog.fasta` as input to DREME
+2. Enter your email address so that DREME can email you once the analysis is complete
+3. Enter a job description so you will recognize which job has been emailed to you and then start the search
+
+You will be shown a status page describing the inputs and the selected parameters, as well as links to the results at the top of the screen.
+
+![results_page](../img/dreme_processing.png)
+
+This may take some time depending on the server load and the size of the file. While you wait, take a look at the expected results:
+
+![dreme_output](../img/dreme_output.png)
+
+DREME’s HTML output provides a list of Discovered Motifs displayed as sequence logos (in the forward and reverse complement (RC) orientations), along with an E-value for the significance of the result. 
+
+Motifs are significantly enriched if the fraction of sequences in the input dataset matching the motif is significantly different from the fraction of sequences in the background dataset using Fisher’s Exact Test. Typically, background dataset is either similar data from a different ChIP-Seq experiment or shuffled versions of the input dataset [1](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3106199/).
+
+Clicking on `More` displays the number of times the motif was identified in the Nanog dataset (positives) versus the background dataset (negatives). The `Details` section displays the number of sequences matching the motif, while `Enriched Matching Words` displays the number of times the motif was identified in the sequences (more than one word possible per sequence).
+
+### Tomtom
+To determine if the identified motifs resemble the binding motifs of known transcription factors, we can submit the motifs to Tomtom, which searches a database of known motifs to find potential matches and provides a statistical measure of motif-motif similarity. We can run the analysis individually for each motif prediction by performing the following steps:
+
+1. Click on the `Submit / Download` button for motif `ACAAWG`
+2. A dialog box will appear asking you to Select what you want to do or Select a program. Select `Tomtom` and click `Submit`. This takes you to the input page. 
+3. Tomtom allows you to select the database you wish to search against. Keep the default parameters selected, but keep in mind that there are other options when performing your own analyses.
+4. Enter your email address and job description and start the search.
+
+You will be shown a status page describing the inputs and the selected parameters, as well as a link to the results at the top of the screen. Clicking the link displays an output page that is continually updated until the analysis has completed. Like DREME, Tomtom will also email you the results.
+
+The HTML output for Tomtom shows a list of possible motif matches for each DREME motif prediction generated from your Nanog regions. Clicking on the match name shows you an alignment of the predicted motif versus the match.
+
+![tomtom_output](../img/tomtom_output.png)
+
