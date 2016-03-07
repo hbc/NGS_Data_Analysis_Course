@@ -68,6 +68,12 @@ Let's see how much trimming improved our reads by running FastQC again:
 
 `$ fastqc ../trimmed_fastq/H1hesc_Input_Rep1_chr12.qualtrim20.minlen36.fq`
 
+Move the FastQC folders to the results directory for trimmed FastQC results:
+
+`$ mv ../trimmed_fastq/*fastqc* ../../results/trimmed_fastqc/`
+
+Using Filezilla, transfer the file for the trimmed Input replicate 1 FastQC to your computer.
+
 ![trimmed_fastqc](../img/chipseq_trimmed_fastqc.png)
 
 ## Alignment
@@ -76,7 +82,7 @@ Let's see how much trimming improved our reads by running FastQC again:
 
 Now that we have removed the poor quality sequences from our data, we are ready to align the reads to the reference genome. [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml) is a fast and accurate alignment tool that indexes the genome with an FM Index based on the Burrows-Wheeler Transform to keep memory requirements low for the alignment process. 
 
-Bowtie2 supports gapped, local and paired-end alignment modes. It works best for reads that are at least 50 bp (shorter read lengths should use Bowtie1), and it can perform soft-clipping to remove poor quality bases [[1](http://genomebiology.biomedcentral.com/articles/10.1186/gb-2009-10-3-r25)].
+*Bowtie2* supports gapped, local and paired-end alignment modes. It works best for reads that are at least 50 bp (shorter read lengths should use Bowtie1), and it can perform soft-clipping to remove poor quality bases [[1](http://genomebiology.biomedcentral.com/articles/10.1186/gb-2009-10-3-r25)].
 
 To perform peak calling for ChIP-Seq analysis, we need our alignment files to contain only **uniquely mapping reads** (no multi-mappers or duplicate reads) in order to increase confidence in site discovery and improve reproducibility. Since there is no parameter in Bowtie2 to keep only uniquely mapping reads, we will need to perform the following steps to generate alignment files containing only the uniquely mapping reads:
 
@@ -88,7 +94,7 @@ To perform peak calling for ChIP-Seq analysis, we need our alignment files to co
 
 ### Creating Bowtie2 index
 
-To perform the Bowtie2 alignment, a genome index is required. **We previously generated the genome indices for you**, and they exist in the `reference_data` directory.
+To perform the Bowtie2 alignment, a genome index is required. **We previously generated the genome indexes for you**, and they exist in the `reference_data` directory.
 
 However, if you needed to create a genome index yourself, you would use the following command:
 
