@@ -74,7 +74,7 @@ There are seven [major functions](https://github.com/taoliu/MACS#usage-of-macs2)
 
 * `-s`: size of sequencing tags. Default, MACS will use the first 10 sequences from your input treatment file to determine it
 * `--bw`: The bandwidth which is used to scan the genome ONLY for model building. Can be set to the expected sonication fragment size.
-* `-m`: upper and lower limit for model building
+* `--mfold`: upper and lower limit for model building
 
 **Peak calling arguments**
 
