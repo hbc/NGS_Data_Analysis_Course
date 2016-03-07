@@ -9,6 +9,7 @@ Contributors: Meeta Mistry,
 Approximate time: 90 minutes
 
 ## Learning Objectives
+
 * Learning how to use MACS2 to compare peaks between two sample groups
 
 
