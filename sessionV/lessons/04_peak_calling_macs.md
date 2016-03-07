@@ -31,7 +31,7 @@ Given a sonication size (`bandwidth`) and a high-confidence fold-enrichment (`mf
 
 For experiments in which sequence depth differs between input and treatment samples, MACS linearly scales the total control tag count to be the same as the total ChIP tag count. Also, MACS allows each genomic position to contain no more than one tag and removes all the redundancies. 
 
-To model the background noise, MACS uses a dynamic local Poisson distribution in which the lambda parameter is deduced by taking the maximum value λlocal = max(λBG, [λ1k,] λ5k, λ10k). Fold enrichment is then comuputed as the density of tags in a given peak compared to background λlocal parameter. This will help isolate the signal from the noise.
+To model the background noise, MACS uses a dynamic local Poisson distribution in which the lambda parameter is deduced by taking the maximum value λlocal = max(λBG, [λ1k,] λ5k, λ10k). Fold enrichment is then computed as the density of tags in a given peak compared to background λlocal parameter. This will help isolate the signal from the noise.
 
 
 ## Running MACS2
