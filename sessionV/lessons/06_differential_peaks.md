@@ -75,4 +75,37 @@ macs2 bdgdiff --t1 macs2/Nanog-rep1_treat_pileup.bdg \
 -o unique_Nanog_rep1.bed unique_Pou5f1_rep1.bed Nanog_Pou5f1_rep1common.bed 
 ``` 
 
+Take a look at the output directory `macs2bdgdiff`, 
+
+	$ ls -l macs2bdgdiff
+
+You should see three files have been generated:
+
+1. One for unique regions in Nanog
+2. One for unique regions in Pou5f1
+3. One for common regions between the two
+
+Count the lines in each to see how many regions overlap between the two transcription factors:
+
+	$ wc -l macs2bdgdiff/*
+	
+Run the `bgdiff` command on the second replicates of each transcription factor:
+
+```
+macs2 bdgdiff --t1 macs2/Nanog-rep2_treat_pileup.bdg \
+--t2 macs2/Pou5f1-rep2_treat_pileup.bdg \
+--c1 macs2/Nanog-rep2_control_lambda.bdg \
+--c2 macs2/Pou5f1-rep2_control_lambda.bdg \
+--outdir macs2bdgdiff \
+-o unique_Nanog_rep2.bed unique_Pou5f1_rep2.bed Nanog_Pou5f1_rep2common.bed
+```	
+*How do the number of overlapping regions compare for the two replicates?*
+
+
+
+
+
+
+
+
 
