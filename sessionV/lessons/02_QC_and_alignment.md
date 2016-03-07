@@ -132,6 +132,8 @@ $ bowtie2 -p 6 -q \
 -S ~/ngs_course/chipseq/results/bowtie2/H1hesc_Input_Rep1_chr12_aln_unsorted.sam
 
 ```
+>*NOTE: If you had added the bcbio path ino your `.bashrc` file last session you should be able to use bowtie2 it without loading a module. If not, load the module using `module load seq/bowtie/2.2.4`
+>
 
 ### Changing file format from SAM to BAM
 
