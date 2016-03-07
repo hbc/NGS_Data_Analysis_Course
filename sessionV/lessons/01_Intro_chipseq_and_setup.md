@@ -123,7 +123,7 @@ $ cd data
 
 $ cp /groups/hbctraining/ngs-data-analysis2016/chipseq/raw_fastq/*fastq untrimmed_fastq/
 
-$ cp /groups/hbctraining/ngs-data-analysis2016/chipseq/reference-chr12/chr12* reference_data/
+$ cp  /groups/hbctraining/ngs-data-analysis2016/chipseq/reference_data/chr12* reference_data/
 ```
 
 ***
