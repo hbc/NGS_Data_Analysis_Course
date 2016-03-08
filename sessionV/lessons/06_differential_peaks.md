@@ -68,6 +68,13 @@ Now that we have two merged peak files we can use them as input for a `bedtools 
 
 *How many peaks are overlapping between Nanog and Pou5f1?*
 
+We can add the `-v` parameter (in place of `-wo`)  to output peaks that are unique to Nanog:
+
+	$ bedtools intersect -a macs2_Nanog_merged.bed -b macs2_Pou5f1_merged.bed -v > Nanog_unique_macs.bed
+
+To find the unique peaks for Pou5f1 we need to reverse the input for `-a` and `-b` so that Pou5f1 is our file A:
+
+	$ bedtools intersect -a macs2_Pou5f1_merged.bed -b macs2_Nanog_merged.bed -v > Pou5f1_unique_macs.bed
 
 ## `bdgdiff` to compare peaks
 
