@@ -18,8 +18,6 @@ Approximate time: 90 minutes
 
 In this section, our goal is to determine what peaks by common to the calls made by both SPP and MACS2. To perform this task we are going to use a suite of tools called bedtools.
 
-> Note: *"You cant really compare peaks from two different peak callers using their default or arbitrary thresholds. They are totally uncalibrated. Rather you run them individually through IDR and then compare the IDR thresholded peaks."* --[Anshul Kundaje](https://med.stanford.edu/profiles/anshul-kundaje), Stanford University (he developed SPP and IDR).
-
 ### bedtools
 
 The idea is that genome coordinate information can be used to perform relatively simple arithmetic, like combining, subsetting, intersecting, etc., to obtain all sorts of information. [bedtools](http://bedtools.readthedocs.org/en/latest/index.html) from [Aaron Quinlan's group](http://quinlanlab.org/) at University of Virginia is an easy to use, extremely versatile tool that performs tasks of this nature. As the name implies, this suite of tools works with bed files. However, in addition it works with other file formats that have genome coordinate information. 
