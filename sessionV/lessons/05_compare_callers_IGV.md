@@ -22,7 +22,7 @@ In this section, our goal is to determine what the high-confidence peaks are bu 
 
 The idea is that genome coordinate information can be used to perform relatively simple arithmetic, like combining, subsetting, intersecting, etc, to obtain all sorts of information. [bedtools](http://bedtools.readthedocs.org/en/latest/index.html) from []Aaron Quinlan's group](http://quinlanlab.org/) at University of Virginia is an easy to use, extremely versatile tool that performs tasks of this nature. As the name implies, this suite of tools works with bed files. However, in addition it works with other file formats that have genome coordinate information. 
 
-<img src="../img/bedtools.png" width="400">
+<img src="../img/bedtools.png" width="700">
 
 > Note: When working with multiple files to perform arithmetic on genomic coordinates, it is essential that all files have coordinate information for the same exact version of the genome!
 
@@ -46,7 +46,7 @@ Before using bedtools to obtain the overlap, we need to combine the information 
 1. Sort/re-order the combined files by coordinates to allow an overlap-based merge
 1. merge together any overlapping peaks (needs coordinate-sorted data) for each sorted file
 
-<img src="../img/bedtools_merge.png" width="400">
+<img src="../img/bedtools_merge.png" width="600">
 
 #### Combining the replicates
 	$ cat ../spp/Nanog_Rep1.narrowPeak ../spp/Nanog_Rep2.narrowPeak > spp_Nanog.narrowPeak
@@ -83,7 +83,7 @@ How many peaks did we get after merging? Is this what you expected?
 	
 `bedtools merge` combines overlapping peaks, but `bedtools intersect` only reports back the peaks that are overlapping with respect to the file defined as`a` in the command.
 
-<img src="../img/bedtools_intersect.png" width="400">
+<img src="../img/bedtools_intersect.png" width="600">
 
 	$ bedtools intersect -h
 	
