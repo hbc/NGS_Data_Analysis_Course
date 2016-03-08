@@ -99,8 +99,9 @@ Other parameters that can be changed (but we will leave as defaults) include:
 
 ### Setting up 
 	
-Make a directory for the ouput generated from `bdgdiff`:
+Move back in to your `results` and make a directory for the ouput generated from `bdgdiff`:
 
+	$ cd ../
 	$ mkdir macs2bdgdiff
 	
 And finally, we will need to load the MACS2 module in order to use the sub-command:
