@@ -38,7 +38,7 @@ The idea is that genome coordinate information can be used to perform relatively
 	
 	$ cd overlap_spp_macs2/
 
-### Nanog peaks that overlap between SPP and MACS2
+### Finding the Nanog peaks that overlap between SPP and MACS2
 
 Before using bedtools to obtain the overlap, we need to combine the information from both replicates using the following 3 steps:
 
@@ -79,7 +79,7 @@ How many peaks did we get after merging? Is this what you expected?
 	$ wc -l *merged.bed
 
 
-#### Intersect the files for each caller and identify overlapping peaks 
+#### Intersecting the merged peaks from each caller to identify overlap 
 	
 `bedtools merge` combines overlapping peaks, but `bedtools intersect` only reports back the peaks that are overlapping with respect to the file defined as `a` in the command.
 
