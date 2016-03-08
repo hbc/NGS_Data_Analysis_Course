@@ -20,7 +20,7 @@ In this section, our goal is to determine what the high-confidence peaks are bu 
 
 ### bedtools
 
-The idea is that genome coordinate information can be used to perform relatively simple arithmetic, like combining, subsetting, intersecting, etc, to obtain all sorts of information. [bedtools](http://bedtools.readthedocs.org/en/latest/index.html) from [Aaron Quinlan's group](http://quinlanlab.org/) at University of Virginia is an easy to use, extremely versatile tool that performs tasks of this nature. As the name implies, this suite of tools works with bed files. However, in addition it works with other file formats that have genome coordinate information. 
+The idea is that genome coordinate information can be used to perform relatively simple arithmetic, like combining, subsetting, intersecting, etc., to obtain all sorts of information. [bedtools](http://bedtools.readthedocs.org/en/latest/index.html) from [Aaron Quinlan's group](http://quinlanlab.org/) at University of Virginia is an easy to use, extremely versatile tool that performs tasks of this nature. As the name implies, this suite of tools works with bed files. However, in addition it works with other file formats that have genome coordinate information. 
 
 <img src="../img/bedtools.png" width="700">
 
@@ -72,7 +72,7 @@ How many peaks did we start with?
 
 	$ wc -l ../[sm]*/*Nanog*narrowPeak
 	
-> Note: In the above command, we are using **2 wildcards**, one is the `*`, and the other is `[ ]`. This wildcard tells `shell` that you want to consider all the  alphanumeric characters within the brackets as independent. In the above case `shell` will perform a `wc -l` on all filenames that fit the pattern `*Nanog*narrowPeak` within directories that either start with an `s` or with an `m`. In our case this would be the `spp` and `macs2` directories. 
+> Note: In the above command, we are using **2 wildcards**, one is the `*`, and the other is `[ ]`. This wildcard tells shell that you want to consider all the characters within the brackets as independent, sort of like an "or" case. In the above case shell will perform a `wc -l` on all filenames that fit the pattern `*Nanog*narrowPeak`, within directories that either start with `s` or with `m`. In our case this would be the `spp` and `macs2` directories. 
 
 How many peaks did we get after merging? Is this what you expected?
 
@@ -97,7 +97,7 @@ How many overlapping peaks did we get?
 
 Once you generate your higher-confidence peaks from ChIP-Seq data, you might want to visualize it in a genome browser like IGV. In addition to peak calls, it is useful to look at the BAM files (IP and input) that were used to generate the peaks.
 
-Let's creat `.bai` files for all the bowtie2 BAM outputs:
+Let's create `.bai` files for all the bowtie2 BAM outputs:
 
 	cd ../bowtie2/
 	
