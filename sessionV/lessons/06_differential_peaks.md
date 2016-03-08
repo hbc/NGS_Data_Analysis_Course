@@ -23,7 +23,50 @@ There are various methods/tools available when investigating narrow peaks, and t
 
 In our case, we are interested in identifying differences in binding between two transcription factors. For each group we have two replicates, and it would be best to use tools that make use of these replicates (i.e [DiffBind](http://bioconductor.org/packages/release/bioc/html/DiffBind.html), [ChIPComp](https://www.bioconductor.org/packages/3.3/bioc/html/ChIPComp.html)) to compute statistics reflecting how significant the changes are. 
 
-However, in the interest of time we are going to explore tools that we have already become familiar with in this lesson. **MACS2 has a sub-command named `bdgdiff`** which can be useful for differential peak detection in the case when you don't have replicates.
+However, in the interest of time we are going to explore tools that we have already become familiar with in this lesson. First, we will use `bedtools` which we have already had some experience with. Second, **MACS2 has a sub-command named `bdgdiff`** which can be useful for differential peak detection in the case when you don't have replicates.
+
+## Using `bedtools` to compare peaks
+As a first pass we will take a look at the overlapping peaks using the merged peak calls we have already generated.
+
+### Setting up
+
+Login to Orchestra and start up an interactive session:
+
+	$ bsub -Is -q interactive bash
+
+Navigate to the `results` directory we have been working in:
+
+	$ cd ~/ngs_course/chipseq/results
+	
+Make a directory for the ouput generated from `bedtoools`:
+
+	$ mkdir TFcompare
+	$ cd TFcompare
+	
+Load the `bedtools` module:
+
+	$ module load seq/BEDtools/2.23.0
+
+We will only look at the peak calls generated from MACS2, so let's copy over the merged peaks file we had already generated:
+
+	$ cp ../overlap_spp_macs2/macs2_Nanog_merged.bed .
+	
+Create a merged file for the Pou5f1 replicates by first combining and sorting the data:
+
+	# Concatenate files
+	$ cat ../macs2/Pou5f1-rep1_peaks.narrowPeak ../macs2/Pou5f1-rep2_peaks.narrowPeak > macs2_Pou5f1.narrowPeak
+	
+	# Sort file
+	$ sort -k1,1 -k2,2n macs2_Pou5f1.narrowPeak > macs2_Pou5f1_sorted.narrowPeak
+	
+	# Merge peaks
+	$ bedtools merge -i macs2_Pou5f1_sorted.narrowPeak > macs2_Pou5f1_merged.bed 
+
+Now that we have two merged peak files we can use them as input for a `bedtools intersect`:
+
+	$ bedtools intersect -a macs2_Nanog_merged.bed -b macs2_Pou5f1_merged.bed -wo > diffbind_macs.bed
+
+*How many peaks are overlapping between Nanog and Pou5f1?*
 
 
 ## `bdgdiff` to compare peaks
@@ -48,14 +91,6 @@ Other parameters that can be changed (but we will leave as defaults) include:
 * `--d1, --d2`: Sequencing depth (# of non-redundant reads in million) for each sample
 
 ### Setting up 
-
-Login to Orchestra and start up an interactive session:
-
-	$ bsub -Is -q interactive bash
-
-Navigate to the `chipseq` directory we have been working in:
-
-	$ cd ~/ngs_course/chipseq
 	
 Make a directory for the ouput generated from `bdgdiff`:
 
