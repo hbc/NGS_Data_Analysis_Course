@@ -18,7 +18,7 @@ Approximate time: 90 minutes
 
 In this section, our goal is to determine what peaks by common to the calls made by both SPP and MACS2. To perform this task we are going to use a suite of tools called bedtools.
 
-> Note: *"You cant really compare peaks from two different peak callers using their default or arbitrary thresholds. They are totally uncalibrated. Rather you run them individually through IDR and then compare the IDR thresholded peaks."* --[Anshul Kundaje](https://med.stanford.edu/profiles/anshul-kundaje), Standford University (developed SPP and IDR).
+> Note: *"You cant really compare peaks from two different peak callers using their default or arbitrary thresholds. They are totally uncalibrated. Rather you run them individually through IDR and then compare the IDR thresholded peaks."* --[Anshul Kundaje](https://med.stanford.edu/profiles/anshul-kundaje), Stanford University (he developed SPP and IDR).
 
 ### bedtools
 
