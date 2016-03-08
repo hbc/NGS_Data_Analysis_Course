@@ -35,6 +35,7 @@ Get overlap for Nanog
 * merge together any overlapping peaks (needs coordinate-sorted data) for each sorted file
 * intersect the merged files and get overlapping peaks 
 
+
 	$ cat ../spp/Nanog_Rep1.narrowPeak ../spp/Nanog_Rep2.narrowPeak > spp_Nanog.narrowPeak
 	
 	$ cat ../macs2/Nanog-rep1_peaks.narrowPeak ../macs2/Nanog-rep2_peaks.narrowPeak > macs2_Nanog.narrowPeak
