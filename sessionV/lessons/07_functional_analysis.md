@@ -73,7 +73,7 @@ We will be using the `getfasta` command with the following parameters:
 
 ```
 bedtools getfasta \
--fi ~/ngs_course/chipseq/data/reference_data/chr12.fa \
+-fi /groups/shared_databases/igenome/Homo_sapiens/UCSC/hg19/Sequence/WholeGenomeFasta/genome.fa \
 -bed ENCODE_peak_calls/Encode-hesc-Nanog.narrowPeak \
 -fo Encode-hesc-Nanog.fasta
 ```
