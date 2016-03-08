@@ -16,7 +16,7 @@ Approximate time: 90 minutes
 
 ## How much overlap exists between SPP and MACS2?
 
-In this section, our goal is to determine what the high-confidence peaks are bu generating a file that only contains peaks called by both SPP and MACS2. To perform this task we are going to use a suite of tools called bedtools.
+In this section, our goal is to determine what the high-confidence peaks are by generating a file that only contains peaks called by both SPP and MACS2. To perform this task we are going to use a suite of tools called bedtools.
 
 ### bedtools
 
