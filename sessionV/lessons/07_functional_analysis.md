@@ -123,18 +123,21 @@ If we compare our results with what is known about our transcription factor, Nan
 
 ![nanog](../img/nanog_binding.png)[https://www.qiagen.com/us/shop/genes-and-pathways/pathway-details/?pwid=309](https://www.qiagen.com/us/shop/genes-and-pathways/pathway-details/?pwid=309)
 
-> MEME-ChIP is a tool that is part of the MEME Suite that is specifically designed for ChIP-Seq analysis. MEME-ChIP performs DREME and Tomtom analysis in addition to using tools to assess which motifs are most centrally enriched (motifs should be centered in the peaks) and to combine related motifs into similarity clusters. It is able to identify longer motifs <30bp, but takes much longer to run. If we were to run on our own data:
+
+### MEME-ChIP
+
+MEME-ChIP is a tool that is part of the MEME Suite that is specifically designed for ChIP-Seq analyses. MEME-ChIP performs DREME and Tomtom analysis in addition to using tools to assess which motifs are most centrally enriched (motifs should be centered in the peaks) and to combine related motifs into similarity clusters. It is able to identify longer motifs < 30bp, but takes much longer to run. If we were to run on our own data:
 
 > ![](../img/meme_chip_output.png)
 
 
 ## Functional enrichment analysis
 
-In order to be able to identify functional enrichment we need to look at genome wide signals; instead of just looking at the ENCODE Nanog peak calls for chromosome 12 we will use the **full set of calls**. 
+In order to be able to identify functional enrichment we need to look at genome wide signals; instead of just looking at the ENCODE Nanog peak calls for chromosome 12 we will use the **full set of peak calls**. 
 
-We will use [GREAT](http://bejerano.stanford.edu/great/public/html/index.php) to perform a functional enrichment. GREAT takes a list of regions, associates them with nearby genes, and then analyzes the gene annotations to assign biological meaning to the data:
+We will use [GREAT](http://bejerano.stanford.edu/great/public/html/index.php) to perform a functional enrichment analysis. GREAT takes a list of regions, associates them with nearby genes, and then analyzes the gene annotations to assign biological meaning to the data.
 
-The input of GREAT is a BED file containing the coordinates of the peak calls. We have created the BED file for you from the NarrowPeak file, but if you wanted to create it yourself you just needed to keep the first three columns of the NarrowPeak file:
+The input of GREAT is a BED file containing the coordinates of the peak calls. We have created the BED file for you from the NarrowPeak file, but if you wanted to create it yourself you only need to keep the first three columns of the NarrowPeak file:
 
 ```
 # DO NOT RUN THIS
@@ -150,8 +153,24 @@ Using FileZilla, transfer Encode-hesc-Nanog.bed to your Desktop. Open [GREAT](ht
 
 	![tss_gene](../img/tss_distance.png)
 
-3. Observe the graphics displaying the summary of the binding site locations relative to the transcription start sites of the associated genes
+3. Observe the graphics displaying the summary of the number of genes associated with each binding site and the binding site locations relative to the transcription start sites of the associated genes
 	
 	![tss_graphs](../img/great_region_assoc.png)
 
-4. Expand `Global Controls`.
+4. Below the `Region-Gene Association Graphs` are the `Global Controls`, where you can select the annotation information to display. Keep the default settings and scroll down to view the information displayed. 
+
+5. Explore the GO Biological Process terms associated with the Nanog binding sites. Notice the options available at the top of the tables for exporting data, changing settings, and visualization.
+
+	![annot](../img/great_annot.png)
+	
+	GREAT calculates two measures of statistical enrichment: "one using a binomial test over genomic regions and one using a hypergeometric test over genes" [[2](http://bejerano.stanford.edu/help/display/GREAT/Statistics)]. Each test has its own biases, which are compensated for by the other test. 
+	
+6. Click on the term `negative regulation of stem cell differentiation`:
+
+	![select_go](../img/great_selection_go.png)
+	
+	Note that summary information about the binding sites of Nanog for genes associated with this GO term are displayed.
+	
+7. Expand the section for `This term's genomic region-gene association tables`. Notice that you have the option to download the gene table.
+
+8. Click on `NOTCH1`. Explore the binding regions directly within the UCSC Genome Browser.
