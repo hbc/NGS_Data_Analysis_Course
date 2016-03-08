@@ -133,9 +133,9 @@ MEME-ChIP is a tool that is part of the MEME Suite that is specifically designed
 
 ## Functional enrichment analysis
 
-In order to be able to identify functional enrichment we need to look at genome wide signals; instead of just looking at the ENCODE Nanog peak calls for chromosome 12 we will use the **full set of peak calls**. 
+In order to be able to identify functional enrichment we need to look at genome wide signals; instead of just looking at the ENCODE Nanog peak calls for chromosome 12, so we will use the **full set of peak calls**. 
 
-We will use [GREAT](http://bejerano.stanford.edu/great/public/html/index.php) to perform a functional enrichment analysis. GREAT takes a list of regions, associates them with nearby genes, and then analyzes the gene annotations to assign biological meaning to the data.
+We will use [GREAT](http://bejerano.stanford.edu/great/public/html/index.php) to perform the functional enrichment analysis. GREAT takes a list of regions, associates them with nearby genes, and then analyzes the gene annotations to assign biological meaning to the data.
 
 The input of GREAT is a BED file containing the coordinates of the peak calls. We have created the BED file for you from the NarrowPeak file, but if you wanted to create it yourself you only need to keep the first three columns of the NarrowPeak file:
 
