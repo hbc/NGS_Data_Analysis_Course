@@ -81,7 +81,7 @@ How many peaks did we get after merging? Is this what you expected?
 
 #### Intersect the files for each caller and identify overlapping peaks 
 	
-`bedtools merge` combines overlapping peaks, but `bedtools intersect` only reports back the peaks that are overlapping with respect to the file defined as`a` in the command.
+`bedtools merge` combines overlapping peaks, but `bedtools intersect` only reports back the peaks that are overlapping with respect to the file defined as `a` in the command.
 
 <img src="../img/bedtools_intersect.png" width="600">
 
