@@ -97,7 +97,7 @@ How many overlapping peaks did we get?
 
 ### Getting set up for IGV 
 
-Once you generate your higher-confidence peaks from ChIP-Seq data, you might want to visualize it in a genome browser like IGV. In addition to peak calls, it is useful to look at the BAM files (IP and input) that were used to generate the peaks.
+Once you generate your overlapping peaks from ChIP-Seq data, you might want to visualize it in a genome browser like IGV. In addition to peak calls, it is useful to look at the BAM files (IP and input) that were used to generate the peaks.
 
 Let's create `.bai` files for all the bowtie2 BAM outputs:
 
