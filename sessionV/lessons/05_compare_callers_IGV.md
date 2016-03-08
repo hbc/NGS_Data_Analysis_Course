@@ -16,7 +16,9 @@ Approximate time: 90 minutes
 
 ## How much overlap exists between SPP and MACS2?
 
-In this section, our goal is to determine what the high-confidence peaks are by generating a file that only contains peaks called by both SPP and MACS2. To perform this task we are going to use a suite of tools called bedtools.
+In this section, our goal is to determine what peaks by common to the calls made by both SPP and MACS2. To perform this task we are going to use a suite of tools called bedtools.
+
+> Note: *"You cant really compare peaks from two different peak callers using their default or arbitrary thresholds. They are totally uncalibrated. Rather you run them individually through IDR and then compare the IDR thresholded peaks."* --[Anshul Kundaje](https://med.stanford.edu/profiles/anshul-kundaje), Standford University (developed SPP and IDR).
 
 ### bedtools
 
@@ -112,8 +114,8 @@ Let's create `.bai` files for all the bowtie2 BAM outputs:
 
 Use FileZilla to transfer the following files to a new directory on your computer called `ChIP-Seq visualization`:
 
-* bowtie2/H1hesc_Input_Rep1_chr12_aln.bam and bowtie2/H1hesc_Input_Rep1_chr12_aln.bam.bai
-* bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam and bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam.bai
+* `bowtie2/H1hesc_Input_Rep1_chr12_aln.bam` and `bowtie2/H1hesc_Input_Rep1_chr12_aln.bam.bai`
+* `bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam` and `bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam.bai`
 
 * spp/Nanog_Rep1.enrichment.estimates.wig
 
