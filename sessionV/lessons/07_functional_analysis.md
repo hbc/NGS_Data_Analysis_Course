@@ -112,7 +112,7 @@ To determine if the identified motifs resemble the binding motifs of known trans
 
 You will be shown a status page describing the inputs and the selected parameters, as well as a link to the results at the top of the screen. Clicking the link displays an output page that is continually updated until the analysis has completed. Like DREME, Tomtom will also email you the results.
 
-The HTML output for Tomtom shows a list of possible motif matches for each DREME motif prediction generated from your Nanog regions. Clicking on the match name shows you an alignment of the predicted motif versus the match.
+The HTML output for Tomtom shows a list of possible motif matches for the DREME motif prediction generated from your Nanog regions. Clicking on the match name shows you an alignment of the predicted motif versus the match.
 
 ![tomtom_output](../img/tomtom_output.png)
 
