@@ -21,7 +21,7 @@ We have identified regions of the genome where the number of reads aligning to t
 After identifying likely binding sites, downstream analyses will often include: 
 
 1. determining the binding motifs for the protein of interest
-2. identifying which genes are associated with the binding sites, and exploring whether any associated enrichment of proccesses, pathways, or networks.
+2. identifying which genes are associated with the binding sites and exploring whether there is associated enrichment of processes, pathways, or networks.
 
 We will explore a few useful web-based tools for performing these analyses using our Nanog peak calls.
 
