@@ -58,7 +58,7 @@ To identify over-represented motifs, we will use DREME from the MEME suite of se
 
 DREME is tailored to eukaryotic data by focusing on short motifs (4 to 8 nucleotides) encompassing the DNA-binding region of most eukaryotic monomeric transcription factors. Therefore it may miss wider motifs due to binding by large transcription factor complexes.
 
-To discover DNA-binding motifs, DREME requires the nucleotide sequences corresponding to the peak call coordinates defined in the `NarrowPeak` files. To extract the sequences corresponding to the peak coordinates, we will use the [BEDtools](http://bedtools.readthedocs.org/en/latest/content/bedtools-suite.html) suite of tools.  *BEDtools* contains many tools for performing operations on genomic intervals within BED files. The `getfasta` command extracts sequences from a the reference fasta file for each of the coordinates defined in a BED/GFF/VCF file.
+To discover DNA-binding motifs, DREME requires the nucleotide sequences corresponding to the peak call coordinates defined in the `NarrowPeak` files. To extract the sequences corresponding to the peak coordinates, we will use the [BEDtools](http://bedtools.readthedocs.org/en/latest/content/bedtools-suite.html) suite of tools.  *BEDtools* contains many tools for performing operations on genomic intervals within BED files. The `getfasta` command extracts sequences from a reference fasta file for each of the coordinates defined in a BED/GFF/VCF file.
 
 ```
 module load seq/BEDtools/2.23.0
