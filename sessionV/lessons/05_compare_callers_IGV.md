@@ -16,30 +16,57 @@ Approximate time: 90 minutes
 
 Bedtools description
 
+Setting up
 
-module load seq/B
+	$ bsub -Is -q interactive bash
+	
+	$ cd ~/ngs_course/chipseq/results/
+	
+	$ module load seq/BEDtools/2.23.0
 
-mkdir overlap_spp_macs2/
+	$ mkdir overlap_spp_macs2/
+	
+	$ cd overlap_spp_macs2/
 
-cat spp/Nanog_Rep1.narrowPeak spp/Nanog_Rep2.narrowPeak > overlap_spp_macs2/spp_Nanog.narrowPeak
-sort -k1,1 -k2,2n overlap_spp_macs2/spp_Nanog.narrowPeak > overlap_spp_macs2/spp_Nanog_sorted.narrowPeak
-bedtools merge -i overlap_spp_macs2/spp_Nanog_sorted.narrowPeak > overlap_spp_macs2/spp_Nanog_merged.bed 
+Get overlap for Nanog
+4 steps:
+* combine replicates for each caller
+* sort/re-order the combined file by coordinates for the combined files
+* merge together any overlapping peaks (needs coordinate-sorted data) for each sorted file
+* intersect the merged files and get overlapping peaks 
 
-cat macs2/Nanog-rep1_peaks.narrowPeak macs2/Nanog-rep2_peaks.narrowPeak > overlap_spp_macs2/macs2_Nanog.narrowPeak
-sort -k1,1 -k2,2n overlap_spp_macs2/macs2_Nanog.narrowPeak > overlap_spp_macs2/macs2_Nanog_sorted.narrowPeak
-bedtools merge -i overlap_spp_macs2/macs2_Nanog_sorted.narrowPeak > overlap_spp_macs2/macs2_Nanog_merged.bed 
+	$ cat ../spp/Nanog_Rep1.narrowPeak ../spp/Nanog_Rep2.narrowPeak > spp_Nanog.narrowPeak
+	
+	$ cat ../macs2/Nanog-rep1_peaks.narrowPeak ../macs2/Nanog-rep2_peaks.narrowPeak > macs2_Nanog.narrowPeak
+	
+	$ sort -k1,1 -k2,2n spp_Nanog.narrowPeak > spp_Nanog_sorted.narrowPeak
+	
+	$ sort -k1,1 -k2,2n macs2_Nanog.narrowPeak > macs2_Nanog_sorted.narrowPeak
+	
+	$ bedtools merge -h
+	$ bedtools merge -i spp_Nanog_sorted.narrowPeak > spp_Nanog_merged.bed 
 
-bedtools intersect -a spp_Nanog_merged.bed -b macs2_Nanog_merged.bed -wo > Nanog_spp-macs_overlap.bed
+	$ bedtools merge -i macs2_Nanog_sorted.narrowPeak > macs2_Nanog_merged.bed 
+	
+	$ bedtools intersect -h
+	$ bedtools intersect -a spp_Nanog_merged.bed -b macs2_Nanog_merged.bed -wo > Nanog_spp-macs_overlap.bed
 
+	$ wc -l ../[sm]*/*Nanog*narrowPeak
 
-module load seq/samtools
+	$ wc -l *Nanog*bed
 
-ll -htr *aln.bam
+Make .bai files for visualization
 
-for fname in *aln.bam
-do
-samtools index $fname
-done
+	cd ../bowtie2/
+	
+	$ module load seq/samtools
+
+	$ ll -htr *aln.bam
+
+	$ for fname in *aln.bam
+		do
+		samtools index $fname
+		done
 
 bring over with FileZilla:
 
