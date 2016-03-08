@@ -145,9 +145,9 @@ The input of GREAT is a BED file containing the coordinates of the peak calls. W
 cut -f 1,2,3 Encode-hesc-Nanog.narrowPeak > Encode-hesc-Nanog.bed
 ```
 
-Using **FileZilla**, transfer Encode-hesc-Nanog.bed to your Desktop. Open [GREAT](http://bejerano.stanford.edu/great/public/html/index.php), and perform the following steps:
+Using **FileZilla**, transfer `Encode-hesc-Nanog.bed` to your Desktop. Open [GREAT](http://bejerano.stanford.edu/great/public/html/index.php), and perform the following steps:
 
-1. Choose the ENCODE-Nanog.bed file and use the Whole genome for Background regions. Click Submit. GREAT provides the output in HTML format organized by section.
+1. Choose the `Encode-hesc-Nanog.bed` file and use the `Whole genome` for Background regions. Click Submit. GREAT provides the output in HTML format organized by section.
 
 2. Expand the `Job Description` section. Click on `View all genomic region-gene associations`. Note that each associated gene is listed with location from the transcription start site as shown below:
 
