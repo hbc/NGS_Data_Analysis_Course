@@ -112,10 +112,8 @@ Let's create `.bai` files for all the bowtie2 BAM outputs:
 
 Use FileZilla to transfer the following files to a new directory on your computer called `ChIP-Seq visualization`:
 
-* bowtie2/H1hesc_Input_Rep1_chr12_aln.bam
-* bowtie2/H1hesc_Input_Rep1_chr12_aln.bam.bai
-* bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam
-* bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam.bai
+* bowtie2/H1hesc_Input_Rep1_chr12_aln.bam and bowtie2/H1hesc_Input_Rep1_chr12_aln.bam.bai
+* bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam and bowtie2/H1hesc_Nanog_Rep1_chr12_aln.bam.bai
 
 * spp/Nanog_Rep1.enrichment.estimates.wig
 
