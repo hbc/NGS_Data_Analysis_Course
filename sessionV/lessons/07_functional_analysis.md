@@ -153,6 +153,8 @@ Using **FileZilla**, transfer `Encode-hesc-Nanog.bed` to your Desktop. Open [GRE
 
 	![tss_gene](../img/tss_distance.png)
 
+	Within this section, you have the option to download the list of genes associated with Nanog binding sites or you could view all of the binding sites in the UCSC Genome Browser.
+	
 3. Observe the graphics displaying the summary of the number of genes associated with each binding site and the binding site locations relative to the transcription start sites of the associated genes
 	
 	![tss_graphs](../img/great_region_assoc.png)
