@@ -116,3 +116,42 @@ The HTML output for Tomtom shows a list of possible motif matches for each DREME
 
 ![tomtom_output](../img/tomtom_output.png)
 
+The short genomic regions identified by ChIP-seq are generally very highly enriched with binding sites of the ChIP-ed transcription factor, but Nanog is not in the databases of known motifs. The regions identified also tend to be enriched for the binding sites of other transcription factors that bind *cooperatively or competitively* with the ChIP-ed transcription factor.
+
+If we compare our results with what is known about our transcription factor, Nanog, we find that Sox2 and Pou5f1 (Oct4) co-regulate many of the same genes as Nanog. 
+
+
+![nanog](../img/nanog_binding.png)[https://www.qiagen.com/us/shop/genes-and-pathways/pathway-details/?pwid=309](https://www.qiagen.com/us/shop/genes-and-pathways/pathway-details/?pwid=309)
+
+> MEME-ChIP is a tool that is part of the MEME Suite that is specifically designed for ChIP-Seq analysis. MEME-ChIP performs DREME and Tomtom analysis in addition to using tools to assess which motifs are most centrally enriched (motifs should be centered in the peaks) and to combine related motifs into similarity clusters. It is able to identify longer motifs <30bp, but takes much longer to run. If we were to run on our own data:
+
+> ![](../img/meme_chip_output.png)
+
+
+## Functional enrichment analysis
+
+In order to be able to identify functional enrichment we need to look at genome wide signals; instead of just looking at the ENCODE Nanog peak calls for chromosome 12 we will use the **full set of calls**. 
+
+We will use [GREAT](http://bejerano.stanford.edu/great/public/html/index.php) to perform a functional enrichment. GREAT takes a list of regions, associates them with nearby genes, and then analyzes the gene annotations to assign biological meaning to the data:
+
+The input of GREAT is a BED file containing the coordinates of the peak calls. We have created the BED file for you from the NarrowPeak file, but if you wanted to create it yourself you just needed to keep the first three columns of the NarrowPeak file:
+
+```
+# DO NOT RUN THIS
+
+cut -f 1,2,3 Encode-hesc-Nanog.narrowPeak > Encode-hesc-Nanog.bed
+```
+
+Using FileZilla, transfer Encode-hesc-Nanog.bed to your Desktop. Open [GREAT](http://bejerano.stanford.edu/great/public/html/index.php), and perform the following steps:
+
+1. Choose the ENCODE-Nanog.bed file and use the Whole genome for Background regions. Click Submit. GREAT provides the output in HTML format organized by section.
+
+2. Expand the `Job Description` section. Click on `View all genomic region-gene associations`. Note that each associated gene is listed with location from the transcription start site as shown below:
+
+	![tss_gene](../img/tss_distance.png)
+
+3. Observe the graphics displaying the summary of the binding site locations relative to the transcription start sites of the associated genes
+	
+	![tss_graphs](../img/great_region_assoc.png)
+
+4. Expand `Global Controls`.
