@@ -16,7 +16,7 @@ Approximate time: 90 minutes
 
 ## How much overlap exists between SPP and MACS2?
 
-In this section, our goal is to determine what peaks by common to the calls made by both SPP and MACS2. To perform this task we are going to use a suite of tools called bedtools.
+In this section, our goal is to determine what peaks are in common between the calls made by both SPP and MACS2. To perform this task we are going to use a suite of tools called bedtools.
 
 ### bedtools
 
