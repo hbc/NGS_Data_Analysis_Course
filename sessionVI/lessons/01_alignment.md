@@ -1,5 +1,5 @@
 ---
-title: "QC + Alignment with BWA"
+title: "Alignment with BWA"
 author: "Meeta Mistry, Mary Piper"
 date: "Wednesday, March 23, 2016"
 ---
