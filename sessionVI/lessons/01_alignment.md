@@ -140,7 +140,7 @@ The last stage of the alignment phase is marking duplicates, and it is usually o
 
 ![align_cleanup](../img/workflow_cleanup.png)
 
-If duplicates aren't marked, then the PCR-based errors will be picked up again and again as false positive variant calls. Duplicates are easy to detect: since they have the same mapping information and CIGAR string:  
+If duplicates aren't marked, then the PCR-based errors will be picked up again and again as false positive variant calls. Duplicates are easy to detect since they have the same mapping information and CIGAR string:  
 
 ![dedup1](../img/dedup_begin.png)
 
