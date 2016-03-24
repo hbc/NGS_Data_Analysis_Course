@@ -140,7 +140,7 @@ The last stage of the alignment phase is marking duplicates, and it is usually o
 
 ![align_cleanup](../img/workflow_cleanup.png)
 
-If duplicates aren't marked, then the PCR-based errors will be picked up again and again as false positive variant calls. Duplicates are easy to detect since they have the same mapping information and CIGAR string:  
+If duplicates aren't marked, then the PCR-based errors will be picked up again and again as false positive variant calls. Duplicates are easy to detect: since they have the same mapping information and CIGAR string:  
 
 ![dedup1](../img/dedup_begin.png)
 
@@ -150,11 +150,22 @@ Marking duplicates with tools such as Picard or samblaster will result in the va
 
 The variant caller will be more likely to discard the error, instead of calling it as a variant.
 
+We will be using the [Picard](http://broadinstitute.github.io/picard/) suite of tools from the Broad Institute to sort the alignment SAM file and mark duplicates. The documentation for usage and options is available in the [user_manual](http://broadinstitute.github.io/picard/command-line-overview.html#Tools).
+ 
 #### Sorting SAM by coordinates
-[user_manual](http://broadinstitute.github.io/picard/command-line-overview.html#Overview)
+The Picard tool `SortSam` sorts a input SAM or BAM file by coordinate, queryname, etc. Input and output formats (SAM or BAM) are determined by the file extension.
+
+The description of all options for the `SortSam` tool:
+
+* `INPUT`:	The BAM or SAM file to sort. Required.
+* `OUTPUT`:	The sorted BAM or SAM output file. Required.
+* `SORT_ORDER`:	Sort order of output file Required. Possible values: {unsorted, queryname, coordinate, duplicate}
+* `VALIDATION_STRINGENCY`: Validation stringency for all SAM files read by this program. Possible values: {STRICT, LENIENT, SILENT}
+	
+	**NOTE:** BWA can produce SAM records that are marked as unmapped but have non-zero MAPQ and/or non-"*" CIGAR. Typically this is because BWA found an alignment for the read that hangs off the end of the reference sequence. Picard considers such input to be invalid. In general, this error can be suppressed in Picard programs by passing VALIDATION_STRINGENCY=LENIENT or VALIDATION_STRINGENCY=SILENT [[2](https://sourceforge.net/p/picard/wiki/Main_Page/)]. 
 
 ```
-$ java -jar /opt/picard-1.138/SortSam.jar \
+$ java -jar /opt/picard-1.138/bin/picard.jar SortSam \
 INPUT=na12878.sam \
 OUTPUT=na12878_sorted.sam \
 SORT_ORDER=coordinate \
@@ -162,16 +173,27 @@ VALIDATION_STRINGENCY=LENIENT
 ```
 
 #### Marking duplicates
+The Picard tool `MarkDuplicates` can locate and tag duplicate reads (both PCR and optical/sequencing-driven) in a BAM or SAM file, where duplicate reads are defined as originating from the same original fragment of DNA. Explanation of the process of determining duplicate reads is provided in the [user_manual](http://broadinstitute.github.io/picard/command-line-overview.html#Tools).
+
+The basic options for marking duplicates are:
+
+* `INPUT`:	The BAM or SAM file to sort. Required.
+* `OUTPUT`:	The sorted BAM or SAM output file. Required.
+* `METRICS_FILE`: File to write duplication metrics to Required.
+* `ASSUME_SORTED`: If true, assume that the input file is coordinate sorted even if the header says otherwise. Default value: false. Possible values: {true, false}
+* `VALIDATION_STRINGENCY`: Validation stringency for all SAM files read by this program. Default value: STRICT. Possible values: {STRICT, LENIENT, SILENT}
 
 ```
-$ java -jar /opt/picard-1.138/MarkDuplicates.jar \
+$ java -jar /opt/picard-1.138/bin/picard.jar MarkDuplicates \
 INPUT=na12878_sorted.sam \
 OUTPUT=na12878_sorted_marked.bam \
 METRICS_FILE=metrics.txt \
-AS=true \
+ASSUME_SORTED=true \
 VALIDATION_STRINGENCY=LENIENT
 ```
 #### Creating index for BAM file
+
+Now that we have a sorted BAM file that has duplicates marked, we would like to visualize our aligned reads in IGV. To do this, we need an index for our BAM file. As we have done in previous sessions, we will use SamTools to create the index:
 
 ```
 samtools index na12878_sorted_marked.bam
