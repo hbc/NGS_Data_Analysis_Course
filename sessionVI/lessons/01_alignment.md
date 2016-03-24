@@ -20,6 +20,8 @@ The variant calling workflow begins with quality control and alignment, similar 
 
 ## Set-up
 
+Before we start with variant calling, we need to set-up our directory structure. 
+
 Login to Orchestra and start an interactive session with four cores:
 
 ```
@@ -63,9 +65,9 @@ Now that we have the directory structure created, let's copy over the data to pe
 ```
 $ cd data
 
-$ cp /groups/hbctraining/ngs-data-analysis2016/var-calling/raw_fastq/*fastq untrimmed_fastq/
+$ cp /groups/hbctraining/ngs-data-analysis2016/var-calling/raw_fastq/*fq untrimmed_fastq/
 
-$ cp  /groups/hbctraining/ngs-data-analysis2016/chipseq/reference_data/chr20.fa reference_data/
+$ cp /groups/hbctraining/ngs-data-analysis2016/var-calling/reference_data/chr20.fa reference_data/
 ```
 
 ## Dataset
@@ -136,14 +138,13 @@ The basic options for aligning reads to the genome using BWA-MEM are:
 
 * `-t`: number of threads / cores
 * `-M`: mark shorter split hits as secondary (for Picard compatibility)
-	
 
 ```
-$ bwa mem -t 4 -M 6  \
+$ bwa mem -M -t 4  \
 reference_data/chr20 \   # path to genome indexes including prefix
-untrimmed_fastq/na12878_1.fastq untrimmed_fastq/na12878_2.fastq \    # fastq files for paired-end reads
-2> ~/ngs_course/var-calling/results/bwa/bwa.err > ~/ngs_course/var-calling/results/bwa/na12878.sam     # save standard error to file and save alignment output as `na12878.sam`
-
+untrimmed_fastq/na12878_1.fq untrimmed_fastq/na12878_2.fq \    # fastq files for paired-end reads
+2> ../results/bwa/bwa.err \
+> ../results/bwa/na12878.sam     # save standard error to file and save alignment output to a SAM file
 ```
 ### Alignment clean-up
 
