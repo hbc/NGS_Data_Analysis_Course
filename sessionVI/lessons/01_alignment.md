@@ -82,7 +82,7 @@ The source DNA, known as NA12878, was taken from a single person: the mother in 
 
 While the sample NA12878 was sequenced at a depth of 300x, we will only be using a subset of the dataset aligning to chromosome 20. The sequencing files we will be using for NA12878 sample will have a total of ~ 4 million paired-end reads.
 
-## Alignment
+## QC and Alignment
 
 In our workflow, we are going to skip over the Quality Control steps, but we will assume that we used FastQC to ensure there are no obvious problems with our samples and no adapter or vector contamination. Since the aligner we will use performs soft-clipping, we will skip the quality trimming step as well.
 
