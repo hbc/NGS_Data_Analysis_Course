@@ -168,10 +168,10 @@ Marking duplicates with tools such as *Picard* or *samblaster* will result in th
 
 The variant caller will be more likely to discard the error, instead of calling it as a variant.
 
-We will be using the [Picard](http://broadinstitute.github.io/picard/) suite of tools from the Broad Institute to sort the alignment SAM file and mark duplicates. The documentation for usage and options is available in the [user_manual](http://broadinstitute.github.io/picard/command-line-overview.html#Tools).
+We will be using the [Picard](http://broadinstitute.github.io/picard/) suite of tools from the Broad Institute to sort the alignment SAM file and mark duplicates. The documentation for the tools and their usage and options is available in the [user_manual](http://broadinstitute.github.io/picard/command-line-overview.html#Tools).
  
 #### Sorting SAM by coordinates
-The *Picard* tool, `SortSam`, sorts a input SAM or BAM file by coordinate, queryname, etc. Input and output formats (SAM or BAM) are determined by the file extension.
+The *Picard* tool, `SortSam`, sorts an input SAM or BAM file by coordinate, queryname, etc. Input and output formats (SAM or BAM) are determined by the file extension.
 
 The description of base options for the `SortSam` tool:
 
