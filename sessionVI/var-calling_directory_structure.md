@@ -4,8 +4,8 @@
     ├── var-calling/
         ├── data/
             ├── untrimmed_fastq/
-                |-- na12878_1.fastq 
-                |-- na12878_2.fastq 
+                |-- na12878_1.fq 
+                |-- na12878_2.fq 
             ├── reference_data
                 |-- chr20.fa
             ├── .
