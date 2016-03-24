@@ -78,6 +78,8 @@ The source DNA, known as NA12878, was taken from a single person: the mother in 
 
 "The Genome in a Bottle consortium also plans to develop well-characterized whole genome reference materials from two genetically diverse groups: Asians and Ashkenazi Jews. Both reference sets will include sequenced genes from father-mother-child 'trios'" and are expected to be released in 2016 [2].
 
+The sequencing files we will be using for NA12878 sample have a total of ~ 4 million paired-end reads.
+
 ## Alignment
 
 Choice of alignment tool is often determined by the type of NGS application being conducted. We have previously used STAR for RNA-Seq data because it is fast and optimized for aligning spliced reads. For ChIP-Seq we used Bowtie2 to align the reads because it is fast and accurate. For variant calling we will use [BWA (Burrows-Wheeler Aligner)](http://bio-bwa.sourceforge.net) for alignment. 
