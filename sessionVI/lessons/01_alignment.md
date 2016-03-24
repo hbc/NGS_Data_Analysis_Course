@@ -74,15 +74,17 @@ $ cp /groups/hbctraining/ngs-data-analysis2016/var-calling/reference_data/chr20.
 
 To explore the variant calling workflow, we will be using a subset of a human WGS dataset attained from the [Genome in a Bottle Consortium](https://sites.stanford.edu/abms/giab) (GIAB). GIAB was initiated in 2011 by the National Institute of Standards and Technology "to develop the technical infrastructure (reference standards, reference methods, and reference data) to enable translation of whole human genome sequencing to clinical practice" [[1](https://sites.stanford.edu/abms/giab)].
 
-The human WGS dataset completed by GIAB is "essentially the first complete human genome to have been extensively sequenced and re-sequenced by multiple techniques, with the results weighted and analyzed to eliminate as much variation and error as possible" [[2](https://sites.stanford.edu/abms/content/how-well-did-you-sequence-genome-nist-consortium-partners-have-answer)]". To minimize bias from any specific DNA sequencing method, the dataset was sequenced separately by 14 different sequencing experiments and 5 different platforms [2]. The dataset acts as a 'truth set' for variation in the human genome to be used as a genotype reference set to compare variant calls against.
+The human WGS dataset completed by GIAB is "essentially the first complete human genome to have been extensively sequenced and re-sequenced by multiple techniques, with the results weighted and analyzed to eliminate as much variation and error as possible" [[2](https://sites.stanford.edu/abms/content/how-well-did-you-sequence-genome-nist-consortium-partners-have-answer)]". To minimize bias from any specific DNA sequencing method, the dataset was sequenced separately by 14 different sequencing experiments and 5 different platforms [[2](https://sites.stanford.edu/abms/content/how-well-did-you-sequence-genome-nist-consortium-partners-have-answer)]. The dataset acts as a 'truth set' for variation in the human genome to be used as a genotype reference set to compare variant calls against.
 
-The source DNA, known as NA12878, was taken from a single person: the mother in a father-mother-child 'trio' (~8300 vials of DNA from a homogenized large batch of NA12878 cells for distribution to other labs). Father-mother-child 'trios' are often sequenced to utilize genetic links between family members [2].
+The source DNA, known as NA12878, was taken from a single person: the mother in a father-mother-child 'trio' (~8300 vials of DNA from a homogenized large batch of NA12878 cells for distribution to other labs). Father-mother-child 'trios' are often sequenced to utilize genetic links between family members [[2](https://sites.stanford.edu/abms/content/how-well-did-you-sequence-genome-nist-consortium-partners-have-answer)].
 
-"The Genome in a Bottle consortium also plans to develop well-characterized whole genome reference materials from two genetically diverse groups: Asians and Ashkenazi Jews. Both reference sets will include sequenced genes from father-mother-child 'trios'" and are expected to be released in 2016 [2].
+"The Genome in a Bottle consortium also plans to develop well-characterized whole genome reference materials from two genetically diverse groups: Asians and Ashkenazi Jews. Both reference sets will include sequenced genes from father-mother-child 'trios'" and are expected to be released in 2016 [[2](https://sites.stanford.edu/abms/content/how-well-did-you-sequence-genome-nist-consortium-partners-have-answer)].
 
 While the sample NA12878 was sequenced at a depth of 300x, we will only be using a subset of the dataset aligning to chromosome 20. The sequencing files we will be using for NA12878 sample will have a total of ~ 4 million paired-end reads.
 
 ## Alignment
+
+In our workflow, we are going to skip over the Quality Control steps, but we will assume that we used FastQC to ensure there are no obvious problems with our samples and no adapter or vector contamination. Since the aligner we will use performs soft-clipping, we will skip the quality trimming step as well.
 
 Choice of alignment tool is often determined by the type of NGS application being conducted. We have previously used STAR for RNA-Seq data because it is fast and optimized for aligning spliced reads. For ChIP-Seq we used Bowtie2 to align the reads because it is fast and accurate. For variant calling we will use [BWA (Burrows-Wheeler Aligner)](http://bio-bwa.sourceforge.net) for alignment. 
 
@@ -116,6 +118,7 @@ $ module load seq/samtools/1.3 seq/bwa/0.7.8  seq/picard/1.138
 
 Similar to the other alignment tools we have used, the first step in the BWA alignment is to create an index for the reference genome. Similar to Bowtie2, BWA indexes the genome with an FM Index based on the Burrows-Wheeler Transform to keep memory requirements low for the alignment process. 
 
+
 The basic options for indexing the genome using BWA are:
 
 * `-p`: prefix for all index files
@@ -126,7 +129,7 @@ $ bwa index -p chr20 chr20.fa
 
 #### Aligning reads with BWA-MEM
 
-Since we have our indexes created, we can get started with read alignment. Change directories to the `bwa` folder:
+Since we have our indexes created, we can get started with read alignment. Change directories to the `data` folder:
 
 ```
 $ cd ~/ngs_course/var-calling/data
@@ -139,12 +142,15 @@ The basic options for aligning reads to the genome using BWA-MEM are:
 * `-t`: number of threads / cores
 * `-M`: mark shorter split hits as secondary (for Picard compatibility)
 
+**NOTE:** BWA will soft-clip poor quality sequences from the ends of the reads by default, so we do not need to specify a parameter to perform soft clipping.
+
+
 ```
 $ bwa mem -M -t 4  \
 reference_data/chr20 \   # path to genome indexes including prefix
 untrimmed_fastq/na12878_1.fq untrimmed_fastq/na12878_2.fq \    # fastq files for paired-end reads
-2> ../results/bwa/bwa.err \
-> ../results/bwa/na12878.sam     # save standard error to file and save alignment output to a SAM file
+2> ../results/bwa/bwa.err \    # save standard error to file
+> ../results/bwa/na12878.sam    # save alignment output to a SAM file
 ```
 ### Alignment clean-up
 
@@ -156,7 +162,7 @@ If duplicates aren't marked, then the PCR-based errors will be picked up again a
 
 ![dedup1](../img/dedup_begin.png)
 
-Marking duplicates with tools such as Picard or samblaster will result in the variant caller ignoring these PCR-based errors, and instead seeing:
+Marking duplicates with tools such as *Picard* or *samblaster* will result in the variant caller ignoring these PCR-based errors, and instead seeing:
 
 ![dedup1](../img/dedup_end.png)
 
@@ -165,16 +171,16 @@ The variant caller will be more likely to discard the error, instead of calling 
 We will be using the [Picard](http://broadinstitute.github.io/picard/) suite of tools from the Broad Institute to sort the alignment SAM file and mark duplicates. The documentation for usage and options is available in the [user_manual](http://broadinstitute.github.io/picard/command-line-overview.html#Tools).
  
 #### Sorting SAM by coordinates
-The Picard tool `SortSam` sorts a input SAM or BAM file by coordinate, queryname, etc. Input and output formats (SAM or BAM) are determined by the file extension.
+The *Picard* tool, `SortSam`, sorts a input SAM or BAM file by coordinate, queryname, etc. Input and output formats (SAM or BAM) are determined by the file extension.
 
-The description of all options for the `SortSam` tool:
+The description of base options for the `SortSam` tool:
 
 * `INPUT`:	The BAM or SAM file to sort. Required.
 * `OUTPUT`:	The sorted BAM or SAM output file. Required.
 * `SORT_ORDER`:	Sort order of output file Required. Possible values: {unsorted, queryname, coordinate, duplicate}
 * `VALIDATION_STRINGENCY`: Validation stringency for all SAM files read by this program. Possible values: {STRICT, LENIENT, SILENT}
 	
-	**NOTE:** BWA can produce SAM records that are marked as unmapped but have non-zero MAPQ and/or non-"*" CIGAR. Typically this is because BWA found an alignment for the read that hangs off the end of the reference sequence. Picard considers such input to be invalid. In general, this error can be suppressed in Picard programs by passing VALIDATION_STRINGENCY=LENIENT or VALIDATION_STRINGENCY=SILENT [[2](https://sourceforge.net/p/picard/wiki/Main_Page/)]. 
+	**NOTE:** BWA can produce SAM records that are marked as unmapped but have non-zero MAPQ and/or non-"*" CIGAR. Typically this is because BWA found an alignment for the read that hangs off the end of the reference sequence. Picard considers such input to be invalid. In general, this error can be suppressed in Picard programs by passing VALIDATION_STRINGENCY=LENIENT or VALIDATION_STRINGENCY=SILENT [[3](https://sourceforge.net/p/picard/wiki/Main_Page/)]. 
 
 ```
 $ java -jar /opt/picard-1.138/bin/picard.jar SortSam \
@@ -185,7 +191,7 @@ VALIDATION_STRINGENCY=LENIENT
 ```
 
 #### Marking duplicates
-The Picard tool `MarkDuplicates` can locate and tag duplicate reads (both PCR and optical/sequencing-driven) in a BAM or SAM file, where duplicate reads are defined as originating from the same original fragment of DNA. Explanation of the process of determining duplicate reads is provided in the [user_manual](http://broadinstitute.github.io/picard/command-line-overview.html#Tools).
+The *Picard* tool, `MarkDuplicates`, can locate and tag duplicate reads (both PCR and optical/sequencing-driven) in a BAM or SAM file, where duplicate reads are defined as originating from the same original fragment of DNA. Explanation of the process of determining duplicate reads is provided in the [user_manual](http://broadinstitute.github.io/picard/command-line-overview.html#Tools).
 
 The basic options for marking duplicates are:
 
@@ -205,7 +211,7 @@ VALIDATION_STRINGENCY=LENIENT
 ```
 #### Creating index for BAM file
 
-Now that we have a sorted BAM file that has duplicates marked, we would like to visualize our aligned reads in IGV. To do this, we need an index for our BAM file. As we have done in previous sessions, we will use SamTools to create the index:
+Now that we have a sorted BAM file that has duplicates marked, we would like to visualize our aligned reads in IGV. To do this, we need an index for our BAM file. As we have done in previous sessions, we will use *Samtools* to create the index:
 
 ```
 samtools index na12878_sorted_marked.bam
