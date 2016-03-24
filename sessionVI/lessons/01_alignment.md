@@ -68,6 +68,15 @@ $ cp /groups/hbctraining/ngs-data-analysis2016/var-calling/raw_fastq/*fastq untr
 $ cp  /groups/hbctraining/ngs-data-analysis2016/chipseq/reference_data/chr20.fa reference_data/
 ```
 
+## Dataset
+
+To explore the variant calling workflow, we will be using a full human WGS dataset attained from the [Genome in a Bottle Consortium](https://sites.stanford.edu/abms/giab) (GIAB). GIAB was initiated in 2011 by the National Institute of Standards and Technology "to develop the technical infrastructure (reference standards, reference methods, and reference data) to enable translation of whole human genome sequencing to clinical practice" [[1](https://sites.stanford.edu/abms/giab)].
+
+The human WGS dataset completed by GIAB is "essentially the first complete human genome to have been extensively sequenced and re-sequenced by multiple techniques, with the results weighted and analyzed to eliminate as much variation and error as possible" [[2](https://sites.stanford.edu/abms/content/how-well-did-you-sequence-genome-nist-consortium-partners-have-answer)]". To minimize bias from any specific DNA sequencing method, the dataset was sequenced separately by 14 different sequencing experiments and 5 different platforms [2]. The dataset acts as a 'truth set' for variation in the human genome to be used as a genotype reference set to compare variant calls against.
+
+The source DNA, known as NA12878, was taken from a single person: the mother in a father-mother-child 'trio' (~8300 vials of DNA from a homogenized large batch of NA12878 cells for distribution to other labs). Father-mother-child 'trios' are often sequenced to utilize genetic links between family members [2].
+
+"The Genome in a Bottle consortium also plans to develop well-characterized whole genome reference materials from two genetically diverse groups: Asians and Ashkenazi Jews. Both reference sets will include sequenced genes from father-mother-child 'trios'" and are expected to be released in 2016 [2].
 
 ## Alignment
 
