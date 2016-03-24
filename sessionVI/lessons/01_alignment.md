@@ -70,7 +70,7 @@ $ cp  /groups/hbctraining/ngs-data-analysis2016/chipseq/reference_data/chr20.fa 
 
 ## Dataset
 
-To explore the variant calling workflow, we will be using a full human WGS dataset attained from the [Genome in a Bottle Consortium](https://sites.stanford.edu/abms/giab) (GIAB). GIAB was initiated in 2011 by the National Institute of Standards and Technology "to develop the technical infrastructure (reference standards, reference methods, and reference data) to enable translation of whole human genome sequencing to clinical practice" [[1](https://sites.stanford.edu/abms/giab)].
+To explore the variant calling workflow, we will be using a subset of a human WGS dataset attained from the [Genome in a Bottle Consortium](https://sites.stanford.edu/abms/giab) (GIAB). GIAB was initiated in 2011 by the National Institute of Standards and Technology "to develop the technical infrastructure (reference standards, reference methods, and reference data) to enable translation of whole human genome sequencing to clinical practice" [[1](https://sites.stanford.edu/abms/giab)].
 
 The human WGS dataset completed by GIAB is "essentially the first complete human genome to have been extensively sequenced and re-sequenced by multiple techniques, with the results weighted and analyzed to eliminate as much variation and error as possible" [[2](https://sites.stanford.edu/abms/content/how-well-did-you-sequence-genome-nist-consortium-partners-have-answer)]". To minimize bias from any specific DNA sequencing method, the dataset was sequenced separately by 14 different sequencing experiments and 5 different platforms [2]. The dataset acts as a 'truth set' for variation in the human genome to be used as a genotype reference set to compare variant calls against.
 
@@ -78,7 +78,7 @@ The source DNA, known as NA12878, was taken from a single person: the mother in 
 
 "The Genome in a Bottle consortium also plans to develop well-characterized whole genome reference materials from two genetically diverse groups: Asians and Ashkenazi Jews. Both reference sets will include sequenced genes from father-mother-child 'trios'" and are expected to be released in 2016 [2].
 
-The sequencing files we will be using for NA12878 sample have a total of ~ 4 million paired-end reads.
+While the sample NA12878 was sequenced at a depth of 300x, we will only be using a subset of the dataset aligning to chromosome 20. The sequencing files we will be using for NA12878 sample will have a total of ~ 4 million paired-end reads.
 
 ## Alignment
 
