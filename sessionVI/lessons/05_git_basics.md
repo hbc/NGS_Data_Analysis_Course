@@ -30,7 +30,7 @@ Once you think of changes as separate from the document itself, you can then thi
 
 If there aren't conflicts, you can even try to play two sets of changes onto the same base document.
 
-![Multiple versions can be merged](../img/merge.svg)
+![Multiple versions can be merged](https://cdn.rawgit.com/hbc/NGS_Data_Analysis_Course/master/sessionVI/img/merge.svg)
 
 A version control system is a tool that keeps track of these changes for us and
 helps us version and merge our files. It allows you to
