@@ -22,7 +22,7 @@ The Owner needs to give the Collaborator access.
 On GitHub, click the settings button on the right,
 then select Collaborators, and enter your partner's username.
 
-![Adding collaborators on GitHub](fig/github-add-collaborators.png)
+![Adding collaborators on GitHub](../img/github-add-collaborators.png)
 
 The Collaborator needs to work on this project locally. He or she should `cd` to another directory
 (so `ls` doesn't show a `planets` folder),
@@ -36,7 +36,7 @@ Replace 'vlad' with the Owner's username.
 
 `git clone` creates a fresh local copy of a remote repository.
 
-![After Creating Clone of Repository](fig/github-collaboration.svg)
+![After Creating Clone of Repository](../img/github-collaboration.svg)
 
 The Collaborator can now make a change in his or her copy of the repository:
 

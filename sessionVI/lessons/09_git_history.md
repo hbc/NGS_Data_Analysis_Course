@@ -169,12 +169,12 @@ the commit in which we made the change we're trying to get rid of.
 In the example below, we want to retrieve the state from before the most
 recent commit (`HEAD~1`), which is commit `f22b25e`:
 
-![Git Checkout](fig/git-checkout.svg)
+![Git Checkout](../img/git-checkout.svg)
 
 So, to put it all together:
 
 > ## How Git works, in cartoon form {.callout}
-> ![http://figshare.com/articles/How_Git_works_a_cartoon/1328266](fig/git_staging.svg)
+> ![http://figshare.com/articles/How_Git_works_a_cartoon/1328266](../img/git_staging.svg)
 
 > ## Simplifying the Common Case {.callout}
 >

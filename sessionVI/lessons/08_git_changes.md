@@ -100,8 +100,8 @@ $ git commit -m "Start notes on Mars as a base"
 When we run `git commit`,
 Git takes everything we have told it to save by using `git add`
 and stores a copy permanently inside the special `.git` directory.
-This permanent copy is called a [commit](reference.html#commit)
-(or [revision](reference.html#revision)) and its short identifier is `f22b25e`
+This permanent copy is called a [commit](../reference.html#commit)
+(or [revision](../reference.html#revision)) and its short identifier is `f22b25e`
 (Your commit may have another identifier.)
 
 We use the `-m` flag (for "message")
@@ -271,7 +271,7 @@ but *not* commit the work we're doing on the conclusion
 To allow for this,
 Git has a special *staging area*
 where it keeps track of things that have been added to
-the current [change set](reference.html#change-set)
+the current [change set](../reference.html#change-set)
 but not yet committed.
 
 > ## Staging area {.callout}
@@ -293,7 +293,7 @@ but not yet committed.
 > or you might find yourself searching for "git undo commit" more
 > than you would like!
 
-![The Git Staging Area](fig/git-staging-area.svg)
+![The Git Staging Area](../img/git-staging-area.svg)
 
 Let's watch as our changes to a file move from our editor
 to the staging area
@@ -409,7 +409,7 @@ we first need to add the changed files to the staging area
 (`git add`) and then commit the staged changes to the
 repository (`git commit`):
 
-![The Git Commit Workflow](fig/git-committing.svg)
+![The Git Commit Workflow](../img/git-committing.svg)
 
 > ## Choosing a commit message {.challenge}
 >

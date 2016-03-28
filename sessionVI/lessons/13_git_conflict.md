@@ -13,8 +13,8 @@ As soon as people can work in parallel, it's likely someone's going to step on s
 else's toes.  This will even happen with a single person: if we are working on
 a piece of software on both our laptop and a server in the lab, we could make
 different changes to each copy.  Version control helps us manage these
-[conflicts](reference.html#conflicts) by giving us tools to
-[resolve](reference.html#resolve) overlapping changes.
+[conflicts](../reference.html#conflicts) by giving us tools to
+[resolve](../reference.html#resolve) overlapping changes.
 
 To see how we can resolve conflicts, we must first create one.  The file
 `mars.txt` currently looks like this in both partners' copies of our `planets`
@@ -106,12 +106,12 @@ hint: before pushing again.
 hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 ~~~
 
-![The conflicting changes](fig/conflict.svg)
+![The conflicting changes](../img/conflict.svg)
 
 Git detects that the changes made in one copy overlap with those made in the other
 and stops us from trampling on our previous work.
 What we have to do is pull the changes from GitHub,
-[merge](reference.html#merge) them into the copy we're currently working in,
+[merge](../reference.html#merge) them into the copy we're currently working in,
 and then push that.
 Let's start by pulling:
 

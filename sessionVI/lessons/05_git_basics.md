@@ -14,7 +14,7 @@ to keep track of what one person did and when.
 Even if you aren't collaborating with other people,
 automated version control is much better than this situation:
 
-[![Piled Higher and Deeper by Jorge Cham, http://www.phdcomics.com](fig/phd101212s.gif)](http://www.phdcomics.com)
+[![Piled Higher and Deeper by Jorge Cham, http://www.phdcomics.com](../img/phd101212s.gif)](http://www.phdcomics.com)
 
 "Piled Higher and Deeper" by Jorge Cham, http://www.phdcomics.com
 
@@ -22,22 +22,22 @@ We've all been in this situation before: it seems ridiculous to have multiple ne
 
 Version control systems start with a base version of the document and then save just the changes you made at each step of the way. You can think of it as a tape: if you rewind the tape and start at the base document, then you can play back each change and end up with your latest version.
 
-![Changes are saved sequentially](fig/play-changes.svg)
+![Changes are saved sequentially](../img/play-changes.svg)
 
 Once you think of changes as separate from the document itself, you can then think about "playing back" different sets of changes onto the base document and getting different versions of the document. For example, two users can make independent sets of changes based on the same document.
 
-![Different versions can be saved](fig/versions.svg)
+![Different versions can be saved](../img/versions.svg)
 
 If there aren't conflicts, you can even try to play two sets of changes onto the same base document.
 
-![Multiple versions can be merged](fig/merge.svg)
+![Multiple versions can be merged](../img/merge.svg)
 
 A version control system is a tool that keeps track of these changes for us and
 helps us version and merge our files. It allows you to
 decide which changes make up the next version, called a
-[commit](reference.html#commit), and keeps useful metadata about them. The
+[commit](../reference.html#commit), and keeps useful metadata about them. The
 complete history of commits for a particular project and their metadata make up
-a [repository](reference.html#repository). Repositories can be kept in sync
+a [repository](../reference.html#repository). Repositories can be kept in sync
 across different computers facilitating collaboration among different people.
 
 > ## The long history of version control systems {.callout}
