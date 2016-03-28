@@ -22,7 +22,7 @@ We've all been in this situation before: it seems ridiculous to have multiple ne
 
 Version control systems start with a base version of the document and then save just the changes you made at each step of the way. You can think of it as a tape: if you rewind the tape and start at the base document, then you can play back each change and end up with your latest version.
 
-![Changes are saved sequentially](../fig/play-changes.png)
+![Changes are saved sequentially](../img/play-changes.png)
 
 Once you think of changes as separate from the document itself, you can then think about "playing back" different sets of changes onto the base document and getting different versions of the document. For example, two users can make independent sets of changes based on the same document.
 
