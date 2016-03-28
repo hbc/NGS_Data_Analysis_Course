@@ -106,7 +106,7 @@ hint: before pushing again.
 hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 ~~~
 
-![The conflicting changes](../img/conflict.svg)
+![The conflicting changes](https://cdn.rawgit.com/hbc/NGS_Data_Analysis_Course/master/sessionVI/img/conflict.svg)
 
 Git detects that the changes made in one copy overlap with those made in the other
 and stops us from trampling on our previous work.

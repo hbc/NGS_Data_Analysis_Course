@@ -52,7 +52,7 @@ $ git init
 Our local repository still contains our earlier work on `mars.txt`,
 but the remote repository on GitHub doesn't contain any files yet:
 
-![Freshly-Made GitHub Repository](../img/git-freshly-made-github-repo.svg)
+![Freshly-Made GitHub Repository](https://cdn.rawgit.com/hbc/NGS_Data_Analysis_Course/master/sessionVI/img/git-freshly-made-github-repo.svg)
 
 The next step is to connect the two repositories.
 We do this by making the GitHub repository a [remote](../reference.html#remote)
@@ -154,7 +154,7 @@ Branch master set up to track remote branch master from origin.
 
 Our local and remote repositories are now in this state:
 
-![GitHub Repository After First Push](../img/github-repo-after-first-push.svg)
+![GitHub Repository After First Push](https://cdn.rawgit.com/hbc/NGS_Data_Analysis_Course/master/sessionVI/img/github-repo-after-first-push.svg)
 
 > ## The '-u' Flag {.callout}
 >

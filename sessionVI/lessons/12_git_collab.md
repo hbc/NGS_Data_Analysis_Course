@@ -36,7 +36,7 @@ Replace 'vlad' with the Owner's username.
 
 `git clone` creates a fresh local copy of a remote repository.
 
-![After Creating Clone of Repository](../img/github-collaboration.svg)
+![After Creating Clone of Repository](https://cdn.rawgit.com/hbc/NGS_Data_Analysis_Course/master/sessionVI/img/github-collaboration.svg)
 
 The Collaborator can now make a change in his or her copy of the repository:
 
