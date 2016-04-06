@@ -14,35 +14,40 @@ Approximate time: 30 min
 
 We've been able to do a lot of work with files that already exist, but what if we want to write our own files. Obviously, we're not going to type in a FASTA file, but you'll see as we go through other tutorials, there are a lot of reasons we'll want to write/create a file or edit an existing file.
 
-To write in files, we're going to use a text editor called `vim`.
+To create or edit files we will need to use a text editor.
 
-### Introduction to Vim 
+## Text editors
 
-Vim is a very powerful text editor, and it offers extensive text editing options. However, in this introduction we are going to focus on exploring some of the basic functions. There is a lot of functionality that we are not going to cover during this session, but encourage you to go further as you become more comfortable using it. To help you remember some of the keyboard shortcuts that are introduced below and to allow you to explore additional functionality on your own, we have compiled a [cheatsheet](../../resources/VI_CommandReference.pdf).
+When we say, "text editor," we really do mean "text": these editors can
+only work with plain character data, not tables, images, or any other
+media. The types of text editors available can generally be grouped into **graphical user interface (GUI) text editors** and **command-line editors**.
 
+###GUI text editors
 
-> ### Which Editor?
-> 
-> When we say, "`vim` is a text editor," we really do mean "text": it can
-> only work with plain character data, not tables, images, or any other
-> media. While there are simpler editors available for use (i.e. [nano](http://www.nano-editor.org/), most computational scientists tend to favor editors that have greater functionality. 
-> Some popular editors include [Emacs](http://www.gnu.org/software/emacs/),
-> [Vim](http://www.vim.org/), or a graphical editor such as
-> [Gedit](http://projects.gnome.org/gedit/). These are editors which are generally available for use on 
-> high-performance compute clusters.
+A GUI is an interface that has buttons and menus that you can click on to issue commands to the computer and you can move about the interface just by pointing and clicking. You might be familar with GUI text editors, such as [TextWrangler](http://www.barebones.com/products/textwrangler/), [Sublime](http://www.sublimetext.com/), and [Notepad++](http://notepad-plus-plus.org/), which allow you to write and edit plain text documents. These editors often have features to easily search text, extract text, and highlight syntax from multiple programming languages. They are great tools, but since they are 'point-and-click', we cannot efficiently use them from the command line remotely on a compute cluster.
 
+### Command-line editors
 
-You can create a document by calling a text editor and providing the name of the document you wish to create. Change directories to the `unix_lesson` folder and create a document using vim entitled `draft.txt`:
+When working remotely, we need a text editor that functions from the command line interface. Within these editors, since you cannot 'point-and-click', you must navigate the interface using the arrow keys and shortcuts. 
 
-	cd ~/ngs_course/unix_lesson
-	
-	vim draft.txt
+While there are simpler editors available for use (i.e. [nano](http://www.nano-editor.org/), most computational scientists tend to favor editors that have greater functionality. Some popular editors include [Emacs](http://www.gnu.org/software/emacs/), [Vim](http://www.vim.org/), or a graphical editor such as[Gedit](http://projects.gnome.org/gedit/). These are editors which are generally available for use on high-performance compute clusters.
+
+## Introduction to Vim 
+
+To write and edit files, we're going to use a text editor called `vim`. Vim is a very powerful text editor, and it offers extensive text editing options. However, in this introduction we are going to focus on exploring some of the more basic functions. There is a lot of functionality that we are not going to cover during this session, but encourage you to go further as you become more comfortable using it. To help you remember some of the keyboard shortcuts that are introduced below and to allow you to explore additional functionality on your own, we have compiled a [cheatsheet](../../resources/VI_CommandReference.pdf).
 
 
 ### Vim Interface
-Notice the `"draft.txt" [New File]` typed at the bottom left-hand section of the screen. This tells you that you just created a new file in vim. 
 
-![screenshot-create-file](https://copy.com/BIqfxjlARvupmqbm)
+You can create a document by calling a text editor and providing the name of the document you wish to create. Change directories to the `unix_lesson` folder and create a document using `vim` entitled `draft.txt`:
+
+```bash
+$ cd ~/ngs_course/unix_lesson
+	
+$ vim draft.txt
+```
+
+Notice the `"draft.txt" [New File]` typed at the bottom left-hand section of the screen. This tells you that you just created a new file in vim. 
 
 
 ### Vim Modes
@@ -55,29 +60,24 @@ Vim has **_two basic modes_** that will allow you to create documents and edit y
 
 Upon creation of a file, vim is automatically in command mode. Let's _change to insert mode_ by typing `i`. Notice the `--INSERT--` at the bottom left hand of the screen. Now type in a few lines of text:
 
-![screenshot-insert-mode](https://copy.com/rJrven7hAC9dUa2N)
+![vim-insert-mode](../img/vim_insert.png)
 
 After you have finished typing, press `esc` to enter command mode. Notice the `--INSERT--` disappeared from the bottom of the screen.
 
-![screenshot-command-mode](https://copy.com/NWtqS9ykOhL1zhN7) 
-
-#### Vim Saving and Quitting
+### Vim Saving and Quitting
 To **write to file (save)**, type `:w`. You can see the commands you type in the bottom left-hand corner of the screen. 
 
-![screenshot-save](https://copy.com/AT1MzhuAIy8IHEyA)
+![vim-save](../img/vim_save.png)
 
 After you have saved the file, the total number of lines and characters in the file will print out at the bottom left-hand section of the screen.
 
-![screenshot-postsave](https://copy.com/BlGpnkWjXuLI71SC)
+![vim-postsave](../img/vim_postsave.png)
 
 Alternatively, we can **write to file (save) and quit**. Let's do that by typing `:wq`. Now, you should have exited vim and returned back to your terminal window.
 
-![image](https://copy.com/Ehv0xQNIn2tCnbsm)
-
 To edit your `draft.txt` document, open up the file again by calling vim and entering the file name: `vim draft.txt`. Change to insert mode and type a few more lines (you can move around the lines using the arrows on the keyboard). This time we decide to **quit without saving** by typing `:q!`
  
-![screenshot-quit](https://copy.com/UTCsBsMdGeEuEvVR)
-
+![vim-quit](../img/vim_quit.png)
 
 ### Vim Editing
 Create the document "spider.txt" in vim. Enter the text as follows: 
@@ -124,6 +124,39 @@ practice what we just learned in a brief challenge.
 
 ***
 
----
+#### Overview of vim commands
 
+**Vim modes:**
+
+```
+`i`: insert mode - to write and edit text
+`esc`: command mode - to issue commands / shortcuts
+```
+
+**Saving and quiting:**
+
+```
+`:w`: write to file (save)
+`:wq`: write to file and quit
+`:q!`: quit without saving
+```
+**Shortcuts for navigation:**
+
+	`gg`: move to top of file  
+	`G`: move to bottom of file  
+	`0`: move to beginning of line  
+	`$`: move to end of line  
+	`w`: move to next word
+	`b`: move to previous word
+
+**Shortcuts for editing:**
+
+	`dw`: delete word 
+	`dd`: delete line  
+	`u`: undo
+	`Ctrl + r`: redo
+	`:set number`: number lines
+	`:set nonumber`: no line numbers
+	
+---
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
