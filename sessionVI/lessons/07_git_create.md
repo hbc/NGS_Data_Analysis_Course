@@ -4,9 +4,9 @@ title: Version Control with Git
 subtitle: Creating a Repository
 minutes: 10
 ---
-> ## Learning Objectives {.objectives}
-> 
-> *   Create a local Git repository.
+## Learning Objectives
+
+*   Create a local Git repository
 
 Once Git is configured,
 we can start using it.
