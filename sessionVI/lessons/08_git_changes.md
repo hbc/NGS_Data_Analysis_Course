@@ -4,10 +4,11 @@ title: Version Control with Git
 subtitle: Tracking Changes
 minutes: 20
 ---
-> ## Learning Objectives {.objectives}
-> 
-> *   Go through the modify-add-commit cycle for a single file.
-> *   Explain where information is stored at each stage of Git commit workflow.
+
+## Learning Objectives
+
+*   Go through the modify-add-commit cycle for a single file.
+*   Explain where information is stored at each stage of Git commit workflow.
 
 Let's create a file called `mars.txt` that contains some notes
 about the Red Planet's suitability as a base.
@@ -274,7 +275,7 @@ where it keeps track of things that have been added to
 the current [change set](../reference.html#change-set)
 but not yet committed.
 
-> ## Staging area {.callout}
+> ## Staging area
 > If you think of Git as taking snapshots of changes over the life of a
 > project,
 > `git add` specifies *what* will go in a snapshot
@@ -411,7 +412,7 @@ repository (`git commit`):
 
 ![The Git Commit Workflow](https://cdn.rawgit.com/hbc/NGS_Data_Analysis_Course/master/sessionVI/img/git-committing.svg)
 
-> ## Choosing a commit message {.challenge}
+> ## Choosing a commit message
 >
 > Which of the following commit messages would be most appropriate for the 
 > last commit made to `mars.txt`?
