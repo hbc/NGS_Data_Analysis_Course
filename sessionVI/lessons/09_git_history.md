@@ -4,11 +4,11 @@ title: Version Control with Git
 subtitle: Exploring History
 minutes: 25
 ---
-> ## Learning Objectives {.objectives}
->
-> *   Identify and use Git commit numbers.
-> *   Compare various versions of tracked files.
-> *   Restore old versions of files.
+## Learning Objectives
+
+*   Identify and use Git commit numbers.
+*   Compare various versions of tracked files.
+*   Restore old versions of files.
 
 If we want to see what we changed at different steps, we can use `git diff`
 again, but with the notation `HEAD~1`, `HEAD~2`, and so on, to refer to old
@@ -148,7 +148,7 @@ we can use a commit identifier instead:
 $ git checkout f22b25e mars.txt
 ~~~
 
-> ## Don't lose your HEAD {.callout}
+> ## Don't lose your HEAD
 > Above we used
 >
 > ~~~ {.bash}
@@ -173,10 +173,12 @@ recent commit (`HEAD~1`), which is commit `f22b25e`:
 
 So, to put it all together:
 
-> ## How Git works, in cartoon form {.callout}
+> ## How Git works, in cartoon form
 > ![http://figshare.com/articles/How_Git_works_a_cartoon/1328266](https://cdn.rawgit.com/hbc/NGS_Data_Analysis_Course/master/sessionVI/img/git_staging.svg)
 
-> ## Simplifying the Common Case {.callout}
+---
+
+> ## Simplifying the Common Case
 >
 > If you read the output of `git status` carefully,
 > you'll see that it includes this hint:
@@ -202,7 +204,7 @@ on the other hand,
 moving backward and forward in time becomes much easier.
 
 
-> ## Recovering Older Versions of a File {.challenge}
+> ## Recovering Older Versions of a File
 >
 > Jennifer has made changes to the Python script that she has been working on for weeks, and the
 > modifications she made this morning "broke" the script and it no longer runs. She has spent
@@ -234,8 +236,9 @@ moving backward and forward in time becomes much easier.
 >     ~~~
 > 5. Both 2 & 4
 
+---
 
-> ## Understanding Workflow and History {.challenge}
+> ## Understanding Workflow and History
 >
 > What is the output of cat venus.txt at the end of this set of commands?
 >
