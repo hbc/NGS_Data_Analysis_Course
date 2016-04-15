@@ -12,12 +12,12 @@ minutes: 20
 
 Let's create a file called `mars.txt` that contains some notes
 about the Red Planet's suitability as a base.
-(We'll use `nano` to edit the file;
+(We'll use `vi` to edit the file;
 you can use whatever editor you like.
 In particular, this does not have to be the `core.editor` you set globally earlier.)
 
 ~~~ {.bash}
-$ nano mars.txt
+$ vi mars.txt
 ~~~
 
 Type the text below into the `mars.txt` file:
@@ -159,11 +159,11 @@ and the log message Git was given when the commit was created.
 > (and so that we can't accidentally edit or delete an old version).
 
 Now suppose Dracula adds more information to the file.
-(Again, we'll edit with `nano` and then `cat` the file to show its contents;
+(Again, we'll edit with `vi` and then `cat` the file to show its contents;
 you may use a different editor, and don't need to `cat`.)
 
 ~~~ {.bash}
-$ nano mars.txt
+$ vi mars.txt
 $ cat mars.txt
 ~~~
 ~~~ {.output}
