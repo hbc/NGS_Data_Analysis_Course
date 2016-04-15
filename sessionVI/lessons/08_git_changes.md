@@ -150,7 +150,7 @@ the commit's author,
 when it was created,
 and the log message Git was given when the commit was created.
 
-> ## Where Are My Changes? {.callout}
+> ## Where Are My Changes? 
 >
 > If we run `ls` at this point, we will still see just one file called `mars.txt`.
 > That's because Git saves information about files' history
