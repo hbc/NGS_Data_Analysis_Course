@@ -426,7 +426,9 @@ repository (`git commit`):
 > 3. 
 >
 >     "Discuss effects of Mars' climate on the Mummy"
+
 ---
+
 > ## Committing Changes to Git
 >
 > Which command(s) below would save the changes of `myfile.txt` to my local Git repository?
@@ -453,7 +455,9 @@ repository (`git commit`):
 >     ~~~
 >     $ git commit -m myfile.txt "my recent changes"
 >     ~~~
+
 ---
+
 > ## `bio` Repository
 >
 > Create a new Git repository on your computer called `bio`.
@@ -461,7 +465,9 @@ repository (`git commit`):
 > commit your changes,
 > then modify one line, add a fourth line, and display the differences
 > between its updated state and its original state.
+
 ---
+
 > ## Author and Committer
 >
 > For each of the commits you have done, Git stored your name twice.
