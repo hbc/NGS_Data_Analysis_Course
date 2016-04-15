@@ -4,10 +4,10 @@ title: Version Control with Git
 subtitle: Setting Up Git
 minutes: 5
 ---
-> ## Learning Objectives {.objectives}
->
-> *  Configure `git` the first time is used on a computer.
-> *  Understand the meaning of the `--global` configuration flag.
+## Learning Objectives
+
+*  Configure `git` the first time is used on a computer.
+*  Understand the meaning of the `--global` configuration flag.
 
 
 
@@ -59,7 +59,7 @@ $ git config --list
 You can change your configuration as many times as you want: just use the
 same commands to choose another editor or update your email address.
 
-> ## Proxy {.callout}
+> ## Proxy
 >
 > In some networks you need to use a
 > [proxy](https://en.wikipedia.org/wiki/Proxy_server). If this is the case, you
