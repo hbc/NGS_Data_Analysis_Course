@@ -4,10 +4,10 @@ title: Version Control with Git
 subtitle: Automated Version Control
 minutes: 5
 ---
-> ## Learning Objectives {.objectives}
->
-> *   Understand the benefits of an automated version control system.
-> *   Understand the basics of how Git works.
+## Learning Objectives
+
+*   Understand the benefits of an automated version control system.
+*   Understand the basics of how Git works.
 
 We'll start by exploring how version control can be used
 to keep track of what one person did and when.
@@ -40,7 +40,7 @@ complete history of commits for a particular project and their metadata make up
 a [repository](../reference.html#repository). Repositories can be kept in sync
 across different computers facilitating collaboration among different people.
 
-> ## The long history of version control systems {.callout}
+> ## The long history of version control systems
 >
 > Automated version control systems are nothing new. 
 > Tools like RCS, CVS, or Subversion have been around since the early 1980s and are used by many large companies.
