@@ -1029,9 +1029,9 @@ Luckily, she has been keeping track of her project's versions using Git!
 
  a.  
      		
-```
-Venus is too hot to be suitable as a base
-```
+	```
+	Venus is too hot to be suitable as a base
+	```
 
  	b. 
      	
