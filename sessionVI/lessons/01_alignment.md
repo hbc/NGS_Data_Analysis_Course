@@ -72,7 +72,7 @@ $ cp /groups/hbctraining/ngs-data-analysis2016/var-calling/reference_data/chr20.
 
 ## Dataset
 
-To explore the variant calling workflow, we will be using a subset of a human WGS dataset attained from the [Genome in a Bottle Consortium](https://sites.stanford.edu/abms/giab) (GIAB). GIAB was initiated in 2011 by the National Institute of Standards and Technology "to develop the technical infrastructure (reference standards, reference methods, and reference data) to enable translation of whole human genome sequencing to clinical practice" [[1](https://sites.stanford.edu/abms/giab)].
+To explore the variant calling workflow, we will be using a subset of a human WGS dataset attained from the [Genome in a Bottle Consortium (GIAB)](https://sites.stanford.edu/abms/giab). GIAB was initiated in 2011 by the National Institute of Standards and Technology "to develop the technical infrastructure (reference standards, reference methods, and reference data) to enable translation of whole human genome sequencing to clinical practice" [[1](https://sites.stanford.edu/abms/giab)].
 
 The human WGS dataset completed by GIAB is "essentially the first complete human genome to have been extensively sequenced and re-sequenced by multiple techniques, with the results weighted and analyzed to eliminate as much variation and error as possible" [[2](https://sites.stanford.edu/abms/content/how-well-did-you-sequence-genome-nist-consortium-partners-have-answer)]". To minimize bias from any specific DNA sequencing method, the dataset was sequenced separately by 14 different sequencing experiments and 5 different platforms [[2](https://sites.stanford.edu/abms/content/how-well-did-you-sequence-genome-nist-consortium-partners-have-answer)]. The dataset acts as a 'truth set' for variation in the human genome to be used as a genotype reference set to compare variant calls against.
 
@@ -96,9 +96,9 @@ Depending on read length, BWA has different modes optimized for different sequen
 
 - **BWA-backtrack:** designed for Illumina sequence reads up to 100bp (3-step)
 
-- **BWA-SW:** longer sequences ranged from 70bp to 1Mbp, long-read support and split alignment
+- **BWA-SW:** designed for longer sequences ranging from 70bp to 1Mbp, long-read support and split alignment
 
-- **BWA-MEM:** share similar features to BWA-SW, but BWA-MEM is the latest, is generally recommended for high-quality queries as it is faster and more accurate. BWA-MEM also has better performance than BWA-backtrack for 70-100bp Illumina reads.
+- **BWA-MEM:** shares similar features to BWA-SW, but BWA-MEM is the latest, and is generally recommended for high-quality queries as it is faster and more accurate. BWA-MEM also has better performance than BWA-backtrack for 70-100bp Illumina reads.
 
 ### Aligning reads with BWA-MEM
 
