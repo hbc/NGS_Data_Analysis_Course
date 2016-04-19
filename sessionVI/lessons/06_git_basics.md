@@ -1051,5 +1051,5 @@ Luckily, she has been keeping track of her project's versions using Git!
      	```{.output}
      	Error because you have changed venus.txt without committing the changes
      	```
-
+     	
 ***
