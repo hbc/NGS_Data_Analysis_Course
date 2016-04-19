@@ -570,31 +570,22 @@ repository (`git commit`):
 2. Which command(s) below would save the changes of `myfile.txt` to my local Git repository?
 
 	a. 
-	
-		~~~
-     		$ git commit -m "my recent changes"
-		~~~
+
+		$ git commit -m "my recent changes"
 		
 	b. 
-	
-		~~~
-     		$ git init myfile.txt
-     		$ git commit -m "my recent changes"
-		~~~
+
+		$ git init myfile.txt
+		$ git commit -m "my recent changes"
 		
 	c. 
-	
-		~~~
+
 		$ git add myfile.txt
 		$ git commit -m "my recent changes"
-		~~~
 		
 	d. 
-	
-		~~~
+
 		$ git commit -m myfile.txt "my recent changes"
-		~~~
-		
 
 3. Create a new Git repository on your computer called `bio`. Write a three-line biography for yourself in a file called `me.txt`,
 commit your changes, then modify one line, add a fourth line, and display the differences between its updated state and its original state.
@@ -602,15 +593,12 @@ commit your changes, then modify one line, add a fourth line, and display the di
 4. For each of the commits you have done, Git stored your name twice. You are named as the author and as the committer. You can observe
  that by telling Git to show you more information about your last commits:
 
-	~~~
 	$ git log --format=full
-	~~~
+
 
 	When commiting you can name someone else as the author:
 	
-	~~~
 	$ git commit --author="Vlad Dracula <vlad@tran.sylvan.ia>"
-	~~~
 
 	Create a new repository and create two commits: one without the `--author` option and one by naming a colleague of yours as the author. Run `git log` and `git log --format=full`. Think about ways how that can allow you to collaborate with your colleagues.
 
@@ -731,61 +719,40 @@ $ git status --ignored
 nothing to commit, working directory clean
 ~~~
 
-> ## Ignoring nested files {.challenge}
->
-> Given a directory structure that looks like:
->
-> ~~~ {.bash}
-> results/data
-> results/plots
-> ~~~
->
-> How would you ignore only `results/plots` and not `results/data`?
+***
+**Exercises**
+1. Given a directory structure that looks like:
+	~~~ {.bash}
+	results/data
+	results/plots
+	~~~
 
-> ## Including specific files {.challenge}
->
-> How would you ignore all `.data` files in your root directory except for
-> `final.data`?
-> Hint: Find out what `!` (the exclamation point operator) does
+	How would you ignore only `results/plots` and not `results/data`?
 
-> ## Ignoring files deep in a directory {.challenge}
->
-> Given a directory structure that looks like:
->
-> ~~~ {.bash}
-> results/data/position/gps/useless.data
-> results/plots
-> ~~~
->
-> What's the shortest `.gitignore` rule you could write to ignore all `.data`
-> files in `result/data/position/gps`
-> Hint: What does appending `**` to a rule accomplish?
+2. How would you ignore all `.data` files in your root directory except for `final.data`? Hint: Find out what `!` (the exclamation point operator) does
 
-> ## The order of rules {.challenge}
->
-> Given a `.gitignore` file with the following contents:
->
-> ~~~ {.bash}
-> *.data
-> !*.data
-> ~~~
->
-> What will be the result?
+3. Given a directory structure that looks like:
 
-> ## Log-files {.challenge}
->
-> You wrote a script that creates many intermediate log-files of the form log_01, log_02, log_03, etc. You want to keep them but you do not want to track them through `git`.
->
-> 1. Write **one** `.gitignore` entry that excludes files of the form `log_01`, `log_02`, etc.
->
-> 2. Test your "ignore pattern" by creating some dummy files of the form `log_01`, etc.
->
-> 3. You find that the file `log_01` is very important after all, add it to the tracked files without changing the `.gitignore` again.
->
-> 4. Discuss with your neighbor what other types of files could reside in your directory that you do not want to track and thus would exclude via `.gitignore`.
+	results/data/position/gps/useless.data
+	results/plots
+
+	What's the shortest `.gitignore` rule you could write to ignore all `.data` files in `result/data/position/gps`? Hint: What does appending `**` to a rule accomplish?
+
+4. Given a `.gitignore` file with the following contents:
+
+	*.data
+	!*.data
+
+	What will be the result?
+
+5. You wrote a script that creates many intermediate log-files of the form log_01, log_02, log_03, etc. You want to keep them but you do not want to track them through `git`.
+
+a. Write **one** `.gitignore` entry that excludes files of the form `log_01`, `log_02`, etc.
+b. Test your "ignore pattern" by creating some dummy files of the form `log_01`, etc.
+c. You find that the file `log_01` is very important after all, add it to the tracked files without changing the `.gitignore` again.
+d. Discuss with your neighbor what other types of files could reside in your directory that you do not want to track and thus would exclude via `.gitignore`.
 
 ## Comparing differences between files
-
 
 If we want to see what we changed at different steps, we can use `git diff`
 again, but with the notation `HEAD~1`, `HEAD~2`, and so on, to refer to old
