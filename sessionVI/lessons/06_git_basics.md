@@ -2,7 +2,7 @@
 layout: page
 title: Version Control with Git
 subtitle: Git basics
-minutes: 40
+minutes: 90
 ---
 ## Learning Objectives
 
@@ -556,7 +556,7 @@ repository (`git commit`):
 ![The Git Commit Workflow](https://cdn.rawgit.com/hbc/NGS_Data_Analysis_Course/master/sessionVI/img/git-committing.svg)
 
 ***
-**Exercise
+**Exercises**
 
 1. Which of the following commit messages would be most appropriate for the 
  last commit made to `mars.txt`?
@@ -602,6 +602,8 @@ commit your changes, then modify one line, add a fourth line, and display the di
 	Create a new repository and create two commits: one without the `--author` option and one by naming a colleague of yours as the author. Run `git log` and `git log --format=full`. Think about ways how that can allow you to collaborate with your colleagues.
 
 	[commit-messages]: http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
+
+***
 
 ### Ignoring files during tracking
 
