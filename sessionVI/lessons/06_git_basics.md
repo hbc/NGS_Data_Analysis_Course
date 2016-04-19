@@ -643,7 +643,7 @@ so let's tell Git to ignore them.
 We do this by creating a file in the root directory of our project called `.gitignore`:
 
 ~~~ {.bash}
-$ nano .gitignore
+$ vim .gitignore
 $ cat .gitignore
 ~~~
 ~~~ {.output}
@@ -721,6 +721,7 @@ nothing to commit, working directory clean
 
 ***
 **Exercises**
+
 1. Given a directory structure that looks like:
 	~~~ {.bash}
 	results/data
@@ -740,9 +741,11 @@ nothing to commit, working directory clean
 
 4. Given a `.gitignore` file with the following contents:
 
+	```
 	*.data
 	!*.data
-
+	```
+	
 	What will be the result?
 
 5. You wrote a script that creates many intermediate log-files of the form log_01, log_02, log_03, etc. You want to keep them but you do not want to track them through `git`.
@@ -844,7 +847,7 @@ can we restore older versions of things?
 Let's suppose we accidentally overwrite our file:
 
 ~~~ {.bash}
-$ nano mars.txt
+$ vim mars.txt
 $ cat mars.txt
 ~~~
 ~~~ {.output}
@@ -958,27 +961,19 @@ Luckily, she has been keeping track of her project's versions using Git!
 	Which of the options below will let her recover the last committed version of her Python script called `data_cruncher.py`?
 	a. 
 
-     		~~~
-     		$ git checkout HEAD
-     		~~~
+		$ git checkout HEAD
      	
 	b. 
-	
-     		~~~
+
     		$ git checkout HEAD data_cruncher.py
-     		~~~
      	
 	c. 
-	
-		~~~
+
      		$ git checkout HEAD~1 data_cruncher.py
-     		~~~
 	
 	d. 
-	
-		~~~
+
      		$ git checkout <unique ID of last commit> data_cruncher.py
-     		~~~
  	
  	e. Both b & d
 
