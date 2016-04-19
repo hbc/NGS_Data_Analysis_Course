@@ -1017,38 +1017,38 @@ Luckily, she has been keeping track of her project's versions using Git!
 
 2. What is the output of cat venus.txt at the end of this set of commands?
 
- ~~~ {.bash}
- $ cd planets
- $ nano venus.txt #input the following text: Venus is beautiful and full of love
- $ git add venus.txt
- $ nano venus.txt #add the following text: Venus is too hot to be suitable as a base
- $ git commit -m "comments on Venus as an unsuitable base"
- $ git checkout HEAD venus.txt
- $ cat venus.txt #this will print the contents of venus.txt to the screen
- ~~~
+ 	~~~ {.bash}
+ 	$ cd planets
+ 	$ nano venus.txt #input the following text: Venus is beautiful and full of love
+ 	$ git add venus.txt
+ 	$ nano venus.txt #add the following text: Venus is too hot to be suitable as a base
+ 	$ git commit -m "comments on Venus as an unsuitable base"
+ 	$ git checkout HEAD venus.txt
+ 	$ cat venus.txt #this will print the contents of venus.txt to the screen
+	~~~
 
  	a.  
      		
-     	```{.output}
+     	```
      	Venus is too hot to be suitable as a base
      	```
 
  	b. 
      	
-     	```{.output}
+     	```
     	Venus is beautiful and full of love
      	```
 
 	c. 
 	
-	```{.output}
+	```
      	Venus is beautiful and full of love
      	Venus is too hot to be suitable as a base
      	```
 
 	d.
 	
-     	```{.output}
+     	```
      	Error because you have changed venus.txt without committing the changes
      	```
      	
