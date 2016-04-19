@@ -12,12 +12,12 @@ minutes: 20
 
 Let's create a file called `mars.txt` that contains some notes
 about the Red Planet's suitability as a base.
-(We'll use `vi` to edit the file;
+(We'll use `vim` to edit the file;
 you can use whatever editor you like.
 In particular, this does not have to be the `core.editor` you set globally earlier.)
 
 ~~~ {.bash}
-$ vi mars.txt
+$ vim mars.txt
 ~~~
 
 Type the text below into the `mars.txt` file:
@@ -163,7 +163,7 @@ Now suppose Dracula adds more information to the file.
 you may use a different editor, and don't need to `cat`.)
 
 ~~~ {.bash}
-$ vi mars.txt
+$ vim mars.txt
 $ cat mars.txt
 ~~~
 ~~~ {.output}
