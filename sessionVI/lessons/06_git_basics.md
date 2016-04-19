@@ -562,39 +562,52 @@ repository (`git commit`):
  last commit made to `mars.txt`?
  
 	a. "Changes"
+
 	b. "Added line 'But the Mummy will appreciate the lack of humidity' to mars.txt"
+	
 	c. "Discuss effects of Mars' climate on the Mummy"
 
 2. Which command(s) below would save the changes of `myfile.txt` to my local Git repository?
+
 	a. 
+	
 		~~~
      		$ git commit -m "my recent changes"
 		~~~
+		
 	b. 
+	
 		~~~
      		$ git init myfile.txt
      		$ git commit -m "my recent changes"
 		~~~
+		
 	c. 
+	
 		~~~
 		$ git add myfile.txt
 		$ git commit -m "my recent changes"
 		~~~
+		
 	d. 
+	
 		~~~
 		$ git commit -m myfile.txt "my recent changes"
 		~~~
+		
 
 3. Create a new Git repository on your computer called `bio`. Write a three-line biography for yourself in a file called `me.txt`,
 commit your changes, then modify one line, add a fourth line, and display the differences between its updated state and its original state.
 
 4. For each of the commits you have done, Git stored your name twice. You are named as the author and as the committer. You can observe
  that by telling Git to show you more information about your last commits:
+
 	~~~
 	$ git log --format=full
 	~~~
 
 	When commiting you can name someone else as the author:
+	
 	~~~
 	$ git commit --author="Vlad Dracula <vlad@tran.sylvan.ia>"
 	~~~
@@ -978,24 +991,31 @@ Luckily, she has been keeping track of her project's versions using Git!
 	Which of the options below will let her recover the last committed version of her Python script called `data_cruncher.py`?
 	a. 
 
-     	~~~
-     	$ git checkout HEAD
-     	~~~
+     		~~~
+     		$ git checkout HEAD
+     		~~~
+     	
 	b. 
-     	~~~
-    	 $ git checkout HEAD data_cruncher.py
-     	~~~
+	
+     		~~~
+    		$ git checkout HEAD data_cruncher.py
+     		~~~
+     	
 	c. 
+	
 		~~~
-     	$ git checkout HEAD~1 data_cruncher.py
-     	~~~
+     		$ git checkout HEAD~1 data_cruncher.py
+     		~~~
+	
 	d. 
+	
 		~~~
-     	$ git checkout <unique ID of last commit> data_cruncher.py
-     	~~~
+     		$ git checkout <unique ID of last commit> data_cruncher.py
+     		~~~
+ 	
  	e. Both b & d
 
-2, What is the output of cat venus.txt at the end of this set of commands?
+2. What is the output of cat venus.txt at the end of this set of commands?
 
  ~~~ {.bash}
  $ cd planets
@@ -1008,24 +1028,28 @@ Luckily, she has been keeping track of her project's versions using Git!
  ~~~
 
  	a.  
-     	~~~ {.output}
-     	Venus is too hot to be suitable as a base
-     	~~~
+     		
+     		~~~ {.output}
+     		Venus is too hot to be suitable as a base
+     		~~~
 
  	b. 
-     	~~~ {.output}
-    	Venus is beautiful and full of love
-     	~~~
+     	
+     		~~~ {.output}
+    		Venus is beautiful and full of love
+     		~~~
 
 	c. 
-     	~~~ {.output}
-     	Venus is beautiful and full of love
-     	Venus is too hot to be suitable as a base
-     	~~~
+     	
+     		~~~ {.output}
+     		Venus is beautiful and full of love
+     		Venus is too hot to be suitable as a base
+     		~~~
 
 	d. 
-     	~~~ {.output}
-     	Error because you have changed venus.txt without committing the changes
-     	~~~
+     		
+     		~~~ {.output}
+     		Error because you have changed venus.txt without committing the changes
+     		~~~
 
 ***
