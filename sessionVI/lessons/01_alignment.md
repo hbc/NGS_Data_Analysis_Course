@@ -129,7 +129,7 @@ $ bwa index -p chr20 chr20.fa
 
 #### Aligning reads with BWA-MEM
 
-Since we have our indexes created, we can get started with read alignment. Change directories to the `data` folder:
+Now that we have our indexes created, we can get started with read alignment. Change directories to the `data` folder:
 
 ```
 $ cd ~/ngs_course/var-calling/data
