@@ -11,6 +11,10 @@ minutes: 90
 *  Understand the modify-add-commit cycle for a single file
 *  Configure Git to ignore specific files.
 
+## Git version control system
+
+Git is a widely used version control system, and it is relatively straight-forward for committing file changes; however, more complex group revisions take time to master. [User documentation](https://git-scm.com/book) for Git is freely available and thorough. In addition, simple guides for quick look-ups are also abundant, such as [Git - the simple guide](http://rogerdudler.github.io/git-guide/). So while the intricacies of Git may be a bit overwhelming at first, there is a lot of documentation to help you accomplish your tasks.
+
 ## Git configuration
 
 When we use Git on a new computer for the first time,
