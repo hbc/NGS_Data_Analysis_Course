@@ -1019,9 +1019,9 @@ Luckily, she has been keeping track of her project's versions using Git!
 
  	~~~ {.bash}
  	$ cd planets
- 	$ nano venus.txt #input the following text: Venus is beautiful and full of love
+ 	$ vim venus.txt #input the following text: Venus is beautiful and full of love
  	$ git add venus.txt
- 	$ nano venus.txt #add the following text: Venus is too hot to be suitable as a base
+ 	$ vim venus.txt #add the following text: Venus is too hot to be suitable as a base
  	$ git commit -m "comments on Venus as an unsuitable base"
  	$ git checkout HEAD venus.txt
  	$ cat venus.txt #this will print the contents of venus.txt to the screen
