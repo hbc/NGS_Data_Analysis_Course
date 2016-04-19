@@ -1040,11 +1040,10 @@ Luckily, she has been keeping track of her project's versions using Git!
      		~~~
 
 	c. 
-     	
-     		~~~ {.output}
-     		Venus is beautiful and full of love
-     		Venus is too hot to be suitable as a base
-     		~~~
+	```{.output}
+     	Venus is beautiful and full of love
+     	Venus is too hot to be suitable as a base
+     	```
 
 	d. 
      		
