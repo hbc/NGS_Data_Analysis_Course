@@ -1027,11 +1027,11 @@ Luckily, she has been keeping track of her project's versions using Git!
  	$ cat venus.txt #this will print the contents of venus.txt to the screen
 	~~~
 
- 	a.  
+ a.  
      		
-     	```
-     	Venus is too hot to be suitable as a base
-     	```
+```
+Venus is too hot to be suitable as a base
+```
 
  	b. 
      	
