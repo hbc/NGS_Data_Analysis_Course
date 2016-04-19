@@ -1033,20 +1033,20 @@ Luckily, she has been keeping track of her project's versions using Git!
 	Venus is too hot to be suitable as a base
 	```
 
- 	b. 
+b. 
      	
      	```
     	Venus is beautiful and full of love
      	```
 
-	c. 
+c. 
 	
 	```
      	Venus is beautiful and full of love
      	Venus is too hot to be suitable as a base
      	```
 
-	d.
+d.
 	
      	```
      	Error because you have changed venus.txt without committing the changes
