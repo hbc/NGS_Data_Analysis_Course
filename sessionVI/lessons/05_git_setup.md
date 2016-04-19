@@ -8,7 +8,7 @@ minutes: 20
 
 *   Understand the benefits of an automated version control system.
 
-## Version control systems
+## Introduction to version control systems
 
 Version control systems are designed to manage changes to files or sets of files. Changes made to files that are committed to version control are never truly lost. Since all old versions of files are saved, it’s always possible to go back in time to see exactly what was written on a particular day, or what version of a program was used to generate a particular set of results, and, if needed, we can revert to a previous version, much like the “undo” feature in an editor.
 
