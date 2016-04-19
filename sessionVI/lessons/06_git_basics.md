@@ -1042,6 +1042,6 @@ Luckily, she has been keeping track of her project's versions using Git!
 
 	d.
 	
-     		Error because you have changed venus.txt without committing the changes
+		Error because you have changed venus.txt without committing the changes
      	
 ***
