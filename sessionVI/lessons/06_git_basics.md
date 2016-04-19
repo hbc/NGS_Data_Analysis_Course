@@ -1029,26 +1029,27 @@ Luckily, she has been keeping track of her project's versions using Git!
 
  	a.  
      		
-     		~~~ {.output}
-     		Venus is too hot to be suitable as a base
-     		~~~
+     	```{.output}
+     	Venus is too hot to be suitable as a base
+     	```
 
  	b. 
      	
-     		~~~ {.output}
-    		Venus is beautiful and full of love
-     		~~~
+     	```{.output}
+    	Venus is beautiful and full of love
+     	```
 
 	c. 
+	
 	```{.output}
      	Venus is beautiful and full of love
      	Venus is too hot to be suitable as a base
      	```
 
-	d. 
-     		
-     		~~~ {.output}
-     		Error because you have changed venus.txt without committing the changes
-     		~~~
+	d.
+	
+     	```{.output}
+     	Error because you have changed venus.txt without committing the changes
+     	```
 
 ***
