@@ -12,6 +12,10 @@
         ├── results/
             |-- bwa
                 |-- na12878.sam
+                |-- na12878_sorted.sam
+                |-- na12878_sorted_marked.bam
+                |-- bwa.err
+                |-- metrics.txt
         ├── .
         └── .
 ```
