@@ -45,13 +45,13 @@ Your directory structure should now look something like this:
         ├── data/
             ├── untrimmed_fastq/
             ├── reference_data
-        	├── chr20.fa
-        	├── dbsnp.138.chr20.vcf.gz
+        	    ├── chr20.fa
+        	    ├── dbsnp.138.chr20.vcf.gz
                 └── snpeff
         ├── results/
      		├── bwa
      		├── variants
-                └── annotation
+            └── annotation
 
 ```
 
