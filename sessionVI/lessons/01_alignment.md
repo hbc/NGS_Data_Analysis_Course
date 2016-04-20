@@ -183,6 +183,8 @@ The description of base options for the `SortSam` tool:
 	**NOTE:** BWA can produce SAM records that are marked as unmapped but have non-zero MAPQ and/or non-"*" CIGAR. Typically this is because BWA found an alignment for the read that hangs off the end of the reference sequence. Picard considers such input to be invalid. In general, this error can be suppressed in Picard programs by passing VALIDATION_STRINGENCY=LENIENT or VALIDATION_STRINGENCY=SILENT [[3](https://sourceforge.net/p/picard/wiki/Main_Page/)]. 
 
 ```
+$ cd ../results/bwa
+
 $ java -jar /opt/picard-1.138/bin/picard.jar SortSam \
 INPUT=na12878.sam \
 OUTPUT=na12878_sorted.sam \
