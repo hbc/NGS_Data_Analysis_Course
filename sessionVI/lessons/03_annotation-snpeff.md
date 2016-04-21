@@ -8,29 +8,35 @@ Approximate time: 90 minutes
 
 ## Learning Objectives:
 
-* ()
-* ()
+* Adding infomration on known SNPs to our VCF
+* Adding functional information to variants in the VCF
+* Understanding where the annotation is added in the VCF format
 
 
 
 ## Annotating variants
 
-Variant annotation is a crucial step in linking sequence variants with changes in phenotype. Annotation results can have a strong influence on the ultimate conclusions of disease studies. Incorrect or incomplete annotations can cause researchers both to overlook potentially disease-relevant DNA variants and to dilute interesting variants in a pool of false positives. At this stage, we have a large tab-delimited file containing loci at which a variation was found in the sample DNA sequence relative to the reference. We have filtered out these variations (also referred to as 'variant calls') to keep only those we are highly confident in, and now need to find out more. We can do this by comparing our variants against known variants, and also use genome annoatations to help predict information about our variants. 
+Variant annotation is a crucial step in linking sequence variants with changes in phenotype. Annotation results can have a strong influence on the ultimate conclusions of disease studies. Incorrect or incomplete annotations can cause researchers both to overlook potentially disease-relevant DNA variants and to dilute interesting variants in a pool of false positives. 
 
 ![var_calling_workflow](../img/variant_calling_workflow.png)
 
+At this stage, we have a large tab-delimited file containing loci at which a variation was found in the sample DNA sequence relative to the reference. We have filtered out these variations (also referred to as 'variant calls') to keep only those we are highly confident in, and now need to find out more. We can do this by **comparing our variants against known variants, and also use genome annoatations to help predict information about our variants.** 
+
+<img src="../img/prioritize.png" width="300">
+
+
+
 ### Setting up
 
-For this section we are going to need to copy over some reference data required for annotation. First, move into `var-calling` directory and then copy over the required data. *NOTE: one is a directory and the other is a zipped file*
+For this section we are going to need to copy over some reference data required for annotation. First, move into `var-calling` directory and then copy over the required data.
 
 ```
 $ cd ngs_course/var-calling
-$ cp -r /groups/hbctraining/ngs-data-analysis2016/var-calling/reference_data/snpeff data/reference_data
-$ cp /groups/hbctraining/ngs-data-analysis2016/var-calling/reference_data/dbsnp.138.chr20.vcf.gz data/reference_data/
+$ cp /groups/hbctraining/ngs-data-analysis2016/var-calling/reference_data/dbsnp.138.chr20.vcf.gz* data/reference_data/
 
 ```
 
-Let's also create a new directory for the annotation steps:
+Let's also create a new directory for the results of our annotation steps:
 
 ```
 $ mkdir results/annotation
@@ -57,9 +63,31 @@ Your directory structure should now look something like this:
 
 
 
-## Comparing against known variants 
+## Annotation with known variants 
 
-Variant annotation is the process of assigning information to DNA variants. There are many different types of information that could be associated with variants, and a first commonly use resource is to compare against variants that have previously been described. [dbSNP](http://www.ncbi.nlm.nih.gov/SNP/) 
+Variant annotation is the process of assigning information to DNA variants. There are many different types of information that can be associated with variants, and a first commonly used resource is using databases which contain variants that have previously been described. One popular example is [dbSNP](http://www.ncbi.nlm.nih.gov/SNP/),a free, public archive for genetic variation within and across different species. It is hosted by NCBI in collaboration with NHGRI and although the name implies SNPs; it actually includes range of molecular variation.
+
+<img src="../img/dbsnp.png" width="300">
+
+To add dbSNP information you need to download the organism specific data using their [FTP download](ftp://ftp.ncbi.nih.gov/snp/) site. **We have already done this for you** and was the zip file that you copied over into your `reference_data` folder. 
+
+To annotate our data with dbSNP information we wil be using [`bcftools`](https://samtools.github.io/bcftools/), a command-line utility for variant calling and manipulating VCF files and its binary counterpart BCF files. It is a part of the `samtools` project, a tool that we are by now pretty familiar with. 
+
+The `bcftools annotate` command allows the user to add or remove annotations. The annotation we wish to add must be a Bgzip-compressed and tabix-indexed file (usually VCF or BED format), as should the file that we are annotating:
+
+```
+$ bgzip results/variants/na12878_q20.recode.vcf 
+$ tabix results/variants/na12878_q20.recode.vcf.gz
+```
+
+When running `bcftools annotate`, we also need to specify the column(s) to carry over from the annotation file, which in our case is ID.
+
+```
+$ bcftools annotate -c ID -a data/reference_data/dbsnp.138.chr20.vcf.gz results/variants/na12878_q20.recode.vcf.gz > results/annotation/na12878_q20_annot.vcf
+```
+Take a quick peek at the new VCF file that was generated using `less`. You should now see in the ID column `rs` ids which correspond to identifiers from dbSNP. For the variants  that are not known, you will find the `.` in place of an ID indicating novelty.
+
+ 
 
 ## Functional annotation with SnpEff
 
