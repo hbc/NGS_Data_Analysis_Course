@@ -312,7 +312,7 @@ Now suppose Dracula adds more information to the file.
 ```{.bash}
 $ vim mars.txt
 ```
-Add the following line to the file:
+Add the following line to the file, then save and quit:
 
 ```
 The two moons may be a problem for Wolfman.
