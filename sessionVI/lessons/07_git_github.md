@@ -256,7 +256,7 @@ The Collaborator can now make a change in his or her copy of the repository:
 
 ~~~ {.bash}
 $ cd planets
-$ nano pluto.txt
+$ vim pluto.txt
 $ cat pluto.txt
 ~~~
 ~~~ {.output}
@@ -353,7 +353,7 @@ But the Mummy will appreciate the lack of humidity
 Let's add a line to one partner's copy only:
 
 ~~~ {.bash}
-$ nano mars.txt
+$ vim mars.txt
 $ cat mars.txt
 ~~~
 ~~~ {.output}
@@ -391,7 +391,7 @@ make a different change to their copy
 *without* updating from GitHub:
 
 ~~~ {.bash}
-$ nano mars.txt
+$ vim mars.txt
 $ cat mars.txt
 ~~~
 ~~~ {.output}
