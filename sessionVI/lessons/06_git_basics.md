@@ -309,8 +309,16 @@ and the log message Git was given when the commit was created.
 
 Now suppose Dracula adds more information to the file.
 
-~~~ {.bash}
+```{.bash}
 $ vim mars.txt
+```
+Add the following line to the file:
+
+```
+The two moons may be a problem for Wolfman.
+```
+
+```
 $ cat mars.txt
 ~~~
 ~~~ {.output}
