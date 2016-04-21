@@ -659,14 +659,18 @@ so let's tell Git to ignore them.
 
 We do this by creating a file in the root directory of our project called `.gitignore`:
 
-~~~ {.bash}
+```{.bash}
 $ vim .gitignore
-$ cat .gitignore
-~~~
+```
+
 ~~~ {.output}
 *.dat
 results/
 ~~~
+
+```{.bash}
+$ cat .gitignore
+```
 
 These patterns tell Git to ignore any file whose name ends in `.dat`
 and everything in the `results` directory.
