@@ -314,17 +314,14 @@ $ vim mars.txt
 ```
 Add the following line to the file, then save and quit:
 
-```
-The two moons may be a problem for Wolfman.
-```
-
-```
-$ cat mars.txt
-~~~
 ~~~ {.output}
 Cold and dry, but everything is my favorite color
 The two moons may be a problem for Wolfman
 ~~~
+
+```{.bash}
+$ cat mars.txt
+```
 
 When we run `git status` now,
 it tells us that a file it already knows about has been modified:
@@ -461,18 +458,16 @@ we'll add another line to the file:
 $ vim mars.txt
 ```
 
-```
-But the Mummy will appreciate the lack of humidity
-```
-```
-$ cat mars.txt
-```
-
 ~~~ {.output}
 Cold and dry, but everything is my favorite color
 The two moons may be a problem for Wolfman
 But the Mummy will appreciate the lack of humidity
 ~~~
+
+```{.bash}
+$ cat mars.txt
+```
+
 ~~~ {.bash}
 $ git diff
 ~~~
