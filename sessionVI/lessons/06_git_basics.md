@@ -457,10 +457,17 @@ and into long-term storage.
 First,
 we'll add another line to the file:
 
-~~~ {.bash}
+```{.bash}
 $ vim mars.txt
+```
+
+```
+But the Mummy will appreciate the lack of humidity
+```
+```
 $ cat mars.txt
-~~~
+```
+
 ~~~ {.output}
 Cold and dry, but everything is my favorite color
 The two moons may be a problem for Wolfman
