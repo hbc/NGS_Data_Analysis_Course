@@ -136,7 +136,7 @@ To explore variants GEMINI, we need to use SQL (Structured Query Language) to cr
 
 Let's start by loading our VCF file into the database. This command assumes that the VCF has been pre-annotated with snpEff as pecified with `-t`. While loading the database, GEMINI computes many additional population genetics statistics that support downstream analyses.
 
-$ gemini load -v results/annotation/na12878_q20_annot_snpEff.vcf -t snpEff \
+	$ gemini load -v results/annotation/na12878_q20_annot_snpEff.vcf -t snpEff \
        results/annotation/na12878_GEMINI.db
 
 
