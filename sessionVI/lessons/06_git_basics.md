@@ -85,7 +85,7 @@ same commands to choose another editor or update your email address.
 > $ git config --global --unset https.proxy
 > ~~~
 
-## Creating a local Git repository
+### Creating a local Git repository
 
 Once Git is configured,
 we can start using it.
