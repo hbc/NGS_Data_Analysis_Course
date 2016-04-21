@@ -159,7 +159,7 @@ Dracula starts a new project, `moons`, related to his `planets` project. Despite
 
 ## Tracking changes with Git
 
-Let's create a file called `mars.txt` that contains some notes
+Dracula creates a file called `mars.txt` that contains some notes
 about the Red Planet's suitability as a base.
 (We'll use `vim` to edit the file;
 you can use whatever editor you like.
