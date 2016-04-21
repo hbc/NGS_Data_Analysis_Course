@@ -1008,7 +1008,7 @@ Luckily, she has been keeping track of her project's versions using Git!
  	
  	e. Both b & d
 
-2. What is the output of cat venus.txt at the end of this set of commands?
+2. What is the output of `cat venus.txt` at the end of this set of commands?
 
  	~~~ {.bash}
  	$ cd planets
