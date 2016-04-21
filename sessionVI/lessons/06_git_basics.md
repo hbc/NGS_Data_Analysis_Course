@@ -872,12 +872,16 @@ we can save changes to files and see what we've changed&mdash;now how
 can we restore older versions of things?
 Let's suppose we accidentally overwrite our file:
 
-~~~ {.bash}
+```{.bash}
 $ vim mars.txt
-$ cat mars.txt
-~~~
+```
+
 ~~~ {.output}
 We will need to manufacture our own oxygen
+~~~
+
+~~~ {.bash}
+$ cat mars.txt
 ~~~
 
 `git status` now tells us that the file has been changed,
