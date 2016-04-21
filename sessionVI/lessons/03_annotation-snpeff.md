@@ -28,11 +28,14 @@ At this stage, we have a large tab-delimited file containing loci at which a var
 
 ### Setting up
 
-For this section we are going to need to copy over some reference data required for annotation. First, move into `var-calling` directory and then copy over the required data.
+For this section we are going to need to copy over some reference data required for annotation. Start and inetractive session and move into `var-calling` directory. Then copy over the required data.
 
 ```
+$ bsub -Is -q interactive bash
+
 $ cd ngs_course/var-calling
-$ cp /groups/hbctraining/ngs-data-analysis2016/var-calling/reference_data/dbsnp.138.chr20.vcf.gz* data/reference_data/
+$ cp /groups/hbctraining/ngs-data-analysis2016/var-calling/reference_data/dbsnp.138.chr20.vcf.gz* \
+data/reference_data/
 
 ```
 
@@ -83,9 +86,11 @@ $ tabix results/variants/na12878_q20.recode.vcf.gz
 When running `bcftools annotate`, we also need to specify the column(s) to carry over from the annotation file, which in our case is ID.
 
 ```
-$ bcftools annotate -c ID -a data/reference_data/dbsnp.138.chr20.vcf.gz results/variants/na12878_q20.recode.vcf.gz > results/annotation/na12878_q20_annot.vcf
+$ bcftools annotate -c ID -a data/reference_data/dbsnp.138.chr20.vcf.gz \
+    results/variants/na12878_q20.recode.vcf.gz \
+    > results/annotation/na12878_q20_annot.vcf
 ```
-Take a quick peek at the new VCF file that was generated using `less`. You should now see in the ID column `rs` ids which correspond to identifiers from dbSNP. For the variants  that are not known, you will find the `.` in place of an ID indicating novelty.
+Take a quick peek at the new VCF file that was generated using `less`. You should now see in the ID column `rs` ids which correspond to identifiers from dbSNP. For the variants that are not known, you will find the `.` in place of an ID indicating novelty of that sequence change.
 
  
 
@@ -93,13 +98,29 @@ Take a quick peek at the new VCF file that was generated using `less`. You shoul
 
 One fundamental level of variant annotation involves categorising each variant based on its relationship to coding sequences in the genome and how it may change the coding sequence and affect the gene product. To do this we will be using a tool called [SnpEff](http://snpeff.sourceforge.net/), a variant effect predictor program. 
 
-Our understanding of the protein-coding sequences in the genome is summarised in the set of transcripts we believe to exist. Thus, variant annotation depends on the set of transcripts used as the basis for annotation. The widely used annotation databases and browsers – ENSEMBL, RefSeq, UCSC – contain sets of transcripts that can be used for variant annotation, as well as a wealth of information of many other kinds as well, such as ENCODE data about the function of non-coding regions of the genome. 
+Our understanding of the protein-coding sequences in the genome is summarised in the set of transcripts we believe to exist. Thus, variant annotation depends on the set of transcripts used as the basis for annotation. The widely used annotation databases and browsers – ENSEMBL, RefSeq, UCSC – contain sets of transcripts that can be used for variant annotation, as well as a wealth of information of many other kinds as well, such as ENCODE data about the function of non-coding regions of the genome. SnpEff will take information from the provided annotation database and populate our VCF file by adding it into the `INFO` field name `ANN`. Data fields are encoded separated by pipe sign "|"; and the order of fields is written in the VCF header.
 
-Thus, the first step to using SnpEff will involve building a database based on annotations retrieved from a public database. **We have generated this database for you, using Ensembl annotations provided within the snpEff framework.** You will need to copy over this database directory into your `reference` directory:
+<img src="../img/snpeff.png" width="500">
 
+To run the snpEff command we will need to specify two things:
 
-Now we can run the snpEff command 
+1. The appropriate genome
+2. The VCF file we want to annotate
 
+By default SnpEff downloads and install databases automatically (since version 4.0). To see what databases are available you can use the `databases` command. Be sure to pipe this to `less`, as there is a long list of options:
+
+	$ snpEff databases | less
+	
+An additional parameter to add to our command is `Xmx2G`, a Java parameter to define available memory. Since we are in an interactive session by default we have 2GB available to us, if we had requested more before starting the session we could increase the number here.
+
+The final command will look like this:
+
+	$ snpEff -Xmx2G eff hg19 results/annotation/na12878_q20_annot.vcf \
+	     > results/annotation/na12878_q20_annot_snpEff.vcf
+
+Take a look at the resulting VCF and the information that was added into the `ANN` field.
+
+## Prioritizing variants 
 
 
 
