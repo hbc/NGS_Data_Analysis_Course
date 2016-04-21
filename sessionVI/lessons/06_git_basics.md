@@ -989,6 +989,7 @@ moving backward and forward in time becomes much easier.
 Luckily, she has been keeping track of her project's versions using Git! 
 
 	Which of the options below will let her recover the last committed version of her Python script called `data_cruncher.py`?
+	
 	a. 
 
 		$ git checkout HEAD
