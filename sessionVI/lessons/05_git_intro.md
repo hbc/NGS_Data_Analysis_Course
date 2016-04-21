@@ -60,3 +60,10 @@ across different computers facilitating collaboration among different people.
 > are *distributed*, meaning that they do not need a centralized server to host the repository.
 > These modern systems also include powerful merging tools that make it possible for multiple authors to work within 
 > the same files concurrently.
+
+## Git version control system
+
+Git is a widely-used, free and open-source version control system. The basic command structure for saving versions of files in Git is relatively easy to learn, with features allowing you to examine the changes before saving a new version of your file. In addition, Git has more powerful features to aid in group project work; however, more complex group revision processes take time to master. [Git user documentation](https://git-scm.com/book) is accessible and thorough. In addition, simple guides for quick look-ups are also abundant, such as [Git - the simple guide](http://rogerdudler.github.io/git-guide/) and [Bitbucket's Basic Git command documentation](https://confluence.atlassian.com/bitbucketserver/basic-git-commands-776639767.html). So while the intricacies of Git may be a bit overwhelming at first, there is a lot of documentation to help you accomplish your tasks. 
+
+Git is fast, with most actions being performed on your local computer. We often use Git with a web-based Git repository hosting service such [Github](https://github.com) or [Bitbucket](https://bitbucket.org) to store our file repositories and to share them with others. By the end of these lessons, you should be able to perform routine file version back-ups and collaborate simply with collaborators using Git and Github.
+
