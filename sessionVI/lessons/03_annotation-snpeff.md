@@ -70,7 +70,7 @@ Your directory structure should now look something like this:
 
 Variant annotation is the process of assigning information to DNA variants. There are many different types of information that can be associated with variants, and a first commonly used resource is using databases which contain variants that have previously been described. One popular example is [dbSNP](http://www.ncbi.nlm.nih.gov/SNP/),a free, public archive for genetic variation within and across different species. It is hosted by NCBI in collaboration with NHGRI and although the name implies SNPs; it actually includes range of molecular variation.
 
-<img src="../img/dbsnp.png" width="300">
+<img src="../img/dbsnp.png" width="500">
 
 To add dbSNP information you need to download the organism specific data using their [FTP download](ftp://ftp.ncbi.nih.gov/snp/) site. **We have already done this for you** and was the zip file that you copied over into your `reference_data` folder. 
 
@@ -100,7 +100,7 @@ One fundamental level of variant annotation involves categorising each variant b
 
 Our understanding of the protein-coding sequences in the genome is summarised in the set of transcripts we believe to exist. Thus, variant annotation depends on the set of transcripts used as the basis for annotation. The widely used annotation databases and browsers – ENSEMBL, RefSeq, UCSC – contain sets of transcripts that can be used for variant annotation, as well as a wealth of information of many other kinds as well, such as ENCODE data about the function of non-coding regions of the genome. SnpEff will take information from the provided annotation database and populate our VCF file by adding it into the `INFO` field name `ANN`. Data fields are encoded separated by pipe sign "|"; and the order of fields is written in the VCF header.
 
-<img src="../img/snpeff.png" width="500">
+<img src="../img/snpeff.png" width="700">
 
 To run the snpEff command we will need to specify two things:
 
