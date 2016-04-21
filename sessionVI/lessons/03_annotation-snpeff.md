@@ -118,11 +118,26 @@ The final command will look like this:
 	$ snpEff -Xmx2G eff hg19 results/annotation/na12878_q20_annot.vcf \
 	     > results/annotation/na12878_q20_annot_snpEff.vcf
 
-Take a look at the resulting VCF and the information that was added into the `ANN` field.
+Take a look at the resulting VCF and the information that was added into the `ANN` field. How many ‘HIGH’ impact variants were identified in this small subset?
+
 
 ## Prioritizing variants 
 
+Now we have annotations for all of our variants, but how do we easily sift through and find the important ones? To tackle this problem we look to tools beyond your text editor (simple shell scripts) and excel. Aaron Quinlan’s lab at University of Utah has been developing a framework called [GEMINI (GEnome MINIng)](https://github.com/arq5x/gemini) for quite some time now. 
 
+GEMINI is a tool that helps turn those giant, sparse VCF variant matrices (millions of rows, thousands of columns) into a simple, accessible database. Within the database GEMINI annotates with just about everything out there. ENCODE, OMIM, dbSNP… *plus* internal annotations like regions of interest, candidate genes, etc. The resulting framework supports an **interactive exploration of variant information** in the context of numerous third-party genomic annotations.
+
+
+<img src="../img/Gemini.pdf" width="600">
+
+
+To explore variants GEMINI, we need to use SQL (Structured Query Language) to create simple, powerful queries based on annotations, genotypes or a combination of both. It will take some time to get used to the language but once you have the hang of it, you‘ll see how powerful it is.
+
+
+Let's start by loading our VCF file into the database. This command assumes that the VCF has been pre-annotated with snpEff as pecified with `-t`. While loading the database, GEMINI computes many additional population genetics statistics that support downstream analyses.
+
+$ gemini load -v results/annotation/na12878_q20_annot_snpEff.vcf -t snpEff \
+       results/annotation/na12878_GEMINI.db
 
 
 ***
