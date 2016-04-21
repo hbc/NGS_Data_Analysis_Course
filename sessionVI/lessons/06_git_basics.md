@@ -458,7 +458,7 @@ First,
 we'll add another line to the file:
 
 ~~~ {.bash}
-$ nano mars.txt
+$ vim mars.txt
 $ cat mars.txt
 ~~~
 ~~~ {.output}
