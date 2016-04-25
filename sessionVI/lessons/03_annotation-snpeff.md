@@ -76,7 +76,7 @@ To add dbSNP information you need to download the organism specific data using t
 
 To annotate our data with dbSNP information we wil be using [`bcftools`](https://samtools.github.io/bcftools/), a command-line utility for variant calling and manipulating VCF files and its binary counterpart BCF files. It is a part of the `samtools` project, a tool that we are by now pretty familiar with. 
 
-The `bcftools annotate` command allows the user to add or remove annotations. The annotation we wish to add must be a Bgzip-compressed and tabix-indexed file (usually VCF or BED format), as should the file that we are annotating:
+The `bcftools annotate` command allows the user to **add or remove annotations**. The annotation we wish to add and the file we are annotating must be a Bgzip-compressed and tabix-indexed file (usually VCF or BED format). Tabix indexes a tab-delimited genome position file and creates an index file (.tbi), which facilitates quick retrieval of data lines overlapping regions.
 
 ```
 $ bgzip results/variants/na12878_q20.recode.vcf 
@@ -96,7 +96,7 @@ Take a quick peek at the new VCF file that was generated using `less`. You shoul
 
 ## Functional annotation with SnpEff
 
-One fundamental level of variant annotation involves categorising each variant based on its relationship to coding sequences in the genome and how it may change the coding sequence and affect the gene product. To do this we will be using a tool called [SnpEff](http://snpeff.sourceforge.net/), a variant effect predictor program. 
+One fundamental level of variant annotation involves categorising each variant based on its relationship to coding sequences in the genome and how it may change the coding sequence and affect the gene product. To do this we will be using a tool called [SnpEff](http://snpeff.sourceforge.net/), a **variant effect predictor program**. 
 
 Our understanding of the protein-coding sequences in the genome is summarised in the set of transcripts we believe to exist. Thus, variant annotation depends on the set of transcripts used as the basis for annotation. The widely used annotation databases and browsers – ENSEMBL, RefSeq, UCSC – contain sets of transcripts that can be used for variant annotation, as well as a wealth of information of many other kinds as well, such as ENCODE data about the function of non-coding regions of the genome. SnpEff will take information from the provided annotation database and populate our VCF file by adding it into the `INFO` field name `ANN`. Data fields are encoded separated by pipe sign "|"; and the order of fields is written in the VCF header.
 
@@ -117,27 +117,50 @@ The final command will look like this:
 
 	$ snpEff -Xmx2G eff hg19 results/annotation/na12878_q20_annot.vcf \
 	     > results/annotation/na12878_q20_annot_snpEff.vcf
-
-Take a look at the resulting VCF and the information that was added into the `ANN` field. How many ‘HIGH’ impact variants were identified in this small subset?
-
-
-## Prioritizing variants 
-
-Now we have annotations for all of our variants, but how do we easily sift through and find the important ones? To tackle this problem we look to tools beyond your text editor (simple shell scripts) and excel. Aaron Quinlan’s lab at University of Utah has been developing a framework called [GEMINI (GEnome MINIng)](https://github.com/arq5x/gemini) for quite some time now. 
-
-GEMINI is a tool that helps turn those giant, sparse VCF variant matrices (millions of rows, thousands of columns) into a simple, accessible database. Within the database GEMINI annotates with just about everything out there. ENCODE, OMIM, dbSNP… *plus* internal annotations like regions of interest, candidate genes, etc. The resulting framework supports an **interactive exploration of variant information** in the context of numerous third-party genomic annotations.
+	    
+	    
+> *NOTE:* SnpEff is a Java program and is normally run using JAR files (Java Archive), a package file format which requires the use of `java -jar snpEff.jar` notation. You will see this when reading thhrough the [documentation](http://snpeff.sourceforge.net/SnpEff_manual.html). Because this is a bcbio install, the program has been setup with an alias such that typing in `snpEff` alone will work just as well.
 
 
-<img src="../img/Gemini.png" width="600">
+### SnpEff Output
 
+SnpEff produces three output files:
 
-To explore variants GEMINI, we need to use SQL (Structured Query Language) to create simple, powerful queries based on annotations, genotypes or a combination of both. It will take some time to get used to the language but once you have the hang of it, you‘ll see how powerful it is.
+1. an annotated VCF file 
+2. an HTML file containing summary statistics about the variants and their annotations
+3. a text file summarizing the number of variant types per gene
 
+In your current directory you will find that the two additional files (#2, #3) that were generated in addition to the newly annotated VCF. You can move these over to the appropriate results directory:
 
-Let's start by loading our VCF file into the database. This command assumes that the VCF has been pre-annotated with snpEff as pecified with `-t`. While loading the database, GEMINI computes many additional population genetics statistics that support downstream analyses.
+	$ mv snpEff* results/annotation/
 
-	$ gemini load -v results/annotation/na12878_q20_annot_snpEff.vcf -t snpEff \
-       results/annotation/na12878_GEMINI.db
+Let's take a look at the text file:
+
+	$ less results/annotation/snpEff_genes.txt
+
+Each row corresponds to a gene, and each column coresponds to a different variant type. This gives you a resource for quickly interrogating genes of interest and see what types of variants they harbour, if any.
+
+To look at the HTML file, we will need to move it over to our local computer. You can do this by using `FileZilla` or the `scp` command if you are more comfortable with the command line.
+
+The first part of the report is a summary, which outlines what was run and what was found.
+
+![summary](../img/snpeff_summary.png)
+
+As we scroll through the report, we can obtain more details on the categories of variants in our file. 
+
+***
+
+**Exercise**
+
+Use the HTML report to answer the following questions:
+
+1. The majority of variants idenified are classified as SNPs. How many insertions and deletions were found?
+2. How many 'HIGH' impact variants were identified?
+3. How many variants were found in exonic regions?
+4. The Ts/Tv ratio (the transition/transversion rate) tends to be around 2-2.1 for the human genome, although it changes between different genomic regions. What is the ratio reported for our sample? 
+
+***
+
 
 
 ***
