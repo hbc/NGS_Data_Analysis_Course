@@ -12,7 +12,6 @@ Approximate time: 90 minutes
 * Learning how to use GEMINI, a framework for exploring variant information
 
 
-
 ## Prioritizing variants 
 
 Now we have annotations for all of our variants, but how do we easily sift through and find the important ones? To tackle this problem we look to tools beyond your text editor (simple shell scripts) and excel. Aaron Quinlan’s lab at University of Utah has been developing a framework called [GEMINI (GEnome MINIng)](https://github.com/arq5x/gemini) for quite some time now. 
@@ -23,12 +22,13 @@ GEMINI is a tool that helps turn those giant, sparse VCF variant matrices (milli
 <img src="../img/Gemini.png" width="600">
 
 
-Let's start by loading our VCF file into the database. This command assumes that the VCF has been pre-annotated with snpEff as pecified with `-t`. While loading the database, GEMINI computes many additional population genetics statistics that support downstream analyses.
+Let's start by loading our VCF file into the database. This command assumes that the VCF has been pre-annotated with snpEff as pecified with `-t`. While loading the database, GEMINI computes many additional population genetics statistics that support downstream analyses. You will first need to move into the annotation directory:
 
-	$ gemini load -v results/annotation/na12878_q20_annot_snpEff.vcf -t snpEff \
-       results/annotation/na12878_q20.db
+	$ cd ~/ngs_course/var-calling/results/annotation
 
-### Assembling a query
+	$ gemini load -v na12878_q20_annot_snpEff.vcf -t snpEff na12878_q20.db
+
+### Constructing a query in GEMINI
 
 To explore variants GEMINI, we need to use SQL (Structured Query Language) to create simple, powerful queries based on annotations, genotypes or a combination of both. It will take some time to get used to the language but once you have the hang of it, you‘ll see how powerful it is.
 
@@ -38,11 +38,11 @@ Below is an example query used to demonstrate the structure and what each of the
 
 The query itself is written as SQL statements using `select`, `from` and `where`. Remember that we are querying a database, and databases most often contains one or more **tables**. Each table is identified by a name, and contain some number of **fields/columns** and **records (rows)** with data. 
 
-When we `select` we are identifying the **fields** we are interested in retrieving. In our case this is the chromsome name, start and end coordinates. 
+When we **`select`** we are identifying the **fields** we are interested in retrieving. In our case this is the chromsome name, start and end coordinates. 
 
 <img src="../img/gemini-query2.png" width="400">
 
-The `from` is used to identify the **name of the table** we wish to query from. Here, we are querying from a table called `variants`.
+The **`from`** is used to identify the **name of the table** we wish to query from. Here, we are querying from a table called `variants`.
 
 <img src="../img/gemini-query3.png" width="400">
 
@@ -50,12 +50,41 @@ The `variants` table is one of many available in GEMINI. It contains a wide arra
 
  <img src="../img/gemini-table.png" width="700"> 
  
-Finally, there is also a `where` clause which is used to **filter records/rows**. We can add criteria, that each row must satisfy in order for it to be retrieved. In our case the rows are variants, and in our example we are querying for variants in which the `type` field is equal to `snp.`
+Finally, there is also a **`where`** clause which is used to **filter records/rows**. We can add criteria, that each row must satisfy in order for it to be retrieved. In our case the rows are variants, and in our example we are querying for variants in which the `type` field is equal to `snp.`
 
 <img src="../img/gemini-query4.png" width="400">
 
 The final touches to the command involve wrapping the entire statement in double quoutation marks and then adding the name of the database that we wish to query.
 
+****
+
+**Exercise**
+
+1. Try running the query and pipe (`|`) the results to `less`. What is returned to you? How many variants are SNPs?
+2. Modify the `where` clause in your query to instead find out how many variants are indels (*hint: type = 'indel'*)
+
+**CHECK WHY THESE NUMBERS DO NOT MATCH SNPEFF SUMMARY**
+
+***
+
+#### Boolean fields
+
+For some fields the value is not numeric or character, but is boolean (TRUE == 1, and FALSE == 0). 
+
+Let's query a field that has boolean values. **How many variants are exonic?**
+
+	
+#### Multiple selection criteria
+
+
+#### Counting results
+
+**by category**
+
+
+#### Genotype information
+
+ 	
 
  
 ***
