@@ -8,22 +8,28 @@ Approximate time: 90 minutes
 
 ## Learning Objectives:
 
-* ()
-* ()
+* Using annotations information to filter out important variants
+* Learning how to use GEMINI, a framework for exploring variant information
 
 
 
-## Variant Calling Workflow
+## Prioritizing variants 
 
-The variant calling workflow begins with quality control and alignment, similar to the other NGS applications. Alignment is followed by alignment clean-up to prepare data for variant calling. Then, variant calling is performed, followed by filtering and annotation of the variant calls.
+Now we have annotations for all of our variants, but how do we easily sift through and find the important ones? To tackle this problem we look to tools beyond your text editor (simple shell scripts) and excel. Aaron Quinlan’s lab at University of Utah has been developing a framework called [GEMINI (GEnome MINIng)](https://github.com/arq5x/gemini) for quite some time now. 
 
-![var_calling_workflow](../img/variant_calling_workflow.png)
+GEMINI is a tool that helps turn those giant, sparse VCF variant matrices (millions of rows, thousands of columns) into a simple, accessible database. Within the database GEMINI annotates with just about everything out there. ENCODE, OMIM, dbSNP… *plus* internal annotations like regions of interest, candidate genes, etc. The resulting framework supports an **interactive exploration of variant information** in the context of numerous third-party genomic annotations.
 
-## Freebayes
 
-## Dataset
+<img src="../img/Gemini.png" width="600">
 
-## QC and Alignment
+
+To explore variants GEMINI, we need to use SQL (Structured Query Language) to create simple, powerful queries based on annotations, genotypes or a combination of both. It will take some time to get used to the language but once you have the hang of it, you‘ll see how powerful it is.
+
+
+Let's start by loading our VCF file into the database. This command assumes that the VCF has been pre-annotated with snpEff as pecified with `-t`. While loading the database, GEMINI computes many additional population genetics statistics that support downstream analyses.
+
+	$ gemini load -v results/annotation/na12878_q20_annot_snpEff.vcf -t snpEff \
+       results/annotation/na12878_GEMINI.db
 
 
 ***
