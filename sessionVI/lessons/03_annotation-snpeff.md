@@ -155,6 +155,7 @@ As we scroll through the report, we can obtain more details on the categories of
 Use the HTML report to answer the following questions:
 
 1. The majority of variants idenified are classified as SNPs. How many insertions and deletions were found?
+2. How many of our variants are novel (not in dbSNP)?
 2. How many 'HIGH' impact variants were identified?
 3. How many variants were found in exonic regions?
 4. The Ts/Tv ratio (the transition/transversion rate) tends to be around 2-2.1 for the human genome, although it changes between different genomic regions. What is the ratio reported for our sample? 
