@@ -115,11 +115,54 @@ An additional parameter to add to our command is `Xmx2G`, a Java parameter to de
 
 The final command will look like this:
 
+	## DO NOT RUN THIS CODE
+
 	$ snpEff -Xmx2G eff hg19 results/annotation/na12878_q20_annot.vcf \
 	     > results/annotation/na12878_q20_annot_snpEff.vcf
 	    
 	    
 > *NOTE:* SnpEff is a Java program and is normally run using JAR files (Java Archive), a package file format which requires the use of `java -jar snpEff.jar` notation. You will see this when reading thhrough the [documentation](http://snpeff.sourceforge.net/SnpEff_manual.html). Because this is a bcbio install, the program has been setup with an alias such that typing in `snpEff` alone will work just as well.
+
+Before we run SnpEff, we need to do a few [pre-processing steps](https://gemini.readthedocs.org/en/latest/#new-gemini-workflow) which will prepare us for the use of [GEMINI](http://gemini.readthedocs.org/en/latest/index.html), a tool used downstream of SnpEff for variant prioritization. **If you are not using GEMINI, you would be able to proceed with the command above.**
+
+### Pre-processing the VCF
+
+As of version 0.12.2 of GEMINI it is required that your input VCF file undergo additional preprocessing such that multi-allelic variants are decomposed and normalized using the `vt` toolset from the [Abecasis lab](http://genome.sph.umich.edu/wiki/Main_Page). 
+
+
+> Note that in GEMINI all of the VCF-based annotation files (e.g., ExAC, dbSNP, ClinVar, etc.) are also decomposed and normalized so that variants and alleles are properly annotated and we minimize false negative and false positive annotations. For a great discussion of why this is necessary, please read this [blog post](http://www.cureffi.org/2014/04/24/converting-genetic-variants-to-their-minimal-representation/) from Eric Minikel in Daniel MacArthur’s lab.
+
+There are two steps in the pre-processing:
+
+1. **Decomposing**: this step takes multiallelic variants and expands them into distinct variant records; one record for each REF/ALT combination
+2. **Normalize**: this step left-aligns indels.
+
+
+For example, consider a situation in which you have `AAATTT` as the reference the call looks like `AAAGTT`. This could be represented as: 
+
+* a deletion of the T plus an insertion of the G OR 
+* a SNP at the first T 
+
+In these situations the variant caller will represent the same variant two different ways, but by left-aligning it makes it so they are the same and should get less variants.
+
+For both steps we will be using the `vt` toolset. First we will move into the annotation directory:
+
+	$ cd results/annotation
+
+And now the command to decompose:
+
+	$ vt decompose -s -o na12878_q20_annot_decompose.vcf na12878_q20_annot.vcf
+	
+We then apply the `normalize` command, providing the path to the reference genome:
+
+	$ vt normalize -r ~/ngs_course/var-calling/data/reference_data/chr20.fa -o na12878_q20_annot_normalize.vcf na12878_q20_annot_decompose.vcf  	
+	
+Now we are ready to run SnpEff. We can modify the command above to specify the rela=evant files. We will also need to add two additional flags which are used to customize the file for use with GEMINI. The new version of snpEff uses ANN (as described above), but GEMINI is expecting information to be written in EFF. By adding the -classic and -formatEff the results are written using the old format with EFF.
+
+```
+snpEff -Xmx2G -classic -formatEff hg19 na12878_q20_annot_normalize.vcf \
+     > na12878_q20_annot_snpEff.vcf
+```
 
 
 ### SnpEff Output
