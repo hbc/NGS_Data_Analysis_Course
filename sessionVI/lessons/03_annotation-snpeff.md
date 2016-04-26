@@ -155,8 +155,11 @@ And now the command to decompose:
 	
 We then apply the `normalize` command, providing the path to the reference genome:
 
-	$ vt normalize -r ~/ngs_course/var-calling/data/reference_data/chr20.fa -o na12878_q20_annot_normalize.vcf na12878_q20_annot_decompose.vcf  	
-	
+```
+$ vt normalize -r ~/ngs_course/var-calling/data/reference_data/chr20.fa -o na12878_q20_annot_normalize.vcf \
+      na12878_q20_annot_decompose.vcf  	
+```
+
 Now we are ready to run SnpEff. We can modify the command above to specify the rela=evant files. We will also need to add two additional flags which are used to customize the file for use with GEMINI. The new version of snpEff uses ANN (as described above), but GEMINI is expecting information to be written in EFF. By adding the -classic and -formatEff the results are written using the old format with EFF.
 
 ```
