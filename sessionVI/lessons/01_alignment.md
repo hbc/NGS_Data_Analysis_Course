@@ -86,7 +86,7 @@ OR
 
 	export PATH=/opt/bcbio/centos/bin:$PATH
 
-> *NOTE: if you would like to use the tools/programs installed outside of the bcbio set up, we have a small section with the modules and commands listed. For today's class, please use the bcbio installations of the tools.*
+> *NOTE: If you would like to use the tools/programs installed outside of the bcbio set up, we have a small section at the end of this markdown which tells you how to. For today's class, please use the bcbio installations of the tools.*
 
 ## Dataset
 
@@ -239,14 +239,13 @@ If you are not using the bcbio-nextgen tools you will have to load the necessary
 
 	$ module load seq/samtools/1.3 seq/bwa/0.7.8  seq/picard/1.138 
 	
-And the command will be slightly different for running picard, below is an example:
+And, the command will be slightly different for running picard, which is a java program. Below is an example:
 
 	$ java -jar /opt/picard-1.138/bin/picard.jar SortSam \
 	INPUT=na12878.sam \
 	OUTPUT=na12878_sorted.sam \
 	SORT_ORDER=coordinate \
 	VALIDATION_STRINGENCY=LENIENT
----
 ---
 
 ***
