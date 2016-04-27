@@ -98,8 +98,8 @@ You can also request the **count be broken down by category**. To do so, the `co
 
 **Exercise**
 
-1. Use the `group by` to count how many variants fall into the different types of impact categories. *Impact is based on the snpEff predictions*. How many different categories are there? How many are exon variants versus intron variants?
-2. Modify the query from Q#1 to get the count breakdown for impact but **only for SNP variants**.
+1. Use the `group by` to count how many variants fall into the different types of impact categories. *Impact is based on the snpEff predictions*. How many different categories are there? How many are exon variants? How many are intron variants?
+2. Modify the query from Q#1 to get the count breakdown for impact but **only for SNP variants** (hint: add a `where` clause).
 
 ***
 
@@ -111,12 +111,33 @@ For some fields the value is not numeric or character, but is boolean (TRUE == 1
 
 Let's query a field that has boolean values. **How many variants are exonic?**
 
+	$ gemini query -q "select count(*)
+                       from variants 
+                       where is_exonic=1" 
+                       na12878_q20.db  
 
-
+**How would you modify the query to find variants that are not exonic?**
 	
+
 ### Query with multiple selection criteria
 
+Queries can also be combined by using `and` to separate multiple `where` clauses. 
 
+For example, supposed we wanted to ask how many of our SNP variants are located within coding regions?
+
+	$ gemini query -q "select count(*)
+                 from variants 
+                 where is_exonic=1 and type=‘snp’" 
+                 na12878_q20.db
+
+****
+
+**Exercise**
+
+1. The `impact_severity` field tells us how serious the consequence of the variant is, based on it's `impact` value (i.e where it is located in the genome). **Use multiple selection criteria to identify how many of the SNP variants are `HIGH` impact.**
+2. 
+
+***
 
 ### Query genotype information
 
