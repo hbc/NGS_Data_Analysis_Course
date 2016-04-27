@@ -17,7 +17,7 @@ Approximate time: 45 minutes
 
 We have already aligned the data, then sorted and cleaned it up for variant calling. 
 
-<img src="../img/variant_calling_workflow_2.png" width="300">
+<img src="../img/variant_calling_workflow_2.png" width="600">
 
 Some of the more popular tools for calling variants include [SAMtools](http://samtools.sourceforge.net/mpileup.shtml), [the GATK suite](https://www.broadinstitute.org/gatk/about/) and [FreeBayes](https://github.com/ekg/freebayes#freebayes-a-haplotype-based-variant-detector) ([Garrison and Marth, 2012](http://arxiv.org/abs/1207.3907)). While it can be useful to work through the [GATK Best Practices](https://www.broadinstitute.org/gatk/guide/best-practices.php) we will be using FreeBayes in this module as it is just as sensitive and precise, but has no license restrictions. After calling variants, we will filter out low quality variants using *[vcftools](https://vcftools.github.io/index.html)*, a toolkit designed to work with Variant Call Format or VCF files.
 
@@ -25,7 +25,7 @@ Some of the more popular tools for calling variants include [SAMtools](http://sa
 
 *FreeBayes* is a **haplotype-based** variant detector and is a great tool for calling variants from a population. To understand how Freebayes works, let's take a look at their [user manual and guide](https://github.com/ekg/freebayes#freebayes-a-haplotype-based-variant-detector).
 
-<img src="../img/freebayes_1.png" width="600">
+<img src="../img/freebayes_1.png" width="300">
 
 	$ mkdir variants
 	$ cd variants/
