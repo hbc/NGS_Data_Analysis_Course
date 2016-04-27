@@ -245,7 +245,7 @@ And, the command will be slightly different for running picard, which is a java 
 	INPUT=na12878.sam \
 	OUTPUT=na12878_sorted.sam \
 	SORT_ORDER=coordinate \
-	VALIDATION_STRINGENCY=LENIENT
+	VALIDATION_STRINGENCY=SILENT
 ---
 
 ***
