@@ -1,5 +1,5 @@
 ---
-title: "Variant priotization with Gemini"
+title: "Variant prioritization with Gemini"
 author: "Meeta Mistry, Mary Piper"
 date: "Friday, April 29th, 2016"
 ---
@@ -63,26 +63,62 @@ The final touches to the command involve wrapping the entire statement in double
 1. Try running the query and pipe (`|`) the results to `less`. What is returned to you? How many variants are SNPs?
 2. Modify the `where` clause in your query to instead find out how many variants are indels (*hint: type = 'indel'*)
 
-**CHECK WHY THESE NUMBERS DO NOT MATCH SNPEFF SUMMARY**
+***
+
+### Counting query results
+
+Rather than printing matching rows from the table, you can also query GEMINI to report *only the number of lines* that match your query. This is done using the `count()` operator and is used in place of the fields/columns you normally specify in the `select` statement. 
+
+*How many variants are SNPs?*
+
+	$ gemini query -q "select count(*) \
+                       from variants \
+                       where type='snp'" \
+                       na12878_q20.db  
+
+
+*How many variants are Idels?*
+
+	$ gemini query -q "select count(*) \
+                       from variants \
+                       where type='indel'" \
+                       na12878_q20.db  
+
+
+
+You can also request the **count be broken down by category**. To do so, the `count()` operation is combined with `group by` so rather than counting all instances, GEMINI will give us a breakdown of numbers per category. Let's query for the distribution of our variants across the different types:
+
+	$ gemini query -q “select type, count(*) \
+                       from variants \
+                       group by type" \
+                       na12878_q20.db
+
+
+****
+
+**Exercise**
+
+1. Use the `group by` to count how many variants fall into the different types of impact categories. *Impact is based on the snpEff predictions*. How many different categories are there? How many are exon variants versus intron variants?
+2. Modify the query from Q#1 to get the count breakdown for impact but **only for SNP variants**.
 
 ***
 
-#### Boolean fields
+
+
+### Query fields with boolean values
 
 For some fields the value is not numeric or character, but is boolean (TRUE == 1, and FALSE == 0). 
 
 Let's query a field that has boolean values. **How many variants are exonic?**
 
+
+
 	
-#### Multiple selection criteria
+### Query with multiple selection criteria
 
 
-#### Counting results
 
-**by category**
-
-
-#### Genotype information
+### Query genotype information
 
  	
 
