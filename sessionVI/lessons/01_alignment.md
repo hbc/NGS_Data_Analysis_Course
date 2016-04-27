@@ -70,11 +70,11 @@ $ cp /groups/hbctraining/ngs-data-analysis2016/var-calling/raw_fastq/*fq untrimm
 $ cp /groups/hbctraining/ngs-data-analysis2016/var-calling/reference_data/chr20.fa reference_data/
 ```
 
-Now that we have the data, let's make sure that bcbio tools are in your PATH. First test if you have already have them in your path:
+Now that we have the data, let's make sure that bcbio tools (`/groups/bcbio/bcbio/anaconda/bin`) are in your PATH. First, test if you have already have them in your path:
 
 	$ which picard
 	
-If the output is `/groups/bcbio/bcbio/anaconda/bin/picard`, then you are all set! If you dont then do one of the following:
+**If the output is `/groups/bcbio/bcbio/anaconda/bin/picard`, then you are all set!** If you don't, then do one of the following:
 
 **Option #1**:
 
