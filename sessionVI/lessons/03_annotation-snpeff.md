@@ -8,7 +8,7 @@ Approximate time: 90 minutes
 
 ## Learning Objectives:
 
-* Adding infomration on known SNPs to our VCF
+* Adding information on known SNPs to our VCF
 * Adding functional information to variants in the VCF
 * Understanding where the annotation is added in the VCF format
 
@@ -34,6 +34,7 @@ For this section we are going to need to copy over some reference data required 
 $ bsub -Is -q interactive bash
 
 $ cd ngs_course/var-calling
+
 $ cp /groups/hbctraining/ngs-data-analysis2016/var-calling/reference_data/dbsnp.138.chr20.vcf.gz* \
 data/reference_data/
 
@@ -43,6 +44,7 @@ Let's also create a new directory for the results of our annotation steps:
 
 ```
 $ mkdir results/annotation
+$ cd results/annotation
 
 ```
 Your directory structure should now look something like this:
@@ -79,16 +81,16 @@ To annotate our data with dbSNP information we wil be using [`bcftools`](https:/
 The `bcftools annotate` command allows the user to **add or remove annotations**. The annotation we wish to add and the file we are annotating must be a Bgzip-compressed and tabix-indexed file (usually VCF or BED format). Tabix indexes a tab-delimited genome position file and creates an index file (.tbi), which facilitates quick retrieval of data lines overlapping regions.
 
 ```
-$ bgzip results/variants/na12878_q20.recode.vcf 
-$ tabix results/variants/na12878_q20.recode.vcf.gz
+$ bgzip ../variants/na12878_q20.recode.vcf 
+$ tabix ../variants/na12878_q20.recode.vcf.gz
 ```
 
 When running `bcftools annotate`, we also need to specify the column(s) to carry over from the annotation file, which in our case is ID.
 
 ```
-$ bcftools annotate -c ID -a data/reference_data/dbsnp.138.chr20.vcf.gz \
-    results/variants/na12878_q20.recode.vcf.gz \
-    > results/annotation/na12878_q20_annot.vcf
+$ bcftools annotate -c ID -a ../../data/reference_data/dbsnp.138.chr20.vcf.gz \
+    ../variants/na12878_q20.recode.vcf.gz \
+    > na12878_q20_annot.vcf
 ```
 Take a quick peek at the new VCF file that was generated using `less`. You should now see in the ID column `rs` ids which correspond to identifiers from dbSNP. For the variants that are not known, you will find the `.` in place of an ID indicating novelty of that sequence change.
 
@@ -145,11 +147,7 @@ For example, consider a situation in which you have `AAATTT` as the reference th
 
 In these situations the variant caller will represent the same variant two different ways, but by left-aligning it makes it so they are the same and should get less variants.
 
-For both steps we will be using the `vt` toolset. First we will move into the annotation directory:
-
-	$ cd results/annotation
-
-And now the command to decompose:
+For both steps we will be using the `vt` toolset. First, the command to decompose:
 
 	$ vt decompose -s -o na12878_q20_annot_decompose.vcf na12878_q20_annot.vcf
 	
@@ -160,7 +158,7 @@ $ vt normalize -r ~/ngs_course/var-calling/data/reference_data/chr20.fa -o na128
       na12878_q20_annot_decompose.vcf  	
 ```
 
-Now we are ready to run SnpEff. We can modify the command above to specify the rela=evant files. We will also need to add two additional flags which are used to customize the file for use with GEMINI. The new version of snpEff uses ANN (as described above), but GEMINI is expecting information to be written in EFF. By adding the -classic and -formatEff the results are written using the old format with EFF.
+**Now we are ready to run SnpEff**. We can modify the command above to specify the relevant files. We will also need to add two additional flags which are used to customize the file for use with GEMINI. The new version of snpEff uses `ANN` (as described above), but GEMINI is expecting information to be written in `EFF`. By adding the `-classic` and `-formatEff` the results are written using the old format with EFF.
 
 ```
 snpEff -Xmx2G -classic -formatEff hg19 na12878_q20_annot_normalize.vcf \
@@ -176,13 +174,9 @@ SnpEff produces three output files:
 2. an HTML file containing summary statistics about the variants and their annotations
 3. a text file summarizing the number of variant types per gene
 
-In your current directory you will find that the two additional files (#2, #3) that were generated in addition to the newly annotated VCF. You can move these over to the appropriate results directory:
+In your current directory you will find that the two additional files (#2, #3) that were generated in addition to the newly annotated VCF. Let's take a look at the text file:
 
-	$ mv snpEff* results/annotation/
-
-Let's take a look at the text file:
-
-	$ less results/annotation/snpEff_genes.txt
+	$ less snpEff_genes.txt
 
 Each row corresponds to a gene, and each column coresponds to a different variant type. This gives you a resource for quickly interrogating genes of interest and see what types of variants they harbour, if any.
 
