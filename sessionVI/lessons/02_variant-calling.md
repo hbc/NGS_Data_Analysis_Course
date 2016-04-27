@@ -23,6 +23,8 @@ Some of the more popular tools for calling variants include [SAMtools](http://sa
 
 ## Freebayes
 
+To understand how Freebayes works, let's take a look at their [user manual and guide](https://github.com/ekg/freebayes#freebayes-a-haplotype-based-variant-detector).
+
 	$ mkdir variants
 	$ cd variants/
 	$ which freebayes
