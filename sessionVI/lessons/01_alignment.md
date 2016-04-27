@@ -20,7 +20,7 @@ The variant calling workflow begins with quality control and alignment, similar 
 
 ## Set-up
 
-Before we start with variant calling, we need to set-up our directory structure. 
+Before we start with variant calling, we need to set-up our directory structure, and make sure the tools are readily available. 
 
 Login to Orchestra and start an interactive session with four cores:
 
@@ -70,6 +70,24 @@ $ cp /groups/hbctraining/ngs-data-analysis2016/var-calling/raw_fastq/*fq untrimm
 $ cp /groups/hbctraining/ngs-data-analysis2016/var-calling/reference_data/chr20.fa reference_data/
 ```
 
+Now that we have the data, let's make sure that bcbio tools are in your PATH. First test if you have already have them in your path:
+
+	$ which picard
+	
+If the output is `/groups/bcbio/bcbio/anaconda/bin/picard`, then you are all set! If you dont then do one of the following:
+
+**Option #1**:
+
+	$ PATH=/groups/bcbio/bcbio/anaconda/bin:$PATH
+
+OR
+
+**Option #2**, add the following line to your `.bashrc` file:
+
+	export PATH=/opt/bcbio/centos/bin:$PATH
+
+> *NOTE: if you would like to use the tools/programs installed outside of the bcbio set up, we have a small section with the modules and commands listed. For today's class, please use the bcbio installations of the tools.*
+
 ## Dataset
 
 To explore the variant calling workflow, we will be using a subset of a human WGS dataset attained from the [Genome in a Bottle Consortium (GIAB)](https://sites.stanford.edu/abms/giab). GIAB was initiated in 2011 by the National Institute of Standards and Technology "to develop the technical infrastructure (reference standards, reference methods, and reference data) to enable translation of whole human genome sequencing to clinical practice" [[1](https://sites.stanford.edu/abms/giab)].
@@ -108,16 +126,9 @@ Change directories into the `reference_data` directory:
 $ cd ~/ngs_course/var-calling/data/reference_data
 ```
 
-Load the necessary modules for alignment and clean-up:
-
-```
-$ module load seq/samtools/1.3 seq/bwa/0.7.8  seq/picard/1.138
-```
-
 #### Creating BWA-MEM index
 
 Similar to the other alignment tools we have used, the first step in the BWA alignment is to create an index for the reference genome. Similar to Bowtie2, BWA indexes the genome with an FM Index based on the Burrows-Wheeler Transform to keep memory requirements low for the alignment process. 
-
 
 The basic options for indexing the genome using BWA are:
 
@@ -144,13 +155,13 @@ The basic options for aligning reads to the genome using BWA-MEM are:
 
 **NOTE:** BWA will soft-clip poor quality sequences from the ends of the reads by default, so we do not need to specify a parameter to perform soft clipping.
 
-
 ```
 $ bwa mem -M -t 4  \
 reference_data/chr20 \   # path to genome indexes including prefix
 untrimmed_fastq/na12878_1.fq untrimmed_fastq/na12878_2.fq \    # fastq files for paired-end reads
-2> ../results/bwa/bwa.err \    # save standard error to file
-> ../results/bwa/na12878.sam    # save alignment output to a SAM file
+2> ../results/bwa/bwa.err > \    # save standard error to file
+../results/bwa/na12878.sam    # save alignment output to a SAM file
+
 ```
 ### Alignment clean-up
 
@@ -185,11 +196,12 @@ The description of base options for the `SortSam` tool:
 ```
 $ cd ../results/bwa
 
-$ java -jar /opt/picard-1.138/bin/picard.jar SortSam \
+$ picard SortSam \
 INPUT=na12878.sam \
 OUTPUT=na12878_sorted.sam \
 SORT_ORDER=coordinate \
-VALIDATION_STRINGENCY=LENIENT
+VALIDATION_STRINGENCY=SILENT
+
 ```
 
 #### Marking duplicates
@@ -204,12 +216,12 @@ The basic options for marking duplicates are:
 * `VALIDATION_STRINGENCY`: Validation stringency for all SAM files read by this program. Default value: STRICT. Possible values: {STRICT, LENIENT, SILENT}
 
 ```
-$ java -jar /opt/picard-1.138/bin/picard.jar MarkDuplicates \
+$ picard MarkDuplicates \
 INPUT=na12878_sorted.sam \
 OUTPUT=na12878_sorted_marked.bam \
 METRICS_FILE=metrics.txt \
 ASSUME_SORTED=true \
-VALIDATION_STRINGENCY=LENIENT
+VALIDATION_STRINGENCY=SILENT
 ```
 #### Creating index for BAM file
 
@@ -218,6 +230,24 @@ Now that we have a sorted BAM file that has duplicates marked, we would like to 
 ```
 samtools index na12878_sorted_marked.bam
 ```
+---
+---
+
+## Don't want to use the bcbio installation of tools?
+
+If you are not using the bcbio-nextgen tools you will have to load the necessary modules:
+
+	$ module load seq/samtools/1.3 seq/bwa/0.7.8  seq/picard/1.138 
+	
+And the command will be slightly different for running picard, below is an example:
+
+	$ java -jar /opt/picard-1.138/bin/picard.jar SortSam \
+	INPUT=na12878.sam \
+	OUTPUT=na12878_sorted.sam \
+	SORT_ORDER=coordinate \
+	VALIDATION_STRINGENCY=LENIENT
+---
+---
 
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
