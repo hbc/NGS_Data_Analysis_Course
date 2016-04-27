@@ -23,9 +23,11 @@ Some of the more popular tools for calling variants include [SAMtools](http://sa
 
 ## Freebayes
 
-*FreeBayes* is a **haplotype-based** variant detector and is a great tool for calling variants from a population. To understand how Freebayes works, let's take a look at their [user manual and guide](https://github.com/ekg/freebayes#freebayes-a-haplotype-based-variant-detector).
+*FreeBayes* is a **haplotype-based** variant detector and is a great tool for calling variants from a population. 
 
 <img src="../img/freebayes_1.png" width="300">
+
+To understand how Freebayes works, let's take a look at their [user manual and guide](https://github.com/ekg/freebayes#freebayes-a-haplotype-based-variant-detector).
 
 	$ mkdir variants
 	$ cd variants/
