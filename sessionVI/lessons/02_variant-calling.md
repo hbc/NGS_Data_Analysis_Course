@@ -17,7 +17,7 @@ Approximate time: 90 minutes
 
 The variant calling workflow begins with quality control and alignment, similar to the other NGS applications. Alignment is followed by alignment clean-up to prepare data for variant calling. Then, variant calling is performed, followed by filtering and annotation of the variant calls.
 
-![var_calling_workflow](../img/variant_calling_workflow_2.png)
+<img src="../img/variant_calling_workflow_2.png" width="600">
 
 ## Freebayes
 
