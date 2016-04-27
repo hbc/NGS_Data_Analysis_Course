@@ -64,7 +64,7 @@ VCF is a text format. It usually has several header lines before the actual data
 	20      123456  microsat1 G     D4,IGA 50    0       NS=55;DP=250;AA=G                    GT:GQ:DP     0/1:35:4        0/2:17:2        
 Often the header lines will have a little bit of explanation about the various columns in the VCF. Specifically, the INFO column has a lot of information and it's good to know what it means. Here's an example:
 
-<img src="../img/vcf_2.png" width="600">
+<img src="../img/vcf_3.png" width="600">
 	
 Now, let's take a look at the one we just generated:
 
