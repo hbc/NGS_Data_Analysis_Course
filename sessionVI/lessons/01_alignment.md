@@ -84,7 +84,7 @@ OR
 
 **Option #2**, add the following line to your `.bashrc` file:
 
-	export PATH=/opt/bcbio/centos/bin:$PATH
+	export PATH=/groups/bcbio/bcbio/anaconda/bin:$PATH
 
 > *NOTE: If you would like to use the tools/programs installed outside of the bcbio set up, we have a small section at the end of this markdown which tells you how to. For today's class, please use the bcbio installations of the tools.*
 
