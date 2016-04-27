@@ -22,15 +22,19 @@ GEMINI is a tool that helps turn those giant, sparse VCF variant matrices (milli
 <img src="../img/Gemini.png" width="600">
 
 
-Let's start by loading our VCF file into the database. This command assumes that the VCF has been pre-annotated with snpEff as pecified with `-t`. While loading the database, GEMINI computes many additional population genetics statistics that support downstream analyses. You will first need to move into the annotation directory:
+Let's start by opening an interactive session with 4 cores:
+	
+	$ bsub -Is -n 4 -q interactive bash
+
+Next we will load our VCF file into the database. This command assumes that the VCF has been pre-annotated with snpEff as pecified with `-t`. While loading the database, GEMINI computes many additional population genetics statistics that support downstream analyses and for this file can take up to 30 minutes on a single core. We have the resources so let's use them by adding `--cores 4`. You will first need to move into the annotation directory:
 
 	$ cd ~/ngs_course/var-calling/results/annotation
 
-	$ gemini load -v na12878_q20_annot_snpEff.vcf -t snpEff na12878_q20.db
+	$ gemini load -v na12878_q20_annot_snpEff.vcf -t snpEff --cores 4 na12878_q20.db
 
 ### Constructing a query in GEMINI
 
-To explore variants GEMINI, we need to use SQL (Structured Query Language) to create simple, powerful queries based on annotations, genotypes or a combination of both. It will take some time to get used to the language but once you have the hang of it, you‘ll see how powerful it is.
+To explore variants in GEMINI, we need to use SQL (Structured Query Language) to create simple, powerful queries based on annotations, genotypes or a combination of both. It will take some time to get used to the language but once you have the hang of it, you‘ll see how powerful it is.
 
 Below is an example query used to demonstrate the structure and what each of the components represent. To begin you will need to use the `gemini query` command to **ask GEMINI to report to us data from the database that matches the criteria we provide**.
 
@@ -60,8 +64,8 @@ The final touches to the command involve wrapping the entire statement in double
 
 **Exercise**
 
-1. Try running the query and pipe (`|`) the results to `less`. What is returned to you? How many variants are SNPs?
-2. Modify the `where` clause in your query to instead find out how many variants are indels (*hint: type = 'indel'*)
+1. Try running the query in the example above and pipe (`|`) the results to `less`. What is returned to you? How many variants are SNPs?
+2. Modify the `where` clause in your query in Q#1 to instead find out how many variants are indels (*hint: type = 'indel'*)
 
 ***
 
@@ -77,7 +81,7 @@ Rather than printing matching rows from the table, you can also query GEMINI to 
                        na12878_q20.db  
 
 
-*How many variants are Idels?*
+*How many variants are Indels?*
 
 	$ gemini query -q "select count(*) \
                        from variants \
@@ -86,7 +90,7 @@ Rather than printing matching rows from the table, you can also query GEMINI to 
 
 
 
-You can also request the **count be broken down by category**. To do so, the `count()` operation is combined with `group by` so rather than counting all instances, GEMINI will give us a breakdown of numbers per category. Let's query for the distribution of our variants across the different types:
+You can also request the **count be broken down by category**. To do so, the `count()` operation is combined with `group by` so rather than providing a total count, GEMINI will give us a breakdown of numbers per category. Let's query for the distribution of our variants across the different types:
 
 	$ gemini query -q “select type, count(*) \
                        from variants \
@@ -136,13 +140,50 @@ For example, supposed we wanted to ask how many of our SNP variants are located 
 
 1. The `impact_severity` field tells us how serious the consequence of the variant is, based on it's `impact` value (i.e where it is located in the genome). **Use multiple selection criteria to identify how many of the SNP variants are `HIGH` impact severity.**
 2. Since there are so few variants from Q#1, rather than counting them modify the  select statement to  output the following fields of information: `chrom`, `start`, `end`, `gene`, `impact`. Which genes harbor these high impact variants? 
+3. How many variants overlap with a CpG island? (Based on ‘UCSC Regulation’ track) *Hint: this is a boolean query*
+4. How many variants overlap with a conserved region? *Hint: this is a boolean query*
 
 ***
 
 ### Query genotype information
 
- 	
+Genotype information for each variant is stored in GEMINI using a slightly different format and so the syntax for accessing it also altered. 
 
+* Sample genotypes for the variant: `gts`, `gt_types`
+* Depth of aligned sequence for that variant: `gt_depths`
+* Depth of reference and alt alleles: `gt_ref_depths`, `gt_alt_depths`
+* Genotype quality (PHRED-scaled estimates): `gt_quals`
+*  ... 
+
+When querying we can add a header to keep track of what information is being tracked in each column, using `--header`. The query below is piped to the `less` command, take a look at what is returned in the genotype fields we queried: 
+
+	$ gemini query -q "select chrom, start, end, ref, alt, gene,
+                     gts, gt_depths, gt_quals,        
+                     from variants 
+                     where is_conserved=1” 
+                     --header 
+                     na12878_q20.db | less
+
+
+To **filter on genotype information** the gemini query tool has an option called `--gt-filter` that allows one to specify filters to apply to the returned rows (instead of using the where clause). 
+
+	$ gemini query -q "select count (*),        
+                 from variants 
+                 where is_conserved=1”
+                 --gt-filter “(gt_types).(*).(== HET).(all)” 
+                 --header 
+                 na12878_q20.db | less
+                 
+                 
+#### Incorporating family information
+
+<INSERT TEX HERE>
+
+<img src="../img/gemini_family.png" width="600">
+
+If we had multiple families in our dataset, we could specify to GEMINI the minimum number of families for the variant to be present in using `--min-kindreds` or we can select the specific families we want to query using `--families`.
+
+We have only scratched the surface here! GEMINI has so much functionality for exploration and is worth the time to learn more if it is relevant to your work. There is a cornucopia of information at your fingerprints. Check out http://gemini.readthedocs.org/ to learn more.
  
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
