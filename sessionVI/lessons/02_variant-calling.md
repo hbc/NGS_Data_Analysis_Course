@@ -62,7 +62,7 @@ VCF is a text format. It usually has several header lines before the actual data
 	20      1110696 rs6040355 A     G,T    67    0       NS=55;DP=276;AF=0.421,0.579;AA=T;DB  GT:GQ:DP:HQ  1|2:21:6:23,27  2|1:2:0:18,2    
 	20      10237   .         T     .      47    0       NS=57;DP=257;AA=T                    GT:GQ:DP:HQ  0|0:54:7:56,60  0|0:48:4:51,51  
 	20      123456  microsat1 G     D4,IGA 50    0       NS=55;DP=250;AA=G                    GT:GQ:DP     0/1:35:4        0/2:17:2        
-Often the header lines will have a little bit of explanation about the various columns in the VCF. Specifically, the INFO column has a lot of information and it's good to know what it means. Here's an explanation of the information for the first entry in the example above:
+Often the header lines will have some explanation about the various columns in the VCF, including the confusing looking INFO column. Here's an explanation of the INFO column for the first entry in the example above:
 
 <img src="../img/vcf_3.png" width="600">
 
@@ -74,12 +74,47 @@ Now, let's take a look at the one we just generated:
 
 	$ less na12878.vcf
 
+How does this compare to the 2 examples we have seen so far? How does the ID column compare?
+
 ## Filtering VCFs
 
+It is very important to filter out low-quality variants before moving to the assessment and annotation steps. Low quality variants usually represent sequencing errors (low quality bases). Freebayes variant quality determination is done as described here: [https://github.com/ekg/freebayes#observation-qualities](https://github.com/ekg/freebayes#observation-qualities).
+
+Today we are going to use `vcftools` to remove entries that have calls with a quality score of lower than 20.
+
 	$ module avail seq/vcf
+
 	$ module load seq/vcftools/0.1.12
-	$ vcftools --vcf na12878.vcf --minQ 20 --recode --recode-INFO-all \
-	--out na12878_q20  
+
+The manual for `vcftools` is [available here](https://vcftools.github.io/man_latest.html), let's take a quick look at it.
+
+So the most basic options you need to specify are input `--vcf <name>` and output `--out <name-filtered>`. There are many different criteria that can be used for filtering the input vcf, below are a few examples.
+
+> Include/exclude specific sites by chromosome:
+
+	--chr 20 
+	--not-chr 20
+	
+> No two sites are within specified distance to one another:
+
+	--thin 5
+	
+> Specify minimum depth for each site:
+
+	--minDP 10
+	
+> Filter by variant type:
+
+	--keep-only-indels 
+	--remove-indels 
+	
+> Include SNPs with specific ID (i.e. dbSNP, this is information we will be adding in the annotation section):
+
+	--snps <string>
+
+We are going to stick with using only the quality score for today's class:
+	
+	$ vcftools --vcf na12878.vcf --minQ 20 --recode --recode-INFO-all --out na12878_q20  
 	
 ***
 *This lesson has been developed by members of the teaching team at the [Harvard Chan Bioinformatics Core (HBC)](http://bioinformatics.sph.harvard.edu/). These are open access materials distributed under the terms of the [Creative Commons Attribution license](https://creativecommons.org/licenses/by/4.0/) (CC BY 4.0), which permits unrestricted use, distribution, and reproduction in any medium, provided the original author and source are credited.*
