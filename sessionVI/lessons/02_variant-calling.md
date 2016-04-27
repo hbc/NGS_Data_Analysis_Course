@@ -49,7 +49,7 @@ Some of the more popular tools for calling variants include [SAMtools](http://sa
 	
 ### Variant Call Format (VCF)
 
-VCF is a text format. It usually has several header lines before the actual data; the header lines start with `##`:
+VCF is a text format. It usually has several header lines before the actual data; the header lines start with `##`. There is usually only 1 VCF file generated for all the samples in an experiment. To distinguish the samples from one another and the status for each sampleeach sample has a column:
 
 	##format=PCFv1
 	##fileDate=20090805
