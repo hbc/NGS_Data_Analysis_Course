@@ -50,7 +50,7 @@ Some of the more popular tools for calling variants include [SAMtools](http://sa
 ### Variant Call Format (VCF)
 
 
-	`##format=PCFv1
+	##format=PCFv1
 	##fileDate=20090805
 	##source=myImputationProgramV3.1
 	##reference=1000GenomesPilot-NCBI36
@@ -61,7 +61,7 @@ Some of the more popular tools for calling variants include [SAMtools](http://sa
 	20      1110696 rs6040355 A     G,T    67    0       NS=55;DP=276;AF=0.421,0.579;AA=T;DB  GT:GQ:DP:HQ  1|2:21:6:23,27  2|1:2:0:18,2    
 	20      10237   .         T     .      47    0       NS=57;DP=257;AA=T                    GT:GQ:DP:HQ  0|0:54:7:56,60  0|0:48:4:51,51  
 	20      123456  microsat1 G     D4,IGA 50    0       NS=55;DP=250;AA=G                    GT:GQ:DP     0/1:35:4        0/2:17:2        
-
+Now let's take a look at the one we just generated:
 	$ less na12878.vcf
 
 ## Filtering VCFs
