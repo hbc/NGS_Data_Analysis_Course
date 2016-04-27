@@ -15,7 +15,7 @@ Approximate time: 45 minutes
 
 ## Variant Calling
 
-We have already aligned the data, then sorted and cleaned it up for variant calling. In this module we will be calling variants using the program *[freebayes](https://github.com/ekg/freebayes#freebayes-a-haplotype-based-variant-detector)* ([Garrison and Marth, 2012)[http://arxiv.org/abs/1207.3907]), and filtering out low quality variants using *[vcftools](https://vcftools.github.io/index.html)*, a toolkit designed to work with Variant Call Format or VCF files.
+We have already aligned the data, then sorted and cleaned it up for variant calling. In this module we will be calling variants using the program *[freebayes](https://github.com/ekg/freebayes#freebayes-a-haplotype-based-variant-detector)* ([Garrison and Marth, 2012](http://arxiv.org/abs/1207.3907])), and filtering out low quality variants using *[vcftools](https://vcftools.github.io/index.html)*, a toolkit designed to work with Variant Call Format or VCF files.
 
 <img src="../img/variant_calling_workflow_2.png" width="600">
 
