@@ -4,7 +4,7 @@ author: "Radhika Khetani, Meeta Mistry"
 date: "Thursday, April 28th, 2016"
 ---
 
-Approximate time: 90 minutes
+Approximate time: 45 minutes
 
 ## Learning Objectives:
 
