@@ -134,8 +134,8 @@ For example, supposed we wanted to ask how many of our SNP variants are located 
 
 **Exercise**
 
-1. The `impact_severity` field tells us how serious the consequence of the variant is, based on it's `impact` value (i.e where it is located in the genome). **Use multiple selection criteria to identify how many of the SNP variants are `HIGH` impact.**
-2. 
+1. The `impact_severity` field tells us how serious the consequence of the variant is, based on it's `impact` value (i.e where it is located in the genome). **Use multiple selection criteria to identify how many of the SNP variants are `HIGH` impact severity.**
+2. Since there are so few variants from Q#1, rather than counting them modify the  select statement to  output the following fields of information: `chrom`, `start`, `end`, `gene`, `impact`. Which genes harbor these high impact variants? 
 
 ***
 
