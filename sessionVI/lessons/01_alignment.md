@@ -70,21 +70,21 @@ $ cp /groups/hbctraining/ngs-data-analysis2016/var-calling/raw_fastq/*fq untrimm
 $ cp /groups/hbctraining/ngs-data-analysis2016/var-calling/reference_data/chr20.fa reference_data/
 ```
 
-Now that we have the data, let's make sure that bcbio tools (`/groups/bcbio/bcbio/anaconda/bin`) are in your PATH. First, test if you have already have them in your path:
+Now that we have the data, let's make sure that bcbio tools (`/opt/bcbio/centos/bin`) are in your PATH. First, test if you have already have them in your path:
 
 	$ which picard
 	
-**If the output is `/groups/bcbio/bcbio/anaconda/bin/picard`, then you are all set!** If you don't, then do one of the following:
+**If the output is `/opt/bcbio/centos/bin/picard`, then you are all set!** If you don't, then do one of the following:
 
 **Option #1**:
 
-	$ PATH=/groups/bcbio/bcbio/anaconda/bin:$PATH
+	$ PATH=/opt/bcbio/centos/bin:$PATH
 
 OR
 
 **Option #2**, add the following line to your `.bashrc` file:
 
-	export PATH=/groups/bcbio/bcbio/anaconda/bin:$PATH
+	export PATH=/opt/bcbio/centos/bin:$PATH
 
 > *NOTE: If you would like to use the tools/programs installed outside of the bcbio set up, we have a small section at the end of this markdown which tells you how to. For today's class, please use the bcbio installations of the tools.*
 
