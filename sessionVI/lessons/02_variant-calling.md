@@ -42,7 +42,7 @@ Some of the more popular tools for calling variants include [SAMtools](http://sa
 
 	$ which freebayes
 
-**If you don't have `freebayes` available, please add `/groups/bcbio/bcbio/anaconda/bin` to your path.**
+> *If you don't have `freebayes` available, please add `/opt/bcbio/centos/bin` to your path.*
 	
 	$ freebayes -h
 	$ freebayes -f ../../data/reference_data/chr20.fa ../bwa/na12878_sorted_marked.bam > na12878.vcf
