@@ -26,24 +26,42 @@ Some of the more popular tools for calling variants include [SAMtools](http://sa
 *FreeBayes* is a **haplotype-based** variant detector and is a great tool for calling variants from a population. 
 
 > "FreeBayes is a Bayesian genetic variant detector designed to find small polymorphisms, specifically SNPs (single-nucleotide polymorphisms), indels (insertions and deletions), MNPs (multi-nucleotide polymorphisms), and complex events (composite insertion and substitution events) smaller than the length of a short-read sequencing alignment."
->
+
 > "FreeBayes is haplotype-based, in the sense that it calls variants based on the literal sequences of reads aligned to a particular target, not their precise alignment. This model is a straightforward generalization of previous ones (e.g. PolyBayes, samtools, GATK) which detect or report variants based on alignments. This method avoids one of the core problems with alignment-based variant detection--- that identical sequences may have multiple possible alignments:"
 
-<img src="../img/freebayes_2.png" width="300">
-
-<img src="../img/freebayes_1.png" width="300">
+<img src="../img/freebayes_2.png" width="600">
+---
+<img src="../img/freebayes_1.png" width="200">
 
 > "FreeBayes uses short-read alignments (BAM files with Phred+33 encoded quality scores, now standard) for any number of individuals from a population and a reference genome (in FASTA format) to determine the most-likely combination of genotypes for the population at each position in the reference. It reports positions which it finds putatively polymorphic in variant call file (VCF) format. It can also use an input set of variants (VCF) as a source of prior information, and a copy number variant map (BED) to define non-uniform ploidy variation across the samples under analysis."
 
+### Running FreeBayes
+
 	$ mkdir variants
 	$ cd variants/
+
 	$ which freebayes
-	$ freebayes -f ../../data/reference_data/chr20.fa \
-	../bwa/na12878_sorted_marked.bam > na12878.vcf
+
+**If you don't have `freebayes` available, please add `/groups/bcbio/bcbio/anaconda/bin` to your path.**
+	
+	$ freebayes -h
+	$ freebayes -f ../../data/reference_data/chr20.fa ../bwa/na12878_sorted_marked.bam > na12878.vcf
+	
+### Variant Call Format (VCF)
 
 
-## Variant Call Format (VCF)
-
+	##format=PCFv1
+	##fileDate=20090805
+	##source=myImputationProgramV3.1
+	##reference=1000GenomesPilot-NCBI36
+	##phasing=partial
+	#CHROM  POS     ID        REF   ALT    QUAL  FILTER  INFO                                 FORMAT       NA00001         NA00002         
+	20      14370   rs6054257 G     A      29    0       NS=58;DP=258;AF=0.786;DB;H2          GT:GQ:DP:HQ  0|0:48:1:51,51  1|0:48:8:51,51  
+	20      13330   .         T     A      3     q10     NS=55;DP=202;AF=0.024                GT:GQ:DP:HQ  0|0:49:3:58,50  0|1:3:5:65,3    
+	20      1110696 rs6040355 A     G,T    67    0       NS=55;DP=276;AF=0.421,0.579;AA=T;DB  GT:GQ:DP:HQ  1|2:21:6:23,27  2|1:2:0:18,2    
+	20      10237   .         T     .      47    0       NS=57;DP=257;AA=T                    GT:GQ:DP:HQ  0|0:54:7:56,60  0|0:48:4:51,51  
+	20      123456  microsat1 G     D4,IGA 50    0       NS=55;DP=250;AA=G                    GT:GQ:DP     0/1:35:4        0/2:17:2        
+Now let's take a look at the one we just generated:
 	$ less na12878.vcf
 
 ## Filtering VCFs
