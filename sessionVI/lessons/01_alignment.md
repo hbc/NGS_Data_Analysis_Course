@@ -151,7 +151,7 @@ We will perform alignment on our paired-end reads for sample `na12878`. Details 
 The basic options for aligning reads to the genome using BWA-MEM are:
 
 * `-t`: number of threads / cores
-* `-M`: BWA can split a single query sequence to produce multiple primary alignments for different parts of the query sequence. The `-M` flag will mark the shorter split hits as secondary (for Picard compatibility). 
+* `-M`: BWA can align a single sequence read to more than one area of the genome with little or no overlap, which can be indicative of structural variation. The `-M` flag will mark the shorter split hits as secondary (for Picard compatibility). 
 
 **NOTE:** BWA will soft-clip poor quality sequences from the ends of the reads by default, so we do not need to specify a parameter to perform soft clipping.
 
