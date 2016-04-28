@@ -147,7 +147,7 @@ For example, supposed we wanted to ask how many of our SNP variants are located 
 
 ### Query genotype information
 
-Genotype information for each variant is stored in GEMINI using a slightly different format and so the syntax for accessing it also altered. Some of the most commonly used fields for genotype information are listed below: 
+Genotype information for each variant is also stored in GEMINI. Some of the most commonly used fields for genotype information are listed below, but a full list can be found [here](http://gemini.readthedocs.org/en/latest/content/database_schema.html?highlight=database%20schema#genotype-information). 
 
 * Sample genotypes for the variant: `gts`, `gt_types`
 * Depth of aligned sequence for that variant: `gt_depths`
@@ -163,21 +163,41 @@ When querying for information we include the fields in our `select` statement. W
                      where is_conserved=1” 
                      --header 
                      na12878_q20.db | less
+                     
+> *NOTE:* Because we only a single sample this works. If we had **multiple samples** we need to extract information for each sample by prepending the sample ID to it. For example, `sample1.gts` for sample1. Alternatively, we can get information for all samples using the wildcard (*), i.e. `(gts).(*)` for all genotypes.
+
+### Filtering by genotype 
+ 
+Often we want to focus only on variants where a given sample has a specific genotype. Since we have only one sample we can do this using the `where` clause:
+
+	$ gemini query -q "select count (*) 
+	  			from variants 
+	  			where is_conserved=1 and gt_depths >=20" 
+	  			--header 
+	  			na12878_q20.db
 
 
-To **filter on genotype information** the gemini query tool has an option called `--gt-filter` that allows one to specify filters to apply to the returned rows (instead of using the where clause). 
+If we had **multiple samples**, because of the way the information is stored we cannot directly do this in the SQL query, but the `gemini query` tool has an option called `–gt-filter` that allows one to specify filters to apply to the returned rows (instead of using the `where` clause). For a single sample you prepend the sample name to the field, i.e `sample1.gt_depths >=20`. 
+
+We can also use the wild card to help apply the same rule to multiple samples without having to enter the rule over and over again. 
+
+The syntax of the wildcard is:
+
+	--gt-filters is (COLUMN).(SAMPLE_WILDCARD).(SAMPLE_WILDCARD_RULE).(RULE_ENFORCEMENT).	
+
+
+Therefore, to use the same filter above (`gt_depth >=20`) on all of our samples, we would use:
 
 	$ gemini query -q "select count (*)        
                  from variants 
                  where is_conserved=1”
-                 --gt-filter “(gt_types).(*).(== HET).(all)” 
+                 --gt-filter “(gt_depths).(*).(>=20).(all)” 
                  --header 
-                 na12878_q20.db | less
-                 
+                 na12878_q20.db 
                  
 ### Filtering based on samples
 
-GEMINI also accepts [PED](http://pngu.mgh.harvard.edu/~purcell/plink/data.shtml#ped) files in order to establish the familial relationships and phenotypic information of the samples in the VCF file. An example PED file for the trio that our sample (mother) was derived from is shown below. At minimum the file requires a column for Family ID, Subject name, Paternal ID, Maternal ID, Sex and Phenotype.
+GEMINI also accepts [PED](http://pngu.mgh.harvard.edu/~purcell/plink/data.shtml#ped) files in order to establish the familial relationships and phenotypic information of the samples in the VCF file. An example PED file for the trio that our sample (daughter) was derived from is shown below. At minimum the file requires a column for Family ID, Subject name, Paternal ID, Maternal ID, Sex and Phenotype.
 
 <img src="../img/gemini-family.png" width="600">
 
