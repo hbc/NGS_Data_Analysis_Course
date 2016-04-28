@@ -106,7 +106,7 @@ In our workflow, we are going to skip over the Quality Control steps, but we wil
 
 Choice of alignment tool is often determined by the type of NGS application being conducted. We have previously used STAR for RNA-Seq data because it is fast and optimized for aligning spliced reads. For ChIP-Seq we used Bowtie2 to align the reads because it is fast and accurate. For variant calling we will use [BWA (Burrows-Wheeler Aligner)](http://bio-bwa.sourceforge.net) for alignment. 
 
-BWA is generally slower than Bowtie2 with similar sensitivity and both tools can perform gapped alignment for the identification of indels and can effectively map paired-end reads. However, BWA is a bit more accurate and provides information on which alignments are trustworthy. Small numbers of bad alignments can result in many false variant calls, so accuracy is paramount, and is the basis of choosing BWA.
+BWA is generally slower than Bowtie2 with similar sensitivity and both tools can perform gapped alignment for the identification of indels and can effectively map paired-end reads. However, *BWA is a bit more accurate and provides information on which alignments are trustworthy*. Small numbers of bad alignments can result in many false variant calls, so accuracy is paramount, and is the basis of choosing BWA.
 
 ### BWA modes
 
