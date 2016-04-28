@@ -158,7 +158,7 @@ Genotype information for each variant is stored in GEMINI using a slightly diffe
 When querying for information we include the fields in our `select` statement. We can add a header to keep track of what information is being tracked in each column, using `--header`. The query below is piped to the `less` command, take a look at what is returned in the genotype fields we queried: 
 
 	$ gemini query -q "select chrom, start, end, ref, alt, gene,
-                     gts, gt_depths, gt_quals,        
+                     gts, gt_depths, gt_quals        
                      from variants 
                      where is_conserved=1” 
                      --header 
@@ -167,7 +167,7 @@ When querying for information we include the fields in our `select` statement. W
 
 To **filter on genotype information** the gemini query tool has an option called `--gt-filter` that allows one to specify filters to apply to the returned rows (instead of using the where clause). 
 
-	$ gemini query -q "select count (*),        
+	$ gemini query -q "select count (*)        
                  from variants 
                  where is_conserved=1”
                  --gt-filter “(gt_types).(*).(== HET).(all)” 
