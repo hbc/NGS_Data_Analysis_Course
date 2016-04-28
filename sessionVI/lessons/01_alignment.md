@@ -96,7 +96,7 @@ The human WGS dataset completed by GIAB is "essentially the first complete human
 
 The source DNA, known as NA12878, was taken from a single person: the daughter in a father-mother-child 'trio' (~8300 vials of DNA from a homogenized large batch of NA12878 cells for distribution to other labs). Father-mother-child 'trios' are often sequenced to utilize genetic links between family members [[2](https://sites.stanford.edu/abms/content/how-well-did-you-sequence-genome-nist-consortium-partners-have-answer)].
 
-"The Genome in a Bottle consortium also plans to develop well-characterized whole genome reference materials from two genetically diverse groups: Asians and Ashkenazi Jews. Both reference sets will include sequenced genes from father-mother-child 'trios'" and are expected to be released in 2016 [[2](https://sites.stanford.edu/abms/content/how-well-did-you-sequence-genome-nist-consortium-partners-have-answer)].
+"The Genome in a Bottle consortium has recently released well-characterized whole genome reference materials from two genetically diverse groups: Asians and Ashkenazi Jews. Both reference sets will include sequenced genes from father-mother-child 'trios'" [[2](https://sites.stanford.edu/abms/content/how-well-did-you-sequence-genome-nist-consortium-partners-have-answer)].
 
 While the sample NA12878 was sequenced at a depth of 300x, we will only be using a subset of the dataset aligning to chromosome 20. The sequencing files we will be using for NA12878 sample will have a total of ~ 4 million paired-end reads.
 
