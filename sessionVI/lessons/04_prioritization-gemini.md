@@ -179,7 +179,7 @@ To **filter on genotype information** the gemini query tool has an option called
 
 GEMINI also accepts [PED](http://pngu.mgh.harvard.edu/~purcell/plink/data.shtml#ped) files in order to establish the familial relationships and phenotypic information of the samples in the VCF file. An example PED file for the trio that our sample (mother) was derived from is shown below. At minimum the file requires a column for Family ID, Subject name, Paternal ID, Maternal ID, Sex and Phenotype.
 
-<img src="../img/gemini_family.png" width="600">
+<img src="../img/gemini-family.png" width="600">
 
 For example if we wanted variants that were homozygous reference in the mom and dad samples but not in the child we would use the `--gt-filter` below except using the subject IDs in place of MOM, DAD and KID. 
 
