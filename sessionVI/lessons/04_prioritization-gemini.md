@@ -147,7 +147,7 @@ For example, supposed we wanted to ask how many of our SNP variants are located 
 
 ### Query genotype information
 
-Genotype information for each variant is stored in GEMINI using a slightly different format and so the syntax for accessing it also altered. 
+Genotype information for each variant is stored in GEMINI using a slightly different format and so the syntax for accessing it also altered. Some of the most commonly used fields for genotype information are listed below: 
 
 * Sample genotypes for the variant: `gts`, `gt_types`
 * Depth of aligned sequence for that variant: `gt_depths`
@@ -155,7 +155,7 @@ Genotype information for each variant is stored in GEMINI using a slightly diffe
 * Genotype quality (PHRED-scaled estimates): `gt_quals`
 *  ... 
 
-When querying we can add a header to keep track of what information is being tracked in each column, using `--header`. The query below is piped to the `less` command, take a look at what is returned in the genotype fields we queried: 
+When querying for information we include the fields in our `select` statement. We can add a header to keep track of what information is being tracked in each column, using `--header`. The query below is piped to the `less` command, take a look at what is returned in the genotype fields we queried: 
 
 	$ gemini query -q "select chrom, start, end, ref, alt, gene,
                      gts, gt_depths, gt_quals,        
@@ -175,13 +175,17 @@ To **filter on genotype information** the gemini query tool has an option called
                  na12878_q20.db | less
                  
                  
-#### Incorporating family information
+### Filtering based on samples
 
-<INSERT TEX HERE>
+GEMINI also accepts [PED](http://pngu.mgh.harvard.edu/~purcell/plink/data.shtml#ped) files in order to establish the familial relationships and phenotypic information of the samples in the VCF file. An example PED file for the trio that our sample (mother) was derived from is shown below. At minimum the file requires a column for Family ID, Subject name, Paternal ID, Maternal ID, Sex and Phenotype.
 
 <img src="../img/gemini_family.png" width="600">
 
-If we had multiple families in our dataset, we could specify to GEMINI the minimum number of families for the variant to be present in using `--min-kindreds` or we can select the specific families we want to query using `--families`.
+For example if we wanted variants that were homozygous reference in the mom and dad samples but not in the child we would use the `--gt-filter` below except using the subject IDs in place of MOM, DAD and KID. 
+
+	$ (gt_types.DAD == HOM_REF and gt_types.MOM == HOM_REF and gt_types.KID != HOM_REF)
+
+If we had **multiple families** in our dataset, we could specify to GEMINI the minimum number of families for the variant to be present in using `--min-kindreds` or we can select the specific families we want to query using `--families`.
 
 We have only scratched the surface here! GEMINI has so much functionality for exploration and is worth the time to learn more if it is relevant to your work. There is a cornucopia of information at your fingerprints. Check out http://gemini.readthedocs.org/ to learn more.
  
