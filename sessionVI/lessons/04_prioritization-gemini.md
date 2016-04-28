@@ -195,15 +195,20 @@ Therefore, to use the same filter above (`gt_depth >=20`) on all of our samples,
                  --header 
                  na12878_q20.db 
                  
-### Filtering based on samples
+### Filtering based on sample information
 
 GEMINI also accepts [PED](http://pngu.mgh.harvard.edu/~purcell/plink/data.shtml#ped) files in order to establish the familial relationships and phenotypic information of the samples in the VCF file. An example PED file for the trio that our sample (daughter) was derived from is shown below. At minimum the file requires a column for Family ID, Subject name, Paternal ID, Maternal ID, Sex and Phenotype.
 
 <img src="../img/gemini-family.png" width="600">
 
-For example if we wanted variants that were homozygous reference in the mom and dad samples but not in the child we would use the `--gt-filter` below except using the subject IDs in place of MOM, DAD and KID. 
+We can filter based on sample information by adding this to our `--gt-filter` rule. For example if we wanted to filter by genotype depth but only on samples with a specific phenotype:
 
-	$ (gt_types.DAD == HOM_REF and gt_types.MOM == HOM_REF and gt_types.KID != HOM_REF)
+	$ gemini query -q "select count (*)        
+                 from variants 
+                 where is_conserved=1”
+                 --gt-filter “(gt_depths).(phenotype == 2).(>=20).(all)” 
+                 --header 
+                 na12878_q20.db 
 
 If we had **multiple families** in our dataset, we could specify to GEMINI the minimum number of families for the variant to be present in using `--min-kindreds` or we can select the specific families we want to query using `--families`.
 
