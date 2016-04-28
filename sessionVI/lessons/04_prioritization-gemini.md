@@ -164,7 +164,7 @@ When querying for information we include the fields in our `select` statement. W
                      --header 
                      na12878_q20.db | less
                      
-> *NOTE:* Because we only a single sample this works. If we had **multiple samples** we need to extract information for each sample by prepending the sample ID to it. For example, `sample1.gts` for sample1. Alternatively, we can get information for all samples using the wildcard (*), i.e. `(gts).(*)` for all genotypes.
+> *NOTE:* Because we only a single sample this works. If we had **multiple samples** we need to extract information for each sample by prepending the sample ID to it. For example, `sample1.gts` for sample1. Alternatively, we can get information for all samples using the wildcard `(*)`, i.e. `(gts).(*)` for all genotypes.
 
 ### Filtering by genotype 
  
