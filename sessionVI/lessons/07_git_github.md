@@ -185,6 +185,7 @@ this command would download them to our local repository.
 
 ***
 **Exercises**
+
 1. Browse to your `planets` repository on GitHub.
  Under the Code tab, find and click on the text that says "XX commits" (where "XX" is some number). 
  Hover over, and click on, the three buttons to the right of each commit.
@@ -212,6 +213,7 @@ this command would download them to our local repository.
  command that would make it obvious that your remote URL was not
  valid? Can you figure out how to fix the URL (tip: use `git remote
  -h`)? Don't forget to clean up and remove this remote once you are done with this exercise.
+
 ***
 
 ## Collaborating with Git and Github
