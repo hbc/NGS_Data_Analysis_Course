@@ -585,14 +585,14 @@ repository (`git commit`):
 
 	a. `$ git commit -m "my recent changes"`
 		
-	b. ```
+	b.
 	
 		$ git init myfile.txt
 		
 		$ git commit -m "my recent changes"
-	```
 		
-	c. 	$ git add myfile.txt
+	c. 	
+		$ git add myfile.txt
 	
 		$ git commit -m "my recent changes"
 		
@@ -1013,8 +1013,9 @@ Luckily, she has been keeping track of her project's versions using Git!
 
 	b. `Venus is beautiful and full of love`
 
-	c. `Venus is beautiful and full of love`
-		`Venus is too hot to be suitable as a base`
+	c. 
+		Venus is beautiful and full of love
+		Venus is too hot to be suitable as a base
 
 	d. Error because you have changed venus.txt without committing the changes
      	
