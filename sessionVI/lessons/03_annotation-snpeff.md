@@ -74,7 +74,9 @@ Variant annotation is the process of assigning information to DNA variants. Ther
 
 <img src="../img/dbsnp.png" width="500">
 
-To add dbSNP information you need to download the organism specific data using their [FTP download](ftp://ftp.ncbi.nih.gov/snp/) site. **We have already done this for you** and was the zip file that you copied over into your `reference_data` folder. 
+To add dbSNP information you need to download the organism specific data using their FTP download. **We have already done this for you** and was the zip file that you copied over into your `reference_data` folder. 
+
+> For the full dbSNP dataset that corresponds with our data you can download it via the FTP site: ftp://ftp.ncbi.nih.gov/snp/organisms/human_9606/VCF/ . You may notice is that there are alot of files, and the README does not provide enough information. To find out more on how the datasets differ you can access the [NCBI human variation docs](http://www.ncbi.nlm.nih.gov/variation/docs/human_variation_vcf/).  
 
 To annotate our data with dbSNP information we wil be using [`bcftools`](https://samtools.github.io/bcftools/), a command-line utility for variant calling and manipulating VCF files and its binary counterpart BCF files. It is a part of the `samtools` project, a tool that we are by now pretty familiar with. 
 
