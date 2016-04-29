@@ -315,9 +315,10 @@ Fast-forward
  
 2. The Collaborator has some questions about one line change made by the Owner and has some suggestions to propose. 
  
-With GitHub, it is possible to comment the diff of a commit. Over the line of code to comment, a blue comment icon appears to open a comment window. 
+ With GitHub, it is possible to comment the diff of a commit. Over the line of code to comment, a blue comment icon appears to open a comment window. 
 
-The Collaborator posts his/her comments and suggestions using GitHub interface.
+ The Collaborator posts his/her comments and suggestions using GitHub interface.
+
 ***
 
 ## Resolving conflicts
