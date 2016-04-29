@@ -98,7 +98,7 @@ The source DNA, known as NA12878, was taken from a single person: the daughter i
 
 "The Genome in a Bottle consortium has recently released well-characterized whole genome reference materials from two genetically diverse groups: Asians and Ashkenazi Jews. Both reference sets will include sequenced genes from father-mother-child 'trios'" [[2](https://sites.stanford.edu/abms/content/how-well-did-you-sequence-genome-nist-consortium-partners-have-answer)].
 
-While the sample NA12878 was sequenced at a depth of 300x, we will only be using a subset of the dataset aligning to chromosome 20. The sequencing files we will be using for NA12878 sample will have a total of ~ 4 million paired-end reads. For the full dataset, you can download the VCF from the [NCBI ftp site](ftp://ftp.ncbi.nih.gov/giab/ftp/data/NA12878/analysis/Illumina_PlatinumGenomes_NA12877_NA12878_09162015/hg19/8.0.1/NA12878/).
+While the sample NA12878 was sequenced at a depth of 300x, we will only be using a subset of the dataset aligning to chromosome 20. The sequencing files we will be using for NA12878 sample will have a total of ~ 4 million paired-end reads. For the full dataset, you can download the VCF from the [NCBI ftp site: ftp://ftp.ncbi.nih.gov/giab/ftp/data/NA12878/analysis/Illumina_PlatinumGenomes_NA12877_NA12878_09162015/hg19/8.0.1/NA12878/
 
 ## QC and Alignment
 
