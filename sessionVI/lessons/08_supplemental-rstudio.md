@@ -18,7 +18,7 @@ common operations.
 RStudio let's you create a 
 [project](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects) 
 associated with a given directory. This is a way to keep track of related 
-files. One of the way to keep track of them is via version control! To get
+files. One of the ways to keep track of them is via version control! To get
 started using RStudio for version control, let's make a new project:  
     
 ![](../img/RStudio_screenshot_newproject.png)    
@@ -32,7 +32,7 @@ our computer, we'll choose "existing directory":
 ![](../img/RStudio_screenshot_existingdirectory.png)
 &nbsp;
 
-> ## Do you see a "verson control" option?
+> ## Do you see a "version control" option?
 >
 > Although we're not going to use it here, there should be a "version control"
 > option on this menu. That is what you would click on if you wanted to
