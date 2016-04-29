@@ -585,13 +585,15 @@ repository (`git commit`):
 
 	a. `$ git commit -m "my recent changes"`
 		
-	b. ```
-	$ git init myfile.txt
-	$ git commit -m "my recent changes"
-	```
+	b. 
+		```
+		$ git init myfile.txt
+		$ git commit -m "my recent changes"
+		```
 		
 	c. `$ git add myfile.txt`
-		`$ git commit -m "my recent changes"`
+	
+	`$ git commit -m "my recent changes"`
 		
 	d. `$ git commit -m myfile.txt "my recent changes"`
 
