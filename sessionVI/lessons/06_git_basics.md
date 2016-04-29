@@ -591,7 +591,8 @@ repository (`git commit`):
 		
 		$ git commit -m "my recent changes"
 		
-	c. 	
+	c. 
+	
 		$ git add myfile.txt
 	
 		$ git commit -m "my recent changes"
