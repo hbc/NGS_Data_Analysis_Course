@@ -68,7 +68,7 @@ the string we need to identify it:
 
 Click on the 'HTTPS' link to change the [protocol](../reference.html#protocol) from SSH to HTTPS.
 
-> ### HTTPS vs SSH {.callout}
+> ### HTTPS vs SSH
 >
 > We use HTTPS here because it does not require additional configuration.
 > After the workshop you may want to set up SSH access, which is a bit more
@@ -123,7 +123,7 @@ To https://github.com/vlad/planets
 Branch master set up to track remote branch master from origin.
 ~~~
 
-> ### Proxy {.callout}
+> ### Proxy
 >
 > If the network you are connected to uses a proxy there is an chance that your last
 > command failed with "Could not resolve hostname" as the error message. To
@@ -142,7 +142,7 @@ Branch master set up to track remote branch master from origin.
 > $ git config --global --unset https.proxy
 > ~~~
 
-> ### Password Managers {.callout}
+> ### Password Managers
 >
 > If your operating system has a password manager configured, `git push` will
 > try to use it when it needs your username and password. If you want to type
@@ -160,7 +160,7 @@ Our local and remote repositories are now in this state:
 
 ![GitHub Repository After First Push](https://cdn.rawgit.com/hbc/NGS_Data_Analysis_Course/master/sessionVI/img/github-repo-after-first-push.svg)
 
-> ### The '-u' Flag {.callout}
+> ### The '-u' Flag
 >
 > You may see a `-u` option used with `git push` in some documentation.
 > It is related to concepts we cover in our intermediate lesson,
@@ -183,49 +183,43 @@ If someone else had pushed some changes to the repository on GitHub,
 though,
 this command would download them to our local repository.
 
-> ### GitHub GUI {.challenge}
-> 
-> Browse to your `planets` repository on GitHub.
-> Under the Code tab, find and click on the text that says "XX commits" (where "XX" is some number). 
-> Hover over, and click on, the three buttons to the right of each commit.
-> What information can you gather/explore from these buttons?
-> How would you get that same information in the shell?
+***
+**Exercises**
+1. Browse to your `planets` repository on GitHub.
+ Under the Code tab, find and click on the text that says "XX commits" (where "XX" is some number). 
+ Hover over, and click on, the three buttons to the right of each commit.
+ What information can you gather/explore from these buttons?
+ How would you get that same information in the shell?
 
-> ### GitHub Timestamp {.challenge}
->
-> Create a remote repository on GitHub.
-> Push the contents of your local repository to the remote.
-> Make changes to your local repository and push these changes.
-> Go to the repo you just created on Github and check the [timestamps](../reference.html#timestamp) of the files.
-> How does GitHub record times, and why?
+2. Create a remote repository on GitHub.
+ Push the contents of your local repository to the remote.
+ Make changes to your local repository and push these changes.
+ Go to the repo you just created on Github and check the [timestamps](../reference.html#timestamp) of the files.
+ How does GitHub record times, and why?
+ 
+3. In this lesson, we introduced the "git push" command.
+ How is "git push" different from "git commit"?
 
-> ### Push vs. commit {.challenge}
->
-> In this lesson, we introduced the "git push" command.
-> How is "git push" different from "git commit"?
+4. It happens quite often in practice that you made a typo in the
+ remote URL. This exercise is about how to fix this kind of issues.
+ First start by adding a remote with an invalid URL:
 
-> ### Fixing up remote settings {.challenge}
->
-> It happens quite often in practice that you made a typo in the
-> remote URL. This exercice is about how to fix this kind of issues.
-> First start by adding a remote with an invalid URL:
->
-> ~~~ {.bash}
-> git remote add broken https://github.com/this/url/is/invalid
-> ~~~
->
-> Do you get an error when adding the remote? Can you think of a
-> command that would make it obvious that your remote URL was not
-> valid? Can you figure out how to fix the URL (tip: use `git remote
-> -h`)? Don't forget to clean up and remove this remote once you are
-> done with this exercise.
+~~~ {.bash}
+ git remote add broken https://github.com/this/url/is/invalid
+ ~~~
+
+ Do you get an error when adding the remote? Can you think of a
+ command that would make it obvious that your remote URL was not
+ valid? Can you figure out how to fix the URL (tip: use `git remote
+ -h`)? Don't forget to clean up and remove this remote once you are done with this exercise.
+***
 
 ## Collaborating with Git and Github
 
 For the next step, get into pairs.
 One person will be the "Owner" (this is the person whose Github repository will be used to start the exercise) and the other person will be the "Collaborator" (this is the person who will be cloning the Owner's repository and making changes to it).
 
-> ### Practicing by yourself {.callout}
+> ### Practicing by yourself
 >
 > If you're working through this lesson on your own, you can carry on by opening
 > a second terminal window, and switching to another directory (e.g. `/tmp`).
@@ -312,21 +306,17 @@ Fast-forward
  create mode 100644 pluto.txt
 ~~~
 
-> ### Review changes {.challenge}
->
-> The Owner push commits to the repository without giving any information
-> to the Collaborator. How can the Collaborator find out what has changed with 
-> command line? And on GitHub? 
-> 
-> ### Comment changes in GitHub {.challenge}
->
-> The Collaborator has some questions about one line change made by the Owner and
-> has some suggestions to propose. 
-> 
-> With GitHub, it is possible to comment the diff of a commit. Over the line of 
-> code to comment, a blue comment icon appears to open a comment window. 
-> 
-> The Collaborator posts its comments and suggestions using GitHub interface.
+***
+**Exercises**
+
+1. The Owner push commits to the repository without giving any information to the Collaborator. How can the Collaborator find out what has changed with command line? And on GitHub? 
+ 
+2. The Collaborator has some questions about one line change made by the Owner and has some suggestions to propose. 
+ 
+With GitHub, it is possible to comment the diff of a commit. Over the line of code to comment, a blue comment icon appears to open a comment window. 
+
+The Collaborator posts his/her comments and suggestions using GitHub interface.
+***
 
 ## Resolving conflicts
 
@@ -574,45 +564,44 @@ the version control system is essentially trying to tell its users
 that they ought to clarify who's responsible for what,
 or find a way to divide the work up differently.
 
-> ### Solving Conflicts that You Create {.challenge}
->
-> Clone the repository created by your instructor.
-> Add a new file to it,
-> and modify an existing file (your instructor will tell you which one).
-> When asked by your instructor,
-> pull her changes from the repository to create a conflict,
-> then resolve it.
+***
+**Exercises**
 
-> ### Conflicts on Non-textual files {.challenge}
->
-> What does Git do
-> when there is a conflict in an image or some other non-textual file
-> that is stored in version control?
+1. Clone the repository created by your instructor.
+Add a new file to it,
+ and modify an existing file (your instructor will tell you which one).
+ When asked by your instructor,
+ pull her changes from the repository to create a conflict,
+ then resolve it.
 
-> ### A typical work session {.challenge}
->
-> You sit down at your computer to work on a shared project that is tracked in a
-> remote Git repository. During your work session, you take the following
-> actions, but not in this order: 
-> 
-> - *Make changes* by appending the number `100` to a text file `numbers.txt`
-> - *Update remote* repository to match the local repository
-> - *Celebrate* your success with beer(s)
-> - *Update local* repository to match the remote repository
-> - *Stage changes* to be committed
-> - *Commit changes* to the local repository
->
-> In what order should you perform these actions to minimize the chances of
-> conflicts? Put the commands above in order in the *action* column of the table
-> below. When you have the order right, see if you can write the corresponding
-> commands in the *command* column. A few steps are populated to get you
-> started.
->
-> |order|action . . . . . . . . . . |command . . . . . . . . . . |
-> |-----|---------------------------|----------------------------|
-> |1    |                           |                            |
-> |2    |                           | `echo 100 >> numbers.txt`  |
-> |3    |                           |                            |
-> |4    |                           |                            |
-> |5    |                           |                            |
-> |6    | Celebrate!                | `AFK`                      |
+2. What does Git do
+ when there is a conflict in an image or some other non-textual file
+ that is stored in version control?
+
+3. You sit down at your computer to work on a shared project that is tracked in a
+ remote Git repository. During your work session, you take the following
+ actions, but not in this order: 
+ 
+ - *Make changes* by appending the number `100` to a text file `numbers.txt`
+ - *Update remote* repository to match the local repository
+ - *Celebrate* your success with beer(s)
+ - *Update local* repository to match the remote repository
+ - *Stage changes* to be committed
+ - *Commit changes* to the local repository
+
+ In what order should you perform these actions to minimize the chances of
+ conflicts? Put the commands above in order in the *action* column of the table
+ below. When you have the order right, see if you can write the corresponding
+ commands in the *command* column. A few steps are populated to get you
+ started.
+
+ |order|action . . . . . . . . . . |command . . . . . . . . . . |
+ |-----|---------------------------|----------------------------|
+ |1    |                           |                            |
+ |2    |                           | `echo 100 >> numbers.txt`  |
+ |3    |                           |                            |
+ |4    |                           |                            |
+ |5    |                           |                            |
+ |6    | Celebrate!                | `AFK`                      |
+ 
+ ***
