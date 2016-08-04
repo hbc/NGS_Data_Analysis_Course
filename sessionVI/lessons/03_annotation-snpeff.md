@@ -28,7 +28,7 @@ At this stage, we have a large tab-delimited file containing loci at which a var
 
 ### Setting up
 
-For this section we are going to need to copy over some reference data required for annotation. Start and inetractive session and move into `var-calling` directory. Then copy over the required data.
+For this section we are going to need to copy over some reference data required for annotation. Start and interactive session and move into `var-calling` directory. Then copy over the required data.
 
 ```
 $ bsub -Is -q interactive bash
